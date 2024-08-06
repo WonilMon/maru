@@ -1,6 +1,7 @@
 package kr.co.softsoldesk.config;
 
 import javax.servlet.FilterRegistration;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -42,6 +43,15 @@ public class SpringConfigClass implements WebApplicationInitializer{
 		//파라미터 인코딩 설정
 		filter.setInitParameter("encoding", "utf-8");
 		filter.addMappingForServletNames(null, false, "dispatcher");
+		
+//=================================================================================================================
+		
+//		이미지
+//		null : 톰캣에서 제공하는 임시 기억장소
+//		52428800 : 50MB 넘지 말아라 (업로드 용량)
+//		524288000 : 500MB 넘지 말아라 (전체 용량)
+		MultipartConfigElement multipartConfig = new MultipartConfigElement(null, 52428800, 524288000, 0);
+		servlet.setMultipartConfig(multipartConfig);
 	}
 
 }

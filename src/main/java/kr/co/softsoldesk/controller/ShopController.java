@@ -10,6 +10,6 @@ public class ShopController {
 
 	@GetMapping("/shop")
 	private String shop() {
-		return "board/shop";
+		return "shop/shop";
 	}
 }

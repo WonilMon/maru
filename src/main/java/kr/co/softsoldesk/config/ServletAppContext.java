@@ -1,12 +1,18 @@
 package kr.co.softsoldesk.config;
 
 
+import javax.annotation.Resource;	
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -18,6 +24,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ServletAppContext implements WebMvcConfigurer {
 //WebMvcConfigurer: Spring MVC 프로젝트 설정 인터페이스
 
+//	@Autowired
+//	TopMenuService topMenuService;
+//	
+//	@Resource(name = "loginUserBean")
+//	private UserBean loginUserBean;
+//	
+//	@Autowired
+//	private BoardService boardService;
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -34,6 +48,29 @@ public class ServletAppContext implements WebMvcConfigurer {
 	}
 
 
+//	// 인터셉트 등록 (어떤 페이지에서든 보여지도록)
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//
+//		WebMvcConfigurer.super.addInterceptors(registry);
+//
+//		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(topMenuService, loginUserBean); // 이 시점에 생성자를 통해서 topMenuService, loginUserBean 주입
+//		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
+//		reg1.addPathPatterns("/**"); // 모든 요청 주소에 동작하도록 (모든 jsp에 뿌려지도록)
+//		
+//		
+//		CheckLoginInterceptor checkInterceptor = new CheckLoginInterceptor(loginUserBean);
+//		InterceptorRegistration reg2 = registry.addInterceptor(checkInterceptor);
+//		reg2.addPathPatterns("/user/modify", "/user/logout", "/board/*"); // 해당요청들을 잡아서 checkInterceptor 하겠다
+//		reg2.excludePathPatterns("/board/main"); // 예외처리 (로그아웃 사용자가 게시판 글쓰기,수정 등은 안되지만 게시판은 들어갈 수 있게)
+//		
+//		CheckUserInterceptor checkUserInterceptor = new CheckUserInterceptor(loginUserBean, boardService);
+//		InterceptorRegistration reg3 = registry.addInterceptor(checkUserInterceptor);
+//		reg3.addPathPatterns("/board/modify", "/board/delete"); 
+//
+//	}
+
+
 	// 에러메시지 등록
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -47,5 +84,11 @@ public class ServletAppContext implements WebMvcConfigurer {
 		res.setBasename("/WEB-INF/properties/error_message");
 		return res;
 	}
+	
+//	// 파일 업로드 처리 클래스
+//	@Bean
+//	public StandardServletMultipartResolver multipartResolver() {
+//		return new StandardServletMultipartResolver();
+//	}
 	
 }

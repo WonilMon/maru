@@ -1,6 +1,6 @@
 package kr.co.softsoldesk.config;
 
-import org.apache.ibatis.session.SqlSessionFactory;		
+import org.apache.ibatis.session.SqlSessionFactory;			
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperFactoryBean;
@@ -34,6 +34,13 @@ public class RootAppContext implements WebMvcConfigurer {
 	@Value("${db.password}")
 	private String db_password;
 	
+//	@Bean("loginUserBean")  // 로그인 성공하면 로그인한 유저의 정보를 @Bean("loginUserBean")에 갖다 넣어줄거야
+//	@SessionScope			// Session 으로 유지
+//	@Lazy					// 객체의 생성시점을 loginUserBean을 호출하는 시점에 생성하겠다 (로그인 버튼을 눌렀을때)
+//	public UserBean loginUserBean() {
+//		
+//		return new UserBean();
+//	}
 	
 
 //	데이터베이스 접속 정보 관리 (아예 컨테이너에 올려놓고 쓸게요)
@@ -57,4 +64,31 @@ public class RootAppContext implements WebMvcConfigurer {
 
 		return factory;
 	}
+	
+
+////	쿼리문 실행을 위한 객체 mapper1
+//	@Bean
+//	public MapperFactoryBean<BoardMapper> getBoardMapper(SqlSessionFactory factory) {
+//		MapperFactoryBean<BoardMapper> factoryBean = new MapperFactoryBean<BoardMapper>(BoardMapper.class);
+//		factoryBean.setSqlSessionFactory(factory);
+//
+//		return factoryBean;
+//	}
+////	쿼리문 실행을 위한 객체 mapper2
+//	@Bean
+//	public MapperFactoryBean<TopMenuMapper> getTopMenuMapper(SqlSessionFactory factory) {
+//		MapperFactoryBean<TopMenuMapper> factoryBean = new MapperFactoryBean<TopMenuMapper>(TopMenuMapper.class);
+//		factoryBean.setSqlSessionFactory(factory);
+//		
+//		return factoryBean;
+//	}
+////	쿼리문 실행을 위한 객체 mapper3
+//	@Bean
+//	public MapperFactoryBean<UserMapper> getUserMapper(SqlSessionFactory factory) {
+//		MapperFactoryBean<UserMapper> factoryBean = new MapperFactoryBean<UserMapper>(UserMapper.class);
+//		factoryBean.setSqlSessionFactory(factory);
+//		
+//		return factoryBean;
+//	}
+	
 }
