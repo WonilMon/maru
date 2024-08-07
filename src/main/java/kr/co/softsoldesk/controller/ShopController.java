@@ -15,6 +15,7 @@ public class ShopController {
 	
 	@GetMapping("/shop")
 	private String shop(Model model) {
+		
 		List<Icon> icons = iconService.getIcons();
 		model.addAttribute("icons",icons);		
 		return "shop/shop";
