@@ -4,7 +4,6 @@
 
 <!-- 절대경로 (어떤 폴더건 상관없이) -->
 <c:set var="root" value="${pageContext.request.contextPath }/" />
-
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="ja-JP">
 <head>
