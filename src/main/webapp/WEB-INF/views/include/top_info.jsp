@@ -76,7 +76,7 @@
 					</li>
 					<li class="u-nav-item"><a
 						class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-						href="${root }user/test" style="padding: 10px 20px;">register</a></li>
+						href="${root }user/register" style="padding: 10px 20px;">register</a></li>
 				</ul>
 			</div>
 			<div class="u-custom-menu u-nav-container-collapse">
@@ -103,7 +103,7 @@
 							<li class="u-nav-item"><a class="u-button-style u-nav-link"
 								href="${root }user/profile_modify">mypage</a></li>
 							<li class="u-nav-item"><a class="u-button-style u-nav-link"
-								href="${root }user/test">register</a></li>
+								href="${root }user/register">register</a></li>
 						</ul>
 					</div>
 				</div>

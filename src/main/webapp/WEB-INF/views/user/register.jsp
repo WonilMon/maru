@@ -63,7 +63,7 @@
 					data-href="#">문의사항 : www.maru.faq.com </a>
 			</p>
 			<div class="u-form u-radius-20 u-white u-form-1">
-				<form action="https://forms.nicepagesrv.com/v2/form/process"
+				<form action=""
 					class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form"
 					source="email" name="form" style="padding: 28px;">
 					<div class="u-form-group u-form-name">
@@ -133,10 +133,10 @@
 			</div>
 
 
-		<span class="u-align-center u-file-icon u-icon u-icon-1"><img
-			src="${root }images/3699459.png" alt=""></span><span
-			class="u-align-center u-file-icon u-icon u-icon-2"><img
-			src="${root }images/3699459.png" alt=""></span>
+			<span class="u-align-center u-file-icon u-icon u-icon-1"><img
+				src="${root }images/3699459.png" alt=""></span><span
+				class="u-align-center u-file-icon u-icon u-icon-2"><img
+				src="${root }images/3699459.png" alt=""></span>
 		</div>
 	</section>
 
