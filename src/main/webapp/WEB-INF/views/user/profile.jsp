@@ -31,7 +31,7 @@
 		"@context": "http://schema.org",
 		"@type": "Organization",
 		"name": "",
-		"logo": "/images/default-logo.png",
+		"logo": "${root}images/default-logo.png",
 		"sameAs": [
 				"https://facebook.com/name",
 				"https://twitter.com/name"

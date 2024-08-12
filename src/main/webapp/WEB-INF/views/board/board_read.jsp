@@ -13,12 +13,14 @@
 <meta charset="utf-8">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>board_read</title>
+<title>sharing_read</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
-<link rel="stylesheet" href="${root }css/board_read.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
-	defer=""></script>
+<link rel="stylesheet" href="${root }css/sharing_read.css"
+	media="screen">
+<script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
@@ -31,7 +33,7 @@
 
 
 <script type="application/ld+json">{
-		"@context": "http://schema.org",
+		"@context": "http://schema.org",X
 		"@type": "Organization",
 		"name": "",
 		"logo": "${root }images/default-logo.png",
@@ -43,22 +45,17 @@
 <meta name="theme-color" content="#fda270">
 <meta name="twitter:site" content="@">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="board_read">
+<meta name="twitter:title" content="sharing_read">
 <meta name="twitter:description" content="">
-<meta property="og:title" content="board_read">
+<meta property="og:title" content="sharing_read">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
-
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
+	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
 
-	<section
-		class="skrollable u-align-center u-clearfix u-container-align-center u-image u-parallax u-shading u-section-1"
-		id="sec-4b57" data-image-width="425" data-image-height="425">
-		<div class="u-clearfix u-sheet u-sheet-1"></div>
-	</section>
 	<section class="u-clearfix u-section-2" id="sec-0fc5">
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<p class="u-align-center u-text u-text-default u-text-1">Read</p>
@@ -109,6 +106,9 @@
 										class="u-border-2 u-border-white u-container-layout u-container-layout-4">
 										<p class="u-text u-text-default u-text-7">Sample text.
 											Click to select the Text Element.</p>
+										<span
+											class="u-border-2 u-border-palette-1-base u-file-icon u-gradient u-icon u-icon-circle u-icon-2"><img
+											src="${root }images/2076218-122ef5be.png" alt=""></span>
 									</div>
 								</div>
 							</div>
@@ -267,9 +267,8 @@
 					src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;Next </a>
 		</div>
 	</section>
+
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
-
-
 
 </body>
 </html>

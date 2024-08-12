@@ -53,12 +53,8 @@
 	class="u-body u-xl-mode" data-lang="en">
 
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
+	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
 
-	<section
-		class="skrollable u-align-center u-clearfix u-container-align-center u-image u-parallax u-shading u-section-1"
-		id="sec-8f83" data-image-width="425" data-image-height="425">
-		<div class="u-clearfix u-sheet u-sheet-1"></div>
-	</section>
 	<section class="u-align-center u-clearfix u-section-2" id="sec-ea52">
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<p class="u-align-left u-text u-text-default u-text-1">자유게시판</p>

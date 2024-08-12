@@ -50,7 +50,7 @@
 	class="u-body u-xl-mode" data-lang="en">
 
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
-
+	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
 	<section class="u-clearfix u-container-align-center u-section-1"
 		id="sec-5d0c">
 		<div class="u-clearfix u-sheet u-sheet-1">

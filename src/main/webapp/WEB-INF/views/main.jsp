@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root }css/home.css" media="screen">
 <script class="u-script" type="text/javascript"
-	src="${root }js/jquery.js" defer=""></script>
+	src="${root }js/jquery.js"></script>
 <script class="u-script" type="text/javascript"
 	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
@@ -27,9 +27,6 @@
 	href="https://fonts.googleapis.com/css?family=Noto+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
 <link id="u-page-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
-
-
-
 
 
 
@@ -51,13 +48,95 @@
 <meta property="og:title" content="home">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+<style>
+.u-profile-section {
+	background-color: #F8EDEB;
+	border-radius: 10px;
+	padding: 10px; /* 전체 영역의 패딩 감소 */
+	max-width: 500px; /* 전체 영역의 가로 길이 줄이기 */
+	width: 100%;
+	height: 95%;
+	margin: 0 auto;
+	text-align: center;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin: 0 auto;
+}
+
+.u-profile-header {
+	margin-top: 50px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
+	margin-bottom: -10px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
+}
+
+.u-profile-picture {
+	width: 200px; /* 프로필 사진 크기 더 증가 */
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 4px solid #FCD5CE;
+	margin-bottom: 12px;
+}
+
+.u-username {
+	color: #000000; /* 사용자명 색상 진하게 */
+	font-size: 28px; /* 사용자명 크기 더 증가 */
+	margin: 8px 0;
+}
+
+.u-status-message {
+	color: #000000; /* 사용자명 색상 진하게 */
+	font-size: 28px; /* 사용자명 크기 더 증가 */
+	margin: 8px 0;
+}
+
+.u-status-message {
+	color: #000000; /* 상태 메시지 색상 진하게 */
+	font-size: 18px; /* 상태 메시지 크기 더 증가 */
+	margin: 6px 0;
+}
+
+.u-profile-actions {
+	margin-top: 15px; /* 버튼과 프로필 헤더 사이의 여백 추가 */
+}
+
+.u-button {
+	display: inline-block;
+	padding: 12px 12px; /* 버튼 패딩 더 증가 */
+	background-color: #FCD5CE;
+	color: #000000;
+	text-decoration: none;
+	border-radius: 8px;
+	font-size: 20px; /* 버튼 글자 크기 더 증가 */
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.u-button:hover {
+	background-color: #FAE1DD;
+	color: #FCD5CE;
+}
+
+.alert.alert-danger {
+	background-color: #FCD5CE; /* 버튼의 배경색 */
+	color: #000000; /* 글자 색상 */
+	border: 2px solid #FAE1DD; /* 테두리 색상과 두께 */
+	border-radius: 8px; /* 부드러운 모서리 */
+	padding: 12px 20px; /* 버튼의 패딩 */
+	font-size: 16px; /* 글자 크기 */
+	font-weight: bold; /* 글자 굵기 */
+	text-align: center; /* 텍스트 가운데 정렬 */
+	text-decoration: none; /* 텍스트 밑줄 제거 */
+	display: inline-block; /* 버튼의 인라인 블록 설정 */
+	cursor: pointer; /* 마우스를 올렸을 때 포인터 커서 */
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+	/* 호버 시 전환 효과 */
+}
+</style>
+
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
-	
+
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
 	<c:import url="/WEB-INF/views/include/first_section_main.jsp"></c:import>
-
 	<section
 		class="u-clearfix u-container-align-center u-white u-section-2"
 		id="carousel_88b7">
@@ -153,103 +232,133 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							class="u-align-left u-container-align-center u-container-style u-layout-cell u-radius u-shape-round u-similar-fill u-size-33-lg u-size-33-xl u-size-60-md u-size-60-sm u-size-60-xs u-white u-layout-cell-2"
 							data-animation-name="" data-animation-duration="0"
 							data-animation-delay="0" data-animation-direction="">
-							<div
-								class="u-border-3 u-border-palette-2-light-1 u-container-layout u-valign-middle u-container-layout-2">
-								<h2
-									class="u-align-center u-text u-text-default u-text-palette-2-base u-text-2">LOGIN
-								</h2>
-								<div class="u-form u-form-1">
-									<form action="https://forms.nicepagesrv.com/v2/form/process"
-										class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form"
-										style="padding: 0px;" source="email" name="form">
-										<div class="u-form-email u-form-group">
-											<label for="email-3b9a" class="u-label" wfd-invisible="true">email</label>
-											<input type="email" placeholder="Enter a email"
-												id="email-3b9a" name="email"
-												class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1"
-												required="">
+							<c:choose>
+								<c:when test="${loginUserBean.userLogin == true }">
+									<div class="u-profile-section">
+										<div class="u-profile-header">
+											<img src="path/to/profile-picture.jpg" alt="Profile Picture"
+												class="u-profile-picture">
+											<h2 class="u-username">${loginUserBean.user_nickname }</h2>
+											<p class="u-status-message">${loginUserBean.user_statustext }</p>
 										</div>
-										<div class="u-form-group u-form-group-2">
-											<label for="text-e829" class="u-label">password</label> <input
-												type="text" placeholder="Enter a password" id="text-e829"
-												name="password"
-												class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2">
+										<div class="u-profile-actions">
+											<a href="${root }user/profile_modify" class="u-button">My
+												Page</a>
 										</div>
-										<div class="u-align-left u-form-group u-form-submit">
-											<a href="#"
-												class="u-active-white u-border-2 u-border-active-palette-2-light-1 u-border-hover-palette-2-light-1 u-border-palette-2-light-1 u-btn u-btn-round u-btn-submit u-button-style u-hover-white u-palette-2-light-1 u-radius-50 u-text-active-black u-text-body-alt-color u-text-hover-black u-btn-1">Submit</a>
-											<input type="submit" value="submit"
-												class="u-form-control-hidden" wfd-invisible="true">
+										<div class="u-profile-actions">
+											<a href="${root }user/logout" class="u-button">logout</a>
 										</div>
-										<div class="u-form-send-message u-form-send-success"
-											wfd-invisible="true">Thank you! Your message has been
-											sent.</div>
-										<div class="u-form-send-error u-form-send-message"
-											wfd-invisible="true">Unable to send your message.
-											Please fix errors then try again.</div>
-										<input type="hidden" value="" name="recaptchaResponse"
-											wfd-invisible="true"> <input type="hidden"
-											name="formServices"
-											value="50d0594d-1c60-31b9-19af-78b3c1587d79">
-									</form>
-								</div>
-								<div class="u-social-icons u-spacing-10 u-social-icons-1">
-									<a class="u-social-url" title="facebook" target="_blank"
-										href="https://facebook.com/name"><span
-										class="u-icon u-social-facebook u-social-icon u-icon-1"><svg
-												class="u-svg-link" preserveAspectRatio="xMidYMin slice"
-												viewBox="0 0 112 112" style="">
+									</div>
+
+								</c:when>
+								<c:otherwise>
+
+									<div
+										class="u-border-3 u-border-palette-2-light-1 u-container-layout u-valign-middle u-container-layout-2">
+										<h2
+											class="u-align-center u-text u-text-default u-text-palette-2-base u-text-2">LOGIN
+										</h2>
+										<div class="u-form u-form-1">
+
+											<c:if test="${fail == true }">
+												<div class="alert alert-danger">
+													<h3>로그인 실패</h3>
+													<p>아이디 비밀번호를 확인해주세요</p>
+												</div>
+											</c:if>
+
+											<form:form modelAttribute="tempLoginUserBean"
+												action="${root }user/login_pro" method="post"
+												class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form"
+												style="padding: 0px;">
+												<div class="u-form-email u-form-group">
+													<form:label path="user_email" class="u-label"
+														wfd-invisible="true">email</form:label>
+													<form:input type="email" placeholder="Enter a email"
+														path="user_email"
+														class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1"
+														required="" />
+													<form:errors path="user_email" style="color:red"></form:errors>
+												</div>
+												<div class="u-form-group u-form-group-2">
+													<form:label path="user_pass" class="u-label">password</form:label>
+													<form:password placeholder="Enter a password"
+														path="user_pass"
+														class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2" />
+													<form:errors path="user_pass" style="color:red"></form:errors>
+												</div>
+
+												<div class="u-align-left u-form-group u-form-submit">
+													<button type="submit"
+														class="u-active-white u-border-2 u-border-active-palette-2-light-1 u-border-hover-palette-2-light-1 u-border-palette-2-light-1 u-btn u-btn-round u-btn-submit u-button-style u-hover-white u-palette-2-light-1 u-radius-50 u-text-active-black u-text-body-alt-color u-text-hover-black u-btn-1">Submit</button>
+												</div>
+
+											</form:form>
+
+										</div>
+										<div class="u-social-icons u-spacing-10 u-social-icons-1">
+											<a class="u-social-url" title="facebook" target="_blank"
+												href="https://facebook.com/name"><span
+												class="u-icon u-social-facebook u-social-icon u-icon-1"><svg
+														class="u-svg-link" preserveAspectRatio="xMidYMin slice"
+														viewBox="0 0 112 112" style="">
 												<use xlink:href="#svg-ac49"></use></svg> <svg
-												class="u-svg-content" viewBox="0 0 112 112" x="0" y="0"
-												id="svg-ac49">
+														class="u-svg-content" viewBox="0 0 112 112" x="0" y="0"
+														id="svg-ac49">
 												<circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle>
 												<path fill="#FFFFFF"
-													d="M73.5,31.6h-9.1c-1.4,0-3.6,0.8-3.6,3.9v8.5h12.6L72,58.3H60.8v40.8H43.9V58.3h-8V43.9h8v-9.2
+															d="M73.5,31.6h-9.1c-1.4,0-3.6,0.8-3.6,3.9v8.5h12.6L72,58.3H60.8v40.8H43.9V58.3h-8V43.9h8v-9.2
 c0-6.7,3.1-17,17-17h12.5v13.9H73.5z"></path></svg></span>
-									</a> <a class="u-social-url" title="twitter" target="_blank"
-										href="https://twitter.com/name"><span
-										class="u-icon u-social-icon u-social-twitter u-icon-2"><svg
-												class="u-svg-link" preserveAspectRatio="xMidYMin slice"
-												viewBox="0 0 112.2 112.2" style="">
+											</a> <a class="u-social-url" title="twitter" target="_blank"
+												href="https://twitter.com/name"><span
+												class="u-icon u-social-icon u-social-twitter u-icon-2"><svg
+														class="u-svg-link" preserveAspectRatio="xMidYMin slice"
+														viewBox="0 0 112.2 112.2" style="">
 												<use xlink:href="#svg-30a0"></use></svg> <svg
-												class="u-svg-content" viewBox="0 0 112.2 112.2" x="0px"
-												y="0px" id="svg-30a0">
+														class="u-svg-content" viewBox="0 0 112.2 112.2" x="0px"
+														y="0px" id="svg-30a0">
 												<circle fill="currentColor" cx="56" cy="56" r="55"></circle>
 												<path fill="#FFFFFF"
-													d="M63.9,51l22.4-24h-8.6L60.3,45.9L46.9,27H24l23.3,32.8L24,85h8.2L51,64.9L65.3,85H88L63.9,51z M55.3,60.2
+															d="M63.9,51l22.4-24h-8.6L60.3,45.9L46.9,27H24l23.3,32.8L24,85h8.2L51,64.9L65.3,85H88L63.9,51z M55.3,60.2
 l-3.7-5.1L35.7,33.1h8.1l12.3,17.2l3.7,5.1l16.6,23.4h-7.8L55.3,60.2z"></path></svg></span>
-									</a> <a class="u-social-url" target="_blank" data-type="Instagram"
-										title="Instagram" href=""><span
-										class="u-icon u-social-icon u-social-instagram u-icon-3"><svg
-												class="u-svg-link" preserveAspectRatio="xMidYMin slice"
-												viewBox="0 0 112 112" style="">
+											</a> <a class="u-social-url" target="_blank"
+												data-type="Instagram" title="Instagram" href=""><span
+												class="u-icon u-social-icon u-social-instagram u-icon-3"><svg
+														class="u-svg-link" preserveAspectRatio="xMidYMin slice"
+														viewBox="0 0 112 112" style="">
 												<use xlink:href="#svg-14ba"></use></svg> <svg
-												class="u-svg-content" viewBox="0 0 112 112" x="0" y="0"
-												id="svg-14ba">
+														class="u-svg-content" viewBox="0 0 112 112" x="0" y="0"
+														id="svg-14ba">
 												<circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle>
 												<path fill="#FFFFFF"
-													d="M55.9,38.2c-9.9,0-17.9,8-17.9,17.9C38,66,46,74,55.9,74c9.9,0,17.9-8,17.9-17.9C73.8,46.2,65.8,38.2,55.9,38.2
+															d="M55.9,38.2c-9.9,0-17.9,8-17.9,17.9C38,66,46,74,55.9,74c9.9,0,17.9-8,17.9-17.9C73.8,46.2,65.8,38.2,55.9,38.2
       z M55.9,66.4c-5.7,0-10.3-4.6-10.3-10.3c-0.1-5.7,4.6-10.3,10.3-10.3c5.7,0,10.3,4.6,10.3,10.3C66.2,61.8,61.6,66.4,55.9,66.4z"></path>
 												<path fill="#FFFFFF"
-													d="M74.3,33.5c-2.3,0-4.2,1.9-4.2,4.2s1.9,4.2,4.2,4.2s4.2-1.9,4.2-4.2S76.6,33.5,74.3,33.5z"></path>
+															d="M74.3,33.5c-2.3,0-4.2,1.9-4.2,4.2s1.9,4.2,4.2,4.2s4.2-1.9,4.2-4.2S76.6,33.5,74.3,33.5z"></path>
 												<path fill="#FFFFFF"
-													d="M73.1,21.3H38.6c-9.7,0-17.5,7.9-17.5,17.5v34.5c0,9.7,7.9,17.6,17.5,17.6h34.5c9.7,0,17.5-7.9,17.5-17.5V38.8
+															d="M73.1,21.3H38.6c-9.7,0-17.5,7.9-17.5,17.5v34.5c0,9.7,7.9,17.6,17.5,17.6h34.5c9.7,0,17.5-7.9,17.5-17.5V38.8
       C90.6,29.1,82.7,21.3,73.1,21.3z M83,73.3c0,5.5-4.5,9.9-9.9,9.9H38.6c-5.5,0-9.9-4.5-9.9-9.9V38.8c0-5.5,4.5-9.9,9.9-9.9h34.5
       c5.5,0,9.9,4.5,9.9,9.9V73.3z"></path></svg></span>
-									</a>
-								</div>
-								<p class="u-align-center u-text u-text-default u-text-3">
-									<a
-										class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-2"
-										data-href="${root }register">Register</a>
-								</p>
-								<p class="u-align-center u-text u-text-default u-text-4">
-									<a
-										class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
-										data-href="${root }search_password">Search PassWord </a>
-								</p>
-							</div>
+											</a>
+										</div>
+										<p class="u-align-center u-text u-text-default u-text-3">
+											<a
+												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-2"
+												data-href="${root }user/register">Register</a>
+										</p>
+										<p class="u-align-center u-text u-text-default u-text-4">
+											<a
+												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
+												data-href="${root }user/search_password">Search PassWord
+											</a>
+										</p>
+									</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
+
+
+
 					</div>
 				</div>
 			</div>
@@ -520,6 +629,17 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 	</section>
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
-
+	<script>
+		$(document).ready(
+				function() {
+					$("button[type='submit']").off("click").on("click",
+							function(event) {
+								
+								event.stopImmediatePropagation();
+								
+								$(this).closest("form").off("submit").submit();
+							});
+				});
+	</script>
 </body>
 </html>

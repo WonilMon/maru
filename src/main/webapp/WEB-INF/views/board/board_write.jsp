@@ -16,9 +16,10 @@
 <title>board_write</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root }css/board_write.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
-	defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
@@ -50,11 +51,8 @@
 	class="u-body u-xl-mode" data-lang="en">
 
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
-	<section
-		class="skrollable u-align-center u-clearfix u-container-align-center u-image u-parallax u-shading u-section-1"
-		id="sec-1a20" data-image-width="425" data-image-height="425">
-		<div class="u-clearfix u-sheet u-sheet-1"></div>
-	</section>
+	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
+
 	<section class="u-clearfix u-section-2" id="sec-b8b2">
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<p class="u-text u-text-default u-text-1">Write</p>

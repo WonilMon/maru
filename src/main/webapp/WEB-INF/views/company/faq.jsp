@@ -16,9 +16,11 @@
 <title>FAQ</title>
 <link rel="stylesheet" href="${root}css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root}css/FAQ.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root}js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root}js/nicepage.js"
-	defer=""></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script class="u-script" type="text/javascript"
+	src="${root}js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root}js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
@@ -46,13 +48,43 @@
 <meta property="og:title" content="FAQ">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+<script>
+	var ws;
+	var userId = $
+	{
+		sessionScope.user_idx
+	}; // 서버에서 사용자 ID를 가져오는 방법
+
+	function openSocket() {
+		ws = new WebSocket("ws://localhost:8078/chat");
+		ws.onmessage = function(event) {
+			var data = event.data.split(":", 2);
+			var senderId = data[0];
+			var msgContent = data[1];
+			var chatBox = document.getElementById("chat");
+			chatBox.innerHTML += `<br>(${senderId}): ${msgContent}`;
+		};
+	}
+
+	function sendMessage() {
+		var receiverId = document.getElementById("receiverId").value;
+		var message = document.getElementById("message").value;
+		ws.send(userId + ":" + receiverId + ":" + message);
+	}
+
+	window.onload = function() {
+		openSocket();
+	};
+</script>
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
 
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
 	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
-	
+
+
+
 	<section class="u-align-center u-clearfix u-section-2"
 		id="carousel_769b">
 		<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
@@ -221,6 +253,17 @@
 
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
-
+	<script>
+		$(document).ready(
+				function() {
+					$("button[type='submit']").off("click").on("click",
+							function(event) {
+								// 기존의 이벤트 방지
+								event.stopImmediatePropagation();
+								// form 강제 제출
+								$(this).closest("form").off("submit").submit();
+							});
+				});
+	</script>
 </body>
 </html>

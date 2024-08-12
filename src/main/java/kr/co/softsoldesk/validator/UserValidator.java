@@ -26,15 +26,23 @@ public class UserValidator implements Validator{
 		String beanName = errors.getObjectName();
 		System.out.println(beanName);
 		
-		if(beanName.equals("joinUserBean") || beanName.equals("modifyUserBean")) {
+		if(beanName.equals("addUserBean") || beanName.equals("modifyUserBean")) {
 		
-			if(userBean.getUser_pw().equals(userBean.getUser_pw2())==false) {
-				errors.rejectValue("user_pw", "NotEquals");
-				errors.rejectValue("user_pw2", "NotEquals");
+			if(userBean.getUser_pass().equals(userBean.getUser_pass2())==false) {
+				errors.rejectValue("user_pass", "NotEquals");
+				errors.rejectValue("user_pass2", "NotEquals");
 			}
 			
-			if(userBean.isUserIdExist()==false && beanName.equals("joinUserBean")) {				
-				errors.rejectValue("user_id", "DontCheckUserIdExist");
+			if(userBean.isUserNickNameExist()==false && beanName.equals("addUserBean")) {				
+				errors.rejectValue("user_nickname", "DontCheckUserNickNameExist");
+			}
+			
+			if(userBean.isUserEmailExist()==false && beanName.equals("addUserBean")) {				
+				errors.rejectValue("user_email", "DontCheckUserEmailExist");
+			}
+			
+			if(userBean.getUser_gender().equals("---선택---")) {
+				errors.rejectValue("user_gender", "NotBlankGender");
 			}
 			
 		}

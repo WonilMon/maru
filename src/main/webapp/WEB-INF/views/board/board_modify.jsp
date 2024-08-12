@@ -13,13 +13,15 @@
 <meta charset="utf-8">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>board_modify</title>
+<title>board_write</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
-<link rel="stylesheet" href="${root }css/board_modify.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
-	defer=""></script>
+<link rel="stylesheet" href="${root }css/board_write.css" media="screen">
+<script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
+<meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Noto+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
 
@@ -39,20 +41,18 @@
 <meta name="theme-color" content="#fda270">
 <meta name="twitter:site" content="@">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="board_modify">
+<meta name="twitter:title" content="board_write">
 <meta name="twitter:description" content="">
-<meta property="og:title" content="board_modify">
+<meta property="og:title" content="board_write">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
+
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
-	<section
-		class="skrollable u-align-center u-clearfix u-container-align-center u-image u-parallax u-shading u-section-1"
-		id="sec-1a20" data-image-width="425" data-image-height="425">
-		<div class="u-clearfix u-sheet u-sheet-1"></div>
-	</section>
+	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
+
 	<section class="u-clearfix u-section-2" id="sec-b8b2">
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<p class="u-text u-text-default u-text-1">Modify</p>
@@ -187,36 +187,68 @@
 					</div>
 				</div>
 			</div>
+			<div class="u-form u-form-1">
+				<form action="https://forms.nicepagesrv.com/v2/form/process"
+					class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form"
+					source="email" name="form" style="padding: 10px;">
+					<div class="u-form-email u-form-group">
+						<label for="email-5fb5" class="u-label">Hashtag</label> <input
+							type="email" placeholder="입력" id="email-5fb5" name="text"
+							class="u-input u-input-rectangle" required="">
+					</div>
+					<div class="u-align-left u-form-group u-form-submit">
+						<a href="#" class="u-btn u-btn-submit u-button-style">Submit</a> <input
+							type="submit" value="submit" class="u-form-control-hidden">
+					</div>
+					<div class="u-form-send-message u-form-send-success">Thank
+						you! Your message has been sent.</div>
+					<div class="u-form-send-error u-form-send-message">Unable to
+						send your message. Please fix errors then try again.</div>
+					<input type="hidden" value="" name="recaptchaResponse"> <input
+						type="hidden" name="formServices"
+						value="50d0594d-1c60-31b9-19af-78b3c1587d79">
+				</form>
+			</div>
 			<div class="u-list u-list-1">
 				<div class="u-repeater u-repeater-1">
 					<div class="u-container-style u-list-item u-repeater-item">
 						<div
 							class="u-container-layout u-similar-container u-container-layout-11">
-							<a href="#"
-								class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-custom-item u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-2">목록
-							</a>
+							<p class="u-custom-item u-text u-text-default u-text-11">해시태그
+								입력받는 곳</p>
 						</div>
 					</div>
 					<div class="u-container-style u-list-item u-repeater-item">
 						<div
 							class="u-container-layout u-similar-container u-container-layout-12">
-							<a href="#"
-								class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-custom-item u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-3">삭제
-							</a>
+							<p class="u-custom-item u-text u-text-default u-text-12">해시태그
+								입력받는 곳</p>
 						</div>
 					</div>
 					<div class="u-container-style u-list-item u-repeater-item">
 						<div
 							class="u-container-layout u-similar-container u-container-layout-13">
-							<a href="#"
-								class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-custom-item u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-4">수정
-							</a>
+							<p class="u-custom-item u-text u-text-default u-text-13">해시태그
+								입력받는 곳</p>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			<div
+				style="display: flex; justify-content: flex-end; gap: 10px; border-radius: 12px;">
+				<a href="#"
+					class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white ">목록
+				</a> <a href="#"
+					class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white ">삭제
+				</a> <a href="#"
+					class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white ">등록
+				</a>
+			</div>
+
 		</div>
 	</section>
+
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
 </body>
 </html>

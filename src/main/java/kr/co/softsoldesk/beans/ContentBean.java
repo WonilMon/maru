@@ -25,7 +25,9 @@ public class ContentBean {
 
 	private boolean content_isAnonymous;
 
-	private List<String> content_hashTag;
+	private String content_hashTag1;
+	private String content_hashTag2;
+	private String content_hashTag3;
 
 	private int content_views;
 
@@ -91,12 +93,28 @@ public class ContentBean {
 		this.content_isAnonymous = content_isAnonymous;
 	}
 
-	public List<String> getContent_hashTag() {
-		return content_hashTag;
+	public String getContent_hashTag1() {
+		return content_hashTag1;
 	}
 
-	public void setContent_hashTag(List<String> content_hashTag) {
-		this.content_hashTag = content_hashTag;
+	public void setContent_hashTag1(String content_hashTag1) {
+		this.content_hashTag1 = content_hashTag1;
+	}
+
+	public String getContent_hashTag2() {
+		return content_hashTag2;
+	}
+
+	public void setContent_hashTag2(String content_hashTag2) {
+		this.content_hashTag2 = content_hashTag2;
+	}
+
+	public String getContent_hashTag3() {
+		return content_hashTag3;
+	}
+
+	public void setContent_hashTag3(String content_hashTag3) {
+		this.content_hashTag3 = content_hashTag3;
 	}
 
 	public int getContent_views() {

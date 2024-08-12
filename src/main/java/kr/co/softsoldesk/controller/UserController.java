@@ -1,17 +1,30 @@
 package kr.co.softsoldesk.controller;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.softsoldesk.beans.UserBean;
+import kr.co.softsoldesk.service.UserService;
 
 @Controller
-@RequestMapping("/user") // user로 다 잡아와서
+@RequestMapping("/user")
 public class UserController {
+
+	@Autowired
+	private UserService userService;
+
+	@Resource(name = "loginUserBean")
+	private UserBean loginUserBean;
 
 //	-------------------------------------------
 
@@ -25,33 +38,58 @@ public class UserController {
 		return "user/profile_modify";
 	}
 
-//	@GetMapping("/register")
-//	private String register() {
-//		return "user/register";
-//	}
-	
 	@GetMapping("/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("user", new UserBean()); // User는 적절한 엔티티/DTO 클래스
-        return "user/register"; // JSP 파일 이름
-    }
-
-    @PostMapping("/user")
-    public String processRegister(@ModelAttribute("user") UserBean user, Model model) {
-        // 가입 처리 로직
-        return "registerSuccess"; // 성공시 이동할 JSP 파일
-    }
-    
-    
-
-	@GetMapping("/searchEmail")
-	private String searchEmail() {
-		return "user/searchEmail";
+	public String register(Model model) {
+		model.addAttribute("addUserBean", new UserBean());
+		return "user/register";
 	}
 
-	@GetMapping("/searchPassword")
-	private String searchPassword() {
-		return "user/searchPassword";
+	@PostMapping("/register_pro")
+	public String register_pro(@Valid @ModelAttribute("addUserBean") UserBean addUserBean, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "user/register";
+		}
+
+		userService.addUser(addUserBean);
+
+		return "user/register_success";
+	}
+
+	@PostMapping("/login_pro")
+	private String login_pro(@ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean,
+			@Valid BindingResult result, HttpSession session) {
+
+		if (result.hasErrors()) {
+			return "main";
+		}
+
+		userService.getLoginUser(tempLoginUserBean);
+
+		if (loginUserBean.isUserLogin() == true) {
+			session.setAttribute("user_idx", loginUserBean.getUser_idx());
+			return "user/login_success";
+		} else {
+			return "user/login_fail";
+		}
+	}
+
+	@GetMapping("/not_login")
+	public String not_login() {
+		return "user/not_login";
+	}
+
+	@GetMapping("/logout")
+	private String logout(HttpSession session) {
+		loginUserBean.setUserLogin(false);
+		session.invalidate(); // 세션 무효화
+		return "user/logout";
+	}
+
+	@GetMapping("/search_password")
+	private String search_password(Model model) {
+		model.addAttribute("searchPasswordBean", new UserBean());
+		return "user/search_password";
 	}
 
 }

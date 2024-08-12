@@ -16,17 +16,16 @@
 <title>register</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root }css/register.css" media="screen">
-<script class="u-script" type="text/javascript"
-	src="${root }js/jquery.js" defer=""></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<%-- <script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script> --%>
 <script class="u-script" type="text/javascript"
 	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Noto+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
-
-
-
 <script type="application/ld+json">{
 		"@context": "http://schema.org",
 		"@type": "Organization",
@@ -45,6 +44,111 @@
 <meta property="og:title" content="register">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+
+<!-- Flatpickr CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
+
+<!-- Flatpickr JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js"></script>
+
+<script>
+	function checkUserNickNameExist() {
+
+		let user_nickname = $("#user_nickname").val() // 사용자가 입력한 nickname값 가져오기
+
+		if (user_nickname.length == 0) {
+			alert("닉네임을 입력하세요")
+			return
+		}
+
+		/* 새로고침 없이 바로 반응할수있게 하는게 에이잭스 */
+		$.ajax({
+
+			/* RestController, api는 페이지를 반환하는 게 아니라 데이터를 반환함 */
+			url : '${root}/user/checkUserNickNameExist/' + user_nickname, // 요청할 페이지의 주소 (아이디를 붙인 주소를 getmapping을통해 RestApiController로)
+			type : 'get', // 요청타입
+			dataType : 'text',
+			success : function(result) {
+
+				if (result.trim() == "true") {
+					alert("사용할 수 있는 닉네임입니다")
+					$("#userNickNameExist").val("true")
+				} else {
+					alert("사용할 수 없는 닉네임입니다")
+					$("#userNickNameExist").val("false")
+				}
+			}
+
+		})
+
+	}
+
+	//사용자 NickName란에 키보드 입력 시 무조건 false 만드는
+	function resetUserNickNameExist() {
+		$("#userNickNameExist").val("false")
+	}
+</script>
+<script>
+	function checkUserEmailExist() {
+
+		let user_email = $("#user_email").val() // 사용자가 입력한 email 값 가져오기
+
+		if (user_email.length == 0) {
+			alert("이메일을 입력하세요")
+			return
+		}
+
+		/* 새로고침 없이 바로 반응할수있게 하는게 에이잭스 */
+		$.ajax({
+
+			/* RestController, api는 페이지를 반환하는 게 아니라 데이터를 반환함 */
+			url : '${root}/user/checkUserEmailExist/' + user_email, // 요청할 페이지의 주소 (아이디를 붙인 주소를 getmapping을통해 RestApiController로)
+			type : 'get', // 요청타입
+			dataType : 'text',
+			success : function(result) {
+
+				if (result.trim() == "true") {
+					alert("사용할 수 있는 이메일입니다")
+					$("#userEmailExist").val("true")
+				} else {
+					alert("사용할 수 없는 이메일입니다")
+					$("#userEmailExist").val("false")
+				}
+			}
+
+		})
+
+	}
+
+	//사용자 Email란에 키보드 입력 시 무조건 false 만드는
+	function resetUserEmailExist() {
+		$("#userEmailExist").val("false")
+	}
+</script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		flatpickr("#user_age", {
+			dateFormat : "Y-m-d",
+			locale : {
+				firstDayOfWeek : 1,
+				weekdays : {
+					shorthand : [ '日', '月', '火', '水', '木', '金', '土' ],
+					longhand : [ '日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日',
+							'土曜日' ]
+				},
+				months : {
+					shorthand : [ '1月', '2月', '3月', '4月', '5月', '6月', '7月',
+							'8月', '9月', '10月', '11月', '12月' ],
+					longhand : [ '1月', '2月', '3月', '4月', '5月', '6月', '7月',
+							'8月', '9月', '10月', '11月', '12月' ]
+				}
+			}
+		});
+	});
+</script>
+
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
@@ -63,86 +167,115 @@
 					data-href="#">문의사항 : www.maru.faq.com </a>
 			</p>
 			<div class="u-form u-radius-20 u-white u-form-1">
-				<form action=""
-					class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form"
+
+				<form:form modelAttribute="addUserBean"
+					action="${root }user/register_pro" method="post"
+					class="u-clearfix u-form-spacing-15 u-form-vertical
+					u-inner-form"
 					source="email" name="form" style="padding: 28px;">
+					<form:hidden path="userEmailExist" />
+					<form:hidden path="userNickNameExist" />
+
+					<button class="u-button-1" onclick="checkUserNickNameExist()"
+						type="button"
+						style="position: absolute; top: 10px; right: 150px; background-color: #FCD5CE; border: 2px solid #FAE1DD; color: #000000; border-radius: 8px; padding: 10px 20px;">
+						nick check</button>
+
+					<button class="u-button-2" onclick="checkUserEmailExist()"
+						type="button"
+						style="position: absolute; top: 10px; right: 10px; background-color: #FCD5CE; border: 2px solid #FAE1DD; color: #000000; border-radius: 8px; padding: 10px 20px;">
+						email check</button>
+
 					<div class="u-form-group u-form-name">
-						<label for="name-4c18" class="u-label">NickName</label> <input
-							type="text" id="name-4c18" name="nickname"
+						<form:label path="user_nickname" class="u-label">NickName</form:label>
+						<form:input type="text" path="user_nickname"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							required="" placeholder="입력">
+							placeholder="입력" onkeypress="resetUserNickNameExist()" />
+						<form:errors path="user_nickname" style="color:red" />
 					</div>
 					<div class="u-form-email u-form-group">
-						<label for="email-4c18" class="u-label">Email</label> <input
-							type="email" placeholder="입력" id="email-4c18" name="email"
-							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							required="">
+						<form:label path="user_email" class="u-label">Email</form:label>
+						<form:input type="email" placeholder="입력" path="user_email"
+							onkeypress="resetUserEmailExist()"
+							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
+						<form:errors path="user_email" style="color:red" />
 					</div>
 					<div class="u-form-group u-form-group-3">
-						<label for="text-91a6" class="u-label">Password</label> <input
-							type="text" placeholder="입력" id="text-91a6" name="password"
-							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							required="required">
+						<form:label path="user_pass" class="u-label">Password</form:label>
+						<form:password placeholder="입력" path="user_pass"
+							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
+						<form:errors path="user_pass" style="color:red" />
 					</div>
+					<div class="u-form-group u-form-group-3">
+						<form:label path="user_pass2" class="u-label">Password</form:label>
+						<form:password placeholder="입력" path="user_pass2"
+							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
+						<form:errors path="user_pass2" style="color:red" />
+					</div>
+
 					<div class="u-form-date u-form-group u-form-group-4">
-						<label for="date-0a97" class="u-label">Date</label> <input
-							type="text" placeholder="MM/DD/YYYY" id="date-0a97" name="date"
-							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							required="" data-date-format="mm/dd/yyyy">
+						<form:label path="user_age" class="u-label">Date</form:label>
+						<form:input type="text" placeholder="MM-DD-YYYY" path="user_age"
+							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
+						<form:errors path="user_age" style="color:red"></form:errors>
 					</div>
+
 					<div class="u-form-group u-form-select u-form-group-5">
-						<label for="select-85ae" class="u-label">gender of parents</label>
+						<form:label path="user_gender" class="u-label">gender of parents</form:label>
 						<div class="u-form-select-wrapper">
-							<select id="select-85ae" name="select"
-								class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-								required="required">
+							<form:select path="user_gender"
+								class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
+								<option value="선택" data-calc="">---선택---</option>
 								<option value="남" data-calc="">남</option>
 								<option value="여" data-calc="">여</option>
-							</select>
-							<svg class="u-caret u-caret-svg" version="1.1" id="Layer_1"
-								xmlns="http://www.w3.org/2000/svg"
-								xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								width="16px" height="16px" viewBox="0 0 16 16"
-								style="fill: currentColor;" xml:space="preserve">
-								<polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+								<option value="어느 쪽도 아님" data-calc="">어느 쪽도 아님</option>
+
+							</form:select>
 						</div>
+						<form:errors path="user_gender" style="color:red"></form:errors>
 					</div>
-					<div class="u-form-agree u-form-group u-form-group-6">
-						<label class="u-field-label"></label> <input type="checkbox"
-							id="agree-a472" name="agree"
-							class="u-agree-checkbox u-field-input" required=""> <label
-							for="agree-a472"
-							class="u-agree-label u-block-e0a4-16 u-field-label" style="">I
-							accept the <a href="#">Terms of Service</a>
-						</label>
-					</div>
+
 					<div class="u-align-right u-form-group u-form-submit">
-						<a href="#"
-							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">Submit
-							your request</a> <input type="submit" value="submit"
-							class="u-form-control-hidden">
+						<button type="submit"
+							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">button</button>
 					</div>
-					<div class="u-form-send-message u-form-send-success">Thank
-						you! Your message has been sent.</div>
-					<div class="u-form-send-error u-form-send-message">Unable to
-						send your message. Please fix errors then try again.</div>
-					<input type="hidden" value="" name="recaptchaResponse"> <input
-						type="hidden" name="formServices"
-						value="50d0594d-1c60-31b9-19af-78b3c1587d79">
-				</form>
+				</form:form>
+
 			</div>
 
-
-			<span class="u-align-center u-file-icon u-icon u-icon-1"><img
-				src="${root }images/3699459.png" alt=""></span><span
-				class="u-align-center u-file-icon u-icon u-icon-2"><img
-				src="${root }images/3699459.png" alt=""></span>
 		</div>
 	</section>
 
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
 
+	<script>
+		$(document).ready(
+				function() {
+					$("button[type='submit']").off("click")
+							.on(
+									"click",
+									function(event) {
+										// 현재 버튼이 속한 폼을 찾기
+										var form = $(this).closest('form');
 
+										// 중복 체크 상태를 확인 
+										var userNickNameExist = $(
+												"#userNickNameExist").val();
+										var userEmailExist = $(
+												"#userEmailExist").val();
+
+										if (userNickNameExist === "false") {
+											alert("닉네임 중복 체크를 완료해 주세요.");
+											event.preventDefault();
+										} else if (userEmailExist === "false") {
+											alert("이메일 중복 체크를 완료해 주세요.");
+											event.preventDefault();
+										} else {
+											form.off("submit").submit();
+										}
+									});
+				});
+	</script>
 </body>
 </html>

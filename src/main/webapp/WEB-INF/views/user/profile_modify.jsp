@@ -52,12 +52,8 @@
 
 
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
+	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
 
-	<section
-		class="skrollable u-align-center u-clearfix u-container-align-center u-image u-parallax u-shading u-section-1"
-		id="sec-8345" data-image-width="425" data-image-height="425">
-		<div class="u-clearfix u-sheet u-sheet-1"></div>
-	</section>
 	<section class="u-clearfix u-container-align-center u-section-2"
 		id="sec-8d10">
 		<div class="u-clearfix u-sheet u-sheet-1">

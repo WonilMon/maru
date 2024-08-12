@@ -17,9 +17,10 @@
 <title>company</title>
 <link rel="stylesheet" href="${root}css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root}css/company.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root}js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root}js/nicepage.js"
-	defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root}js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root}js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
@@ -53,7 +54,7 @@
 	class="u-body u-xl-mode" data-lang="en">
 
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
-
+	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
 
 	<section class="u-clearfix u-section-1" id="sec-0926">
 		<div class="u-clearfix u-sheet u-sheet-1">

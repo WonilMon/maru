@@ -15,10 +15,12 @@
 <meta name="description" content="">
 <title>board_prev_main</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
-<link rel="stylesheet" href="${root }css/board_prev_main.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
-	defer=""></script>
+<link rel="stylesheet" href="${root }css/board_prev_main.css"
+	media="screen">
+<script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <link id="u-theme-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Noto+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
@@ -50,11 +52,8 @@
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
-	<section
-		class="skrollable u-align-center u-clearfix u-container-align-center u-image u-parallax u-shading u-section-1"
-		id="sec-f1ed" data-image-width="425" data-image-height="425">
-		<div class="u-clearfix u-sheet u-sheet-1"></div>
-	</section>
+	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
+
 	<section
 		class="u-align-center u-clearfix u-container-align-center u-palette-2-light-3 u-section-2"
 		id="sec-545a">

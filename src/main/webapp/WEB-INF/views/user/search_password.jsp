@@ -15,10 +15,12 @@
 <meta name="description" content="">
 <title>search_password</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
-<link rel="stylesheet" href="${root }css/search_password.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
-	defer=""></script>
+<link rel="stylesheet" href="${root }css/search_password.css"
+	media="screen">
+<script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
@@ -62,14 +64,14 @@
 					data-href="#">문의사항 : www.maru.faq.com </a>
 			</p>
 			<div class="u-form u-radius-20 u-white u-form-1">
-				<form action="https://forms.nicepagesrv.com/v2/form/process"
+				<form:form modelAttribute="searchPasswordBean"
+					action="https://forms.nicepagesrv.com/v2/form/process"
 					class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form"
-					source="email" name="form" style="padding: 28px;">
+					style="padding: 28px;">
 					<div class="u-form-email u-form-group">
-						<label for="email-4c18" class="u-label">Email</label> <input
-							type="email" placeholder="입력" id="email-4c18" name="email"
-							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							required="">
+						<form:label path="user_email" class="u-label">Email</form:label>
+						<form:input type="email" placeholder="입력" path="user_email"
+							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
 					</div>
 					<div class="u-align-right u-form-group u-form-submit">
 						<a href="#"
@@ -77,14 +79,8 @@
 							your request</a> <input type="submit" value="submit"
 							class="u-form-control-hidden">
 					</div>
-					<div class="u-form-send-message u-form-send-success">Thank
-						you! Your message has been sent.</div>
-					<div class="u-form-send-error u-form-send-message">Unable to
-						send your message. Please fix errors then try again.</div>
-					<input type="hidden" value="" name="recaptchaResponse"> <input
-						type="hidden" name="formServices"
-						value="50d0594d-1c60-31b9-19af-78b3c1587d79">
-				</form>
+
+				</form:form>
 			</div>
 		</div>
 	</section>

@@ -8,7 +8,9 @@
 
 <section
 	class="skrollable u-align-center u-clearfix u-image u-parallax u-shading u-section-1"
-	id="sec-ff73" data-image-width="425" data-image-height="425">
+	id="sec-ff73"
+	style="background-image: url('${root}images/d7d1c4acd724b3bbb7b4b910ada08d71e928fad1983bf433440c9a111026c224a0fdc6d7b01f8a2e394a445e138620006189cb8b806cc50ffbe3aa_1280.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+	data-image-width="425" data-image-height="425">
 	<div class="u-clearfix u-sheet u-sheet-1">
 		<p class="u-text u-text-default u-text-1">
 			子供の一生、<br>まると一緒。

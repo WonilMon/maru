@@ -17,9 +17,10 @@
 <title>board_main</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root }css/board_main.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
-	defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <link id="u-theme-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Noto+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
@@ -51,7 +52,7 @@
 
 
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
-
+	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
 	<section
 		class="skrollable u-align-center u-clearfix u-container-align-center u-image u-parallax u-shading u-section-1"
 		id="sec-af67" data-image-width="425" data-image-height="425">
@@ -63,6 +64,12 @@
 			<p class="u-align-center u-text u-text-default u-text-1">
 				자유/질문/정보공유 게시판<span style="font-weight: 700;"></span>
 			</p>
+
+			<a href="#"
+				class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">글쓰기
+			</a> <a href="#"
+				class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-2">보드
+				홈 </a>
 			<!--blog-->
 			<!--blog_options_json-->
 			<!--{"type":"Recent","source":"","tags":"","count":""}-->
@@ -323,25 +330,7 @@
 							<!--/blog_post_tags-->
 						</div>
 					</div>
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
+
 				</div>
 				<div class="u-list-control"></div>
 			</div>
