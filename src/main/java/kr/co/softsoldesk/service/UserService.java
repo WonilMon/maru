@@ -75,9 +75,9 @@ public class UserService {
 		}
 	}
 
-////	modify
+//	modify
 //	public void getModifyUserInfo(UserBean modifyUserBean) {
-//		
+		
 //		UserBean tempModifyUserBean = userDao.getModifyUserBeanInfo(loginUserBean.getUser_idx());
 ////		loginUserBean.getUser_idx() : 싱글톤이기에 아까 넣은 loginUserBean의 idx를 이용한다
 //
@@ -86,20 +86,38 @@ public class UserService {
 //		modifyUserBean.setUser_name(tempModifyUserBean.getUser_name());
 //
 //	}
+	
+	public UserBean getModifyUserInfo(int user_idx) {
+		
+		return userDao.getModifyUserBeanInfo(user_idx);
+	}
+	
 //	
-////	modify update
-//	public void modifyUserInfo(UserBean modifyUserBean) {
-//		
-//		modifyUserBean.setUser_idx(loginUserBean.getUser_idx());
-//		
+//	modify update
+	public void modifyUserInfo(UserBean modifyUserBean) {
+		
+		modifyUserBean.setUser_idx(loginUserBean.getUser_idx());
+	
 //		System.out.println("1:" +modifyUserBean.getUser_idx());
-//		System.out.println("2:" +modifyUserBean.getUser_id());
-//		System.out.println("3:" +modifyUserBean.getUser_name());
-//		System.out.println("4:" +modifyUserBean.getUser_pw());
-//		System.out.println("5:" +modifyUserBean.getUser_pw2());
-//		
-//		userDao.modifyUserInfo(modifyUserBean);
-//		
-//	}
+//		System.out.println("2:" +modifyUserBean.getUser_email());
+//		System.out.println("3:" +modifyUserBean.getUser_nickname());
+//		System.out.println("4:" +modifyUserBean.getUser_pass());
+//		System.out.println("5:" +modifyUserBean.getUser_pass2());
+		
+		userDao.modifyUserInfo(modifyUserBean);
+		
+	}
+	
+	public void modifyUser(UserBean modifyUser) {
+		
+		System.out.println("service: "+modifyUser.getUser_nickname());
+		
+		userDao.modifyUser(modifyUser);
+	}
+	
+	//회원삭제
+	public void deleteUser(int user_idx) {
+		userDao.deleteUser(user_idx);
+	}
 
 }

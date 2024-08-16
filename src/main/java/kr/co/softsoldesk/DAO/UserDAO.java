@@ -31,14 +31,30 @@ public class UserDAO {
 		return userMapper.getLoginUser(tempLoginUserBean);
 	}
 
-//	// 정보수정
-//	public UserBean getModifyUserBeanInfo(int user_idx) {
-//		return userMapper.getModifyUserInfo(user_idx);
-//	}
-//
-//	// 정보수정
-//	public void modifyUserInfo(UserBean modifyUserBean) {
-//		userMapper.modifyUserInfo(modifyUserBean);
-//	}
+	//정보수정
+	public UserBean getModifyUserBeanInfo(int user_idx) {
+		
+		return userMapper.getModifyUserInfo(user_idx);
+	}
+	
 
+	// 정보수정
+	public void modifyUserInfo(UserBean modifyUserBean) {
+		userMapper.modifyUser(modifyUserBean);
+	}
+
+	public void modifyUser(UserBean modifyUser) {
+		
+		System.out.println("DAO: "+modifyUser.getUser_nickname());
+		
+		userMapper.modifyUser(modifyUser);
+		
+		System.out.println("mapper: "+modifyUser.getUser_nickname());
+	}
+	
+	//회원삭제
+	public void deleteUser(int user_idx) {
+		userMapper.deleteUser(user_idx);
+	}
+	
 }

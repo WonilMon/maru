@@ -14,18 +14,22 @@ public interface UserMapper {
 
 	// 회원가입 insert
 	@Insert("insert into users(user_idx, user_nickname, user_email, user_pass, user_age, user_gender) values(users_seq.nextval, #{user_nickname}, #{user_email}, #{user_pass}, #{user_age}, #{user_gender})")
-	void addUser(UserBean assUserBean);
+	void addUser(UserBean addUserBean);
+	//오타난거같아서 add로 바꿨습니다 240812 by.yelim
 
 	// 회원정보 select
 	@Select("select * from users where user_email = #{user_email} and user_pass = #{user_pass}")
 	UserBean getLoginUser(UserBean tempLoginUserBean);
 
+	@Select("select * from users where user_idx=${user_idx}")
+	UserBean getModifyUserInfo(int user_idx);
+	
 	// 유저 정보 수정 modify
-	@Update("update users set user_nickName = #{user_nickName}, user_pw = #{user_pass} where user_idx = #{user_idx}")
+	@Update("update users set user_nickname = #{user_nickname}, user_pass = #{user_pass} where user_idx = #{user_idx}")
 	void modifyUser(UserBean modifyUserBean);
 
 	// 회원 정보 삭제 delete
-	@Delete("delete * from users where user_idx = #{user_idx}")
+	@Delete("delete from users where user_idx = #{user_idx}")
 	void deleteUser(int user_idx);
 
 	// 중복체크 nickname
@@ -35,5 +39,5 @@ public interface UserMapper {
 	// 중복체크 email
 	@Select("select user_email from users where user_email = #{user_email}")
 	String checkUserEmailExist(String user_email);
-
+	
 }

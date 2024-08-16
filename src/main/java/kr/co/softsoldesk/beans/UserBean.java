@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-@Component
+//@Component
 public class UserBean {
 
 	private int user_idx;
