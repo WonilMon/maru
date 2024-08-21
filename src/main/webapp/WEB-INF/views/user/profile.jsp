@@ -14,10 +14,10 @@
 <meta name="keywords" content="My Profile​, Change profile​">
 <meta name="description" content="">
 <title>profile</title>
-<link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="profile.css" media="screen">
-<script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="nicepage.js"
+<link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
+<link rel="stylesheet" href="${root }css/profile.css" media="screen">
+<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
 	defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <link id="u-theme-google-font" rel="stylesheet"
@@ -60,8 +60,7 @@
 	<section class="u-clearfix u-container-align-center u-section-2"
 		id="sec-fbb4">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<h2 class="u-align-center u-subtitle u-text u-text-default u-text-1">My
-				Profile</h2>
+			<h2 class="u-align-center u-subtitle u-text u-text-default u-text-1">My Profile</h2>
 			<div
 				class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-palette-3-light-3 u-radius u-layout-wrap-1">
 				<div class="u-gutter-0 u-layout">
@@ -154,11 +153,10 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 									class="u-container-align-center u-container-style u-layout-cell u-size-60 u-layout-cell-2">
 									<div
 										class="u-container-layout u-valign-middle u-container-layout-2">
-										<h2 class="u-align-center u-subtitle u-text u-text-2">다이키
-										</h2>
+										<h2 class="u-align-center u-subtitle u-text u-text-2">${profileUser.user_nickname }</h2>
 										<span class="u-align-center u-file-icon u-icon u-icon-1"><img
 											src="/images/2356780.png" alt=""></span>
-										<p class="u-align-center u-text u-text-3">상태 메시지</p>
+										<p class="u-align-center u-text u-text-3">${profileUser.user_statustext }</p>
 										<a href="#"
 											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">1:1
 											chat </a>
@@ -175,7 +173,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		class="u-align-center u-clearfix u-container-align-center u-section-3"
 		id="sec-da49">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<p class="u-align-center u-text u-text-default u-text-1">다이키 님의 글
+			<p class="u-align-center u-text u-text-default u-text-1">${profileUser.user_nickname }님의 글
 			</p>
 			<div
 				class="custom-expanded data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">

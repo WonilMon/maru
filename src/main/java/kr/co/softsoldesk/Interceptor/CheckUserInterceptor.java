@@ -1,17 +1,17 @@
  package kr.co.softsoldesk.Interceptor;
 
 //public class CheckUserInterceptor implements HandlerInterceptor {
-	
+//	
 //	private UserBean loginUserBean;
-	
+//	
 //	private BoardService boardService;
-
+//
 ////	생성자
 //	public CheckUserInterceptor(UserBean loginUserBean, BoardService boardService) {
 //		this.loginUserBean = loginUserBean;
 //		this.boardService = boardService;
 //	}
-
+//
 ////	preHandle : 동작하기 전 수행을 하는 메서드
 //	@Override
 //	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

@@ -15,10 +15,13 @@
 <meta name="description" content="">
 <title>profile_modify</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
-<link rel="stylesheet" href="${root }css/profile_modify.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
-	defer=""></script>
+<link rel="stylesheet" href="${root }css/profile_modify.css"
+	media="screen">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
@@ -29,15 +32,102 @@
 
 
 <script type="application/ld+json">{
-		"@context": "http://schema.org",
-		"@type": "Organization",
-		"name": "",
-		"logo": "${root }images/default-logo.png",
-		"sameAs": [
-				"https://facebook.com/name",
-				"https://twitter.com/name"
-		]
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": "",
+      "logo": "${root }images/default-logo.png",
+      "sameAs": [
+            "https://facebook.com/name",
+            "https://twitter.com/name"
+      ]
 }</script>
+<script>
+	function checkUserNickNameExist() {
+
+		let user_nickname = $("#user_nickname").val() // 사용자가 입력한 nickname값 가져오기
+
+		if (user_nickname.length == 0) {
+			alert("닉네임을 입력하세요")
+			return
+
+		}
+
+		/* 새로고침 없이 바로 반응할수있게 하는게 에이잭스 */
+		$.ajax({
+
+			/* RestController, api는 페이지를 반환하는 게 아니라 데이터를 반환함 */
+			url : '${root}/user/checkUserNickNameExist_profile/'
+					+ user_nickname, // 요청할 페이지의 주소 (아이디를 붙인 주소를 getmapping을통해 RestApiController로)
+			type : 'get', // 요청타입
+			dataType : 'text',
+			success : function(result) {
+
+				if (result.trim() == "true") {
+					alert("사용할 수 있는 닉네임입니다")
+					$("#userNickNameExist").val("true")
+				} else {
+					alert("사용할 수 없는 닉네임입니다")
+					$("#userNickNameExist").val("false")
+				}
+			}
+
+		})
+
+	}
+
+	//사용자 NickName란에 키보드 입력 시 무조건 false 만드는
+	function resetUserNickNameExist() {
+		$("#userNickNameExist").val("false")
+	}
+</script>
+<script>
+	let isEditMode = false;
+
+	function toggleEditMode() {
+		const input = document.getElementById('user_statustext');
+		const button = document.getElementById('changeStatusTextBtn');
+
+		if (!isEditMode) {
+			// Switch to edit mode
+			input.removeAttribute('readonly');
+			input.focus();
+			button.textContent = '확인';
+			button.classList.remove('edit-mode');
+			button.classList.add('save-mode');
+		} else {
+			// Switch back to view mode
+			input.setAttribute('readonly', 'true');
+			button.textContent = '변경';
+			button.classList.remove('save-mode');
+			button.classList.add('edit-mode');
+
+			// Perform AJAX request
+			const user_statustext = input.value;
+			const user_idx = document.getElementById('user_idx').value;
+
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "${root}user/updateStatus", true);
+			xhr.setRequestHeader("Content-Type",
+					"application/x-www-form-urlencoded");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					if (xhr.responseText === "success") {
+						alert("상태 메시지가 변경되었습니다.");
+					} else {
+						alert("상태 메시지 변경에 실패했습니다.");
+					}
+				}
+			};
+			xhr.send("user_statustext=" + encodeURIComponent(user_statustext)
+					+ "&user_idx=" + encodeURIComponent(user_idx));
+		}
+
+		isEditMode = !isEditMode;
+	}
+</script>
+
+
+
 <meta name="theme-color" content="#fda270">
 <meta name="twitter:site" content="@">
 <meta name="twitter:card" content="summary_large_image">
@@ -46,6 +136,48 @@
 <meta property="og:title" content="profile_modify">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+<style>
+.status-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 20px 0;
+}
+
+.status-container label {
+	margin-bottom: 10px; /* Space between label and input */
+	font-size: 16px; /* Adjust label font size if needed */
+	text-align: center; /* Center-align label text */
+}
+
+.input-container {
+	display: flex;
+	align-items: center;
+	width: 100%; /* Adjust full width */
+	max-width: 400px; /* Limit the maximum width if needed */
+	gap: 10px; /* Space between input and button */
+	justify-content: center; /* Center-align the content horizontally */
+}
+
+#user_statustext {
+	padding: 5px;
+	border: 1px solid #ddd; /* Light border for input */
+	border-radius: 5px; /* Slightly rounded corners */
+	background-color: #f0f0f0;
+	/* Light gray background for readonly input */
+	width: 250px; /* Set a fixed width for the input field */
+}
+
+button {
+	padding: 5px 10px;
+	font-size: 16px;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+	background-color: #FCD5CE; /* Soft pink background */
+	color: #333; /* Dark text color for contrast */
+}
+</style>
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
@@ -109,13 +241,13 @@
 														href="#carousel-4e64" role="button" data-u-slide="prev">
 														<span aria-hidden="true"> <svg
 																viewBox="0 0 451.847 451.847">
-																<path
+                                                <path
 																	d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
 c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
 c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
 													</span> <span class="sr-only"> <svg
 																viewBox="0 0 451.847 451.847">
-																<path
+                                                <path
 																	d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
 c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
 c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
@@ -125,13 +257,13 @@ c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,23
 														href="#carousel-4e64" role="button" data-u-slide="next">
 														<span aria-hidden="true"> <svg
 																viewBox="0 0 451.846 451.847">
-																<path
+                                                <path
 																	d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
 L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
 													</span> <span class="sr-only"> <svg
 																viewBox="0 0 451.846 451.847">
-																<path
+                                                <path
 																	d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
 L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
@@ -150,23 +282,35 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 								<div
 									class="u-container-style u-layout-cell u-size-60 u-layout-cell-2">
 									<div class="u-container-layout u-container-layout-2">
-										<h2 class="u-align-center u-subtitle u-text u-text-2">다이키
-										</h2>
-										<p class="u-align-center u-text u-text-3">상태 메시지</p>
-										<span class="u-align-center u-file-icon u-icon u-icon-1"><img
-											src="${root }images/294032.png" alt=""></span> <a href="#"
+										<h2 class="u-align-center u-subtitle u-text u-text-2">${modifyUser.user_nickname}</h2>
+
+										<div class="status-container">
+											<label for="user_statustext">상태메시지</label>
+											<div class="input-container">
+												<input type="text" id="user_statustext"
+													name="user_statustext"
+													value="${modifyUser.user_statustext}" readonly />
+												<button id="changeStatusTextBtn" onclick="toggleEditMode()">변경</button>
+											</div>
+										</div>
+
+										<a href="#"
 											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">change
-											icon </a> <a href="#"
+											icon</a> <a href="#"
 											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-2">change
-											image </a> <a href="#"
-											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-3">chat_log
-										</a> <a href="#"
-											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-4">delete
-										</a>
+											image</a> <a href="#"
+											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-3">chat_log</a>
+
+										<form action="${root}user/deleteUser" method="get">
+											<input type="hidden" name="user_idx" value="${user_idx}" />
+											<button
+												class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-4">delete</button>
+										</form>
 									</div>
 								</div>
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -184,82 +328,122 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 					data-href="#">문의사항 : www.maru.faq.com </a>
 			</p>
 			<div class="u-form u-radius-20 u-white u-form-1">
-				<form action="https://forms.nicepagesrv.com/v2/form/process"
+				<form:form action="${root }user/profile_modify_pro"
 					class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form"
-					source="email" name="form" style="padding: 28px;">
+					modelAttribute="modifyUser" style="padding: 28px;" method="post">
+					<button class="u-button-1" onclick="checkUserNickNameExist()"
+						type="button"
+						style="position: absolute; top: 10px; right: 10px; background-color: #FCD5CE; border: 2px solid #FAE1DD; color: #000000; border-radius: 8px; padding: 10px 20px;">
+						nick check</button>
+
+					<form:hidden path="user_idx" />
+					<form:hidden path="userNickNameExist" />
+
 					<div class="u-form-group u-form-name">
-						<label for="name-4c18" class="u-label">NickName</label> <input
-							type="text" id="name-4c18" name="nickname"
+						<form:label path="user_nickname" class="u-label">NickName</form:label>
+						<form:input type="text" path="user_nickname"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							required="" placeholder="입력">
+							placeholder="${modifyUser.user_nickname }"
+							style="color: #666666; 
+        opacity: 1;" />
+						<form:errors path="user_nickname" style="color:red" />
 					</div>
 					<div class="u-form-email u-form-group">
-						<label for="email-4c18" class="u-label">Email</label> <input
-							type="email" placeholder="입력" id="email-4c18" name="email"
+						<form:label path="user_email" class="u-label">Email</form:label>
+						<form:input type="email" placeholder="${modifyUser.user_email }"
+							id="email-4c18" path="user_email"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							required="">
+							readonly="true" style="color: #666666; 
+        opacity: 1;" />
 					</div>
 					<div class="u-form-group u-form-group-3">
-						<label for="text-91a6" class="u-label">Password</label> <input
-							type="text" placeholder="입력" id="text-91a6" name="password"
+						<form:label path="user_pass" class="u-label">Password</form:label>
+						<form:password placeholder="입력" path="user_pass"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							required="required">
+							required="required" />
+						<form:errors path="user_pass" style="color:red" />
+					</div>
+					<div class="u-form-group u-form-group-3">
+						<form:label path="user_pass2" class="u-label">Password2</form:label>
+						<form:password placeholder="입력" path="user_pass2"
+							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
+						<form:errors path="user_pass2" style="color:red" />
 					</div>
 					<div class="u-form-date u-form-group u-form-group-4">
-						<label for="date-0a97" class="u-label">Date</label> <input
-							type="text" placeholder="MM/DD/YYYY" id="date-0a97" name="date"
+						<form:label path="user_age" class="u-label">Date</form:label>
+						<form:input type="text" path="user_age"
+							placeholder="${modifyUser.user_age }"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							required="" data-date-format="mm/dd/yyyy">
+							readonly="true" style="color: #666666; 
+        opacity: 1;" />
+
 					</div>
+
 					<div class="u-form-group u-form-select u-form-group-5">
-						<label for="select-85ae" class="u-label">gender of parents</label>
+						<form:label path="user_gender" class="u-label">gender of parents</form:label>
 						<div class="u-form-select-wrapper">
-							<select id="select-85ae" name="select"
+							<form:input type="text" path="user_gender"
 								class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-								required="required">
-								<option value="남" data-calc="">남</option>
-								<option value="여" data-calc="">여</option>
-							</select>
-							<svg class="u-caret u-caret-svg" version="1.1" id="Layer_1"
-								xmlns="http://www.w3.org/2000/svg"
-								xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-								width="16px" height="16px" viewBox="0 0 16 16"
-								style="fill: currentColor;" xml:space="preserve">
-								<polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+								placeholder="${modifyUser.user_gender }" readonly="true"
+								style="color: #666666; 
+        opacity: 1;" />
 						</div>
 					</div>
+
 					<div class="u-form-agree u-form-group u-form-group-6">
-						<label class="u-field-label"></label> <input type="checkbox"
-							id="agree-a472" name="agree"
-							class="u-agree-checkbox u-field-input" required=""> <label
-							for="agree-a472"
-							class="u-agree-label u-block-4c4f-16 u-field-label" style="">I
-							accept the <a href="#">Terms of Service</a>
-						</label>
+
+						<label for="agree-a472"
+							class="u-agree-label u-block-4c4f-16 u-field-label" style="">
+							위 내용으로 프로필을 변경합니다. </label>
 					</div>
 					<div class="u-align-right u-form-group u-form-submit">
-						<a href="#"
-							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">Submit
-							your request</a> <input type="submit" value="submit"
-							class="u-form-control-hidden">
+						<button type="submit"
+							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">
+							변경하기</button>
+
 					</div>
-					<div class="u-form-send-message u-form-send-success">Thank
-						you! Your message has been sent.</div>
-					<div class="u-form-send-error u-form-send-message">Unable to
-						send your message. Please fix errors then try again.</div>
-					<input type="hidden" value="" name="recaptchaResponse"> <input
-						type="hidden" name="formServices"
-						value="50d0594d-1c60-31b9-19af-78b3c1587d79">
-				</form>
+
+				</form:form>
 			</div>
-			<span class="u-align-center u-file-icon u-icon u-icon-1"><img
-				src="${root }images/3699459.png" alt=""></span><span
-				class="u-align-center u-file-icon u-icon u-icon-2"><img
-				src="${root }images/3699459.png" alt=""></span>
+
 		</div>
 	</section>
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
-	
+
+	<script>
+		let originalUserNickname;
+
+		$(document)
+				.ready(
+						function() {
+							originalUserNickname = $("#user_nickname").val(); // 처음 로드 시 닉네임 값을 저장
+							$("button[type='submit']")
+									.off("click")
+									.on(
+											"click",
+											function(event) {
+												var form = $(this).closest(
+														'form');
+
+												// 중복 체크 상태 확인
+												var userNickNameExist = $(
+														"#userNickNameExist")
+														.val();
+
+												// 닉네임이 변경되지 않았고, 기존 중복 체크 상태가 false인 경우
+												if ($("#user_nickname").val() === originalUserNickname
+														&& userNickNameExist === "false") {
+													form.off("submit").submit();
+												} else if (userNickNameExist === "false") {
+													alert("닉네임 중복 체크를 완료해 주세요.");
+													event.preventDefault();
+												} else {
+													form.off("submit").submit();
+												}
+											});
+						});
+	</script>
+
 </body>
 </html>

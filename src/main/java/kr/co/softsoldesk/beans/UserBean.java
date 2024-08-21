@@ -51,8 +51,6 @@ public class UserBean {
 		this.userNickNameExist = false; // 중복확인 판별 초기값 false
 		this.userEmailExist = false; // 중복확인 판별 초기값 false
 		this.userLogin = false; // 로그인 판별 초기값 false
-		this.user_role = "사용자"; // 사용자 판별 초깃값 false / 관리자 판별 true
-		this.user_statustext = "상태메시지를 설정해주세요 "; // 상태메시지 초깃값
 	}
 
 	// -----------------------------------------------------
