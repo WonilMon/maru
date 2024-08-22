@@ -24,10 +24,10 @@ public class UserService {
 
 	@Autowired
 	private UserDAO userDao;
+	
 	@Autowired
 	private UserMapper userMapper;
-	@Autowired
-	private IconMapper iconMapper;
+
 
 //	--------------------------------------------------------
 
@@ -157,8 +157,7 @@ public class UserService {
 	}
 
 	  // 기존 상점 관련 메서드들
- // 기존 상점 관련 메서드들
-
+ // 기존 상점 관련 메서드들 현석
 	public int getUserPoints(int user_idx) {
 	    UserBean user = getUserById(user_idx);
 	    return user.getUser_point();
@@ -173,28 +172,5 @@ public class UserService {
         userMapper.updateUser(user);
     }
 
-    @Transactional
-    public boolean buyIcon(int user_idx, int icon_idx) {
-        // 사용자가 이미 아이콘을 소유하고 있는지 확인
-        if (iconMapper.userOwnsIcon(user_idx, icon_idx) > 0) {
-            return false; // 사용자가 중복된 아이콘을 소유하지 못하게 함
-        }
 
-        // 사용자와 아이콘 정보를 조회
-        UserBean user = getUserById(user_idx);
-        IconBean icon = iconMapper.getIconById(icon_idx);
-
-        // 사용자가 아이콘을 구매할 충분한 포인트를 가지고 있는지 확인
-        if (user.getUser_point() >= icon.getIcon_price()) {
-            // 사용자의 포인트에서 아이콘 가격을 차감
-            user.setUser_point(user.getUser_point() - icon.getIcon_price());
-            // 데이터베이스에서 사용자의 포인트를 업데이트
-            updateUserPoints(user);
-            // 사용자의 아이콘 컬렉션에 아이콘을 추가
-            iconMapper.insertUserIcon(user_idx, icon_idx);
-            return true;
-        } else {
-            return false; // 사용자가 충분한 포인트를 가지고 있지 않음
-        }
-    }
-}
+    }    

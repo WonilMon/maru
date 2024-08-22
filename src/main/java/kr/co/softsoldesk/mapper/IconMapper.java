@@ -42,9 +42,6 @@ public interface IconMapper {
     IconBean getIconById(@Param("icon_idx") int icon_idx);
 
     // 추가된 메서드들
-
-
-    
     
     @Update("UPDATE icon SET icon_price = #{icon_price} WHERE icon_idx = #{icon_idx}")
     void updateIconPrice(@Param("icon_idx") int icon_idx, @Param("icon_price") int icon_price);
@@ -52,10 +49,11 @@ public interface IconMapper {
  // 
     @Select("SELECT COUNT(*) FROM user_icon WHERE user_idx = #{user_idx} AND icon_idx = #{icon_idx}")
     int userOwnsIcon(@Param("user_idx") int user_idx, @Param("icon_idx") int icon_idx);
-
-
+//프로필 바꿀 때 쓸거임
+    @Update("UPDATE user_icon SET icon_path = #{icon_path} WHERE user_idx = #{user_idx}")
+    void updateUserIconPath(@Param("user_idx") int user_idx, @Param("icon_path") String icon_path);
     
-    
+
     
     
 }

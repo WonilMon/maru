@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.softsoldesk.beans.UserBean;
+import kr.co.softsoldesk.service.UserIconService;
 import kr.co.softsoldesk.service.UserService;
 
 @RestController
@@ -22,6 +23,9 @@ public class RestApiController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private UserIconService userIconService;
+	
 	// register
 	@GetMapping("/user/checkUserNickNameExist/{user_nickname}")
 	public String checkUserNickNameExist(@PathVariable String user_nickname) {
@@ -60,9 +64,10 @@ public class RestApiController {
 		// 실제 로직을 구현해야 합니다.
 		return "수정된 상태 메시지: " + user_statustext;
 	}
+	//상점에서 사기
     @PostMapping("/buyIcon/{icon_idx}/{user_idx}")
     public ResponseEntity<String> buyIcon(@PathVariable("icon_idx") int icon_idx, @PathVariable("user_idx") int user_idx) {
-        boolean success = userService.buyIcon(user_idx, icon_idx);
+        boolean success = userIconService.buyIcon(user_idx, icon_idx);
         if (success) {
             return ResponseEntity.ok("success");
         } else {

@@ -10,17 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.softsoldesk.beans.IconBean;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.mapper.UserMapper;
 import kr.co.softsoldesk.service.IconService;
-import kr.co.softsoldesk.service.UserService;
+import kr.co.softsoldesk.service.UserIconService;
 
 @Controller
 @RequestMapping("/shop")
@@ -31,16 +30,15 @@ public class ShopController {
     
     @Autowired
     private IconService iconService;
-
-    @Autowired
-    private UserService userService;
     
     @Autowired
     private UserBean loginUserBean; 
     
-   
-    @GetMapping("/shop/{user_idx}")
-    public String showShop(@PathVariable("user_idx") int user_idx, Model model) {
+    @Autowired
+    private UserIconService userIconService;
+    
+    @GetMapping
+    public String showShop(@RequestParam("user_idx") int user_idx, Model model) {
         // 사용자가 로그인했는지 확인
         if (!loginUserBean.isUserLogin()) {
             // 사용자가 로그인하지 않은 경우를 로그로 남기고 처리
@@ -111,18 +109,19 @@ public class ShopController {
 
         return "shop/shop";
     }
+
     @PostMapping("/buyIcon")
     public ResponseEntity<String> buyIcon(@RequestBody Map<String, Integer> request) {
         int user_idx = request.get("user_idx");
         int icon_idx = request.get("icon_idx");
 
-        boolean success = userService.buyIcon(user_idx, icon_idx);
+        boolean success = userIconService.buyIcon(user_idx, icon_idx);
         if (success) {
             return ResponseEntity.ok("success");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("insufficient_points");
         }
-}
+    }
 }
 	/*
 	 * @GetMapping("/shop/uploadIcons") public String uploadIcons() { String

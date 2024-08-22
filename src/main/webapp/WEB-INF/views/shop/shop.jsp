@@ -34,6 +34,9 @@
     font-size: 24px;
     margin: 0 10px;
     user-select: none;
+    color:#FF6F61; 
+
+
 }
 
 .icon-container {
@@ -279,9 +282,11 @@
             <c:forEach var="icon" items="${userIcons}">
                 <img src="${root}${icon.icon_path}" alt="사용자 아이콘" style="width: 60px; height: 60px; margin-right: 10px;">
             </c:forEach>
-        </div>
-        <button class="u-button" style="background-color: #FFE5D9;" onclick="location.href='${pageContext.request.contextPath}/user/profile_modify?user_idx=${user.user_idx}'">마이 페이지</button>
+        </div>    
     </div>
+    <div style="text-align: center;">
+    <button class="u-button" style="background-color: #FFE5D9;" onclick="location.href='${pageContext.request.contextPath}/user/profile_modify?user_idx=${user.user_idx}'">마이 페이지</button>
+</div>
 </section>
 
     <c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>

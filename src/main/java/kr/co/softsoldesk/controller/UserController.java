@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.softsoldesk.beans.LineProfile;
 import kr.co.softsoldesk.beans.UserBean;
+import kr.co.softsoldesk.service.UserIconService;
 import kr.co.softsoldesk.service.UserService;
 
 @Controller
@@ -195,17 +196,4 @@ public class UserController {
 		return "user/delete_success";
 	}
 
-	@PostMapping("/buyIcon")
-	public ResponseEntity<String> buyIcon(@RequestBody Map<String, Integer> request) {
-		int user_idx = request.get("user_idx");
-		int icon_idx = request.get("icon_idx");
-
-		boolean success = userService.buyIcon(user_idx, icon_idx);
-		if (success) {
-			return ResponseEntity.ok("success");
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("insufficient_points");
-		}
-
 	}
-}

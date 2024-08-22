@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.mapper.BoardMapper;
 import kr.co.softsoldesk.mapper.IconMapper;
+import kr.co.softsoldesk.mapper.UserIconMapper;
 import kr.co.softsoldesk.mapper.UserMapper;
 
 @Configuration
@@ -100,7 +101,13 @@ public class RootAppContext implements WebMvcConfigurer {
         factoryBean.setSqlSessionFactory(factory);
         return factoryBean;
     }
-	
+    
+    @Bean
+    public MapperFactoryBean<UserIconMapper> getUserIconMapper(SqlSessionFactory factory) {
+        MapperFactoryBean<UserIconMapper> factoryBean = new MapperFactoryBean<>(UserIconMapper.class);
+        factoryBean.setSqlSessionFactory(factory);
+        return factoryBean;
+    }
 	
 
 }
