@@ -14,16 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.softsoldesk.beans.Article;
 import kr.co.softsoldesk.beans.UserBean;
-import kr.co.softsoldesk.service.NewsService;
 
 @Controller
 public class MainController {
-
-	private final NewsService newsService;
-
-	public MainController(NewsService newsService) {
-		this.newsService = newsService;
-	}
 
 	@Resource(name = "loginUserBean")
 	private UserBean loginUserBean;
@@ -32,11 +25,9 @@ public class MainController {
 	private String main(@ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean,
 			@RequestParam(value = "fail", defaultValue = "false") boolean fail, Model model) {
 
-		List<Article> articles = newsService.getTopHeadlines();
-		
 		model.addAttribute("fail", fail);
 		model.addAttribute("loginUserBean", loginUserBean);
-		model.addAttribute("articles", articles);
+		model.addAttribute("img", loginUserBean.getUser_img());
 
 		return "main";
 	}

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -18,13 +19,18 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import kr.co.softsoldesk.Interceptor.MainInterceptor;
+import kr.co.softsoldesk.Interceptor.CheckLoginInterceptor;
+import kr.co.softsoldesk.Interceptor.CheckUserInterceptor;
+import kr.co.softsoldesk.Interceptor.ShopInterceptor;
 import kr.co.softsoldesk.beans.UserBean;
+import kr.co.softsoldesk.service.BoardService;
 import kr.co.softsoldesk.service.UserService;
 import kr.co.softsoldesk.validator.UserValidator;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("kr.co.softsoldesk.controller")
+@ComponentScan(basePackages = "kr.co.softsoldesk")
 public class ServletAppContext implements WebMvcConfigurer {
 //WebMvcConfigurer: Spring MVC 프로젝트 설정 인터페이스
 
@@ -35,17 +41,17 @@ public class ServletAppContext implements WebMvcConfigurer {
 	private UserBean loginUserBean;
 
 	@Bean
-	public Validator validator() {
-		return new UserValidator();
+	public LocalValidatorFactoryBean defaultValidator() {
+		return new LocalValidatorFactoryBean();
 	}
 
 	@Override
 	public Validator getValidator() {
-		return validator();
+		return defaultValidator(); // 기본 Validator 등록
 	}
 
-//	@Autowired
-//	private BoardService boardService;
+	@Autowired
+	private BoardService boardService;
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -67,22 +73,26 @@ public class ServletAppContext implements WebMvcConfigurer {
 
 		WebMvcConfigurer.super.addInterceptors(registry);
 
-		MainInterceptor mainInterceptor = new MainInterceptor(userService, loginUserBean); // 이 시점에 생성자를 통해서
-																							// mainService,
-																							// loginUserBean 주입
+		MainInterceptor mainInterceptor = new MainInterceptor(userService, loginUserBean);
 		InterceptorRegistration reg1 = registry.addInterceptor(mainInterceptor);
-		reg1.addPathPatterns("/**"); // 모든 요청 주소에 동작하도록 (모든 jsp에 뿌려지도록)
-//		
-//		
-//		CheckLoginInterceptor checkInterceptor = new CheckLoginInterceptor(loginUserBean);
-//		InterceptorRegistration reg2 = registry.addInterceptor(checkInterceptor);
-//		reg2.addPathPatterns("/user/modify", "/user/logout", "/board/*"); // 해당요청들을 잡아서 checkInterceptor 하겠다
-//		reg2.excludePathPatterns("/board/main"); // 예외처리 (로그아웃 사용자가 게시판 글쓰기,수정 등은 안되지만 게시판은 들어갈 수 있게)
-//		
-//		CheckUserInterceptor checkUserInterceptor = new CheckUserInterceptor(loginUserBean, boardService);
-//		InterceptorRegistration reg3 = registry.addInterceptor(checkUserInterceptor);
-//		reg3.addPathPatterns("/board/modify", "/board/delete"); 
+		reg1.addPathPatterns("/**");
 
+		CheckLoginInterceptor checkLoginInterceptor = new CheckLoginInterceptor(loginUserBean);
+		InterceptorRegistration reg2 = registry.addInterceptor(checkLoginInterceptor);
+		reg2.addPathPatterns("/user/modify", "/user/logout", "/board/*");
+
+		CheckLoginInterceptor checkInterceptor = new CheckLoginInterceptor(loginUserBean);
+		InterceptorRegistration reg3 = registry.addInterceptor(checkInterceptor);
+		reg3.addPathPatterns("/user/modify", "/user/logout", "/board/*"); // 해당요청들을 잡아서 checkInterceptor 하겠다
+		reg3.excludePathPatterns("/board/main"); // 예외처리 (로그아웃 사용자가 게시판 글쓰기,수정 등은 안되지만 게시판은 들어갈 수 있게)
+
+		CheckUserInterceptor checkUserInterceptor = new CheckUserInterceptor(loginUserBean, boardService);
+		InterceptorRegistration reg4 = registry.addInterceptor(checkUserInterceptor);
+		reg4.addPathPatterns("/board/modify", "/board/delete");
+
+		ShopInterceptor shopInterceptor = new ShopInterceptor(loginUserBean);
+		InterceptorRegistration reg5 = registry.addInterceptor(shopInterceptor);
+		reg5.addPathPatterns("/shop/**");
 	}
 
 	// 에러메시지 등록
@@ -99,10 +109,10 @@ public class ServletAppContext implements WebMvcConfigurer {
 		return res;
 	}
 
-//	// 파일 업로드 처리 클래스
-//	@Bean
-//	public StandardServletMultipartResolver multipartResolver() {
-//		return new StandardServletMultipartResolver();
-//	}
+	// 파일 업로드 처리 클래스
+	@Bean
+	public StandardServletMultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
+	}
 
 }

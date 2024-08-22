@@ -59,7 +59,7 @@
 								href="${root }company/company" style="padding: 10px 20px;">company</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }shop/shop" style="padding: 10px 20px;">shop</a></li>
+								href="${root }shop/shop?user_idx=${loginUserBean.user_idx}" style="padding: 10px 20px;">shop</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
 								href="${root }board/board_prev_main" style="padding: 10px 20px;">board_prev_main</a>
@@ -78,6 +78,12 @@
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
 								href="${root }user/profile_modify" style="padding: 10px 20px;">mypage</a>
 							</li>
+							<c:if test="${loginUserBean.user_role eq '관리자' }">
+								<li class="u-nav-item"><a
+									class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+									href="${root }company/admin_index" style="padding: 10px 20px;">admin</a>
+								</li>
+							</c:if>
 
 						</c:when>
 						<c:otherwise>
@@ -125,7 +131,7 @@
 										class="u-button-style u-nav-link"
 										href="${root }company/company">company</a></li>
 									<li class="u-nav-item"><a
-										class="u-button-style u-nav-link" href="${root }shop/shop">shop</a></li>
+										class="u-button-style u-nav-link" href="${root }shop/shop?user_idx=${loginUserBean.user_idx}">shop</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
 										href="${root }board/board_prev_main">board_prev_main</a></li>
@@ -139,6 +145,11 @@
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
 										href="${root }user/profile_modify">mypage</a></li>
+									<c:if test="${loginUserBean.user_role eq '관리자' }">
+										<li class="u-nav-item"><a
+											class="u-button-style u-nav-link"
+											href="${root }company/admin_index">admin</a></li>
+									</c:if>
 
 								</c:when>
 								<c:otherwise>

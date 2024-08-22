@@ -21,7 +21,7 @@ public class ContentBean {
 //	DB에 파일 이름을 담을 변수
 	private String content_file;
 
-	private String content_createdAt;
+	private String content_date;
 
 	private boolean content_isAnonymous;
 
@@ -44,6 +44,8 @@ public class ContentBean {
 //	파일을 올려보이면 여기서 해당 파일을 받고 경로를 지정한 후 content_file에다 주고 DB에 넘김
 
 //	-----------------------------------------------------------
+	
+
 
 	public int getContent_idx() {
 		return content_idx;
@@ -77,12 +79,12 @@ public class ContentBean {
 		this.content_file = content_file;
 	}
 
-	public String getContent_createdAt() {
-		return content_createdAt;
+	public String getContent_date() {
+		return content_date;
 	}
 
-	public void setContent_createdAt(String content_createdAt) {
-		this.content_createdAt = content_createdAt;
+	public void setContent_date(String content_date) {
+		this.content_date = content_date;
 	}
 
 	public boolean isContent_isAnonymous() {

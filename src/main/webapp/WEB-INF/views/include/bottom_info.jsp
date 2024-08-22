@@ -84,9 +84,9 @@ l-3.7-5.1L35.7,33.1h8.1l12.3,17.2l3.7,5.1l16.6,23.4h-7.8L55.3,60.2z"></path></sv
 										<a
 											class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
 											data-href="#">
-											<li>공지사항</li>
-											<li>게시판</li>
-											<li>나눔</li>
+											<li>お知らせ</li>
+											<li>掲示板</li>
+											<li>おすそわけ</li>
 											<li>FAQ</li>
 										</a>
 									</ul>
@@ -102,12 +102,12 @@ l-3.7-5.1L35.7,33.1h8.1l12.3,17.2l3.7,5.1l16.6,23.4h-7.8L55.3,60.2z"></path></sv
 									<p class="u-align-left u-text u-text-default u-text-3">
 										<a
 											class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-2"
-											data-href="#">교육청 연동 </a>
+											data-href="https://www.mext.go.jp/b_menu/link/kyoiku.htm">地域別教育委員会 </a>
 									</p>
 									<p class="u-align-left u-text u-text-default u-text-4">
 										<a
 											class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
-											data-href="#">개인정보 약관 </a>
+											data-href="#">プライバシーポリシー </a>
 									</p>
 								</div>
 							</div>
@@ -116,7 +116,7 @@ l-3.7-5.1L35.7,33.1h8.1l12.3,17.2l3.7,5.1l16.6,23.4h-7.8L55.3,60.2z"></path></sv
 								<div
 									class="u-container-layout u-valign-bottom u-container-layout-4">
 									<p class="u-align-right u-text u-text-default u-text-5">
-										Copyright&nbsp;© キャル株式会社 All Rights Reserved.</p>
+										Copyright&nbsp;© マル株式会社 All Rights Reserved.</p>
 								</div>
 							</div>
 						</div>

@@ -7,21 +7,25 @@ import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import kr.co.softsoldesk.groups.LoginGroup;
+import kr.co.softsoldesk.groups.ModifyGroup;
+import kr.co.softsoldesk.groups.RegisterGroup;
+
 @Component
 public class UserBean {
 
 	private int user_idx;
 
-	@Size(min = 2, max = 4)
-	@Pattern(regexp = "[가-힣]*")
+	@Size(min = 2, max = 4, groups = { ModifyGroup.class, RegisterGroup.class })
+	@Pattern(regexp = "[가-힣]*", groups = { ModifyGroup.class, RegisterGroup.class })
 	private String user_nickname;
 
-	@Size(min = 4, max = 20)
-	@Pattern(regexp = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")
+	@Size(min = 4, max = 20, groups = { LoginGroup.class, RegisterGroup.class })
+	@Pattern(regexp = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", groups = { LoginGroup.class, RegisterGroup.class })
 	private String user_email;
 
-	@Size(min = 4, max = 20)
-	@Pattern(regexp = "[a-zA-Z0-9]*")
+	@Size(min = 4, max = 20, groups = { LoginGroup.class, RegisterGroup.class, ModifyGroup.class })
+	@Pattern(regexp = "[a-zA-Z0-9]*", groups = { LoginGroup.class, RegisterGroup.class, ModifyGroup.class })
 	private String user_pass;
 
 	private String user_role;
@@ -31,12 +35,14 @@ public class UserBean {
 	private String user_age;
 	private String user_gender;
 	private String user_statustext;
+	private String user_img;
+	private String user_zodiac;
 
 //	----------------------------------------------------------- ↓↓ DB 테이블에 없는 변수들 (추가한 변수들) ↓↓
 
 	// 내 필요에 의해 넣은 DB에 없는 변수
-	@Size(min = 4, max = 20)
-	@Pattern(regexp = "[a-zA-Z0-9]*")
+	@Size(min = 4, max = 20, groups = { ModifyGroup.class, RegisterGroup.class })
+	@Pattern(regexp = "[a-zA-Z0-9]*", groups = { ModifyGroup.class, RegisterGroup.class })
 	private String user_pass2;
 
 	// 회원가입 전 중복확인 판별
@@ -158,4 +164,21 @@ public class UserBean {
 		this.userLogin = userLogin;
 	}
 
+	public String getUser_img() {
+		return user_img;
+	}
+
+	public void setUser_img(String user_img) {
+		this.user_img = user_img;
+	}
+	
+	public String getUser_zodiac() {
+		return user_zodiac;
+	}
+
+	public void setUser_zodiac(String user_zodiac) {
+		
+        this.user_zodiac=user_zodiac;
+	}
+	
 }

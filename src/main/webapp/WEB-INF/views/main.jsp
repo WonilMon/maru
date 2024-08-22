@@ -49,7 +49,6 @@
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
 <style>
-
 /* 프로필이랑 뉴스 스타일입니다*/
 .u-profile-section {
 	background-color: #F8EDEB;
@@ -61,17 +60,43 @@
 	margin: 0 auto;
 	text-align: center;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	margin: 0 auto;
+	dispay: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.higher-container{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.left-section {
+    flex: 1; /* 비율 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 20px;
 }
 
 .u-profile-header {
-	margin-top: 50px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
-	margin-bottom: -10px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
-}
+	margin-top: 20px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
+	margin-bottom: 20px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
+	text-align: center;
+} 
 
 .u-profile-picture {
 	width: 200px; /* 프로필 사진 크기 더 증가 */
-	height: 150px;
+	height: 200px;
 	border-radius: 50%;
 	object-fit: cover;
 	border: 4px solid #FCD5CE;
@@ -87,7 +112,7 @@
 .u-status-message {
 	color: #000000; /* 사용자명 색상 진하게 */
 	font-size: 28px; /* 사용자명 크기 더 증가 */
-	margin: 8px 0;
+	margin: 6px 0;
 }
 
 .u-status-message {
@@ -98,6 +123,8 @@
 
 .u-profile-actions {
 	margin-top: 15px; /* 버튼과 프로필 헤더 사이의 여백 추가 */
+	display: flex;
+    gap: 10px;
 }
 
 .u-button {
@@ -114,6 +141,14 @@
 .u-button:hover {
 	background-color: #FAE1DD;
 	color: #FCD5CE;
+}
+
+.lower-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
 }
 
 .alert.alert-danger {
@@ -198,6 +233,44 @@
 	background-color: transparent;
 	cursor: pointer;
 	padding: 0;
+}
+
+.google-icons {
+	display: flex;
+	justify-content: center; /* 수평 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+	height: 50px; /* 컨테이너 높이 설정 */
+	width: 100%; /* 부모 요소의 전체 너비 사용 */
+	margin-top: 10px; /* 필요에 따라 위쪽 여백 추가 */
+}
+
+.social-login-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: nowrap; /* 버튼 내부 요소가 줄바꿈 없이 한 줄로 유지되도록 설정 */
+	background-color: white;
+	border: 1px solid #cccccc;
+	border-radius: 25px;
+	padding: 10px 20px;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	cursor: pointer;
+	width: auto;
+	max-width: 300px;
+	height: 40px;
+	box-sizing: border-box;
+}
+
+.social-login-button img {
+	width: 30px; /* 이미지 크기 조정 */
+	height: 30px;
+	margin-right: 5px; /* 이미지와 텍스트 사이 여백 */
+}
+
+.social-login-button span {
+	color: #555555;
+	white-space: nowrap; /* 텍스트가 줄 바꿈 없이 한 줄로 유지되도록 설정 */
 }
 </style>
 </head>
@@ -305,34 +378,54 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<c:choose>
 								<c:when test="${loginUserBean.userLogin == true }">
 									<div class="u-profile-section">
-										<div class="u-profile-header">
-											<img src="path/to/profile-picture.jpg" alt="Profile Picture"
-												class="u-profile-picture">
-											<h2 class="u-username">${loginUserBean.user_nickname }</h2>
-											<p class="u-status-message">${loginUserBean.user_statustext }</p>
+										<div class="higher-container">
+											<div class="left-section">
+												<div class="u-profile-header">
+													<c:choose>
+														<c:when test="${img != null }">
+															<img id="profileImage" src="${root}getProfileImage/${img}"
+																class="u-profile-picture" alt="프로필 이미지">
+														</c:when>
+														<c:otherwise>
+															<img id="profileImage" src="${root}images/90fc53c9.svg"
+																class="u-profile-picture" alt="프로필 이미지">
+														</c:otherwise>
+													</c:choose>
+												</div>
+											</div>
+											<div class="right-section">
+												<div class="u-profile-header">
+													<h2 class="u-username">${loginUserBean.user_nickname }</h2>
+													<p class="u-status-message">${loginUserBean.user_statustext }</p>
+													<div class="u-profile-actions gap-2">
+													<a
+														href="${root }user/profile_modify?user_idx=${loginUserBean.user_idx }"
+														class="u-button">My Page</a>
+													<a href="${root }user/logout" class="u-button">logout</a>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div class="u-profile-actions">
-											<a href="${root }user/profile_modify?user_idx=${loginUserBean.user_idx }" class="u-button">My
-												Page</a>
-										</div>
-										<div class="u-profile-actions">
-											<a href="${root }user/logout" class="u-button">logout</a>
+										<div  class="lower-section">
+											<p>${loginUserBean.user_zodiac }의 오늘의 운세</p>
+											<p>오늘은 비가 옵니다</p>
 										</div>
 									</div>
-
+									
 								</c:when>
 								<c:otherwise>
 
 									<div
-										class="u-border-3 u-border-palette-2-light-1 u-container-layout u-valign-middle u-container-layout-2">
+										class="u-border-3 u-border-palette-2-light-1 u-container-layout u-valign-middle u-container-layout-2"
+										tyle="display: flex; align-items: center;">
 										<h2
 											class="u-align-center u-text u-text-default u-text-palette-2-base u-text-2">LOGIN</h2>
 										<div class="u-form u-form-1">
 
 											<c:if test="${fail == true }">
 												<div class="alert alert-danger">
-													<h3>로그인 실패</h3>
-													<p>아이디 비밀번호를 확인해주세요</p>
+													<h3>ログインに失敗しました</h3>
+													<p>入力内容をお確かめの上、再度お試しください</p>
 												</div>
 											</c:if>
 
@@ -343,7 +436,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 												<div class="u-form-email u-form-group">
 													<form:label path="user_email" class="u-label"
 														wfd-invisible="true">email</form:label>
-													<form:input type="email" placeholder="Enter a email"
+													<form:input type="email" placeholder="メールアドレス"
 														path="user_email"
 														class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1"
 														required="" />
@@ -351,41 +444,47 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 												</div>
 												<div class="u-form-group u-form-group-2">
 													<form:label path="user_pass" class="u-label">password</form:label>
-													<form:password placeholder="Enter a password"
+													<form:password placeholder="パスワード"
 														path="user_pass"
-														class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2" />
+														class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2"
+														required="" />
 													<form:errors path="user_pass" style="color:red"></form:errors>
 												</div>
 
 												<div class="u-align-left u-form-group u-form-submit">
 													<button type="submit"
 														class="u-active-white u-border-2 u-border-active-palette-2-light-1 
-                    u-border-hover-palette-2-light-1 u-border-palette-2-light-1 u-btn u-btn-round u-btn-submit 
-                    u-button-style u-hover-white u-palette-2-light-1 u-radius-50 u-text-active-black 
-                    u-text-body-alt-color u-text-hover-black u-btn-1">Submit</button>
+						 u-border-hover-palette-2-light-1 u-border-palette-2-light-1 u-btn u-btn-round u-btn-submit
+						 u-button-style u-hover-white u-palette-2-light-1 u-radius-50 u-text-active-black 
+						 u-text-body-alt-color u-text-hover-black u-btn-1">ログイン</button>
 												</div>
 
 											</form:form>
 
 										</div>
-										<div class="u-social-icons u-spacing-10 u-social-icons-1">
-
-											<img id="lineLoginButton" src="${root }images/line_icon.png"
-												style="width: 40px; height: 40px;">
-											<div id="buttonDiv"></div>
-
+										<div class="u-social-icons u-spacing-10 u-social-icons-1"
+											style="display: flex; gap: 10px;">
+											<div id="lineButtonDiv" onclick="lineLogin()"
+												class="social-login-button">
+												<img id="lineLoginButton" src="${root}images/line_icon.png"
+													alt="Line Logo"> <span>LINE 계정으로 로그인</span>
+											</div>
 										</div>
+										<div class="google-icons">
+											<div id="buttonDiv"></div>
+										</div>
+
+
 										<p class="u-align-center u-text u-text-default u-text-3">
 											<a
-												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none 
-            u-text-palette-1-base u-btn-2"
-												data-href="${root }user/register">Register</a>
+												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-2"
+												data-href="${root }user/register">アカウントを作成</a>
 										</p>
 										<p class="u-align-center u-text u-text-default u-text-4">
 											<a
-												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none 
-            u-text-palette-1-base u-btn-3"
-												data-href="${root }user/search_password">Search PassWord</a>
+												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
+												data-href="${root }user/search_password">パスワードをお忘れの場合
+											</a>
 										</p>
 									</div>
 
@@ -405,8 +504,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		id="carousel_29f6">
 		<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
 			<h2
-				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">베스트
-				글</h2>
+				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">投稿ランキング
+				</h2>
 			<p
 				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-2">당신의
 				소녀에게 투표하세요</p>
@@ -416,7 +515,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 						class="u-align-center u-border-3 u-border-palette-2-light-1 u-container-style u-list-item u-radius u-repeater-item u-shape-round u-white u-list-item-1">
 						<div
 							class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
-							<h3 class="u-align-center u-text u-text-3">일간 베스트</h3>
+							<h3 class="u-align-center u-text u-text-3">日間ランキング</h3>
 							<ol class="u-align-center u-text u-text-4">
 								<a
 									class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
@@ -438,7 +537,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 						class="u-align-center u-border-3 u-border-palette-2-light-1 u-container-align-center u-container-style u-list-item u-radius u-repeater-item u-shape-round u-white u-list-item-2">
 						<div
 							class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
-							<h3 class="u-align-center u-text u-text-5">주간 베스트</h3>
+							<h3 class="u-align-center u-text u-text-5">週間ランキング</h3>
 							<ol class="u-align-center u-text u-text-6">
 								<a
 									class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
@@ -459,7 +558,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 						class="u-align-center u-border-3 u-border-palette-2-light-1 u-container-style u-list-item u-radius u-repeater-item u-shape-round u-white u-list-item-3">
 						<div
 							class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
-							<h3 class="u-align-center u-text u-text-7">월간 베스트</h3>
+							<h3 class="u-align-center u-text u-text-7">月間ランキング</h3>
 							<ol class="u-align-center u-text u-text-8">
 								<a
 									class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-5"
@@ -486,7 +585,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		<h2
 			class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-1"
 			data-animation-name="customAnimationIn"
-			data-animation-duration="1500">아름다운 나눔나눔</h2>
+			data-animation-duration="1500">今日のおすそわけ</h2>
 		<p
 			class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-2"
 			data-animation-name="customAnimationIn"
@@ -683,7 +782,95 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 	</section>
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
-	
+	<!-- 구글 API -->
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		function handleCredentialResponse(response) {
+			const responsePayload = parseJwt(response.credential);
+			console.log("ID: " + responsePayload.sub);
+			console.log('Full Name: ' + responsePayload.name);
+			console.log('Given Name: ' + responsePayload.given_name);
+			console.log('Family Name: ' + responsePayload.family_name);
+			console.log("Image URL: " + responsePayload.picture);
+			console.log("Email: " + responsePayload.email);
+
+			$
+					.ajax({
+						type : "POST",
+						url : "${root}user/google",
+						data : JSON.stringify({
+							api_email : responsePayload.email
+						}),
+						contentType : "application/json",
+						success : function(response) {
+							if (response.success) {
+								window.location.href = "${root}main";
+							} else {
+								window.location.href = "${root}user/register?api_email="
+										+ encodeURIComponent(responsePayload.email);
+							}
+						},
+						error : function(error) {
+							console.log("Error sending email to the server:",
+									error);
+						}
+					});
+		}
+
+		function parseJwt(token) {
+			var base64Url = token.split('.')[1];
+			var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+			var jsonPayload = decodeURIComponent(atob(base64).split('').map(
+					function(c) {
+						return '%'
+								+ ('00' + c.charCodeAt(0).toString(16))
+										.slice(-2);
+					}).join(''));
+
+			return JSON.parse(jsonPayload);
+		};
+
+		window.onload = function() {
+			google.accounts.id
+					.initialize({
+						client_id : "984358048061-jn1296ctnkm3i82irasvhii7pc0br6q7.apps.googleusercontent.com",
+						callback : handleCredentialResponse
+					});
+
+			google.accounts.id.renderButton(document
+					.getElementById("buttonDiv"), {
+				theme : "outline",
+				shape : "pill",
+				text : ""
+			});
+
+			google.accounts.id.prompt();
+		};
+	</script>
+
+	<!-- 라인 API -->
+	<script>
+		document.getElementById("lineLoginButton").onclick = function() {
+			const clientId = "2006071190"; // 클라이언트 ID
+			const redirectUri = encodeURIComponent("http://localhost:8078/Maru/user/line"); // 리디렉션 URI
+			const state = "RANDOM_STRING"; // CSRF 방지용 상태 값
+			const scope = "profile%20openid%20email"; // 요청할 권한에 email 추가
+
+			const lineLoginUrl = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id="
+					+ clientId
+					+ "&redirect_uri="
+					+ redirectUri
+					+ "&state="
+					+ state + "&scope=" + scope;
+
+			window.location.href = lineLoginUrl;
+		};
+	</script>
+
+
 	<!-- 강제 제출 -->
 	<script>
 		$(document).ready(

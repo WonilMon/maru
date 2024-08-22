@@ -9,7 +9,7 @@
 <section
 	class="skrollable u-align-center u-clearfix u-image u-parallax u-shading u-section-1"
 	id="sec-ff73"
-	style="background-image: url('${root}images/kawaii.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+	style="background-image: url('${root}images/baby.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;"
 	data-image-width="425" data-image-height="425">
 	<div class="u-clearfix u-sheet u-sheet-1">
 		<p class="u-text u-text-default u-text-1">
@@ -26,7 +26,7 @@
 						class="u-container-layout u-similar-container u-container-layout-1">
 						<h4 class="u-align-center u-text u-text-2"
 							data-animation-name="customAnimationIn"
-							data-animation-duration="1500" data-animation-delay="500">공지사항
+							data-animation-duration="1500" data-animation-delay="500">お知らせ
 						</h4>
 						<a href="${root }company/notice"
 							class="u-align-center u-border-1 u-border-active-grey-70 u-border-black u-border-hover-grey-70 u-border-no-left u-border-no-right u-border-no-top u-bottom-left-radius-0 u-bottom-right-radius-0 u-btn u-button-style u-custom-item u-none u-radius-0 u-text-active-palette-2-base u-text-body-color u-text-hover-palette-2-base u-top-left-radius-0 u-top-right-radius-0 u-btn-1">more</a>
@@ -40,9 +40,9 @@
 						class="u-container-layout u-similar-container u-container-layout-2">
 						<h4 class="u-align-center u-text u-text-3"
 							data-animation-name="customAnimationIn"
-							data-animation-duration="1500" data-animation-delay="500">게시판
+							data-animation-duration="1500" data-animation-delay="500">掲示板
 						</h4>
-						<a href="${root }board/board_modify"
+						<a href="${root }board/board_prev_main"
 							class="u-align-center u-border-1 u-border-active-grey-70 u-border-black u-border-hover-grey-70 u-border-no-left u-border-no-right u-border-no-top u-bottom-left-radius-0 u-bottom-right-radius-0 u-btn u-button-style u-custom-item u-none u-radius-0 u-text-active-palette-2-base u-text-body-color u-text-hover-palette-2-base u-top-left-radius-0 u-top-right-radius-0 u-btn-2">more</a>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 						class="u-container-layout u-similar-container u-container-layout-3">
 						<h4 class="u-align-center u-text u-text-4"
 							data-animation-name="customAnimationIn"
-							data-animation-duration="1500" data-animation-delay="500">나눔</h4>
+							data-animation-duration="1500" data-animation-delay="500">おすそわけ</h4>
 						<a href="${root }sharing/sharing_main"
 							class="u-align-center u-border-1 u-border-active-grey-70 u-border-black u-border-hover-grey-70 u-border-no-left u-border-no-right u-border-no-top u-bottom-left-radius-0 u-bottom-right-radius-0 u-btn u-button-style u-custom-item u-none u-radius-0 u-text-active-palette-2-base u-text-body-color u-text-hover-palette-2-base u-top-left-radius-0 u-top-right-radius-0 u-btn-3">more</a>
 					</div>

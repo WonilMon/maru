@@ -6,6 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script>
-	alert("로그아웃 되었습니다")
+	alert("ログアウトされました")
 	location.href = "${root}main"
 </script>

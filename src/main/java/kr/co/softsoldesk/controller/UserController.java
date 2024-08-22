@@ -8,21 +8,35 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 import kr.co.softsoldesk.beans.LineProfile;
 import kr.co.softsoldesk.beans.UserBean;
-import kr.co.softsoldesk.service.LineLoginService;
+import kr.co.softsoldesk.groups.LoginGroup;
+import kr.co.softsoldesk.groups.ModifyGroup;
+import kr.co.softsoldesk.groups.RegisterGroup;
 import kr.co.softsoldesk.service.UserService;
+import kr.co.softsoldesk.validator.UserValidator;
 
 @Controller
 @RequestMapping("/user")
@@ -31,8 +45,29 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+//	@Autowired
+//	private LineLoginService lineLoginService;
+
 	@Autowired
-	private LineLoginService lineLoginService;
+	private UserValidator userValidator;
+
+	@Autowired
+	private MailSender mailSender;
+
+	@InitBinder("addUserBean")
+	protected void initAddUserBinder(WebDataBinder binder) {
+		binder.addValidators(userValidator);
+	}
+
+	@InitBinder("modifyUser")
+	protected void initModifyUserBinder(WebDataBinder binder) {
+		binder.addValidators(userValidator);
+	}
+
+	@InitBinder("tempLoginUserBean")
+	protected void initTempLoginUserBinder(WebDataBinder binder) {
+		binder.addValidators(userValidator);
+	}
 
 	@Resource(name = "loginUserBean")
 	private UserBean loginUserBean;
@@ -42,6 +77,10 @@ public class UserController {
 	@GetMapping("/profile")
 	private String profile(@RequestParam("user_idx") int user_idx, Model model) {
 		UserBean profileUser = userService.getModifyUserInfo(user_idx);
+
+		String img = userService.getImgFile(user_idx);
+
+		model.addAttribute("img", img);
 		model.addAttribute("profileUser", profileUser);
 
 		return "user/profile";
@@ -52,19 +91,23 @@ public class UserController {
 
 		UserBean modifyUser = userService.getModifyUserInfo(user_idx);
 		model.addAttribute("modifyUser", modifyUser);
-		
+
+		String img = userService.getImgFile(user_idx);
+
+		model.addAttribute("img", img);
+
 		return "user/profile_modify";
 	}
 
 	@PostMapping("/profile_modify_pro")
-	public String profile_modify_pro(@Valid @ModelAttribute("modifyUser") UserBean modifyUser, BindingResult result) {
+	public String profile_modify_pro(@Validated(ModifyGroup.class) @ModelAttribute("modifyUser") UserBean modifyUser,
+			BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			return "user/profile_modify";
+			return "user/profile_modify"; // 에러 발생 시 다시 profile_modify로 돌아감
 		}
 
 		userService.modifyUser(modifyUser);
-
 		return "user/profile_modify_success";
 	}
 
@@ -91,7 +134,8 @@ public class UserController {
 	}
 
 	@PostMapping("/register_pro")
-	public String register_pro(@Valid @ModelAttribute("addUserBean") UserBean addUserBean, BindingResult result) {
+	public String register_pro(@Validated(RegisterGroup.class) @ModelAttribute("addUserBean") UserBean addUserBean,
+			BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "user/register";
@@ -103,10 +147,16 @@ public class UserController {
 	}
 
 	@PostMapping("/login_pro")
-	private String login_pro(@ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean,
-			@Valid BindingResult result, HttpSession session) {
+	private String login_pro(
+			@Validated(LoginGroup.class) @ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean,
+			BindingResult result, HttpSession session) {
+
+		System.out.println(
+				"UserBean data: " + tempLoginUserBean.getUser_email() + ", " + tempLoginUserBean.getUser_pass());
 
 		if (result.hasErrors()) {
+			System.out.println("Validation errors:");
+			result.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
 			return "main";
 		}
 
@@ -118,52 +168,6 @@ public class UserController {
 		} else {
 			return "user/login_fail";
 		}
-	}
-
-	@PostMapping("/google")
-	@ResponseBody
-	public Map<String, Object> google(@RequestBody Map<String, String> request,
-			@ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean, Model model, HttpSession session) {
-
-		Map<String, Object> response = new HashMap<>();
-
-		String user_email = request.get("api_email");
-		System.out.println("Received email: " + user_email);
-
-		userService.getLoginUserAPI(user_email);
-
-		if (loginUserBean.isUserLogin() == true) {
-			session.setAttribute("user_idx", loginUserBean.getUser_idx());
-			response.put("success", true);
-		} else {
-			response.put("success", false);
-		}
-
-		return response;
-	}
-
-	@RequestMapping("/line")
-	public String lineCallback(@RequestParam(value = "code", required = false) String code,
-			@RequestParam(value = "state", required = false) String state, HttpSession session, Model model) {
-
-		UserBean tempLoginUserBean = new UserBean();
-
-		// Access Token 발급
-		String accessToken = lineLoginService.getAccessToken(code);
-
-		// 사용자 프로필 정보 가져오기
-		LineProfile profile = lineLoginService.getUserProfile(accessToken);
-
-		System.out.println(profile.getUserId());
-		System.out.println(profile.getDisplayName());
-		System.out.println(profile.getUserEmail());
-
-		// 사용자 정보를 세션에 저장
-		session.setAttribute("userProfile", profile);
-		model.addAttribute("tempLoginUserBean", tempLoginUserBean);
-
-		// 로그인 후 리다이렉트할 페이지
-		return "main";
 	}
 
 	@GetMapping("/not_login")
@@ -192,6 +196,40 @@ public class UserController {
 		session.invalidate();
 
 		return "user/delete_success";
+	}
+
+	@PostMapping("/search_password_pro")
+	public String searchPasswordPro(@ModelAttribute("searchPasswordBean") UserBean searchPasswordBean) {
+
+		boolean emailExists = userService.checkUserEmailExist(searchPasswordBean.getUser_email());
+
+		if (emailExists == true) {
+			return "user/password_reset_fail";
+		} else {
+			String newPassword = userService.resetPassword(searchPasswordBean.getUser_email());
+			System.out.println("新しいパスワード: " + newPassword);
+
+			try {
+				sendMail(searchPasswordBean.getUser_email(), newPassword);
+				return "user/send_mail_success";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "user/send_mail_fail";
+			}
+		}
+	}
+
+	private void sendMail(String to, String newPassword) throws Exception {
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		mailMessage.setTo(to);
+		mailMessage.setSubject("【重要】パスワードリセットのお知らせ");
+		mailMessage.setText("こんにちは、\n\n" + "ご依頼に基づき、アカウントのパスワードがリセットされました。\n" + "新しいパスワードは以下の通りです:\n\n" + "新しいパスワード: "
+				+ newPassword + "\n\n" + "セキュリティ保護のため、ログイン後、速やかにパスワードを変更することをお勧めします。\n\n"
+				+ "もしこのメールに覚えがない場合は、アカウントの不正利用の可能性があります。" + "直ちにサイト内のFAQにアクセスし、サポートチームにご連絡ください。\n\n"
+				+ "また、その他の質問やサポートが必要な場合も、同じくFAQページをご参照ください。\n\n" + "この度はご利用いただき、誠にありがとうございます。\n\n" + "敬具,\n"
+				+ "サポートチーム");
+
+		mailSender.send(mailMessage);
 	}
 
 }

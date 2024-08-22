@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
 import kr.co.softsoldesk.beans.UserBean;
 
 public interface UserMapper {
@@ -14,7 +13,7 @@ public interface UserMapper {
 	// 2. 여러 값을 담은 빈으로 끌고오고 싶다 -> bean으로 bean 끌고오기
 
 	// 회원가입 insert
-	@Insert("insert into users(user_idx, user_nickname, user_email, user_pass, user_age, user_gender, user_role, user_point, user_statustext) values(users_seq.nextval, #{user_nickname}, #{user_email}, #{user_pass}, #{user_age}, #{user_gender}, #{user_role}, #{user_point}, #{user_statustext})")
+	@Insert("insert into users(user_idx, user_nickname, user_email, user_pass, user_age, user_gender, user_role, user_point, user_statustext, user_zodiac) values(users_seq.nextval, #{user_nickname}, #{user_email}, #{user_pass}, #{user_age}, #{user_gender}, #{user_role}, #{user_point}, #{user_statustext}, #{user_zodiac})")
 	void addUser(UserBean addUserBean);
 
 	// 회원정보 select
@@ -48,4 +47,26 @@ public interface UserMapper {
 	@Select("select user_email from users where user_email = #{user_email}")
 	String checkUserEmailExist(String user_email);
 
+	// 패스워드 리셋
+	@Update("UPDATE users SET user_pass = #{newPassword} WHERE user_email = #{user_email}")
+	void updatePassword(@Param("user_email") String user_email, @Param("newPassword") String newPassword);
+
+	// 상점에서 user_idx 끌어오기
+	@Select("SELECT * FROM users WHERE user_idx = #{user_idx}")
+	UserBean getUserById(int user_idx);
+
+	@Update("UPDATE users SET user_point = #{user_point} WHERE user_idx = #{user_idx}")
+	void updateUser(UserBean user);
+
+	// buyIcon 요청으로 user_icon 테이블에 넣기
+	@Insert("INSERT INTO user_icon (user_icon_idx, user_idx, icon_idx) VALUES (user_icon_seq.NEXTVAL, #{user_idx}, #{icon_idx})")
+	void insertUserIcon(@Param("user_idx") int user_idx, @Param("icon_idx") int icon_idx);
+
+	// 프로필 이미지 업로드
+	@Update("update users set user_img = #{user_img} where user_idx = #{user_idx}")
+	void updateImgFile(@Param("user_img") String user_img, @Param("user_idx") int user_idx);
+
+	// 프로필 이미지 가져오기
+	@Select("select user_img from users where user_idx = #{user_idx}")
+	String getImgFile(int user_idx);
 }

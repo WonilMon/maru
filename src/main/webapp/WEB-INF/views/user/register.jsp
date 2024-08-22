@@ -59,7 +59,7 @@
 		let user_nickname = $("#user_nickname").val() // 사용자가 입력한 nickname값 가져오기
 
 		if (user_nickname.length == 0) {
-			alert("닉네임을 입력하세요")
+			alert("ニックネームを入力してください")
 			return
 
 		}
@@ -74,10 +74,10 @@
 			success : function(result) {
 
 				if (result.trim() == "true") {
-					alert("사용할 수 있는 닉네임입니다")
+					alert("使用可能なニックネームです")
 					$("#userNickNameExist").val("true")
 				} else {
-					alert("사용할 수 없는 닉네임입니다")
+					alert("そのニックネームは既に存在します")
 					$("#userNickNameExist").val("false")
 				}
 			}
@@ -97,7 +97,7 @@
 		let user_email = $("#user_email").val() // 사용자가 입력한 email 값 가져오기
 
 		if (user_email.length == 0) {
-			alert("이메일을 입력하세요")
+			alert("メールアドレスを入力してください")
 			return
 
 		}
@@ -112,10 +112,10 @@
 			success : function(result) {
 
 				if (result.trim() == "true") {
-					alert("사용할 수 있는 이메일입니다")
+					alert("使用可能なメールアドレスです")
 					$("#userEmailExist").val("true")
 				} else {
-					alert("사용할 수 없는 이메일입니다")
+					alert("そのメールアドレスは既に登録済みです")
 					$("#userEmailExist").val("false")
 				}
 			}
@@ -162,11 +162,11 @@
 		id="carousel_de12" data-animation-name="" data-animation-duration="0"
 		data-animation-delay="0" data-animation-direction="">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<h2 class="u-align-center u-text u-text-default u-text-1">Register</h2>
+			<h2 class="u-align-center u-text u-text-default u-text-1">新規会員登録</h2>
 			<p class="u-align-center u-text u-text-default u-text-2">
 				<a
 					class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
-					data-href="#">문의사항 : www.maru.faq.com </a>
+					data-href="#">お問い合わせ : www.maru.faq.com </a>
 			</p>
 			<div class="u-form u-radius-20 u-white u-form-1">
 
@@ -181,31 +181,31 @@
 					<button class="u-button-1" onclick="checkUserNickNameExist()"
 						type="button"
 						style="position: absolute; top: 10px; right: 150px; background-color: #FCD5CE; border: 2px solid #FAE1DD; color: #000000; border-radius: 8px; padding: 10px 20px;">
-						nick check</button>
+						ネーム重複確認</button>
 
 					<button class="u-button-2" onclick="checkUserEmailExist()"
 						type="button"
 						style="position: absolute; top: 10px; right: 10px; background-color: #FCD5CE; border: 2px solid #FAE1DD; color: #000000; border-radius: 8px; padding: 10px 20px;">
-						email check</button>
+						メール重複確認</button>
 
 					<div class="u-form-group u-form-name">
-						<form:label path="user_nickname" class="u-label">NickName</form:label>
+						<form:label path="user_nickname" class="u-label">ニックネーム</form:label>
 						<form:input type="text" path="user_nickname"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							placeholder="입력" onkeypress="resetUserNickNameExist()" />
+							placeholder="ニックネームを入力してください" onkeypress="resetUserNickNameExist()" />
 						<form:errors path="user_nickname" style="color:red" />
 					</div>
 					<div class="u-form-email u-form-group">
-						<form:label path="user_email" class="u-label">Email</form:label>
+						<form:label path="user_email" class="u-label">メールアドレス</form:label>
 
 						<c:choose>
 							<c:when test="${api_email != ''}">
-								<form:input type="email" path="user_email"
+								<form:input type="email" path="user_email" placeholder="メールアドレスを入力してください"
 									onkeypress="resetUserEmailExist()"
 									class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" value="${api_email }"></form:input>
 							</c:when>
 							<c:otherwise>
-								<form:input type="email" placeholder="입력" path="user_email"
+								<form:input type="email" placeholder="メールアドレスを入力してください" path="user_email"
 									onkeypress="resetUserEmailExist()"
 									class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
 							</c:otherwise>
@@ -214,34 +214,34 @@
 						<form:errors path="user_email" style="color:red" />
 					</div>
 					<div class="u-form-group u-form-group-3">
-						<form:label path="user_pass" class="u-label">Password</form:label>
-						<form:password placeholder="입력" path="user_pass"
+						<form:label path="user_pass" class="u-label">パスワード</form:label>
+						<form:password placeholder="半角英数字4~20文字で入力してください" path="user_pass"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
 						<form:errors path="user_pass" style="color:red" />
 					</div>
 					<div class="u-form-group u-form-group-3">
-						<form:label path="user_pass2" class="u-label">Password</form:label>
-						<form:password placeholder="입력" path="user_pass2"
+						<form:label path="user_pass2" class="u-label">パスワード再入力</form:label>
+						<form:password placeholder="確認のため、もう一度入力してください" path="user_pass2"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
 						<form:errors path="user_pass2" style="color:red" />
 					</div>
 
 					<div class="u-form-date u-form-group u-form-group-4">
-						<form:label path="user_age" class="u-label">Date</form:label>
-						<form:input type="text" placeholder="MM-DD-YYYY" path="user_age"
+						<form:label path="user_age" class="u-label">生年月日</form:label>
+						<form:input type="text" placeholder="YYYY-MM-DD" path="user_age"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
 						<form:errors path="user_age" style="color:red"></form:errors>
 					</div>
 
 					<div class="u-form-group u-form-select u-form-group-5">
-						<form:label path="user_gender" class="u-label">gender of parents</form:label>
+						<form:label path="user_gender" class="u-label">性別</form:label>
 						<div class="u-form-select-wrapper">
 							<form:select path="user_gender"
 								class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
-								<option value="선택" data-calc="">---선택---</option>
-								<option value="남" data-calc="">남</option>
-								<option value="여" data-calc="">여</option>
-								<option value="어느 쪽도 아님" data-calc="">어느 쪽도 아님</option>
+								<option value="선택" data-calc="">---あなたの性別---</option>
+								<option value="남" data-calc="">男性</option>
+								<option value="여" data-calc="">女性</option>
+								<option value="어느 쪽도 아님" data-calc="">その他</option>
 
 							</form:select>
 						</div>
@@ -250,7 +250,7 @@
 
 					<div class="u-align-right u-form-group u-form-submit">
 						<button type="submit"
-							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">button</button>
+							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">登録する</button>
 					</div>
 				</form:form>
 
@@ -279,10 +279,10 @@
 												"#userEmailExist").val();
 
 										if (userNickNameExist === "false") {
-											alert("닉네임 중복 체크를 완료해 주세요.");
+											alert("ニックネーム重複チェックを行ってください");
 											event.preventDefault();
 										} else if (userEmailExist === "false") {
-											alert("이메일 중복 체크를 완료해 주세요.");
+											alert("メールアドレス重複チェックを行ってください");
 											event.preventDefault();
 										} else {
 											form.off("submit").submit();

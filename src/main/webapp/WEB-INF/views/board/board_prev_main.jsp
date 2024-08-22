@@ -66,102 +66,32 @@
 				고르세용</p>
 			<div class="u-expanded-width u-list u-list-1">
 				<div class="u-repeater u-repeater-1">
+				<c:forEach var="obj" items="${list }" varStatus="idx">
 					<div
 						class="u-align-center u-border-3 u-border-palette-2-light-1 u-container-style u-list-item u-radius u-repeater-item u-shape-round u-white u-list-item-1">
 						<div
 							class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
-							<h3 class="u-align-center u-text u-text-3">자유</h3>
+							<h3 class="u-align-center u-text u-text-3">${boardList[idx.index].board_info_name }</h3>
 							<ol class="u-align-center u-spacing-30 u-text u-text-4">
-								<li>Sample Item 1</li>
-								<li>Sample Item 2</li>
-								<li>Sample Item 3</li>
-								<li>Sample Item 4<br>
-								</li>
-								<li>Sample Item 5<br>
-								</li>
-								<li>Sample Item 6<br>
-								</li>
-								<li>Sample Item 7<br>
-								</li>
-								<li>Sample Item 8<br>
-								</li>
-								<li>Sample Item 9<br>
-								</li>
-								<li>Sample Item 10<br>
-								</li>
+								<c:forEach var="obj2" items="${obj }">
+									<li>
+										<a href='${root }board/board_read?content_idx=${obj2.content_idx}&board_info_idx=${obj2.board_info_idx}'>
+											${obj2.content_subject }
+										</a>
+									</li>
+								</c:forEach>
 							</ol>
-							<a href="#"
+							<a href="${root }board/board_main?board_info_idx=${boardList[idx.index].board_info_idx}"
 								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-1"
 								data-animation-name="" data-animation-duration="0"
 								data-animation-delay="0" data-animation-direction="">
-								Inquire for rates</a>
+								${boardList[idx.index].board_info_name }으로 가기</a>
 						</div>
 					</div>
-					<div
-						class="u-align-center u-border-3 u-border-palette-2-light-1 u-container-align-center u-container-style u-list-item u-radius u-repeater-item u-shape-round u-white u-list-item-2">
-						<div
-							class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
-							<h3 class="u-align-center u-text u-text-5">질문</h3>
-							<ol class="u-align-center u-spacing-30 u-text u-text-6">
-								<li>Sample Item 1</li>
-								<li>Sample Item 2</li>
-								<li>Sample Item 3</li>
-								<li>Sample Item 4<br>
-								</li>
-								<li>Sample Item 5<br>
-								</li>
-								<li>Sample Item 6<br>
-								</li>
-								<li>Sample Item 7<br>
-								</li>
-								<li>Sample Item 8<br>
-								</li>
-								<li>Sample Item 9<br>
-								</li>
-								<li>Sample Item 10<br>
-								</li>
-							</ol>
-							<a href="#"
-								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-2"
-								data-animation-name="" data-animation-duration="0"
-								data-animation-delay="0" data-animation-direction="">
-								Inquire for rates</a>
-						</div>
-					</div>
-					<div
-						class="u-align-center u-border-3 u-border-palette-2-light-1 u-container-style u-list-item u-radius u-repeater-item u-shape-round u-white u-list-item-3">
-						<div
-							class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
-							<h3 class="u-align-center u-text u-text-7">정보공유</h3>
-							<ol class="u-align-center u-spacing-30 u-text u-text-8">
-								<li>Sample Item 1</li>
-								<li>Sample Item 2</li>
-								<li>Sample Item 3</li>
-								<li>Sample Item 4<br>
-								</li>
-								<li>Sample Item 5<br>
-								</li>
-								<li>Sample Item 6<br>
-								</li>
-								<li>Sample Item 7<br>
-								</li>
-								<li>Sample Item 8<br>
-								</li>
-								<li>Sample Item 9<br>
-								</li>
-								<li>Sample Item 10<br>
-								</li>
-							</ol>
-							<a href="#"
-								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-3"
-								data-animation-name="" data-animation-duration="0"
-								data-animation-delay="0" data-animation-direction=""> Learn
-								More</a>
-						</div>
+					</c:forEach>
 					</div>
 				</div>
 			</div>
-		</div>
 	</section>
 
 

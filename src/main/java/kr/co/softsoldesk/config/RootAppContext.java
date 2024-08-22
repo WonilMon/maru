@@ -1,5 +1,7 @@
 package kr.co.softsoldesk.config;
 
+import java.util.Properties;	
+
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
@@ -11,12 +13,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.mapper.BoardMapper;
+import kr.co.softsoldesk.mapper.CommentMapper;
+import kr.co.softsoldesk.mapper.IconMapper;
+import kr.co.softsoldesk.mapper.UserIconMapper;
 import kr.co.softsoldesk.mapper.UserMapper;
 
 @Configuration
@@ -24,6 +31,7 @@ import kr.co.softsoldesk.mapper.UserMapper;
 @ComponentScan("kr.co.softsoldesk.service")
 @ComponentScan("kr.co.softsoldesk.DAO")
 @PropertySource("/WEB-INF/properties/db.properties")
+@PropertySource("/WEB-INF/properties/mail.properties")
 public class RootAppContext implements WebMvcConfigurer {
 
 	@Value("${db.classname}")
@@ -44,6 +52,34 @@ public class RootAppContext implements WebMvcConfigurer {
 	public UserBean loginUserBean() {
 
 		return new UserBean();
+	}
+
+	@Value("${mail.host}")
+	private String mailHost;
+
+	@Value("${mail.port}")
+	private int mailPort;
+
+	@Value("${mail.username}")
+	private String mailUsername;
+
+	@Value("${mail.password}")
+	private String mailPassword;
+
+	@Bean
+	public JavaMailSender getJavaMailSender() {
+
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost(mailHost);
+		mailSender.setPort(mailPort);
+		mailSender.setUsername(mailUsername);
+		mailSender.setPassword(mailPassword);
+
+		Properties props = mailSender.getJavaMailProperties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+
+		return mailSender;
 	}
 
 //	데이터베이스 접속 정보 관리 (아예 컨테이너에 올려놓고 쓸게요)
@@ -68,14 +104,14 @@ public class RootAppContext implements WebMvcConfigurer {
 		return factory;
 	}
 
-////	쿼리문 실행을 위한 객체 mapper1
-//	@Bean
-//	public MapperFactoryBean<BoardMapper> getBoardMapper(SqlSessionFactory factory) {
-//		MapperFactoryBean<BoardMapper> factoryBean = new MapperFactoryBean<BoardMapper>(BoardMapper.class);
-//		factoryBean.setSqlSessionFactory(factory);
-//
-//		return factoryBean;
-//	}
+//	쿼리문 실행을 위한 객체 mapper1
+	@Bean
+	public MapperFactoryBean<BoardMapper> getBoardMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<BoardMapper> factoryBean = new MapperFactoryBean<BoardMapper>(BoardMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+
+		return factoryBean;
+	}
 
 ////	쿼리문 실행을 위한 객체 mapper2
 //	@Bean
@@ -94,4 +130,30 @@ public class RootAppContext implements WebMvcConfigurer {
 		return factoryBean;
 	}
 
+//	쿼리문 실행을 위한 객체 mapper6
+	@Bean
+	public MapperFactoryBean<IconMapper> getIconMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<IconMapper> factoryBean = new MapperFactoryBean<IconMapper>(IconMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+
+		return factoryBean;
+	}
+
+//	쿼리문 실행을 위한 객체 mapper7
+	@Bean
+	public MapperFactoryBean<UserIconMapper> getUserIconMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<UserIconMapper> factoryBean = new MapperFactoryBean<UserIconMapper>(UserIconMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+
+		return factoryBean;
+	}
+
+//	쿼리문 실행을 위한 객체 mapper8
+	@Bean
+	public MapperFactoryBean<CommentMapper> getCommentMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<CommentMapper> factoryBean = new MapperFactoryBean<CommentMapper>(CommentMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+
+		return factoryBean;
+	}
 }

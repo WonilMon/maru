@@ -16,18 +16,24 @@ public class CompanyController {
 	private String company() {
 		return "company/company";
 	}
-	
+
 	@GetMapping("/faq")
 	private String faq(@ModelAttribute("faqBean") FaqBean faqBean) {
 		return "company/faq";
 	}
-	
+
 	@GetMapping("/faq_pro")
 	private String faq_pro(@ModelAttribute("faqBean") FaqBean faqBean) {
-		
-		System.out.println("FAQ email"+faqBean.getFaq_user_email());
-		System.out.println("FAQ text"+faqBean.getFaq_user_text());
-		
+
+		System.out.println("FAQ email" + faqBean.getFaq_user_email());
+		System.out.println("FAQ text" + faqBean.getFaq_user_text());
+
 		return "company/faq_success";
 	}
+
+	@GetMapping("/admin_index")
+	private String admin_index() {
+		return "admin/index";
+	}
+
 }

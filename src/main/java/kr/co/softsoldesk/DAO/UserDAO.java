@@ -39,7 +39,6 @@ public class UserDAO {
 
 	// 정보수정
 	public UserBean getModifyUserBeanInfo(int user_idx) {
-
 		return userMapper.getModifyUserInfo(user_idx);
 	}
 
@@ -63,4 +62,18 @@ public class UserDAO {
 		userMapper.deleteUser(user_idx);
 	}
 
+	// 패스워드 업데이트
+	public void updatePassword(String user_email, String newPassword) {
+		userMapper.updatePassword(user_email, newPassword);
+	}
+
+	// 프로필 이미지 업로드
+	public void updateImgFile(String user_img, int user_idx) {
+		userMapper.updateImgFile(user_img, user_idx);
+	}
+
+	// 프로필 이미지 가져오기
+	public String getImgFile(int user_idx) {
+		return userMapper.getImgFile(user_idx);
+	}
 }

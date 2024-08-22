@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root }css/search_password.css"
 	media="screen">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script class="u-script" type="text/javascript"
 	src="${root }js/jquery.js" defer=""></script>
 <script class="u-script" type="text/javascript"
@@ -57,29 +58,30 @@
 		id="sec-81f1" data-animation-name="" data-animation-duration="0"
 		data-animation-delay="0" data-animation-direction="">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<h2 class="u-align-center u-text u-text-default u-text-1">Register</h2>
+			<h2 class="u-align-center u-text u-text-default u-text-1">パスワードをお忘れの場合</h2>
 			<p class="u-align-center u-text u-text-default u-text-2">
 				<a
 					class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
-					data-href="#">문의사항 : www.maru.faq.com </a>
+					data-href="#">お問い合わせ : www.maru.faq.com </a>
 			</p>
 			<div class="u-form u-radius-20 u-white u-form-1">
+
 				<form:form modelAttribute="searchPasswordBean"
-					action="https://forms.nicepagesrv.com/v2/form/process"
+					action="${root}user/search_password_pro" method="post"
 					class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form"
 					style="padding: 28px;">
+
 					<div class="u-form-email u-form-group">
-						<form:label path="user_email" class="u-label">Email</form:label>
-						<form:input type="email" placeholder="입력" path="user_email"
+						<form:label path="user_email" class="u-label">登録した会員のメールアドレスに一時パスワードを送信します</form:label>
+						<form:input type="email" placeholder="メールアドレスを入力してください"
+							path="user_email"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
 					</div>
 					<div class="u-align-right u-form-group u-form-submit">
-						<a href="#"
-							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">Submit
-							your request</a> <input type="submit" value="submit"
-							class="u-form-control-hidden">
+						<button type="submit"
+							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">
+							送信する</button>
 					</div>
-
 				</form:form>
 			</div>
 		</div>
@@ -87,6 +89,18 @@
 
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
+	<script>
+		$(document).ready(
+				function() {
+					$("button[type='submit']").off("click").on("click",
+							function(event) {
+
+								event.stopImmediatePropagation();
+
+								$(this).closest("form").off("submit").submit();
+							});
+				});
+	</script>
 
 </body>
 </html>

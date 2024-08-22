@@ -61,18 +61,31 @@
 			type : 'get', // 요청타입
 			dataType : 'text',
 			success : function(result) {
-
+				setBackgroundColorBasedOn();
 				if (result.trim() == "true") {
-					alert("사용할 수 있는 닉네임입니다")
+					alert("使用可能なニックネームです")
 					$("#userNickNameExist").val("true")
 				} else {
-					alert("사용할 수 없는 닉네임입니다")
+					alert("そのニックネームは既に存在します")
 					$("#userNickNameExist").val("false")
 				}
+				setBackgroundColorBasedOn();
 			}
 
 		})
 
+	}
+	function setBackgroundColorBasedOn() {
+		
+		var userNickNameExist = $("#userNickNameExist").val();
+		var inputElement = $("#user_nickname");
+		
+		if(userNickNameExist === "false"){
+			inputElement.css("background-color", "#FFCCCC");
+		}else if(userNickNameExist === "true"){
+			inputElement.css("background-color", "#E0FFFF");
+		}
+		
 	}
 
 	//사용자 NickName란에 키보드 입력 시 무조건 false 만드는
@@ -222,8 +235,15 @@ button {
 														<div
 															class="u-active u-carousel-item u-gallery-item u-carousel-item-1">
 															<div class="u-back-slide">
-																<img class="u-back-image u-expanded"
-																	src="${root }images/90fc53c9.svg">
+																<c:choose>
+																	<c:when test="${img != null }">
+																		<img id="profileImage" src="${root}getProfileImage/${img}" class="u-back-image u-expanded" alt="프로필 이미지">
+																	</c:when>
+																	<c:otherwise>
+																		<img id="profileImage" src="${root}images/90fc53c9.svg" class="u-back-image u-expanded" alt="프로필 이미지">
+																	</c:otherwise>
+																</c:choose>
+																
 															</div>
 															<div class="u-over-slide u-over-slide-1"></div>
 														</div>
@@ -295,11 +315,15 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 										</div>
 
 										<a href="#"
-											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">change
-											icon</a> <a href="#"
-											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-2">change
-											image</a> <a href="#"
-											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-3">chat_log</a>
+											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">
+											change icon</a>
+										<a href="#" id="changeImageBtn"
+											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-2">
+											change image</a>
+											<input type="file" id="imageFileInput" style="display: none;" />
+										<a href="#"
+											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-3">
+											chat_log</a>
 
 										<form action="${root}user/deleteUser" method="get">
 											<input type="hidden" name="user_idx" value="${user_idx}" />
@@ -330,7 +354,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 			<div class="u-form u-radius-20 u-white u-form-1">
 				<form:form action="${root }user/profile_modify_pro"
 					class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form"
-					modelAttribute="modifyUser" style="padding: 28px;" method="post">
+					modelAttribute="modifyUser" style="padding: 28px;" method="post" onsubmit="return validateForm();">
 					<button class="u-button-1" onclick="checkUserNickNameExist()"
 						type="button"
 						style="position: absolute; top: 10px; right: 10px; background-color: #FCD5CE; border: 2px solid #FAE1DD; color: #000000; border-radius: 8px; padding: 10px 20px;">
@@ -344,8 +368,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 						<form:input type="text" path="user_nickname"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
 							placeholder="${modifyUser.user_nickname }"
-							style="color: #666666; 
-        opacity: 1;" />
+							style="color: #666666; opacity: 1;" />
 						<form:errors path="user_nickname" style="color:red" />
 					</div>
 					<div class="u-form-email u-form-group">
@@ -353,8 +376,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 						<form:input type="email" placeholder="${modifyUser.user_email }"
 							id="email-4c18" path="user_email"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							readonly="true" style="color: #666666; 
-        opacity: 1;" />
+							readonly="true"
+							style="color: #666666; opacity: 1; background-color: #F0F0F0;" />
 					</div>
 					<div class="u-form-group u-form-group-3">
 						<form:label path="user_pass" class="u-label">Password</form:label>
@@ -374,8 +397,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 						<form:input type="text" path="user_age"
 							placeholder="${modifyUser.user_age }"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							readonly="true" style="color: #666666; 
-        opacity: 1;" />
+							readonly="true"
+							style="color: #666666; opacity: 1; background-color: #F0F0F0;" />
 
 					</div>
 
@@ -385,8 +408,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<form:input type="text" path="user_gender"
 								class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
 								placeholder="${modifyUser.user_gender }" readonly="true"
-								style="color: #666666; 
-        opacity: 1;" />
+								style="color: #666666; opacity: 1; background-color: #F0F0F0;" />
 						</div>
 					</div>
 
@@ -410,6 +432,34 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 	</section>
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
+
+	<script>
+	    document.getElementById('changeImageBtn').addEventListener('click', function() {
+	        document.getElementById('imageFileInput').click(); // 파일 입력 요소 클릭
+	    });
+	
+	    document.getElementById('imageFileInput').addEventListener('change', function(event) {
+	        var file = event.target.files[0];
+	        if (file) {
+	            var formData = new FormData();
+	            formData.append('profileImage', file);
+	
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('POST', '${root}user/uploadProfileImage', true);
+	            xhr.onload = function () {
+	                if (xhr.status === 200) {
+	                    alert('이미지가 성공적으로 변경되었습니다.');
+	                    var response = xhr.responseText;
+	                    var newImagePath = '${root}getProfileImage/' + response.split(': ')[1];
+	                    document.getElementById('profileImage').src = newImagePath;
+	                } else {
+	                    alert('이미지 변경에 실패했습니다.');
+	                }
+	            };
+	            xhr.send(formData);
+	        }
+	    });
+	</script>
 
 	<script>
 		let originalUserNickname;
@@ -445,5 +495,18 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 						});
 	</script>
 
+	<script>
+		function validateForm() {
+		    var password = document.querySelector('input[name="user_pass"]').value;
+		    var password2 = document.querySelector('input[name="user_pass2"]').value;
+		    
+		    if (password.trim() === '' || password2.trim() === '') {
+		        alert('패스워드를 입력해주세요.');
+		        return false; // 폼 제출 방지
+		    }
+		    
+		    return true; // 폼 제출 허용
+		}
+	</script>
 </body>
 </html>
