@@ -61,17 +61,43 @@
 	margin: 0 auto;
 	text-align: center;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	margin: 0 auto;
+	dispay: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.higher-container{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.left-section {
+    flex: 1; /* 비율 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 20px;
 }
 
 .u-profile-header {
-	margin-top: 50px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
-	margin-bottom: -10px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
-}
+	margin-top: 20px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
+	margin-bottom: 20px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
+	text-align: center;
+} 
 
 .u-profile-picture {
 	width: 200px; /* 프로필 사진 크기 더 증가 */
-	height: 150px;
+	height: 200px;
 	border-radius: 50%;
 	object-fit: cover;
 	border: 4px solid #FCD5CE;
@@ -87,7 +113,7 @@
 .u-status-message {
 	color: #000000; /* 사용자명 색상 진하게 */
 	font-size: 28px; /* 사용자명 크기 더 증가 */
-	margin: 8px 0;
+	margin: 6px 0;
 }
 
 .u-status-message {
@@ -98,6 +124,8 @@
 
 .u-profile-actions {
 	margin-top: 15px; /* 버튼과 프로필 헤더 사이의 여백 추가 */
+	display: flex;
+    gap: 10px;
 }
 
 .u-button {
@@ -114,6 +142,14 @@
 .u-button:hover {
 	background-color: #FAE1DD;
 	color: #FCD5CE;
+}
+
+.lower-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
 }
 
 .alert.alert-danger {
@@ -305,30 +341,40 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<c:choose>
 								<c:when test="${loginUserBean.userLogin == true }">
 									<div class="u-profile-section">
-										<div class="u-profile-header">
-											<c:choose>
-												<c:when test="${img != null }">
-													<img id="profileImage" src="${root}getProfileImage/${img}"
-														class="u-profile-picture" alt="프로필 이미지">
-												</c:when>
-												<c:otherwise>
-													<img id="profileImage" src="${root}images/90fc53c9.svg"
-														class="u-profile-picture" alt="프로필 이미지">
-												</c:otherwise>
-											</c:choose>
-											<h2 class="u-username">${loginUserBean.user_nickname }</h2>
-											<p class="u-status-message">${loginUserBean.user_statustext }</p>
+										<div class="higher-container">
+											<div class="left-section">
+												<div class="u-profile-header">
+													<c:choose>
+														<c:when test="${img != null }">
+															<img id="profileImage" src="${root}getProfileImage/${img}"
+																class="u-profile-picture" alt="프로필 이미지">
+														</c:when>
+														<c:otherwise>
+															<img id="profileImage" src="${root}images/90fc53c9.svg"
+																class="u-profile-picture" alt="프로필 이미지">
+														</c:otherwise>
+													</c:choose>
+												</div>
+											</div>
+											<div class="right-section">
+												<div class="u-profile-header">
+													<h2 class="u-username">${loginUserBean.user_nickname }</h2>
+													<p class="u-status-message">${loginUserBean.user_statustext }</p>
+													<div class="u-profile-actions gap-2">
+													<a
+														href="${root }user/profile_modify?user_idx=${loginUserBean.user_idx }"
+														class="u-button">My Page</a>
+													<a href="${root }user/logout" class="u-button">logout</a>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div class="u-profile-actions">
-											<a
-												href="${root }user/profile_modify?user_idx=${loginUserBean.user_idx }"
-												class="u-button">My Page</a>
-										</div>
-										<div class="u-profile-actions">
-											<a href="${root }user/logout" class="u-button">logout</a>
+										<div  class="lower-section">
+											<p>${loginUserBean.user_zodiac }의 오늘의 운세</p>
+											<p>오늘은 비가 옵니다</p>
 										</div>
 									</div>
-
+									
 								</c:when>
 								<c:otherwise>
 

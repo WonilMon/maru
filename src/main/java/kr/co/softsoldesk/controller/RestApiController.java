@@ -68,7 +68,7 @@ public class RestApiController {
 	@GetMapping("/user/modifyStatustext/{user_idx}")
 	public String modifyStatustext(@PathVariable("user_idx") String user_statustext) {
 		System.out.println(user_statustext);
-
+		loginUserBean.setUser_statustext(user_statustext);
 		// 실제 로직을 구현해야 합니다.
 		return "수정된 상태 메시지: " + user_statustext;
 	}
@@ -102,6 +102,7 @@ public class RestApiController {
 		}
 
 		String fileName = saveUploadFile(file);
+		loginUserBean.setUser_img(fileName);
 		userService.updateImgFile(fileName, loginUserBean.getUser_idx());
 
 		if (fileName == null) {

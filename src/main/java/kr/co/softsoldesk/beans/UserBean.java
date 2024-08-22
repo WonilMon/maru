@@ -1,5 +1,10 @@
 package kr.co.softsoldesk.beans;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
+import java.time.format.DateTimeFormatter;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -33,6 +38,7 @@ public class UserBean {
 	private String user_statustext;
 	
 	private String user_img;
+	private String user_zodiac;
 
 //	----------------------------------------------------------- ↓↓ DB 테이블에 없는 변수들 (추가한 변수들) ↓↓
 
@@ -167,5 +173,14 @@ public class UserBean {
 	public void setUser_img(String user_img) {
 		this.user_img = user_img;
 	}
+	
+	public String getUser_zodiac() {
+		return user_zodiac;
+	}
 
+	public void setUser_zodiac(String user_zodiac) {
+		
+        this.user_zodiac=user_zodiac;
+	}
+	
 }

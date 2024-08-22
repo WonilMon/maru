@@ -14,6 +14,7 @@ public class UserDAO {
 
 	// 회원가입
 	public void addUser(UserBean addUserBean) {
+		System.out.println("User Zodiac"+addUserBean.getUser_zodiac());
 		userMapper.addUser(addUserBean);
 	}
 

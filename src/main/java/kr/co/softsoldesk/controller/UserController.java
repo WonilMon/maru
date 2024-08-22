@@ -67,12 +67,15 @@ public class UserController {
 	@PostMapping("/profile_modify_pro")
 	public String profile_modify_pro(@Valid @ModelAttribute("modifyUser") UserBean modifyUser, BindingResult result) {
 
+		//System.out.println(modifyUser.getUser_nickname());
+		
 		if (result.hasErrors()) {
 			return "user/profile_modify";
 		}
 
 		userService.modifyUser(modifyUser);
-
+		
+		loginUserBean.setUser_nickname(modifyUser.getUser_nickname());
 		return "user/profile_modify_success";
 	}
 

@@ -1,6 +1,8 @@
 package kr.co.softsoldesk.service;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
@@ -30,14 +32,52 @@ public class UserService {
 		LocalDate birthDate = LocalDate.parse(addUserBean.getUser_age(), formatter);
 		LocalDate currentDate = LocalDate.now();
 		Period age = Period.between(birthDate, currentDate);
+		
+		// 별자리 계산
+        String zodiacSign = getZodiacSign(birthDate);
+        
 
 		addUserBean.setUser_role("사용자");
 		addUserBean.setUser_statustext("기본 상태메시지");
 		addUserBean.setUser_point(500);
 		addUserBean.setUser_age(String.valueOf(age.getYears()));
+		addUserBean.setUser_zodiac(zodiacSign);
 
 		userDao.addUser(addUserBean);
 	}
+	
+//별자리
+	public static String getZodiacSign(LocalDate date) {
+        MonthDay birthMonthDay = MonthDay.from(date);
+        
+        if (birthMonthDay.isAfter(MonthDay.of(Month.MARCH, 20)) && birthMonthDay.isBefore(MonthDay.of(Month.APRIL, 20))) {
+            return "양자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.APRIL, 19)) && birthMonthDay.isBefore(MonthDay.of(Month.MAY, 21))) {
+            return "황소자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.MAY, 20)) && birthMonthDay.isBefore(MonthDay.of(Month.JUNE, 21))) {
+            return "쌍둥이자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.JUNE, 20)) && birthMonthDay.isBefore(MonthDay.of(Month.JULY, 23))) {
+            return "게자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.JULY, 22)) && birthMonthDay.isBefore(MonthDay.of(Month.AUGUST, 23))) {
+            return "사자자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.AUGUST, 22)) && birthMonthDay.isBefore(MonthDay.of(Month.SEPTEMBER, 23))) {
+            return "처녀자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.SEPTEMBER, 22)) && birthMonthDay.isBefore(MonthDay.of(Month.OCTOBER, 23))) {
+            return "천칭자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.OCTOBER, 22)) && birthMonthDay.isBefore(MonthDay.of(Month.NOVEMBER, 22))) {
+            return "전갈자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.NOVEMBER, 21)) && birthMonthDay.isBefore(MonthDay.of(Month.DECEMBER, 22))) {
+            return "사수자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.DECEMBER, 21)) || birthMonthDay.isBefore(MonthDay.of(Month.JANUARY, 20))) {
+            return "염소자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.JANUARY, 19)) && birthMonthDay.isBefore(MonthDay.of(Month.FEBRUARY, 19))) {
+            return "물병자리";
+        } else if (birthMonthDay.isAfter(MonthDay.of(Month.FEBRUARY, 18)) && birthMonthDay.isBefore(MonthDay.of(Month.MARCH, 21))) {
+            return "물고기자리";
+        } else {
+            return "Unknown";
+        }
+    }
 
 //	중복확인 NickName
 	public boolean checkUserNickNameExist(String user_nickname) {
@@ -75,6 +115,7 @@ public class UserService {
 			loginUserBean.setUser_role(tempLoginUserBean2.getUser_role());
 			loginUserBean.setUser_statustext(tempLoginUserBean2.getUser_statustext());
 			loginUserBean.setUser_img(tempLoginUserBean2.getUser_img());
+			loginUserBean.setUser_zodiac(tempLoginUserBean2.getUser_zodiac());
 			loginUserBean.setUserLogin(true); // 판별을 true로 바꾸기
 		}
 	}
@@ -124,6 +165,7 @@ public class UserService {
 	public void modifyUserInfo(UserBean modifyUserBean) {
 
 		modifyUserBean.setUser_idx(loginUserBean.getUser_idx());
+
 
 //		System.out.println("1:" +modifyUserBean.getUser_idx());
 //		System.out.println("2:" +modifyUserBean.getUser_email());
