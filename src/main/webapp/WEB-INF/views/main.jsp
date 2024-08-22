@@ -49,6 +49,8 @@
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
 <style>
+
+/* 프로필이랑 뉴스 스타일입니다*/
 .u-profile-section {
 	background-color: #F8EDEB;
 	border-radius: 10px;
@@ -129,14 +131,82 @@
 	transition: background-color 0.3s ease, border-color 0.3s ease;
 	/* 호버 시 전환 효과 */
 }
-</style>
+/* 스크롤 박스 스타일 */
+.news-container {
+	width: 70%;
+	margin: 30px auto;
+	background-color: #FCD5CE;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	overflow-y: scroll;
+	max-height: 600px;
+}
 
+/* 개별 뉴스 항목 스타일 */
+.news-item {
+	padding: 15px;
+	border-bottom: 1px solid white;
+}
+
+.news-item:last-child {
+	border-bottom: none;
+}
+
+/* 뉴스 제목 */
+.news-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: black;
+}
+
+/* 뉴스 설명 */
+.news-description {
+	font-size: 11px;
+	color: black;
+}
+
+/* 링크 스타일 */
+.news-link {
+	display: block;
+	margin-top: 10px;
+	font-size: 12px;
+	color: black;
+	text-decoration: none;
+}
+
+.news-link:hover {
+	text-decoration: underline;
+}
+
+.alert.alert-danger {
+	background-color: #FCD5CE; /* 배경색을 #FCD5CE로 설정 */
+	border: 2px solid #F08080; /* 보더 색상을 조금 더 어두운 #F08080 계열로 설정 */
+	color: black; /* 기본 글씨 색은 검정으로 설정 */
+	width: 100%; /* 너비를 100%로 설정 */
+	padding: 15px; /* 적절한 패딩 추가 */
+	border-radius: 5px; /* 보더 모서리를 둥글게 */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+}
+
+.alert.alert-danger strong {
+	color: red; /* 강조된 텍스트는 빨간색으로 설정 */
+}
+
+#googleLoginButton {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	padding: 0;
+}
+</style>
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
 
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
 	<c:import url="/WEB-INF/views/include/first_section_main.jsp"></c:import>
+
 	<section
 		class="u-clearfix u-container-align-center u-white u-section-2"
 		id="carousel_88b7">
@@ -236,14 +306,23 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 								<c:when test="${loginUserBean.userLogin == true }">
 									<div class="u-profile-section">
 										<div class="u-profile-header">
-											<img src="path/to/profile-picture.jpg" alt="Profile Picture"
-												class="u-profile-picture">
+											<c:choose>
+												<c:when test="${img != null }">
+													<img id="profileImage" src="${root}getProfileImage/${img}"
+														class="u-profile-picture" alt="프로필 이미지">
+												</c:when>
+												<c:otherwise>
+													<img id="profileImage" src="${root}images/90fc53c9.svg"
+														class="u-profile-picture" alt="프로필 이미지">
+												</c:otherwise>
+											</c:choose>
 											<h2 class="u-username">${loginUserBean.user_nickname }</h2>
 											<p class="u-status-message">${loginUserBean.user_statustext }</p>
 										</div>
 										<div class="u-profile-actions">
-											<a href="${root }user/profile_modify" class="u-button">My
-												Page</a>
+											<a
+												href="${root }user/profile_modify?user_idx=${loginUserBean.user_idx }"
+												class="u-button">My Page</a>
 										</div>
 										<div class="u-profile-actions">
 											<a href="${root }user/logout" class="u-button">logout</a>
@@ -256,8 +335,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 									<div
 										class="u-border-3 u-border-palette-2-light-1 u-container-layout u-valign-middle u-container-layout-2">
 										<h2
-											class="u-align-center u-text u-text-default u-text-palette-2-base u-text-2">LOGIN
-										</h2>
+											class="u-align-center u-text u-text-default u-text-palette-2-base u-text-2">LOGIN</h2>
 										<div class="u-form u-form-1">
 
 											<c:if test="${fail == true }">
@@ -290,69 +368,36 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 												<div class="u-align-left u-form-group u-form-submit">
 													<button type="submit"
-														class="u-active-white u-border-2 u-border-active-palette-2-light-1 u-border-hover-palette-2-light-1 u-border-palette-2-light-1 u-btn u-btn-round u-btn-submit u-button-style u-hover-white u-palette-2-light-1 u-radius-50 u-text-active-black u-text-body-alt-color u-text-hover-black u-btn-1">Submit</button>
+														class="u-active-white u-border-2 u-border-active-palette-2-light-1 
+                    u-border-hover-palette-2-light-1 u-border-palette-2-light-1 u-btn u-btn-round u-btn-submit 
+                    u-button-style u-hover-white u-palette-2-light-1 u-radius-50 u-text-active-black 
+                    u-text-body-alt-color u-text-hover-black u-btn-1">Submit</button>
 												</div>
 
 											</form:form>
 
 										</div>
 										<div class="u-social-icons u-spacing-10 u-social-icons-1">
-											<a class="u-social-url" title="facebook" target="_blank"
-												href="https://facebook.com/name"><span
-												class="u-icon u-social-facebook u-social-icon u-icon-1"><svg
-														class="u-svg-link" preserveAspectRatio="xMidYMin slice"
-														viewBox="0 0 112 112" style="">
-												<use xlink:href="#svg-ac49"></use></svg> <svg
-														class="u-svg-content" viewBox="0 0 112 112" x="0" y="0"
-														id="svg-ac49">
-												<circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle>
-												<path fill="#FFFFFF"
-															d="M73.5,31.6h-9.1c-1.4,0-3.6,0.8-3.6,3.9v8.5h12.6L72,58.3H60.8v40.8H43.9V58.3h-8V43.9h8v-9.2
-c0-6.7,3.1-17,17-17h12.5v13.9H73.5z"></path></svg></span>
-											</a> <a class="u-social-url" title="twitter" target="_blank"
-												href="https://twitter.com/name"><span
-												class="u-icon u-social-icon u-social-twitter u-icon-2"><svg
-														class="u-svg-link" preserveAspectRatio="xMidYMin slice"
-														viewBox="0 0 112.2 112.2" style="">
-												<use xlink:href="#svg-30a0"></use></svg> <svg
-														class="u-svg-content" viewBox="0 0 112.2 112.2" x="0px"
-														y="0px" id="svg-30a0">
-												<circle fill="currentColor" cx="56" cy="56" r="55"></circle>
-												<path fill="#FFFFFF"
-															d="M63.9,51l22.4-24h-8.6L60.3,45.9L46.9,27H24l23.3,32.8L24,85h8.2L51,64.9L65.3,85H88L63.9,51z M55.3,60.2
-l-3.7-5.1L35.7,33.1h8.1l12.3,17.2l3.7,5.1l16.6,23.4h-7.8L55.3,60.2z"></path></svg></span>
-											</a> <a class="u-social-url" target="_blank"
-												data-type="Instagram" title="Instagram" href=""><span
-												class="u-icon u-social-icon u-social-instagram u-icon-3"><svg
-														class="u-svg-link" preserveAspectRatio="xMidYMin slice"
-														viewBox="0 0 112 112" style="">
-												<use xlink:href="#svg-14ba"></use></svg> <svg
-														class="u-svg-content" viewBox="0 0 112 112" x="0" y="0"
-														id="svg-14ba">
-												<circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle>
-												<path fill="#FFFFFF"
-															d="M55.9,38.2c-9.9,0-17.9,8-17.9,17.9C38,66,46,74,55.9,74c9.9,0,17.9-8,17.9-17.9C73.8,46.2,65.8,38.2,55.9,38.2
-      z M55.9,66.4c-5.7,0-10.3-4.6-10.3-10.3c-0.1-5.7,4.6-10.3,10.3-10.3c5.7,0,10.3,4.6,10.3,10.3C66.2,61.8,61.6,66.4,55.9,66.4z"></path>
-												<path fill="#FFFFFF"
-															d="M74.3,33.5c-2.3,0-4.2,1.9-4.2,4.2s1.9,4.2,4.2,4.2s4.2-1.9,4.2-4.2S76.6,33.5,74.3,33.5z"></path>
-												<path fill="#FFFFFF"
-															d="M73.1,21.3H38.6c-9.7,0-17.5,7.9-17.5,17.5v34.5c0,9.7,7.9,17.6,17.5,17.6h34.5c9.7,0,17.5-7.9,17.5-17.5V38.8
-      C90.6,29.1,82.7,21.3,73.1,21.3z M83,73.3c0,5.5-4.5,9.9-9.9,9.9H38.6c-5.5,0-9.9-4.5-9.9-9.9V38.8c0-5.5,4.5-9.9,9.9-9.9h34.5
-      c5.5,0,9.9,4.5,9.9,9.9V73.3z"></path></svg></span>
-											</a>
+
+											<img id="lineLoginButton" src="${root }images/line_icon.png"
+												style="width: 40px; height: 40px;">
+											<div id="buttonDiv"></div>
+
 										</div>
 										<p class="u-align-center u-text u-text-default u-text-3">
 											<a
-												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-2"
+												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none 
+            u-text-palette-1-base u-btn-2"
 												data-href="${root }user/register">Register</a>
 										</p>
 										<p class="u-align-center u-text u-text-default u-text-4">
 											<a
-												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
-												data-href="${root }user/search_password">Search PassWord
-											</a>
+												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none 
+            u-text-palette-1-base u-btn-3"
+												data-href="${root }user/search_password">Search PassWord</a>
 										</p>
 									</div>
+
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -627,19 +672,40 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 			</a>
 		</div>
 	</section>
+	<section
+		class="u-align-center u-clearfix u-container-align-center u-palette-2-light-3 u-section-3"
+		id="carousel_29f6">
+		<h2
+			class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-1"
+			data-animation-name="customAnimationIn"
+			data-animation-duration="1500">오늘의 건강뉴스</h2>
+		<div class="news-container">
+			<c:forEach var="article" items="${articles}">
+				<div class="news-item">
+					<div class="news-title">${article.title}</div>
+					<div class="news-description">${article.description}</div>
+					<a class="news-link" href="${article.url}" target="_blank">Read
+						more</a>
+				</div>
+			</c:forEach>
+		</div>
+	</section>
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
+
+	<!-- 강제 제출 -->
 	<script>
 		$(document).ready(
 				function() {
 					$("button[type='submit']").off("click").on("click",
 							function(event) {
-								
+
 								event.stopImmediatePropagation();
-								
+
 								$(this).closest("form").off("submit").submit();
 							});
 				});
 	</script>
 </body>
+
 </html>

@@ -61,6 +61,7 @@
 		if (user_nickname.length == 0) {
 			alert("닉네임을 입력하세요")
 			return
+
 		}
 
 		/* 새로고침 없이 바로 반응할수있게 하는게 에이잭스 */
@@ -98,6 +99,7 @@
 		if (user_email.length == 0) {
 			alert("이메일을 입력하세요")
 			return
+
 		}
 
 		/* 새로고침 없이 바로 반응할수있게 하는게 에이잭스 */
@@ -195,9 +197,20 @@
 					</div>
 					<div class="u-form-email u-form-group">
 						<form:label path="user_email" class="u-label">Email</form:label>
-						<form:input type="email" placeholder="입력" path="user_email"
-							onkeypress="resetUserEmailExist()"
-							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
+
+						<c:choose>
+							<c:when test="${api_email != ''}">
+								<form:input type="email" path="user_email"
+									onkeypress="resetUserEmailExist()"
+									class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" value="${api_email }"></form:input>
+							</c:when>
+							<c:otherwise>
+								<form:input type="email" placeholder="입력" path="user_email"
+									onkeypress="resetUserEmailExist()"
+									class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
+							</c:otherwise>
+						</c:choose>
+
 						<form:errors path="user_email" style="color:red" />
 					</div>
 					<div class="u-form-group u-form-group-3">

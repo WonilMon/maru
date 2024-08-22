@@ -78,7 +78,7 @@
 													class="custom-expanded u-carousel u-gallery u-layout-carousel u-lightbox u-no-transition u-show-text-none u-gallery-1"
 													data-interval="5000" data-u-ride="carousel"
 													id="carousel-1944">
-													<ol
+													<!-- <ol
 														class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
 														<li data-u-target="#carousel-1944" data-u-slide-to="0"
 															class="u-active u-grey-70 u-shape-circle"
@@ -86,27 +86,34 @@
 														<li data-u-target="#carousel-1944" data-u-slide-to="1"
 															class="u-grey-70 u-shape-circle"
 															style="width: 10px; height: 10px;"></li>
-													</ol>
+													</ol> -->
 													<div class="u-carousel-inner u-gallery-inner"
 														role="listbox">
 														<div
 															class="u-active u-carousel-item u-gallery-item u-carousel-item-1">
 															<div class="u-back-slide">
-																<img class="u-back-image u-expanded"
-																	src="/images/90fc53c9.svg">
+																<c:choose>
+																	<c:when test="${img != null }">
+																		<img id="profileImage" src="${root}getProfileImage/${img}" class="u-back-image u-expanded" alt="프로필 이미지">
+																	</c:when>
+																	<c:otherwise>
+																		<img id="profileImage" src="${root}images/90fc53c9.svg" class="u-back-image u-expanded" alt="프로필 이미지">
+																	</c:otherwise>
+																</c:choose>
+																
 															</div>
 															<div class="u-over-slide u-over-slide-1"></div>
 														</div>
-														<div
+														<!-- <div
 															class="u-carousel-item u-gallery-item u-carousel-item-2">
 															<div class="u-back-slide">
 																<img class="u-back-image u-expanded"
 																	src="/images/90fc53c9.svg">
 															</div>
 															<div class="u-over-slide u-over-slide-2"></div>
-														</div>
+														</div> -->
 													</div>
-													<a
+													<!-- <a
 														class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1"
 														href="#carousel-1944" role="button" data-u-slide="prev">
 														<span aria-hidden="true"> <svg
@@ -138,7 +145,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
 													</span>
-													</a>
+													</a> -->
 												</div>
 											</div>
 										</div>
@@ -156,6 +163,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 										<h2 class="u-align-center u-subtitle u-text u-text-2">${profileUser.user_nickname }</h2>
 										<span class="u-align-center u-file-icon u-icon u-icon-1"><img
 											src="/images/2356780.png" alt=""></span>
+											<!-- 아이콘 가지고 와서 표시하도록 수정 필요 -->
 										<p class="u-align-center u-text u-text-3">${profileUser.user_statustext }</p>
 										<a href="#"
 											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">1:1

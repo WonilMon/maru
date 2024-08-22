@@ -2,6 +2,7 @@ package kr.co.softsoldesk.mapper;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -13,20 +14,27 @@ public interface UserMapper {
 	// 2. 여러 값을 담은 빈으로 끌고오고 싶다 -> bean으로 bean 끌고오기
 
 	// 회원가입 insert
-	@Insert("insert into users(user_idx, user_nickname, user_email, user_pass, user_age, user_gender) values(users_seq.nextval, #{user_nickname}, #{user_email}, #{user_pass}, #{user_age}, #{user_gender})")
+	@Insert("insert into users(user_idx, user_nickname, user_email, user_pass, user_age, user_gender, user_role, user_point, user_statustext) values(users_seq.nextval, #{user_nickname}, #{user_email}, #{user_pass}, #{user_age}, #{user_gender}, #{user_role}, #{user_point}, #{user_statustext})")
 	void addUser(UserBean addUserBean);
-	//오타난거같아서 add로 바꿨습니다 240812 by.yelim
 
 	// 회원정보 select
 	@Select("select * from users where user_email = #{user_email} and user_pass = #{user_pass}")
 	UserBean getLoginUser(UserBean tempLoginUserBean);
 
+	// 회원정보 select (API)
+	@Select("select * from users where user_email = #{user_email}")
+	UserBean getLoginUserAPI(String user_email);
+
 	@Select("select * from users where user_idx=${user_idx}")
 	UserBean getModifyUserInfo(int user_idx);
-	
+
 	// 유저 정보 수정 modify
 	@Update("update users set user_nickname = #{user_nickname}, user_pass = #{user_pass} where user_idx = #{user_idx}")
 	void modifyUser(UserBean modifyUserBean);
+
+	// 상태메시지 수정
+	@Update("UPDATE users SET user_statustext = #{user_statustext} WHERE user_idx = #{user_idx}")
+	void updateStatusText(@Param("user_statustext") String user_statustext, @Param("user_idx") int user_idx);
 
 	// 회원 정보 삭제 delete
 	@Delete("delete from users where user_idx = #{user_idx}")
@@ -39,5 +47,12 @@ public interface UserMapper {
 	// 중복체크 email
 	@Select("select user_email from users where user_email = #{user_email}")
 	String checkUserEmailExist(String user_email);
-	
+
+	//프로필 이미지 업로드
+	@Update("update users set user_img = #{user_img} where user_idx = #{user_idx}")
+	void updateImgFile(@Param("user_img") String user_img, @Param("user_idx") int user_idx);
+	   
+	//프로필 이미지 가져오기
+	@Select("select user_img from users where user_idx = #{user_idx}")
+	String getImgFile(int user_idx);
 }

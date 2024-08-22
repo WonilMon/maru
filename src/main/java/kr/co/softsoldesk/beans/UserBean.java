@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-//@Component
+@Component
 public class UserBean {
 
 	private int user_idx;
@@ -31,6 +31,8 @@ public class UserBean {
 	private String user_age;
 	private String user_gender;
 	private String user_statustext;
+	
+	private String user_img;
 
 //	----------------------------------------------------------- ↓↓ DB 테이블에 없는 변수들 (추가한 변수들) ↓↓
 
@@ -51,8 +53,6 @@ public class UserBean {
 		this.userNickNameExist = false; // 중복확인 판별 초기값 false
 		this.userEmailExist = false; // 중복확인 판별 초기값 false
 		this.userLogin = false; // 로그인 판별 초기값 false
-		this.user_role = "사용자"; // 사용자 판별 초깃값 false / 관리자 판별 true
-		this.user_statustext = "상태메시지를 설정해주세요 "; // 상태메시지 초깃값
 	}
 
 	// -----------------------------------------------------
@@ -158,6 +158,14 @@ public class UserBean {
 
 	public void setUserLogin(boolean userLogin) {
 		this.userLogin = userLogin;
+	}
+
+	public String getUser_img() {
+		return user_img;
+	}
+
+	public void setUser_img(String user_img) {
+		this.user_img = user_img;
 	}
 
 }

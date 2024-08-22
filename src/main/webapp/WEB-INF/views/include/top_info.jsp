@@ -53,7 +53,7 @@
 
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }home" style="padding: 10px 20px;">home</a></li>
+								href="${root }main" style="padding: 10px 20px;">home</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
 								href="${root }company/company" style="padding: 10px 20px;">company</a></li>
@@ -84,7 +84,7 @@
 
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }home" style="padding: 10px 20px;">home</a></li>
+								href="${root }main" style="padding: 10px 20px;">home</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
 								href="${root }company/company" style="padding: 10px 20px;">company</a></li>
@@ -120,7 +120,7 @@
 							<c:choose>
 								<c:when test="${loginUserBean.userLogin == true }">
 									<li class="u-nav-item"><a
-										class="u-button-style u-nav-link" href="${root }home">home</a></li>
+										class="u-button-style u-nav-link" href="${root }main">home</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
 										href="${root }company/company">company</a></li>
@@ -143,7 +143,7 @@
 								</c:when>
 								<c:otherwise>
 									<li class="u-nav-item"><a
-										class="u-button-style u-nav-link" href="${root }home">home</a></li>
+										class="u-button-style u-nav-link" href="${root }main">home</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
 										href="${root }company/company">company</a></li>
@@ -201,7 +201,7 @@
 			<input class="u-search-input" type="search" name="search" value=""
 				placeholder="Search">
 		</form>
-		<a href="${root }home" class="u-image u-logo u-image-1"
+		<a href="${root }main" class="u-image u-logo u-image-1"
 			data-image-width="80" data-image-height="40" title="home"> <img
 			src="${root }images/default-logo.png"
 			class="u-logo-image u-logo-image-1">

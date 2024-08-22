@@ -6,6 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script>
-	alert("수정이 완료되었습니다")
-	location.href = "${root}user/profile_modify?user_idx=${modifyUser.user_idx}"
+	alert("건의사항이 접수되었습니다.")
+	location.href = "${root}company/faq"
 </script>

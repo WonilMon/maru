@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.validation.Validator;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import kr.co.softsoldesk.Interceptor.MainInterceptor;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.service.UserService;
+import kr.co.softsoldesk.validator.UserValidator;
 
 @Configuration
 @EnableWebMvc
@@ -31,6 +33,16 @@ public class ServletAppContext implements WebMvcConfigurer {
 
 	@Resource(name = "loginUserBean")
 	private UserBean loginUserBean;
+
+	@Bean
+	public Validator validator() {
+		return new UserValidator();
+	}
+
+	@Override
+	public Validator getValidator() {
+		return validator();
+	}
 
 //	@Autowired
 //	private BoardService boardService;
