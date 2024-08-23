@@ -144,11 +144,34 @@
 }
 
 .lower-section {
+	height: 300px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	flex: 1;
+	border: 4px solid #FCD5CE;
+	border-radius: 8px;
+	position: relative; /* 오버레이를 위해 position 설정 */
+    overflow: hidden;   /* 오버레이가 영역을 벗어나지 않도록 설정 */
+    background-repeat: no-repeat;
+}
+
+.lower-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7); /* 투명도 조절 (0.0 - 1.0) */
+    z-index: 1; /* 오버레이가 배경 이미지 위에 위치 */
+}
+
+.lower-section p {
+    position: relative;
+    z-index: 2; /* 텍스트가 오버레이 위에 표시되도록 설정 */
+    color: black; /* 텍스트 색상 설정 */
 }
 
 .alert.alert-danger {
@@ -406,7 +429,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 												</div>
 											</div>
 										</div>
-										<div  class="lower-section">
+										<div  class="lower-section" id="zodiac-section">
 											<p>${loginUserBean.user_zodiac }의 오늘의 운세</p>
 											<p>오늘은 비가 옵니다</p>
 										</div>
@@ -883,6 +906,62 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 								$(this).closest("form").off("submit").submit();
 							});
 				});
+	</script>
+	
+	<!-- 별자리 운세 배경지정 -->
+	<script>
+		// loginUserBean.user_zodiac 값을 가져옴
+	    const userZodiac = "${loginUserBean.user_zodiac}";
+	    
+	    // lower-section 요소를 가져옴
+	    const lowerSection = document.getElementById('zodiac-section');
+	    
+	    // user_zodiac 값에 따라 배경 이미지를 설정
+	    switch (userZodiac) {
+	        case '양자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/양자리.png')";
+	            break;
+	        case '황소자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/황소자리.png')";
+	            break;
+	        case '쌍둥이자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/쌍둥이자리.png')";
+	            break;
+	        case '게자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/게자리.png')";
+	            break;
+	        case '사자자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/사자자리.png')";
+	            break;
+	        case '처녀자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/처녀자리.png')";
+	            break;
+	        case '천칭자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/천칭자리.png')";
+	            break;
+	        case '전갈자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/전갈자리.png')";
+	            break;
+	        case '사수자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/사수자리.png')";
+	            break;
+	        case '염소자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/염소자리.png')";
+	            break;
+	        case '물병자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/물병자리.png')";
+	            break;
+	        case '물고기자리':
+	            lowerSection.style.backgroundImage = "url('${root}images/zodiac/물고기자리.png')";
+	            break;
+	        
+	        default:
+	            lowerSection.style.backgroundImage = "url('${root}images/90fc53c9.svg')";
+	    }
+	    
+	    // 공통 스타일 설정 (배경 크기와 위치)
+	    lowerSection.style.backgroundSize = "contain";
+	    lowerSection.style.backgroundPosition = "center";
 	</script>
 </body>
 
