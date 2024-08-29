@@ -51,9 +51,6 @@ public class UserController {
 	@Autowired
 	private UserValidator userValidator;
 
-	@Autowired
-	private MailSender mailSender;
-
 	@InitBinder("addUserBean")
 	protected void initAddUserBinder(WebDataBinder binder) {
 		binder.addValidators(userValidator);
@@ -207,10 +204,7 @@ public class UserController {
 			return "user/password_reset_fail";
 		} else {
 			String newPassword = userService.resetPassword(searchPasswordBean.getUser_email());
-			System.out.println("新しいパスワード: " + newPassword);
-
 			try {
-				sendMail(searchPasswordBean.getUser_email(), newPassword);
 				return "user/send_mail_success";
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -218,18 +212,4 @@ public class UserController {
 			}
 		}
 	}
-
-	private void sendMail(String to, String newPassword) throws Exception {
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setTo(to);
-		mailMessage.setSubject("【重要】パスワードリセットのお知らせ");
-		mailMessage.setText("こんにちは、\n\n" + "ご依頼に基づき、アカウントのパスワードがリセットされました。\n" + "新しいパスワードは以下の通りです:\n\n" + "新しいパスワード: "
-				+ newPassword + "\n\n" + "セキュリティ保護のため、ログイン後、速やかにパスワードを変更することをお勧めします。\n\n"
-				+ "もしこのメールに覚えがない場合は、アカウントの不正利用の可能性があります。" + "直ちにサイト内のFAQにアクセスし、サポートチームにご連絡ください。\n\n"
-				+ "また、その他の質問やサポートが必要な場合も、同じくFAQページをご参照ください。\n\n" + "この度はご利用いただき、誠にありがとうございます。\n\n" + "敬具,\n"
-				+ "サポートチーム");
-
-		mailSender.send(mailMessage);
-	}
-
 }

@@ -20,7 +20,7 @@ public class UserBean {
 	@Pattern(regexp = "[가-힣]*", groups = { ModifyGroup.class, RegisterGroup.class })
 	private String user_nickname;
 
-	@Size(min = 4, max = 20, groups = { LoginGroup.class, RegisterGroup.class })
+	@Size(min = 4, max = 30, groups = { LoginGroup.class, RegisterGroup.class })
 	@Pattern(regexp = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", groups = { LoginGroup.class, RegisterGroup.class })
 	private String user_email;
 

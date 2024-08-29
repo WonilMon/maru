@@ -17,7 +17,7 @@ public interface UserMapper {
 	void addUser(UserBean addUserBean);
 
 	// 회원정보 select
-	@Select("select * from users where user_email = #{user_email} and user_pass = #{user_pass}")
+	@Select("select * from users where user_email = #{user_email}")
 	UserBean getLoginUser(UserBean tempLoginUserBean);
 
 	// 회원정보 select (API)

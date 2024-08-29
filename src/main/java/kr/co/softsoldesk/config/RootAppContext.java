@@ -3,8 +3,8 @@ package kr.co.softsoldesk.config;
 import java.util.Properties;	
 
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+//import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -54,6 +55,7 @@ public class RootAppContext implements WebMvcConfigurer {
 		return new UserBean();
 	}
 
+//	mail config
 	@Value("${mail.host}")
 	private String mailHost;
 
@@ -81,6 +83,14 @@ public class RootAppContext implements WebMvcConfigurer {
 
 		return mailSender;
 	}
+	
+	
+//	security config
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+	
 
 //	데이터베이스 접속 정보 관리 (아예 컨테이너에 올려놓고 쓸게요)
 	@Bean
