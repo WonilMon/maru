@@ -20,7 +20,7 @@ public class UserBean {
 	@Pattern(regexp = "[가-힣]*", groups = { ModifyGroup.class, RegisterGroup.class })
 	private String user_nickname;
 
-	@Size(min = 4, max = 20, groups = { LoginGroup.class, RegisterGroup.class })
+	@Size(min = 4, max = 30, groups = { LoginGroup.class, RegisterGroup.class })
 	@Pattern(regexp = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", groups = { LoginGroup.class, RegisterGroup.class })
 	private String user_email;
 
@@ -44,6 +44,15 @@ public class UserBean {
 	@Size(min = 4, max = 20, groups = { ModifyGroup.class, RegisterGroup.class })
 	@Pattern(regexp = "[a-zA-Z0-9]*", groups = { ModifyGroup.class, RegisterGroup.class })
 	private String user_pass2;
+
+	private int user_content_count;
+	private int user_comment_count;
+
+	// admin에서 쓸 count, user랑 관련없음
+	private int newUserCount;
+	private int newContentCount;
+	private int newCommentCount;
+	private int newFaqCount;
 
 	// 회원가입 전 중복확인 판별
 	private boolean userNickNameExist;
@@ -171,14 +180,62 @@ public class UserBean {
 	public void setUser_img(String user_img) {
 		this.user_img = user_img;
 	}
-	
+
 	public String getUser_zodiac() {
 		return user_zodiac;
 	}
 
 	public void setUser_zodiac(String user_zodiac) {
-		
-        this.user_zodiac=user_zodiac;
+
+		this.user_zodiac = user_zodiac;
 	}
-	
+
+	public int getUser_content_count() {
+		return user_content_count;
+	}
+
+	public void setUser_content_count(int user_content_count) {
+		this.user_content_count = user_content_count;
+	}
+
+	public int getUser_comment_count() {
+		return user_comment_count;
+	}
+
+	public void setUser_comment_count(int user_comment_count) {
+		this.user_comment_count = user_comment_count;
+	}
+
+	public int getNewUserCount() {
+		return newUserCount;
+	}
+
+	public void setNewUserCount(int newUserCount) {
+		this.newUserCount = newUserCount;
+	}
+
+	public int getNewContentCount() {
+		return newContentCount;
+	}
+
+	public void setNewContentCount(int newContentCount) {
+		this.newContentCount = newContentCount;
+	}
+
+	public int getNewCommentCount() {
+		return newCommentCount;
+	}
+
+	public void setNewCommentCount(int newCommentCount) {
+		this.newCommentCount = newCommentCount;
+	}
+
+	public int getNewFaqCount() {
+		return newFaqCount;
+	}
+
+	public void setNewFaqCount(int newFaqCount) {
+		this.newFaqCount = newFaqCount;
+	}
+
 }

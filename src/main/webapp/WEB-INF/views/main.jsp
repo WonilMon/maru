@@ -65,34 +65,34 @@
 	justify-content: space-between;
 }
 
-.higher-container{
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.higher-container {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .left-section {
-    flex: 1; /* 비율 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	flex: 1; /* 비율 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .right-section {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding-left: 20px;
+	flex: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	padding-left: 20px;
 }
 
 .u-profile-header {
 	margin-top: 20px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
 	margin-bottom: 20px; /* 헤더와 버튼 사이의 여백을 조금 줄이기 */
 	text-align: center;
-} 
+}
 
 .u-profile-picture {
 	width: 200px; /* 프로필 사진 크기 더 증가 */
@@ -124,7 +124,7 @@
 .u-profile-actions {
 	margin-top: 15px; /* 버튼과 프로필 헤더 사이의 여백 추가 */
 	display: flex;
-    gap: 10px;
+	gap: 10px;
 }
 
 .u-button {
@@ -144,11 +144,34 @@
 }
 
 .lower-section {
+	height: 300px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	flex: 1;
+	border: 4px solid #FCD5CE;
+	border-radius: 8px;
+	position: relative; /* 오버레이를 위해 position 설정 */
+	overflow: hidden; /* 오버레이가 영역을 벗어나지 않도록 설정 */
+	background-repeat: no-repeat;
+}
+
+.lower-section::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.7); /* 투명도 조절 (0.0 - 1.0) */
+	z-index: 1; /* 오버레이가 배경 이미지 위에 위치 */
+}
+
+.lower-section p {
+	position: relative;
+	z-index: 2; /* 텍스트가 오버레이 위에 표시되도록 설정 */
+	color: black; /* 텍스트 색상 설정 */
 }
 
 .alert.alert-danger {
@@ -280,6 +303,9 @@
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
 	<c:import url="/WEB-INF/views/include/first_section_main.jsp"></c:import>
 
+	<a href="${root }index.do">index</a>
+	<a href="${root }chat.do">chat</a>
+
 	<section
 		class="u-clearfix u-container-align-center u-white u-section-2"
 		id="carousel_88b7">
@@ -383,7 +409,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 												<div class="u-profile-header">
 													<c:choose>
 														<c:when test="${img != null }">
-															<img id="profileImage" src="${root}getProfileImage/${img}"
+															<img id="profileImage"
+																src="${root}getProfileImage/${img}"
 																class="u-profile-picture" alt="프로필 이미지">
 														</c:when>
 														<c:otherwise>
@@ -398,20 +425,20 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 													<h2 class="u-username">${loginUserBean.user_nickname }</h2>
 													<p class="u-status-message">${loginUserBean.user_statustext }</p>
 													<div class="u-profile-actions gap-2">
-													<a
-														href="${root }user/profile_modify?user_idx=${loginUserBean.user_idx }"
-														class="u-button">My Page</a>
-													<a href="${root }user/logout" class="u-button">logout</a>
+														<a
+															href="${root }user/profile_modify?user_idx=${loginUserBean.user_idx }"
+															class="u-button">My Page</a> <a
+															href="${root }user/logout" class="u-button">logout</a>
 													</div>
 												</div>
 											</div>
 										</div>
-										<div  class="lower-section">
-											<p>${loginUserBean.user_zodiac }의 오늘의 운세</p>
+										<div class="lower-section" id="zodiac-section">
+											<p>${loginUserBean.user_zodiac }의오늘의운세</p>
 											<p>오늘은 비가 옵니다</p>
 										</div>
 									</div>
-									
+
 								</c:when>
 								<c:otherwise>
 
@@ -444,8 +471,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 												</div>
 												<div class="u-form-group u-form-group-2">
 													<form:label path="user_pass" class="u-label">password</form:label>
-													<form:password placeholder="パスワード"
-														path="user_pass"
+													<form:password placeholder="パスワード" path="user_pass"
 														class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2"
 														required="" />
 													<form:errors path="user_pass" style="color:red"></form:errors>
@@ -483,8 +509,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 										<p class="u-align-center u-text u-text-default u-text-4">
 											<a
 												class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
-												data-href="${root }user/search_password">パスワードをお忘れの場合
-											</a>
+												data-href="${root }user/search_password">パスワードをお忘れの場合 </a>
 										</p>
 									</div>
 
@@ -505,7 +530,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
 			<h2
 				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">投稿ランキング
-				</h2>
+			</h2>
 			<p
 				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-2">당신의
 				소녀에게 투표하세요</p>
@@ -517,14 +542,17 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
 							<h3 class="u-align-center u-text u-text-3">日間ランキング</h3>
 							<ol class="u-align-center u-text u-text-4">
-								<a
-									class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
-									data-href="#">
-									<li>Sample Item 1</li>
-									<li>Sample Item 2</li>
-									<li>Sample Item 3<br>
-								</li>
-								</a>
+
+
+								<c:forEach var="today" items="${today3Content}">
+									<a href="${root }board/board_read?content_idx=${today.content_idx }&board_info_idx=${today.board_info_idx}">
+										<li>${today.content_subject }</li>
+									</a>
+								</c:forEach>
+
+								<br>
+
+
 							</ol>
 							<a href="#"
 								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-2"
@@ -539,13 +567,13 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
 							<h3 class="u-align-center u-text u-text-5">週間ランキング</h3>
 							<ol class="u-align-center u-text u-text-6">
-								<a
-									class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-3"
-									data-href="#">
-									<li>Sample Item 1</li>
-									<li>Sample Item 2</li>
-									<li>Sample Item 3</li>
-								</a>
+								<c:forEach var="week" items="${weekly3Content}">
+									<a href="${root }board/board_read?content_idx=${week.content_idx }&board_info_idx=${week.board_info_idx}">
+										<li>${week.content_subject }</li>
+									</a>
+								</c:forEach>
+
+								<br>
 							</ol>
 							<a href="#"
 								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-4"
@@ -560,13 +588,13 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
 							<h3 class="u-align-center u-text u-text-7">月間ランキング</h3>
 							<ol class="u-align-center u-text u-text-8">
-								<a
-									class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-5"
-									data-href="#">
-									<li>Sample Item 1</li>
-									<li>Sample Item 2</li>
-									<li>Sample Item 3</li>
-								</a>
+								<c:forEach var="month" items="${monthly3Content}">
+									<a href="${root }board/board_read?content_idx=${month.content_idx }&board_info_idx=${month.board_info_idx}">
+										<li>${month.content_subject }</li>
+									</a>
+								</c:forEach>
+
+								<br>
 							</ol>
 							<a href="#"
 								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-6"
@@ -782,93 +810,6 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 	</section>
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
-	<!-- 구글 API -->
-	<script src="https://accounts.google.com/gsi/client" async defer></script>
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script>
-		function handleCredentialResponse(response) {
-			const responsePayload = parseJwt(response.credential);
-			console.log("ID: " + responsePayload.sub);
-			console.log('Full Name: ' + responsePayload.name);
-			console.log('Given Name: ' + responsePayload.given_name);
-			console.log('Family Name: ' + responsePayload.family_name);
-			console.log("Image URL: " + responsePayload.picture);
-			console.log("Email: " + responsePayload.email);
-
-			$
-					.ajax({
-						type : "POST",
-						url : "${root}user/google",
-						data : JSON.stringify({
-							api_email : responsePayload.email
-						}),
-						contentType : "application/json",
-						success : function(response) {
-							if (response.success) {
-								window.location.href = "${root}main";
-							} else {
-								window.location.href = "${root}user/register?api_email="
-										+ encodeURIComponent(responsePayload.email);
-							}
-						},
-						error : function(error) {
-							console.log("Error sending email to the server:",
-									error);
-						}
-					});
-		}
-
-		function parseJwt(token) {
-			var base64Url = token.split('.')[1];
-			var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-			var jsonPayload = decodeURIComponent(atob(base64).split('').map(
-					function(c) {
-						return '%'
-								+ ('00' + c.charCodeAt(0).toString(16))
-										.slice(-2);
-					}).join(''));
-
-			return JSON.parse(jsonPayload);
-		};
-
-		window.onload = function() {
-			google.accounts.id
-					.initialize({
-						client_id : "984358048061-jn1296ctnkm3i82irasvhii7pc0br6q7.apps.googleusercontent.com",
-						callback : handleCredentialResponse
-					});
-
-			google.accounts.id.renderButton(document
-					.getElementById("buttonDiv"), {
-				theme : "outline",
-				shape : "pill",
-				text : ""
-			});
-
-			google.accounts.id.prompt();
-		};
-	</script>
-
-	<!-- 라인 API -->
-	<script>
-		document.getElementById("lineLoginButton").onclick = function() {
-			const clientId = "2006071190"; // 클라이언트 ID
-			const redirectUri = encodeURIComponent("http://localhost:8078/Maru/user/line"); // 리디렉션 URI
-			const state = "RANDOM_STRING"; // CSRF 방지용 상태 값
-			const scope = "profile%20openid%20email"; // 요청할 권한에 email 추가
-
-			const lineLoginUrl = "https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id="
-					+ clientId
-					+ "&redirect_uri="
-					+ redirectUri
-					+ "&state="
-					+ state + "&scope=" + scope;
-
-			window.location.href = lineLoginUrl;
-		};
-	</script>
 
 
 	<!-- 강제 제출 -->
@@ -883,6 +824,62 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 								$(this).closest("form").off("submit").submit();
 							});
 				});
+	</script>
+
+	<!-- 별자리 운세 배경지정 -->
+	<script>
+		// loginUserBean.user_zodiac 값을 가져옴
+		const userZodiac = "${loginUserBean.user_zodiac}";
+
+		// lower-section 요소를 가져옴
+		const lowerSection = document.getElementById('zodiac-section');
+
+		// user_zodiac 값에 따라 배경 이미지를 설정
+		switch (userZodiac) {
+		case '양자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/양자리.png')";
+			break;
+		case '황소자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/황소자리.png')";
+			break;
+		case '쌍둥이자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/쌍둥이자리.png')";
+			break;
+		case '게자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/게자리.png')";
+			break;
+		case '사자자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/사자자리.png')";
+			break;
+		case '처녀자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/처녀자리.png')";
+			break;
+		case '천칭자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/천칭자리.png')";
+			break;
+		case '전갈자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/전갈자리.png')";
+			break;
+		case '사수자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/사수자리.png')";
+			break;
+		case '염소자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/염소자리.png')";
+			break;
+		case '물병자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/물병자리.png')";
+			break;
+		case '물고기자리':
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/물고기자리.png')";
+			break;
+
+		default:
+			lowerSection.style.backgroundImage = "url('${root}images/90fc53c9.svg')";
+		}
+
+		// 공통 스타일 설정 (배경 크기와 위치)
+		lowerSection.style.backgroundSize = "contain";
+		lowerSection.style.backgroundPosition = "center";
 	</script>
 </body>
 

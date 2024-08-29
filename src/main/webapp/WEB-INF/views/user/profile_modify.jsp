@@ -221,7 +221,7 @@ button {
 													class="custom-expanded u-carousel u-gallery u-layout-carousel u-lightbox u-no-transition u-show-text-none u-gallery-1"
 													data-interval="5000" data-u-ride="carousel"
 													id="carousel-4e64">
-													<ol
+													<!-- <ol
 														class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
 														<li data-u-target="#carousel-4e64" data-u-slide-to="0"
 															class="u-active u-grey-70 u-shape-circle"
@@ -229,7 +229,7 @@ button {
 														<li data-u-target="#carousel-4e64" data-u-slide-to="1"
 															class="u-grey-70 u-shape-circle"
 															style="width: 10px; height: 10px;"></li>
-													</ol>
+													</ol> -->
 													<div class="u-carousel-inner u-gallery-inner"
 														role="listbox">
 														<div
@@ -247,16 +247,16 @@ button {
 															</div>
 															<div class="u-over-slide u-over-slide-1"></div>
 														</div>
-														<div
+														<%-- <div
 															class="u-carousel-item u-gallery-item u-carousel-item-2">
 															<div class="u-back-slide">
 																<img class="u-back-image u-expanded"
 																	src="${root }images/90fc53c9.svg">
 															</div>
 															<div class="u-over-slide u-over-slide-2"></div>
-														</div>
+														</div> --%>
 													</div>
-													<a
+													<!-- <a
 														class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1"
 														href="#carousel-4e64" role="button" data-u-slide="prev">
 														<span aria-hidden="true"> <svg
@@ -288,7 +288,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
 													</span>
-													</a>
+													</a> -->
 												</div>
 											</div>
 										</div>

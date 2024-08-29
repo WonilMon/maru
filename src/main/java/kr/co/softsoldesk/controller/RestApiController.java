@@ -25,7 +25,7 @@ import kr.co.softsoldesk.service.UserIconService;
 import kr.co.softsoldesk.service.UserService;
 
 @RestController
-@PropertySource("/WEB-INF/properties/option.properties")
+@PropertySource("/WEB-INF/properties/option2.properties")
 public class RestApiController {
 
 	@Resource(name = "loginUserBean")

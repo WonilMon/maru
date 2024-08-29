@@ -13,11 +13,11 @@ public interface UserMapper {
 	// 2. 여러 값을 담은 빈으로 끌고오고 싶다 -> bean으로 bean 끌고오기
 
 	// 회원가입 insert
-	@Insert("insert into users(user_idx, user_nickname, user_email, user_pass, user_age, user_gender, user_role, user_point, user_statustext, user_zodiac) values(users_seq.nextval, #{user_nickname}, #{user_email}, #{user_pass}, #{user_age}, #{user_gender}, #{user_role}, #{user_point}, #{user_statustext}, #{user_zodiac})")
+	@Insert("insert into users(user_idx, user_nickname, user_email, user_pass, user_age, user_gender, user_role, user_point, user_statustext, user_date, user_zodiac) values(users_seq.nextval, #{user_nickname}, #{user_email}, #{user_pass}, #{user_age}, #{user_gender}, #{user_role}, #{user_point}, #{user_statustext}, SYSDATE, #{user_zodiac})")
 	void addUser(UserBean addUserBean);
 
 	// 회원정보 select
-	@Select("select * from users where user_email = #{user_email} and user_pass = #{user_pass}")
+	@Select("select * from users where user_email = #{user_email}")
 	UserBean getLoginUser(UserBean tempLoginUserBean);
 
 	// 회원정보 select (API)

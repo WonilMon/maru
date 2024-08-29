@@ -38,6 +38,8 @@ public class ContentBean {
 //	----------------------------------------------------------- ↓↓ DB 테이블에 없는 변수들 (추가한 변수들) ↓↓
 
 	private String user_name; // 유저 테이블에 있는 작성자 이름
+	
+	private int content_comment_count;
 
 //	브라우저가 보낸 파일 데이터
 	private MultipartFile upload_file;
@@ -157,6 +159,14 @@ public class ContentBean {
 
 	public void setUpload_file(MultipartFile upload_file) {
 		this.upload_file = upload_file;
+	}
+
+	public int getContent_comment_count() {
+		return content_comment_count;
+	}
+
+	public void setContent_comment_count(int content_comment_count) {
+		this.content_comment_count = content_comment_count;
 	}
 
 }

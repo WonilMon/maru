@@ -80,11 +80,24 @@
 					alert("そのニックネームは既に存在します")
 					$("#userNickNameExist").val("false")
 				}
+				setBackgroundColorBasedOn();
 			}
 
 		})
 
 	}
+	function setBackgroundColorBasedOn() {
+			
+			var userNickNameExist = $("#userNickNameExist").val();
+			var inputElement = $("#user_nickname");
+			
+			if(userNickNameExist === "false"){
+				inputElement.css("background-color", "#FFCCCC");
+			}else if(userNickNameExist === "true"){
+				inputElement.css("background-color", "#E0FFFF");
+			}
+			
+		}
 
 	//사용자 NickName란에 키보드 입력 시 무조건 false 만드는
 	function resetUserNickNameExist() {
@@ -118,10 +131,23 @@
 					alert("そのメールアドレスは既に登録済みです")
 					$("#userEmailExist").val("false")
 				}
+				setBackgroundColorBasedOn2();
 			}
 
 		})
 
+	}
+	function setBackgroundColorBasedOn2() {
+		
+		var userEmailExist = $("#userEmailExist").val();
+		var inputElement = $("#user_email");
+		
+		if(userEmailExist === "false"){
+			inputElement.css("background-color", "#FFCCCC");
+		}else if(userEmailExist === "true"){
+			inputElement.css("background-color", "#E0FFFF");
+		}
+		
 	}
 
 	//사용자 Email란에 키보드 입력 시 무조건 false 만드는

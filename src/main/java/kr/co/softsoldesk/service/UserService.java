@@ -10,6 +10,10 @@ import java.util.Random;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +35,12 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	private MailSender mailSender;
+
 //	--------------------------------------------------------
 
 //	회원가입
@@ -40,12 +50,16 @@ public class UserService {
 		LocalDate birthDate = LocalDate.parse(addUserBean.getUser_age(), formatter);
 		LocalDate currentDate = LocalDate.now();
 		Period age = Period.between(birthDate, currentDate);
-		
-		// 별자리 계산
-        String zodiacSign = getZodiacSign(birthDate);
 
-        System.out.println("zodiac" + zodiacSign);
-        
+		// 별자리 계산
+		String zodiacSign = getZodiacSign(birthDate);
+
+		System.out.println("zodiac" + zodiacSign);
+
+		// password hash
+		String encryptedPassword = passwordEncoder.encode(addUserBean.getUser_pass());
+		addUserBean.setUser_pass(encryptedPassword);
+
 		addUserBean.setUser_role("사용자");
 		addUserBean.setUser_statustext("기본 상태메시지");
 		addUserBean.setUser_point(500);
@@ -54,39 +68,51 @@ public class UserService {
 
 		userDao.addUser(addUserBean);
 	}
-	
+
 //별자리
 	public static String getZodiacSign(LocalDate date) {
-        MonthDay birthMonthDay = MonthDay.from(date);
-        
-        if (birthMonthDay.isAfter(MonthDay.of(Month.MARCH, 20)) && birthMonthDay.isBefore(MonthDay.of(Month.APRIL, 20))) {
-            return "양자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.APRIL, 19)) && birthMonthDay.isBefore(MonthDay.of(Month.MAY, 21))) {
-            return "황소자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.MAY, 20)) && birthMonthDay.isBefore(MonthDay.of(Month.JUNE, 21))) {
-            return "쌍둥이자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.JUNE, 20)) && birthMonthDay.isBefore(MonthDay.of(Month.JULY, 23))) {
-            return "게자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.JULY, 22)) && birthMonthDay.isBefore(MonthDay.of(Month.AUGUST, 23))) {
-            return "사자자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.AUGUST, 22)) && birthMonthDay.isBefore(MonthDay.of(Month.SEPTEMBER, 23))) {
-            return "처녀자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.SEPTEMBER, 22)) && birthMonthDay.isBefore(MonthDay.of(Month.OCTOBER, 23))) {
-            return "천칭자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.OCTOBER, 22)) && birthMonthDay.isBefore(MonthDay.of(Month.NOVEMBER, 22))) {
-            return "전갈자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.NOVEMBER, 21)) && birthMonthDay.isBefore(MonthDay.of(Month.DECEMBER, 22))) {
-            return "사수자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.DECEMBER, 21)) || birthMonthDay.isBefore(MonthDay.of(Month.JANUARY, 20))) {
-            return "염소자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.JANUARY, 19)) && birthMonthDay.isBefore(MonthDay.of(Month.FEBRUARY, 19))) {
-            return "물병자리";
-        } else if (birthMonthDay.isAfter(MonthDay.of(Month.FEBRUARY, 18)) && birthMonthDay.isBefore(MonthDay.of(Month.MARCH, 21))) {
-            return "물고기자리";
-        } else {
-            return "Unknown";
-        }
-    }
+		MonthDay birthMonthDay = MonthDay.from(date);
+
+		if (birthMonthDay.isAfter(MonthDay.of(Month.MARCH, 20))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.APRIL, 20))) {
+			return "양자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.APRIL, 19))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.MAY, 21))) {
+			return "황소자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.MAY, 20))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.JUNE, 21))) {
+			return "쌍둥이자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.JUNE, 20))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.JULY, 23))) {
+			return "게자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.JULY, 22))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.AUGUST, 23))) {
+			return "사자자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.AUGUST, 22))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.SEPTEMBER, 23))) {
+			return "처녀자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.SEPTEMBER, 22))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.OCTOBER, 23))) {
+			return "천칭자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.OCTOBER, 22))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.NOVEMBER, 22))) {
+			return "전갈자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.NOVEMBER, 21))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.DECEMBER, 22))) {
+			return "사수자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.DECEMBER, 21))
+				|| birthMonthDay.isBefore(MonthDay.of(Month.JANUARY, 20))) {
+			return "염소자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.JANUARY, 19))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.FEBRUARY, 19))) {
+			return "물병자리";
+		} else if (birthMonthDay.isAfter(MonthDay.of(Month.FEBRUARY, 18))
+				&& birthMonthDay.isBefore(MonthDay.of(Month.MARCH, 21))) {
+			return "물고기자리";
+		} else {
+			return "Unknown";
+		}
+	}
 
 //	중복확인 NickName
 	public boolean checkUserNickNameExist(String user_nickname) {
@@ -111,10 +137,15 @@ public class UserService {
 //	로그인
 	public void getLoginUser(UserBean tempLoginUserBean) {
 
-//		있으면 해당 유저의 이름,id,pw가 들어있을 것이고, 없으면 깡통이겠죠
 		UserBean tempLoginUserBean2 = userDao.getLoginUser(tempLoginUserBean);
 
-		if (tempLoginUserBean2 != null) {
+		String encodedPassword = tempLoginUserBean2 != null ? tempLoginUserBean2.getUser_pass() : null;
+		String rawPassword = tempLoginUserBean.getUser_pass();
+
+		// 패스워드 비교
+		boolean isPasswordMatch = encodedPassword != null && passwordEncoder.matches(rawPassword, encodedPassword);
+
+		if (isPasswordMatch) {
 			loginUserBean.setUser_idx(tempLoginUserBean2.getUser_idx());
 			loginUserBean.setUser_nickname(tempLoginUserBean2.getUser_nickname());
 			loginUserBean.setUser_age(tempLoginUserBean2.getUser_age());
@@ -125,7 +156,7 @@ public class UserService {
 			loginUserBean.setUser_statustext(tempLoginUserBean2.getUser_statustext());
 			loginUserBean.setUser_img(tempLoginUserBean2.getUser_img());
 			loginUserBean.setUser_zodiac(tempLoginUserBean2.getUser_zodiac());
-			loginUserBean.setUserLogin(true); // 판별을 true로 바꾸기
+			loginUserBean.setUserLogin(true);
 		}
 	}
 
@@ -137,6 +168,7 @@ public class UserService {
 		if (tempLoginUserBean2 != null) {
 			loginUserBean.setUser_idx(tempLoginUserBean2.getUser_idx());
 			loginUserBean.setUser_nickname(tempLoginUserBean2.getUser_nickname());
+			loginUserBean.setUser_email(tempLoginUserBean2.getUser_email());
 			loginUserBean.setUser_age(tempLoginUserBean2.getUser_age());
 			loginUserBean.setUser_gender(tempLoginUserBean2.getUser_gender());
 			loginUserBean.setUser_pass(tempLoginUserBean2.getUser_pass());
@@ -162,10 +194,21 @@ public class UserService {
 		// 패스워드 랜덤값 생성
 		String newPassword = generateRandomPassword();
 
-		// 데이터베이스에서 패스워드갱신
-		userDao.updatePassword(user_email, newPassword);
+		try {
+			// 이메일로 새 패스워드를 전송
+			sendMail(user_email, newPassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 
-		return newPassword;
+		// 새 패스워드를 암호화
+		String encryptedRandomPassword = passwordEncoder.encode(newPassword);
+
+		// 데이터베이스에서 패스워드 갱신
+		userDao.updatePassword(user_email, encryptedRandomPassword);
+
+		return newPassword; // 평문 패스워드 반환 (필요에 따라 변경 가능)
 	}
 
 	private String generateRandomPassword() {
@@ -181,6 +224,19 @@ public class UserService {
 		return newPassword.toString();
 	}
 
+	private void sendMail(String to, String newPassword) throws Exception {
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		mailMessage.setTo(to);
+		mailMessage.setSubject("【重要】パスワードリセットのお知らせ");
+		mailMessage.setText("こんにちは、\n\n" + "ご依頼に基づき、アカウントのパスワードがリセットされました。\n" + "新しいパスワードは以下の通りです:\n\n" + "新しいパスワード: "
+				+ newPassword + "\n\n" + "セキュリティ保護のため、ログイン後、速やかにパスワードを変更することをお勧めします。\n\n"
+				+ "もしこのメールに覚えがない場合は、アカウントの不正利用の可能性があります。" + "直ちにサイト内のFAQにアクセスし、サポートチームにご連絡ください。\n\n"
+				+ "また、その他の質問やサポートが必要な場合も、同じくFAQページをご参照ください。\n\n" + "この度はご利用いただき、誠にありがとうございます。\n\n" + "敬具,\n"
+				+ "サポートチーム");
+
+		mailSender.send(mailMessage);
+	}
+
 //	modify update
 	public void modifyUserInfo(UserBean modifyUserBean) {
 		modifyUserBean.setUser_idx(loginUserBean.getUser_idx());
@@ -188,9 +244,12 @@ public class UserService {
 	}
 
 	public void modifyUser(UserBean modifyUser) {
-		
 		loginUserBean.setUser_nickname(modifyUser.getUser_nickname());
-		loginUserBean.setUser_pass(modifyUser.getUser_pass());
+
+		// 새 패스워드 암호화
+		String encryptedPassword = passwordEncoder.encode(modifyUser.getUser_pass());
+		loginUserBean.setUser_pass(encryptedPassword);
+		modifyUser.setUser_pass(encryptedPassword); // modifyUser에 암호화된 패스워드 설정
 		userDao.modifyUser(modifyUser);
 	}
 
@@ -203,7 +262,6 @@ public class UserService {
 	public void updateStatusText(String user_statustext, int user_idx) {
 		loginUserBean.setUser_statustext(user_statustext);
 		userDao.updateStatusText(user_statustext, user_idx);
-		
 	}
 
 	// -----------------------------현석--
