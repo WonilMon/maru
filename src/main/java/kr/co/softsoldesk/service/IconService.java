@@ -1,9 +1,11 @@
 package kr.co.softsoldesk.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.softsoldesk.beans.IconBean;
 import kr.co.softsoldesk.mapper.IconMapper;
@@ -47,5 +49,14 @@ public class IconService {
     public int getIconPriceById(int icon_idx) {
         return iconMapper.getIconPriceById(icon_idx);
     }
+    
+    // 아이콘 인덱스에 대한 아이콘 경로를 가져오는 메서드
+    @Transactional(readOnly = true)
+    public String getIconPathByIconIdx(int iconIdx) {
+        return iconMapper.getIconPathByIconIdx(iconIdx);
+    }
+ 
+    
+    
     
 }

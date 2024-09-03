@@ -105,7 +105,12 @@
 									<div
 										class="u-border-2 u-border-white u-container-layout u-container-layout-4">
 										<p class="u-text u-text-default u-text-7">
-											${readContent.user_name }</p>
+											${readContent.user_name }
+    <!-- 프로필 아이콘 표시 -->
+    <span class="u-align-center u-file-icon u-icon u-icon-1" style="margin-left: 10px;">
+        <img id="profileIcon" src="${root}${loginUserBean.user_icon}" alt="Profile Icon" />
+    </span></p>
+
 										<span
 											class="u-border-2 u-border-palette-1-base u-file-icon u-gradient u-icon u-icon-circle u-icon-2"><img
 											src="${root }images/2076218-122ef5be.png" alt=""></span>

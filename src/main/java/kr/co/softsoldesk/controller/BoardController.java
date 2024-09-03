@@ -1,6 +1,7 @@
 package kr.co.softsoldesk.controller;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,10 +25,13 @@ import com.google.gson.GsonBuilder;
 import kr.co.softsoldesk.beans.BoardInfoBean;
 import kr.co.softsoldesk.beans.CommentBean;
 import kr.co.softsoldesk.beans.ContentBean;
+import kr.co.softsoldesk.beans.IconBean;
 import kr.co.softsoldesk.beans.PageBean;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.service.BoardService;
 import kr.co.softsoldesk.service.CommentService;
+import kr.co.softsoldesk.service.IconService;
+import kr.co.softsoldesk.service.UserIconService;
 
 @Controller
 @RequestMapping("/board")
@@ -41,6 +45,8 @@ public class BoardController {
 	
 	@Autowired
 	CommentService commentService;
+	
+	
 
 	@GetMapping("/write")
 	private String write() {
@@ -159,21 +165,25 @@ public class BoardController {
 	
 	@GetMapping("/board_read")
 	private String board_read(@RequestParam("content_idx") int content_idx,
-			@RequestParam("board_info_idx") int board_info_idx, Model model) {
+	        @RequestParam("board_info_idx") int board_info_idx, Model model) {
 
-		ContentBean readContent = boardService.getReadContent(content_idx);
-		CommentBean commentBean = new CommentBean();
-		
-		
-		model.addAttribute("user_name", loginuserBean.getUser_nickname());
-		model.addAttribute("readContent", readContent);
-		model.addAttribute("board_info_idx", board_info_idx);
-		model.addAttribute("content_idx", content_idx);
-		model.addAttribute("user_idx", loginuserBean.getUser_idx());
-		model.addAttribute("commentBean", commentBean);
-		
-		return "board/board_read";
+	    ContentBean readContent = boardService.getReadContent(content_idx);
+	    CommentBean commentBean = new CommentBean();
+	    
+	    
 
+        // loginUserBean에서 아이콘 경로 가져오기
+        String iconPath = loginuserBean.getUser_icon();
+        
+        model.addAttribute("user_idx", iconPath);
+	    model.addAttribute("user_name", loginuserBean.getUser_nickname());
+	    model.addAttribute("readContent", readContent);
+	    model.addAttribute("board_info_idx", board_info_idx);
+	    model.addAttribute("content_idx", content_idx);
+	    model.addAttribute("user_idx", loginuserBean.getUser_idx());
+	    model.addAttribute("commentBean", commentBean);
+	    
+	    return "board/board_read";
 	}
 
 	@GetMapping("/board_modify")

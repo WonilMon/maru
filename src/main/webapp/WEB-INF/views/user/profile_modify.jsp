@@ -94,53 +94,141 @@
 	}
 </script>
 <script>
-	let isEditMode = false;
+    // 사용자 NickName란에 키보드 입력 시 무조건 false 만드는
+    function resetUserNickNameExist() {
+        $("#userNickNameExist").val("false")
+    }
 
-	function toggleEditMode() {
-		const input = document.getElementById('user_statustext');
-		const button = document.getElementById('changeStatusTextBtn');
+    // 사용자 NickName 중복 확인
+    function checkUserNickNameExist(user_nickname) {
+        $.ajax({
+            url: '${root}/user/checkUserNickNameExist_profile/' + user_nickname,
+            type: 'get',
+            dataType: 'text',
+            success: function(result) {
+                setBackgroundColorBasedOn();
+                if (result.trim() == "true") {
+                    alert("사용 가능한 닉네임입니다");
+                    $("#userNickNameExist").val("true");
+                } else {
+                    alert("그 닉네임은 이미 존재합니다");
+                    $("#userNickNameExist").val("false");
+                }
+                setBackgroundColorBasedOn();
+            }
+        });
+    }
 
-		if (!isEditMode) {
-			// Switch to edit mode
-			input.removeAttribute('readonly');
-			input.focus();
-			button.textContent = '확인';
-			button.classList.remove('edit-mode');
-			button.classList.add('save-mode');
-		} else {
-			// Switch back to view mode
-			input.setAttribute('readonly', 'true');
-			button.textContent = '변경';
-			button.classList.remove('save-mode');
-			button.classList.add('edit-mode');
+    function setBackgroundColorBasedOn() {
+        var userNickNameExist = $("#userNickNameExist").val();
+        var inputElement = $("#user_nickname");
 
-			// Perform AJAX request
-			const user_statustext = input.value;
-			const user_idx = document.getElementById('user_idx').value;
+        if (userNickNameExist === "false") {
+            inputElement.css("background-color", "#FFCCCC");
+        } else if (userNickNameExist === "true") {
+            inputElement.css("background-color", "#E0FFFF");
+        }
+    }
 
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "${root}user/updateStatus", true);
-			xhr.setRequestHeader("Content-Type",
-					"application/x-www-form-urlencoded");
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					if (xhr.responseText === "success") {
-						alert("상태 메시지가 변경되었습니다.");
-					} else {
-						alert("상태 메시지 변경에 실패했습니다.");
-					}
-				}
-			};
-			xhr.send("user_statustext=" + encodeURIComponent(user_statustext)
-					+ "&user_idx=" + encodeURIComponent(user_idx));
-		}
+    // 상태 메시지 변경 모드 토글
+    let isEditMode = false;
 
-		isEditMode = !isEditMode;
-	}
+    function toggleEditMode() {
+        const input = document.getElementById('user_statustext');
+        const button = document.getElementById('changeStatusTextBtn');
+
+        if (!isEditMode) {
+            input.removeAttribute('readonly');
+            input.focus();
+            button.textContent = '확인';
+            button.classList.remove('edit-mode');
+            button.classList.add('save-mode');
+        } else {
+            input.setAttribute('readonly', 'true');
+            button.textContent = '변경';
+            button.classList.remove('save-mode');
+            button.classList.add('edit-mode');
+
+            const user_statustext = input.value;
+            const user_idx = document.getElementById('user_idx').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "${root}user/updateStatus", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    if (xhr.responseText === "success") {
+                        alert("상태 메시지가 변경되었습니다.");
+                    } else {
+                        alert("상태 메시지 변경에 실패했습니다.");
+                    }
+                }
+            };
+            xhr.send("user_statustext=" + encodeURIComponent(user_statustext) + "&user_idx=" + encodeURIComponent(user_idx));
+        }
+
+        isEditMode = !isEditMode;
+    }
+// 모달 열기
+function openModal() {
+    document.getElementById('iconModal').style.display = 'block';
+}
+
+// 모달 닫기
+function closeModal() {
+    document.getElementById('iconModal').style.display = 'none';
+}
+
+// 모달 외부 클릭 시 닫기
+window.onclick = function(event) {
+    const modal = document.getElementById("iconModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+//아이콘 선택 함수
+function selectIcon(event) {
+    const icon = event.target;
+    if (icon.tagName.toLowerCase() === 'img') {
+        if (icon.classList.contains('clicked')) {
+            icon.classList.remove('clicked');
+        } else {
+            document.querySelectorAll('#userIcons img').forEach(img => img.classList.remove('clicked'));
+            icon.classList.add('clicked');
+        }
+    }
+}
+
+// 선택된 아이콘의 idx를 가져오는 함수
+function getSelectedIcon() {
+    const selectedIcons = document.querySelectorAll('#userIcons img.clicked');
+    if (selectedIcons.length === 0) {
+        alert('아이콘을 선택해주세요.');
+        return null;
+    } else if (selectedIcons.length > 1) {
+        alert('아이콘은 하나만 선택해주세요.');
+        return null;
+    }
+    return selectedIcons[0].getAttribute('data-icon-idx');
+}
+
+// 아이콘 변경 처리 함수
+function changeIcon() {
+    const iconIdx = getSelectedIcon();
+    if (iconIdx) {
+        const iconIdxInput = document.getElementById('iconIdx');
+        if (iconIdxInput) {
+            iconIdxInput.value = iconIdx;
+            return true; // 폼을 제출하도록 허용
+        } else {
+            console.error('아이콘 인덱스 입력 필드를 찾을 수 없습니다.');
+            return false; // 폼 제출을 막음
+        }
+    }
+    return false; // 폼 제출을 막음
+}
 </script>
-
-
-
 <meta name="theme-color" content="#fda270">
 <meta name="twitter:site" content="@">
 <meta name="twitter:card" content="summary_large_image">
@@ -190,6 +278,87 @@ button {
 	background-color: #FCD5CE; /* Soft pink background */
 	color: #333; /* Dark text color for contrast */
 }
+/* 모달 스타일 */
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 고정 위치 */
+    z-index: 1; /* 최상위에 위치 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    overflow: auto; /* 필요 시 스크롤 가능 */
+    background-color: rgba(0,0,0,0.4); /* 검정색 투명도 */
+}
+
+/* 모달 콘텐츠 */
+.modal-content {
+    background-color: #FCD5CE;
+    margin: 15% auto; /* 상단에서 15% 떨어지고 중앙 정렬 */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* 너비를 50%로 줄임 */
+    max-width: 600px; /* 최대 너비 설정 */
+    height: auto; /* 높이는 콘텐츠에 맞게 자동 조절 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* 그림자 추가 */
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#userIconsContainer{
+	border: none;
+	padding: 0;
+	margin: 0;
+	scrollbar-width: thin;
+	scrollbar-color: #FCD5CE #f0f0f0;
+
+}
+
+
+#userIcons img {
+    width: 64px;
+    height: 64px;
+    margin-right: 10px; /* 아이콘 간의 간격 */
+    cursor: pointer;
+}
+#changeIconBtn {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #FF6F61; 
+    color: white; 
+    padding: 10px 20px; /* 버튼을 옆으로 길쭉하게 */
+   
+    font-size: 18px; /* 폰트 크기 증가 */
+}
+.clicked {
+    border: 3px solid #FF6F61; 
+    opacity: 0.7; 
+}
+#profileIcon {
+            
+            
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+
+
+}
+
+
+
 </style>
 </head>
 <body data-path-to-root="/" data-include-products="false"
@@ -302,7 +471,15 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 								<div
 									class="u-container-style u-layout-cell u-size-60 u-layout-cell-2">
 									<div class="u-container-layout u-container-layout-2">
-										<h2 class="u-align-center u-subtitle u-text u-text-2">${modifyUser.user_nickname}</h2>
+										<h2 class="u-align-center u-subtitle u-text u-text-2">${modifyUser.user_nickname}
+										    <!-- 프로필 아이콘 표시 -->
+<span class="u-align-center u-file-icon u-icon u-icon-1" style="margin-left: 5px;">
+    <c:if test="${not empty modifyUser.user_icon}">
+        <img id="profileIcon" src="${root}${modifyUser.user_icon}" alt="" />
+    </c:if>
+</span>
+										
+										</h2>
 
 										<div class="status-container">
 											<label for="user_statustext">상태메시지</label>
@@ -314,9 +491,30 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 											</div>
 										</div>
 
-										<a href="#"
-											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">
-											change icon</a>
+<!-- change icon 버튼 -->
+<a href="#" class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1" onclick="openModal()">change icon</a>
+
+<!-- 아이콘 선택 모달 -->
+<div id="iconModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>아이콘 선택</h2>
+        <div id="userIconsContainer" style="background-color: #FFE5D9; overflow-x: auto; white-space: nowrap; width: 100%; margin: 0 auto;">
+            <div id="userIcons" style="background-color: #FFE5D9;">
+                <c:forEach var="icon" items="${userIcons}">
+                    <img src="${root}${icon.icon_path}" alt="아이콘 이미지" data-icon-idx="${icon.icon_idx}" onclick="selectIcon(event)" />
+                </c:forEach>
+            </div>
+        </div>
+        <!-- 아이콘 변경 폼 -->
+        <form id="updateIconForm" action="/Maru/user/updateIcon" method="POST" onsubmit="return changeIcon();">
+            <input type="hidden" id="iconIdx" name="icon_idx" />
+            <input type="hidden" name="user_idx" value="${user_idx}" />
+            <button id="changeIconBtn" type="submit" class="edit-mode">변경</button>
+        </form>
+    </div>
+</div>
+
 										<a href="#" id="changeImageBtn"
 											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-2">
 											change image</a>

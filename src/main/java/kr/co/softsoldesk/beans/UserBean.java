@@ -38,7 +38,12 @@ public class UserBean {
 	private String user_img;
 	private String user_zodiac;
 
+	
+	private String user_icon;
+	
 //	----------------------------------------------------------- ↓↓ DB 테이블에 없는 변수들 (추가한 변수들) ↓↓
+
+
 
 	// 내 필요에 의해 넣은 DB에 없는 변수
 	@Size(min = 4, max = 20, groups = { ModifyGroup.class, RegisterGroup.class })
@@ -180,5 +185,12 @@ public class UserBean {
 		
         this.user_zodiac=user_zodiac;
 	}
-	
+public String getUser_icon() {
+	return user_icon;
+}
+
+public void setUser_icon(String user_icon) {
+	this.user_icon = user_icon;
+}
+
 }

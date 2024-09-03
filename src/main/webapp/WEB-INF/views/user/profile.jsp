@@ -45,6 +45,19 @@
 <meta property="og:title" content="profile">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+    <style>
+ 
+
+        #profileIcon {
+     
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+
+        }
+    </style>
+
+
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
@@ -160,9 +173,15 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 									class="u-container-align-center u-container-style u-layout-cell u-size-60 u-layout-cell-2">
 									<div
 										class="u-container-layout u-valign-middle u-container-layout-2">
-										<h2 class="u-align-center u-subtitle u-text u-text-2">${profileUser.user_nickname }</h2>
-										<span class="u-align-center u-file-icon u-icon u-icon-1"><img
-											src="/images/2356780.png" alt=""></span>
+<h2 class="u-align-center u-subtitle u-text u-text-2" style="display: flex; align-items: center; justify-content: center;">
+    ${profileUser.user_nickname}
+										    <!-- 프로필 아이콘 표시 -->
+<span class="u-align-center u-file-icon u-icon u-icon-1" style="margin-left: 5px;">
+    <c:if test="${not empty profileUser.user_icon}">
+        <img id="profileIcon" src="${root}${profileUser.user_icon}" alt="" />
+    </c:if>
+</span>
+</h2>
 											<!-- 아이콘 가지고 와서 표시하도록 수정 필요 -->
 										<p class="u-align-center u-text u-text-3">${profileUser.user_statustext }</p>
 										<a href="#"

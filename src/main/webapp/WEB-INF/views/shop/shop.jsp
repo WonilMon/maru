@@ -51,21 +51,36 @@
 }
 
 .icon-list {
-	max-height: 200px;
-	overflow-y: auto;
-	background-color: #FAE1DD;
-	border: none;
-	padding: 0;
-	margin: 0;
-	scrollbar-width: thin;
-	scrollbar-color: #FF6F61 #f0f0f0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    max-height: 200px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    background-color: #FAE1DD;
+    border: none;
+    padding: 0;
+    margin: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #FF6F61 #f0f0f0;
 }
 
 .product-item {
-	display: inline-block;
-	margin: 5px;
-	text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
+
+.product-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(255, 111, 97, 0.2); /* 어울리는 그림자 색 */
+}
+
 
 #defaultDinosaurIcon {
 	width: 80px;
@@ -166,6 +181,37 @@
 	height: 60px;
 	margin-right: 10px; /* 아이콘 간의 간격 */
 }
+.random-button {
+    color: #FF6F61; /* 글자 색깔 */
+    background-color: #FAE1DD; /* 배경 색깔 */
+    border: 2px solid #FF6F61; /* 테두리 색깔과 두께 */
+    padding: 10px 20px; /* 내부 여백 */
+    font-size: 20px; /* 글자 크기 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    transition: all 0.3s ease; /* 모든 스타일 변화에 대한 애니메이션 */
+}
+
+.random-button:hover {
+    color: white; /* 호버 시 글자 색깔 */
+    background-color: #FEC89A; /* 호버 시 배경 색깔 */
+    border-color: #FEC89A; /* 호버 시 테두리 색깔 */
+    cursor: pointer; /* 마우스 커서 모양 */
+}
+
+.random-button:active {
+    background-color: #FF6F61; /* 클릭 시 배경 색깔 */
+    border-color: #FF6F61; /* 클릭 시 테두리 색깔 */
+    transform: scale(0.98); /* 클릭 시 살짝 작아지는 효과 */
+}
+
+.random-button:focus {
+    outline: none; /* 기본 포커스 테두리 제거 */
+    box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.5); /* 포커스 시 그림자 효과 */
+}
+
+
+}
 
 #userIconsContainer, #dinosaurIcons, #dogIcons, #gorillaIcons,
 	#otterIcons, #rabbitIcons {
@@ -225,6 +271,13 @@
 						alt="Default Rabbit Icon" onclick="toggleIcons('rabbit')">
 					</span>
 				</div>
+
+<div class="random-button-container">
+    <button onclick="buyRandomIcon('${user.user_idx}')" class="random-button">
+        Buy Random Icon
+    </button>
+</div>
+
 
 				<div class="icon-navigation">
 					<span class="arrow left-arrow" onclick="scrollIcons('left')">&#9664;</span>

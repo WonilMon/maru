@@ -1,6 +1,7 @@
 package kr.co.softsoldesk.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -32,9 +33,12 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 
 import kr.co.softsoldesk.beans.LineProfile;
 import kr.co.softsoldesk.beans.UserBean;
+import kr.co.softsoldesk.beans.IconBean;
 import kr.co.softsoldesk.groups.LoginGroup;
 import kr.co.softsoldesk.groups.ModifyGroup;
 import kr.co.softsoldesk.groups.RegisterGroup;
+import kr.co.softsoldesk.service.IconService;
+import kr.co.softsoldesk.service.UserIconService;
 import kr.co.softsoldesk.service.UserService;
 import kr.co.softsoldesk.validator.UserValidator;
 
@@ -53,6 +57,14 @@ public class UserController {
 
 	@Autowired
 	private MailSender mailSender;
+	
+    @Autowired
+    private IconService iconService;
+	
+	@Autowired
+	private UserIconService userIconService;
+	
+	
 
 	@InitBinder("addUserBean")
 	protected void initAddUserBinder(WebDataBinder binder) {
@@ -75,30 +87,75 @@ public class UserController {
 //	-------------------------------------------
 
 	@GetMapping("/profile")
-	private String profile(@RequestParam("user_idx") int user_idx, Model model) {
-		UserBean profileUser = userService.getModifyUserInfo(user_idx);
+	public String profile(@RequestParam("user_idx") int user_idx, Model model, HttpSession session) {
+	    // 사용자 정보 및 프로필 이미지 경로 가져오기
+	    UserBean profileUser = userService.getModifyUserInfo(user_idx);
+	    String img = userService.getImgFile(user_idx);
 
-		String img = userService.getImgFile(user_idx);
+	    // 아이콘 경로를 세션에 추가 
+	    String iconPath = (String) session.getAttribute("icon_path");
+	    if (iconPath == null) {
+	        iconPath = ""; // 기본값 설정, 없을 경우
+	    }
+	    // 모델에 정보 추가
+	    model.addAttribute("img", img);
+	    
+	    
+	    //아이콘 관련
+	    model.addAttribute("profileUser", profileUser);
+	    model.addAttribute("iconPath", iconPath); // 프로필 아이콘 경로 추가
 
-		model.addAttribute("img", img);
-		model.addAttribute("profileUser", profileUser);
+	    // 사용자 아이콘 목록을 가져옴
+	    List<IconBean> userIcons = userIconService.getIconsByUserId(user_idx);
+	    model.addAttribute("userIcons", userIcons);
 
-		return "user/profile";
+	    return "user/profile";
 	}
 
 	@GetMapping("/profile_modify")
-	private String profile_modify(@RequestParam("user_idx") int user_idx, Model model) {
+	public String profile_modify(@RequestParam("user_idx") int user_idx, Model model) {
+	    UserBean modifyUser = userService.getModifyUserInfo(user_idx);
+	    model.addAttribute("modifyUser", modifyUser);
 
-		UserBean modifyUser = userService.getModifyUserInfo(user_idx);
-		model.addAttribute("modifyUser", modifyUser);
+	    String img = userService.getImgFile(user_idx);
+	    model.addAttribute("img", img);
 
-		String img = userService.getImgFile(user_idx);
+	    // 아이콘 목록을 모델에 추가
+	    List<IconBean> userIcons = userIconService.getIconsByUserId(user_idx);
+	    model.addAttribute("userIcons", userIcons);
+	    
 
-		model.addAttribute("img", img);
-
-		return "user/profile_modify";
+	    return "user/profile_modify";
 	}
+	// 사용자 프로필 아이콘 업데이트 (POST 요청으로 수정)
+    @PostMapping("/updateIcon")
+    public String updateUserIcon(
+            @RequestParam("icon_idx") int iconIdx,
+            @RequestParam("user_idx") int userIdx,
+            Model model) {
+        try {
+            // 유효성 검사
+            if (iconIdx <= 0) {
+                throw new IllegalArgumentException("Invalid icon index");
+            }
 
+            // 아이콘 경로를 가져와서 모델에 저장
+            String iconPath = iconService.getIconPathByIconIdx(iconIdx);
+            model.addAttribute("iconPath", iconPath);
+
+            // 데이터베이스에 아이콘 경로 업데이트
+            userService.updateUserIcon(userIdx, iconPath);
+
+            // loginUserBean에 아이콘 경로 설정
+            loginUserBean.setUser_icon(iconPath);
+
+            // 프로필 페이지로 리디렉션
+            return "redirect:/user/profile_modify?user_idx=" + userIdx;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
 	@PostMapping("/profile_modify_pro")
 	public String profile_modify_pro(@Validated(ModifyGroup.class) @ModelAttribute("modifyUser") UserBean modifyUser,
 			BindingResult result, Model model) {
@@ -111,6 +168,7 @@ public class UserController {
 		return "user/profile_modify_success";
 	}
 
+	
 	@PostMapping("/updateStatus")
 	@ResponseBody
 	public String updateStatus(@RequestParam("user_statustext") String user_statustext,

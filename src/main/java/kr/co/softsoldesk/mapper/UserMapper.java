@@ -69,4 +69,12 @@ public interface UserMapper {
 	// 프로필 이미지 가져오기
 	@Select("select user_img from users where user_idx = #{user_idx}")
 	String getImgFile(int user_idx);
-}
+   
+	// 아이콘 경로 업데이트 메서드
+    @Update("UPDATE users SET user_icon = #{iconPath} WHERE user_idx = #{userIdx}")
+    void updateUserIcon(@Param("userIdx") int userIdx, @Param("iconPath") String iconPath);
+
+	
+    }
+	
+

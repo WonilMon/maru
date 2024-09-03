@@ -232,5 +232,11 @@ public class UserService {
 	public String getImgFile(int user_idx) {
 		return userDao.getImgFile(user_idx);
 	}
+	
+    // 아이콘 경로 업데이트 메서드
+    public void updateUserIcon(int userIdx, String iconPath) {
+        userMapper.updateUserIcon(userIdx, iconPath);
+    }
+	
 
 }
