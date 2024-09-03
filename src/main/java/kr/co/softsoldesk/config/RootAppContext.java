@@ -23,6 +23,7 @@ import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.mapper.BoardMapper;
 import kr.co.softsoldesk.mapper.CommentMapper;
 import kr.co.softsoldesk.mapper.IconMapper;
+import kr.co.softsoldesk.mapper.RouletteMapper;
 import kr.co.softsoldesk.mapper.UserIconMapper;
 import kr.co.softsoldesk.mapper.UserMapper;
 
@@ -155,5 +156,13 @@ public class RootAppContext implements WebMvcConfigurer {
 		factoryBean.setSqlSessionFactory(factory);
 
 		return factoryBean;
+	}
+	
+	//룰렛
+	@Bean
+	public MapperFactoryBean<RouletteMapper> getRouletteMapper(SqlSessionFactory factory) {
+	    MapperFactoryBean<RouletteMapper> factoryBean = new MapperFactoryBean<>(RouletteMapper.class);
+	    factoryBean.setSqlSessionFactory(factory);
+	    return factoryBean;
 	}
 }

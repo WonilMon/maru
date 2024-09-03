@@ -54,10 +54,10 @@ public interface UserMapper {
 	// 상점에서 user_idx 끌어오기
 	@Select("SELECT * FROM users WHERE user_idx = #{user_idx}")
 	UserBean getUserById(int user_idx);
-
+	
 	@Update("UPDATE users SET user_point = #{user_point} WHERE user_idx = #{user_idx}")
 	void updateUser(UserBean user);
-
+	
 	// buyIcon 요청으로 user_icon 테이블에 넣기
 	@Insert("INSERT INTO user_icon (user_icon_idx, user_idx, icon_idx) VALUES (user_icon_seq.NEXTVAL, #{user_idx}, #{icon_idx})")
 	void insertUserIcon(@Param("user_idx") int user_idx, @Param("icon_idx") int icon_idx);
