@@ -1,6 +1,6 @@
 package kr.co.softsoldesk.service;
 
-import java.time.LocalDate;
+import java.time.LocalDate;	
 import java.time.Month;
 import java.time.MonthDay;
 import java.time.Period;
@@ -37,10 +37,9 @@ public class UserService {
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private MailSender mailSender;
-	
 
 //	--------------------------------------------------------
 
@@ -57,7 +56,7 @@ public class UserService {
 
 		System.out.println("zodiac" + zodiacSign);
 
-//    	password hash
+		// password hash
 		String encryptedPassword = passwordEncoder.encode(addUserBean.getUser_pass());
 		addUserBean.setUser_pass(encryptedPassword);
 
@@ -70,6 +69,7 @@ public class UserService {
 		userDao.addUser(addUserBean);
 	}
 
+	
 //별자리
 	public static String getZodiacSign(LocalDate date) {
 		MonthDay birthMonthDay = MonthDay.from(date);
@@ -137,31 +137,31 @@ public class UserService {
 
 //	로그인
 	public void getLoginUser(UserBean tempLoginUserBean) {
-	    
-	    UserBean tempLoginUserBean2 = userDao.getLoginUser(tempLoginUserBean);
-	    
-	    String encodedPassword = tempLoginUserBean2 != null ? tempLoginUserBean2.getUser_pass() : null;
-	    String rawPassword = tempLoginUserBean.getUser_pass();
 
-	    // 패스워드 비교
-	    boolean isPasswordMatch = encodedPassword != null && passwordEncoder.matches(rawPassword, encodedPassword);
+		UserBean tempLoginUserBean2 = userDao.getLoginUser(tempLoginUserBean);
 
-	    if (isPasswordMatch) {
-	        loginUserBean.setUser_idx(tempLoginUserBean2.getUser_idx());
-	        loginUserBean.setUser_nickname(tempLoginUserBean2.getUser_nickname());
-	        loginUserBean.setUser_age(tempLoginUserBean2.getUser_age());
-	        loginUserBean.setUser_gender(tempLoginUserBean2.getUser_gender());
-	        loginUserBean.setUser_pass(tempLoginUserBean2.getUser_pass());
-	        loginUserBean.setUser_point(tempLoginUserBean2.getUser_point());
-	        loginUserBean.setUser_role(tempLoginUserBean2.getUser_role());
-	        loginUserBean.setUser_statustext(tempLoginUserBean2.getUser_statustext());
-	        loginUserBean.setUser_img(tempLoginUserBean2.getUser_img());
-	        loginUserBean.setUser_zodiac(tempLoginUserBean2.getUser_zodiac());
-	        loginUserBean.setUserLogin(true); 
-	    }
+		String encodedPassword = tempLoginUserBean2 != null ? tempLoginUserBean2.getUser_pass() : null;
+		String rawPassword = tempLoginUserBean.getUser_pass();
+
+		// 패스워드 비교
+		boolean isPasswordMatch = encodedPassword != null && passwordEncoder.matches(rawPassword, encodedPassword);
+
+		if (isPasswordMatch) {
+			loginUserBean.setUser_idx(tempLoginUserBean2.getUser_idx());
+			loginUserBean.setUser_nickname(tempLoginUserBean2.getUser_nickname());
+			loginUserBean.setUser_age(tempLoginUserBean2.getUser_age());
+			loginUserBean.setUser_gender(tempLoginUserBean2.getUser_gender());
+			loginUserBean.setUser_pass(tempLoginUserBean2.getUser_pass());
+			loginUserBean.setUser_point(tempLoginUserBean2.getUser_point());
+			loginUserBean.setUser_role(tempLoginUserBean2.getUser_role());
+			loginUserBean.setUser_statustext(tempLoginUserBean2.getUser_statustext());
+			loginUserBean.setUser_img(tempLoginUserBean2.getUser_img());
+			loginUserBean.setUser_zodiac(tempLoginUserBean2.getUser_zodiac());
+			loginUserBean.setUserLogin(true);
+		}
 	}
 
-
+	
 //	로그인 API
 	public void getLoginUserAPI(String user_email) {
 
@@ -170,6 +170,7 @@ public class UserService {
 		if (tempLoginUserBean2 != null) {
 			loginUserBean.setUser_idx(tempLoginUserBean2.getUser_idx());
 			loginUserBean.setUser_nickname(tempLoginUserBean2.getUser_nickname());
+			loginUserBean.setUser_email(tempLoginUserBean2.getUser_email());
 			loginUserBean.setUser_age(tempLoginUserBean2.getUser_age());
 			loginUserBean.setUser_gender(tempLoginUserBean2.getUser_gender());
 			loginUserBean.setUser_pass(tempLoginUserBean2.getUser_pass());
@@ -189,29 +190,28 @@ public class UserService {
 	public UserBean getModifyUserInfo(int user_idx) {
 		return userDao.getModifyUserBeanInfo(user_idx);
 	}
-
+	
 	// 패스워드 리셋
 	public String resetPassword(String user_email) {
-	    //패스워드 랜덤값 생성
-	    String newPassword = generateRandomPassword();
+		// 패스워드 랜덤값 생성
+		String newPassword = generateRandomPassword();
 
-	    try {
-	        //이메일로 새 패스워드를 전송
-	        sendMail(user_email, newPassword);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return "error";
-	    }
+		try {
+			// 이메일로 새 패스워드를 전송
+			sendMail(user_email, newPassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 
-	    //새 패스워드를 암호화
-	    String encryptedRandomPassword = passwordEncoder.encode(newPassword);
+		// 새 패스워드를 암호화
+		String encryptedRandomPassword = passwordEncoder.encode(newPassword);
 
-	    //데이터베이스에서 패스워드 갱신
-	    userDao.updatePassword(user_email, encryptedRandomPassword);
+		// 데이터베이스에서 패스워드 갱신
+		userDao.updatePassword(user_email, encryptedRandomPassword);
 
-	    return newPassword;  // 평문 패스워드 반환 (필요에 따라 변경 가능)
+		return newPassword; // 평문 패스워드 반환 (필요에 따라 변경 가능)
 	}
-
 
 	private String generateRandomPassword() {
 		int length = 10;
@@ -225,8 +225,8 @@ public class UserService {
 
 		return newPassword.toString();
 	}
-	
 
+	
 	private void sendMail(String to, String newPassword) throws Exception {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(to);
@@ -240,7 +240,6 @@ public class UserService {
 		mailSender.send(mailMessage);
 	}
 
-
 //	modify update
 	public void modifyUserInfo(UserBean modifyUserBean) {
 		modifyUserBean.setUser_idx(loginUserBean.getUser_idx());
@@ -248,15 +247,14 @@ public class UserService {
 	}
 
 	public void modifyUser(UserBean modifyUser) {
-	    loginUserBean.setUser_nickname(modifyUser.getUser_nickname());
+		loginUserBean.setUser_nickname(modifyUser.getUser_nickname());
 
-	        // 새 패스워드 암호화
-	        String encryptedPassword = passwordEncoder.encode(modifyUser.getUser_pass());
-	        loginUserBean.setUser_pass(encryptedPassword);
-	        modifyUser.setUser_pass(encryptedPassword); // modifyUser에 암호화된 패스워드 설정
-	        userDao.modifyUser(modifyUser);
+		// 새 패스워드 암호화
+		String encryptedPassword = passwordEncoder.encode(modifyUser.getUser_pass());
+		loginUserBean.setUser_pass(encryptedPassword);
+		modifyUser.setUser_pass(encryptedPassword); // modifyUser에 암호화된 패스워드 설정
+		userDao.modifyUser(modifyUser);
 	}
-
 
 	// 회원삭제
 	public void deleteUser(int user_idx) {
@@ -267,7 +265,6 @@ public class UserService {
 	public void updateStatusText(String user_statustext, int user_idx) {
 		loginUserBean.setUser_statustext(user_statustext);
 		userDao.updateStatusText(user_statustext, user_idx);
-
 	}
 
 	// -----------------------------현석--

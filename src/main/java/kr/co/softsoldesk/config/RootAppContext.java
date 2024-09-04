@@ -1,10 +1,10 @@
 package kr.co.softsoldesk.config;
 
-import java.util.Properties;	
+import java.util.Properties;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
-//import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,8 +22,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.mapper.BoardMapper;
+import kr.co.softsoldesk.mapper.ChatMapper;
 import kr.co.softsoldesk.mapper.CommentMapper;
+import kr.co.softsoldesk.mapper.CompanyMapper;
 import kr.co.softsoldesk.mapper.IconMapper;
+import kr.co.softsoldesk.mapper.MessageMapper;
 import kr.co.softsoldesk.mapper.UserIconMapper;
 import kr.co.softsoldesk.mapper.UserMapper;
 
@@ -55,7 +58,6 @@ public class RootAppContext implements WebMvcConfigurer {
 		return new UserBean();
 	}
 
-//	mail config
 	@Value("${mail.host}")
 	private String mailHost;
 
@@ -140,6 +142,24 @@ public class RootAppContext implements WebMvcConfigurer {
 		return factoryBean;
 	}
 
+//	쿼리문 실행을 위한 객체 mapper4
+	@Bean
+	public MapperFactoryBean<ChatMapper> getChatMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<ChatMapper> factoryBean = new MapperFactoryBean<ChatMapper>(ChatMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+
+		return factoryBean;
+	}
+
+//	쿼리문 실행을 위한 객체 mapper5
+	@Bean
+	public MapperFactoryBean<MessageMapper> getMessageMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<MessageMapper> factoryBean = new MapperFactoryBean<MessageMapper>(MessageMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+
+		return factoryBean;
+	}
+
 //	쿼리문 실행을 위한 객체 mapper6
 	@Bean
 	public MapperFactoryBean<IconMapper> getIconMapper(SqlSessionFactory factory) {
@@ -162,6 +182,15 @@ public class RootAppContext implements WebMvcConfigurer {
 	@Bean
 	public MapperFactoryBean<CommentMapper> getCommentMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<CommentMapper> factoryBean = new MapperFactoryBean<CommentMapper>(CommentMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+
+		return factoryBean;
+	}
+
+//	쿼리문 실행을 위한 객체 mapper9
+	@Bean
+	public MapperFactoryBean<CompanyMapper> getCompanyMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<CompanyMapper> factoryBean = new MapperFactoryBean<CompanyMapper>(CompanyMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 
 		return factoryBean;

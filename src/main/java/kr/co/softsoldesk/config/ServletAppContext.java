@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 import kr.co.softsoldesk.Interceptor.MainInterceptor;
 import kr.co.softsoldesk.Interceptor.CheckLoginInterceptor;
@@ -25,11 +26,12 @@ import kr.co.softsoldesk.Interceptor.ShopInterceptor;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.service.BoardService;
 import kr.co.softsoldesk.service.UserService;
-import kr.co.softsoldesk.validator.UserValidator;
 
 @Configuration
 @EnableWebMvc
+@EnableWebSocket
 @ComponentScan("kr.co.softsoldesk.controller")
+@ComponentScan(basePackages = "edu.kh.project.chatting")
 @ComponentScan(basePackages = "kr.co.softsoldesk")
 public class ServletAppContext implements WebMvcConfigurer {
 //WebMvcConfigurer: Spring MVC 프로젝트 설정 인터페이스
@@ -52,6 +54,8 @@ public class ServletAppContext implements WebMvcConfigurer {
 
 	@Autowired
 	private BoardService boardService;
+
+	// -----------------------------------------------------------------------
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -114,5 +118,6 @@ public class ServletAppContext implements WebMvcConfigurer {
 	public StandardServletMultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
 	}
+
 
 }

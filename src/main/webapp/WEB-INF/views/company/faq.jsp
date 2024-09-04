@@ -259,7 +259,7 @@
 						</div>
 					</div>
 				</div>
-			
+
 				<div class="u-accordion-item u-expanded-width">
 					<a
 						class="u-accordion-link u-active-grey-5 u-border-1 u-border-active-palette-5-dark-2 u-border-hover-palette-5-dark-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-5-dark-2 u-button-style u-palette-3-light-3 u-text-body-color u-accordion-link-4"
@@ -279,7 +279,7 @@
 						<div class="u-container-layout u-container-layout-4">
 							<div class="fr-view u-clearfix u-rich-text u-text">
 								<p>アカウント削除は、プロフィールから「アカウント管理」へ移動し、「アカウント削除」オプションを選択してください。
-								削除を選択すると、すべての投稿や出品が削除されますのでご注意ください。</p>
+									削除を選択すると、すべての投稿や出品が削除されますのでご注意ください。</p>
 							</div>
 						</div>
 					</div>
@@ -303,7 +303,7 @@
 						<div class="u-container-layout u-container-layout-4">
 							<div class="fr-view u-clearfix u-rich-text u-text">
 								<p>当サイトでは、ユーザーの個人情報を厳重に保護しています。個人情報は暗号化され、第三者に提供することはありません。
-								また、利用者の情報は法律に基づいて適切に管理されています。詳しくは当サイト内のプライバシーポリシーをご確認ください。</p>
+									また、利用者の情報は法律に基づいて適切に管理されています。詳しくは当サイト内のプライバシーポリシーをご確認ください。</p>
 							</div>
 						</div>
 					</div>
@@ -315,36 +315,25 @@
 		<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
 			<h2 class="u-text u-text-default u-text-1">お問い合わせ</h2>
 			<div class="u-form u-form-1">
-				<form action="https://forms.nicepagesrv.com/v2/form/process"
+				<form:form action="${root }company/faq_pro"
+					modelAttribute="addFaqBean" method="get"
 					class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form"
-					style="padding: 10px" source="email" name="form">
-					<div class="u-form-group u-form-name u-label-none">
-						<label for="name-3b9a" class="u-label">Name</label> <input
-							type="text" placeholder="お名前を入力してください" id="name-3b9a"
-							name="name" class="u-input u-input-rectangle" required="">
-					</div>
+					style="padding: 10px">
 					<div class="u-form-email u-form-group u-label-none">
-						<label for="email-3b9a" class="u-label">Email</label> <input
-							type="email" placeholder="メールアドレスを入力してください"
-							id="email-3b9a" name="email" class="u-input u-input-rectangle"
-							required="">
+						<form:label path="faq_user_email" class="u-label">Email</form:label>
+						<form:input path="faq_user_email" placeholder="メールアドレスを入力してください"
+							class="u-input u-input-rectangle" />
 					</div>
 					<div class="u-form-group u-form-message u-label-none">
-						<label for="message-3b9a" class="u-label">Message</label>
-						<textarea placeholder="お問い合わせ内容を入力してください" rows="4" cols="50"
-							id="message-3b9a" name="message"
-							class="u-input u-input-rectangle" required=""></textarea>
+						<form:label path="faq_user_text" class="u-label">Message</form:label>
+						<form:textarea path="faq_user_text"
+							placeholder="お問い合わせ内容を入力してください" rows="4" cols="50"
+							class="u-input u-input-rectangle"></form:textarea>
 					</div>
 					<div class="u-align-left u-form-group u-form-submit">
-						<a href="#" class="u-btn u-btn-submit u-button-style">送信する</a> <input
-							type="submit" value="submit" class="u-form-control-hidden">
+						<button type="submit" class="u-btn u-btn-submit u-button-style">送信する</button>
 					</div>
-					<div class="u-form-send-message u-form-send-success">お問い合わせありがとうございます。内容を確認し、対応させていただきます。今しばらくお待ちください。</div>
-					<div class="u-form-send-error u-form-send-message">お問い合わせ内容の送信に失敗しました。再度お試しください</div>
-					<input type="hidden" value="" name="recaptchaResponse"> <input
-						type="hidden" name="formServices"
-						value="50d0594d-1c60-31b9-19af-78b3c1587d79">
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</section>

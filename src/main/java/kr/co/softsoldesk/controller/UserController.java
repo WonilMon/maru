@@ -1,6 +1,6 @@
 package kr.co.softsoldesk.controller;
 
-import java.util.HashMap;
+import java.util.HashMap;		
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -8,12 +8,17 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -25,12 +30,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-import kr.co.softsoldesk.beans.LineProfile;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.groups.LoginGroup;
 import kr.co.softsoldesk.groups.ModifyGroup;
@@ -45,11 +51,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-//	@Autowired
-//	private LineLoginService lineLoginService;
-
 	@Autowired
 	private UserValidator userValidator;
+
+	@Autowired
+	private MailSender mailSender;
+	
 
 	@InitBinder("addUserBean")
 	protected void initAddUserBinder(WebDataBinder binder) {
@@ -129,18 +136,60 @@ public class UserController {
 		model.addAttribute("addUserBean", new UserBean());
 		return "user/register";
 	}
-
+	
 	@PostMapping("/register_pro")
-	public String register_pro(@Validated(RegisterGroup.class) @ModelAttribute("addUserBean") UserBean addUserBean,
-			BindingResult result) {
+	public String register_pro(
+	        @Validated(RegisterGroup.class) @ModelAttribute("addUserBean") UserBean addUserBean,
+	        BindingResult result,
+	        @RequestParam("g-recaptcha-response") String recaptchaResponse,
+	        RedirectAttributes redirectAttributes) {
 
-		if (result.hasErrors()) {
-			return "user/register";
-		}
+	    // reCAPTCHA설정
+	    final String RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
+	    final String SECRET_KEY = "6LclwjAqAAAAAMq08LudjKkl1UZD_7UDi-zyj_oB";
 
-		userService.addUser(addUserBean);
+	    RestTemplate restTemplate = new RestTemplate();
 
-		return "user/register_success";
+	    // 헤더 리퀘스트바디 확인
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+	    MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+	    requestBody.add("secret", SECRET_KEY);
+	    requestBody.add("response", recaptchaResponse);
+
+	    HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
+
+	    // reCAPTCHA검증API불러오기
+	    ResponseEntity<Map> responseEntity = restTemplate.postForEntity(RECAPTCHA_VERIFY_URL, requestEntity, Map.class);
+	    Map<String, Object> response = responseEntity.getBody();
+
+	    // 검증결과 확인
+	    if (response == null) {
+	        System.out.println("Error: reCAPTCHA response is null.");
+	        redirectAttributes.addFlashAttribute("message", "reCAPTCHA認証に失敗しました。再試行してください。");
+	        return "redirect:/user/register";
+	    }
+
+	    // 검증responce확인용
+	    System.out.println("reCAPTCHA response: " + response);
+
+	    boolean success = Boolean.TRUE.equals(response.get("success"));
+	    if (!success) {
+	        // reCAPTCHA실패시
+	        redirectAttributes.addFlashAttribute("message", "reCAPTCHA認証に失敗しました。再試行してください。");
+	        return "redirect:/user/register";
+	    }
+
+	    // 폼 유효성검사 오류시 등록 페이지로 돌아가기
+	    if (result.hasErrors()) {
+	        return "user/register";
+	    }
+
+	    // 유저등록실행
+	    userService.addUser(addUserBean);
+
+	    return "user/register_success";
 	}
 
 	@PostMapping("/login_pro")
@@ -148,12 +197,7 @@ public class UserController {
 			@Validated(LoginGroup.class) @ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean,
 			BindingResult result, HttpSession session) {
 
-		System.out.println(
-				"UserBean data: " + tempLoginUserBean.getUser_email() + ", " + tempLoginUserBean.getUser_pass());
-
 		if (result.hasErrors()) {
-			System.out.println("Validation errors:");
-			result.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
 			return "main";
 		}
 
@@ -212,4 +256,5 @@ public class UserController {
 			}
 		}
 	}
+
 }

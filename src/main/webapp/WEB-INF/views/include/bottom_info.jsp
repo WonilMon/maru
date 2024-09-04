@@ -24,8 +24,9 @@
 									class="u-container-layout u-valign-middle u-container-layout-1">
 									<a href="#" class="u-align-left u-image u-logo u-image-1"
 										data-image-width="80" data-image-height="40"> <img
-										src="${root }images/default-logo.png"
-										class="u-logo-image u-logo-image-1">
+										src="${root }images/maru_logo_H.png"
+										class="u-logo-image u-logo-image-1"
+										style="width: 200px; height: 80px;">
 									</a>
 								</div>
 							</div>

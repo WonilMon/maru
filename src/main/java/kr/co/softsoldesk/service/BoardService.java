@@ -78,10 +78,10 @@ public class BoardService {
 
 		return boardList;
 	}
-	
+
 	@Transactional
 	public ContentBean getReadContent(int content_idx) {
-		
+
 		boardDAO.contentView(content_idx);
 
 		return boardDAO.getReadContent(content_idx);
@@ -143,5 +143,19 @@ public class BoardService {
 		return boardDAO.getContentList(board_info_idx, rowBounds);
 
 	}
-	
+
+	// 일간베스트 main
+	public List<ContentBean> getToday3Content() {
+		return boardDAO.getToday3Content();
+	}
+
+	// 주간베스트 main
+	public List<ContentBean> getWeekly3Content() {
+		return boardDAO.getWeekly3Content();
+	}
+
+	// 월간베스트 main
+	public List<ContentBean> getMonthly3Content() {
+		return boardDAO.getMonthly3Content();
+	}
 }

@@ -96,8 +96,6 @@ public class BoardController {
 			List<ContentBean> list1 = boardService.getPrevContentList(count);
 			list.add(list1);
 			count++;
-			//System.out.println(list1.size());
-			//System.out.println("제목"+list1.get(1).getContent_subject());
 		}
 		
 		model.addAttribute("list", list);
@@ -113,7 +111,6 @@ public class BoardController {
 		String board_info_name = boardService.getBoardInfoName(board_info_idx);
 
 		List<ContentBean> contentList = boardService.getContentList(board_info_idx, page);
-		System.out.println(contentList.size());
 
 		model.addAttribute("board_info_name", board_info_name);
 		model.addAttribute("board_info_idx", board_info_idx);
@@ -149,8 +146,6 @@ public class BoardController {
 		int content_idx = boardService.getContentIdx();
 		int board_info_idx = writeContentBean.getContent_idx();
 
-		System.out.println(writeContentBean.getBoard_info_idx());
-
 		model.addAttribute("content_idx", content_idx);
 		model.addAttribute("board_info_idx", board_info_idx);
 
@@ -163,7 +158,6 @@ public class BoardController {
 
 		ContentBean readContent = boardService.getReadContent(content_idx);
 		CommentBean commentBean = new CommentBean();
-		
 		
 		model.addAttribute("user_name", loginuserBean.getUser_nickname());
 		model.addAttribute("readContent", readContent);
@@ -194,7 +188,6 @@ public class BoardController {
 			BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			System.out.println("에러발생");
 			return "board/board_modify";
 		}
 
@@ -205,10 +198,6 @@ public class BoardController {
 		model.addAttribute("board_info_idx", board_info_idx);
 
 		boardService.updateContent(modifyContent);
-
-		System.out.println("dndndn" + modifyContent.getContent_idx());
-		System.out.println("dndndn" + modifyContent.getBoard_info_idx());
-		System.out.println(modifyContent.getContent_subject());
 
 		return "board/board_modify_success";
 

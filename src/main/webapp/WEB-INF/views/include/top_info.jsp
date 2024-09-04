@@ -214,8 +214,8 @@
 		</form>
 		<a href="${root }main" class="u-image u-logo u-image-1"
 			data-image-width="80" data-image-height="40" title="home"> <img
-			src="${root }images/default-logo.png"
-			class="u-logo-image u-logo-image-1">
+			src="${root }images/maru_logo_H.png"
+			class="u-logo-image u-logo-image-1" style="width: 200px; height: 60px;">
 		</a>
 	</div>
 </header>

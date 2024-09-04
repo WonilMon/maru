@@ -22,6 +22,8 @@
 	src="${root }js/jquery.js" defer=""></script> --%>
 <script class="u-script" type="text/javascript"
 	src="${root }js/nicepage.js" defer=""></script>
+<!-- Google reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
@@ -62,6 +64,8 @@
 			alert("ニックネームを入力してください")
 			return
 
+			
+
 		}
 
 		/* 새로고침 없이 바로 반응할수있게 하는게 에이잭스 */
@@ -80,9 +84,22 @@
 					alert("そのニックネームは既に存在します")
 					$("#userNickNameExist").val("false")
 				}
+				setBackgroundColorBasedOn();
 			}
 
 		})
+
+	}
+	function setBackgroundColorBasedOn() {
+
+		var userNickNameExist = $("#userNickNameExist").val();
+		var inputElement = $("#user_nickname");
+
+		if (userNickNameExist === "false") {
+			inputElement.css("background-color", "#FFCCCC");
+		} else if (userNickNameExist === "true") {
+			inputElement.css("background-color", "#E0FFFF");
+		}
 
 	}
 
@@ -99,6 +116,8 @@
 		if (user_email.length == 0) {
 			alert("メールアドレスを入力してください")
 			return
+
+			
 
 		}
 
@@ -118,9 +137,22 @@
 					alert("そのメールアドレスは既に登録済みです")
 					$("#userEmailExist").val("false")
 				}
+				setBackgroundColorBasedOn2();
 			}
 
 		})
+
+	}
+	function setBackgroundColorBasedOn2() {
+
+		var userEmailExist = $("#userEmailExist").val();
+		var inputElement = $("#user_email");
+
+		if (userEmailExist === "false") {
+			inputElement.css("background-color", "#FFCCCC");
+		} else if (userEmailExist === "true") {
+			inputElement.css("background-color", "#E0FFFF");
+		}
 
 	}
 
@@ -192,7 +224,8 @@
 						<form:label path="user_nickname" class="u-label">ニックネーム</form:label>
 						<form:input type="text" path="user_nickname"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
-							placeholder="ニックネームを入力してください" onkeypress="resetUserNickNameExist()" />
+							placeholder="ニックネームを入力してください"
+							onkeypress="resetUserNickNameExist()" />
 						<form:errors path="user_nickname" style="color:red" />
 					</div>
 					<div class="u-form-email u-form-group">
@@ -200,13 +233,15 @@
 
 						<c:choose>
 							<c:when test="${api_email != ''}">
-								<form:input type="email" path="user_email" placeholder="メールアドレスを入力してください"
+								<form:input type="email" path="user_email"
+									placeholder="メールアドレスを入力してください"
 									onkeypress="resetUserEmailExist()"
-									class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" value="${api_email }"></form:input>
+									class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
+									value="${api_email }"></form:input>
 							</c:when>
 							<c:otherwise>
-								<form:input type="email" placeholder="メールアドレスを入力してください" path="user_email"
-									onkeypress="resetUserEmailExist()"
+								<form:input type="email" placeholder="メールアドレスを入力してください"
+									path="user_email" onkeypress="resetUserEmailExist()"
 									class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
 							</c:otherwise>
 						</c:choose>
@@ -247,7 +282,9 @@
 						</div>
 						<form:errors path="user_gender" style="color:red"></form:errors>
 					</div>
-
+					
+			        <div class="g-recaptcha" data-sitekey="6LclwjAqAAAAAJnIj0aIVdzw245ymUeEn-9vZmmY"></div>
+					
 					<div class="u-align-right u-form-group u-form-submit">
 						<button type="submit"
 							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">登録する</button>
