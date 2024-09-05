@@ -20,10 +20,11 @@ public interface UserMapper {
 	@Select("select * from users where user_email = #{user_email}")
 	UserBean getLoginUser(UserBean tempLoginUserBean);
 
-	// 회원정보 select (API)
-	@Select("select * from users where user_email = #{user_email}")
-	UserBean getLoginUserAPI(String user_email);
+	// 회원정보 (API)
+	@Select("select user_pass from users where user_email = #{user_email}")
+	String getPass(String user_email);
 
+	// 회원정보 (회원수정)
 	@Select("select * from users where user_idx=${user_idx}")
 	UserBean getModifyUserInfo(int user_idx);
 
@@ -34,6 +35,10 @@ public interface UserMapper {
 	// 상태메시지 수정
 	@Update("UPDATE users SET user_statustext = #{user_statustext} WHERE user_idx = #{user_idx}")
 	void updateStatusText(@Param("user_statustext") String user_statustext, @Param("user_idx") int user_idx);
+
+	// 모달 유저 정보
+	@Select("select * from users where user_nickname = #{user_nickname}")
+	UserBean getUserModal(String user_nickname);
 
 	// 회원 정보 삭제 delete
 	@Delete("delete from users where user_idx = #{user_idx}")
@@ -69,4 +74,9 @@ public interface UserMapper {
 	// 프로필 이미지 가져오기
 	@Select("select user_img from users where user_idx = #{user_idx}")
 	String getImgFile(int user_idx);
+
+	// 아이콘 경로 업데이트 메서드
+	@Update("UPDATE users SET user_icon = #{iconPath} WHERE user_idx = #{userIdx}")
+	void updateUserIcon(@Param("userIdx") int userIdx, @Param("iconPath") String iconPath);
+
 }

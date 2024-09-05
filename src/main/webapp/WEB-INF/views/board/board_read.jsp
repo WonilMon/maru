@@ -26,9 +26,7 @@
 <link id="u-theme-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Noto+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
 
-
-
-
+<link rel="stylesheet" href="${root }css/wonil_modal.css" media="screen">
 
 
 
@@ -50,6 +48,7 @@
 <meta property="og:title" content="sharing_read">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
@@ -104,8 +103,13 @@
 									class="u-container-style u-layout-cell u-size-51 u-layout-cell-4">
 									<div
 										class="u-border-2 u-border-white u-container-layout u-container-layout-4">
-										<p class="u-text u-text-default u-text-7">
-											${readContent.user_name }</p>
+
+										<button
+											class="wonil_modal_user_button u-text u-text-default u-text-7"
+											id="wonil_modal_user_name">${readContent.user_name}
+										</button>
+
+
 										<span
 											class="u-border-2 u-border-palette-1-base u-file-icon u-gradient u-icon u-icon-circle u-icon-2"><img
 											src="${root }images/2076218-122ef5be.png" alt=""></span>
@@ -113,6 +117,31 @@
 								</div>
 							</div>
 						</div>
+
+						<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+						<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+
+						<div id="wonil_modal" class="wonil_modal">
+							<div class="wonil_modal_content">
+								<span class="wonil_modal_close">&times;</span>
+								<div class="wonil_modal_body">
+									<img id="wonil_modal_user_img" src="" alt="User Image"
+										class="wonil_modal_user_img">
+									<div class="wonil_modal_user_info">
+										<p class="user_combined_info"
+											id="wonil_modal_user_nickname_gender"></p>
+										<p id="wonil_modal_user_statustext"></p>
+										<p id="wonil_modal_user_zodiac"></p>
+										<button class="wonil_modal_button profile">상세 프로필</button>
+										<button class="wonil_modal_button chat">1:1 chat</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+						<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+
 						<div class="u-size-12">
 							<div class="u-layout-row">
 								<div
@@ -133,7 +162,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="u-size-12">
 							<div class="u-layout-row">
 								<div
@@ -271,7 +299,7 @@
 
 
 
-			 <div class="u-expanded-width u-form u-form-1">
+			<div class="u-expanded-width u-form u-form-1">
 				<form action="${root }board/addComment"
 					class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form"
 					style="padding: 15px;" source="email">
@@ -285,8 +313,9 @@
 					</div>
 
 					<div class="u-form-group u-form-submit">
-						<button type="submit" class="u-btn u-btn-submit u-button-style" id="commentAdd">Submit</button>
-						
+						<button type="submit" class="u-btn u-btn-submit u-button-style"
+							id="commentAdd">Submit</button>
+
 					</div>
 					<input type="hidden" value="" name="recaptchaResponse"> <input
 						type="hidden" name="formServices"
@@ -294,7 +323,7 @@
 				</form>
 
 				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-			 	<script>
+				<script>
 			 	$(document).ready(function() {
 			 	    $("#commentAdd").on("click", function(event) {
 			 	    	
@@ -404,8 +433,6 @@
 			<div class="comment-input"></div>
 		</div>
 	</section>
-
-
 	<section class="u-clearfix u-section-5" id="sec-5822">
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<a href="#"
@@ -423,6 +450,67 @@
 	</section>
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
+
+	<script>
+   		document.getElementById("wonil_modal_user_name").onclick = function() {
+        var userName = this.innerText;
+        var root = "${root}"; 
+        var sender_idx = "${loginUserBean.user_idx}";
+
+        fetch('${root}/getUserInfo?user_name=' + encodeURIComponent(userName))
+            .then(response => response.text()) 
+            .then(text => {
+                try {
+                    const data = JSON.parse(text);
+                    const imageUrl = root + '/getProfileImage/' + data.user_img;  
+                    const profileUrl = `${root}user/profile?user_idx=` + data.user_idx;
+                    const chatUrl = `${root }chat/room?sender_idx=` + sender_idx + `&receiver_idx=` + data.user_idx;
+                    
+                    
+                    document.getElementById("wonil_modal_user_img").src = imageUrl;
+                   	/* document.getElementById("wonil_modal_user_nickname").innerText = data.user_nickname;
+                    document.getElementById("wonil_modal_user_gender").innerText = data.user_gender; */
+                    document.getElementById('wonil_modal_user_nickname_gender').innerText = data.user_nickname + " (" + data.user_gender + ")";
+                    document.getElementById("wonil_modal_user_statustext").innerText = "'" + data.user_statustext + "'";
+                    document.getElementById("wonil_modal_user_zodiac").innerText = data.user_zodiac;
+                    
+                    document.querySelector('.wonil_modal_button.profile').onclick = function() {
+                        location.href = profileUrl;
+                    };
+                    document.querySelector('.wonil_modal_button.chat').onclick = function() {
+                    	const width = 800;
+                        const height = 600;
+                        const left = (window.screen.width - width) / 2;
+                        const top = (window.screen.height - height) / 2;
+                        window.open(chatUrl, 'ChatRoomWindow', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+                    };
+                    
+                    document.getElementById("wonil_modal").style.display = "block";
+                } catch (error) {
+                    console.error('Parsing error:', error);
+                    console.error('Received text:', text);  
+                    alert("사용자 정보를 불러오는데 실패했습니다. 다시 시도해주세요.");
+                    document.getElementById("wonil_modal").style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching user info:', error);
+                alert("사용자 정보를 불러오는데 실패했습니다. 다시 시도해주세요.");
+                document.getElementById("wonil_modal").style.display = "block";
+            });
+    };
+
+    document.querySelector(".wonil_modal_close").onclick = function() {
+        document.getElementById("wonil_modal").style.display = "none";
+    };
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("wonil_modal")) {
+            document.getElementById("wonil_modal").style.display = "none";
+        }
+    };
+</script>
+
 
 </body>
 </html>

@@ -81,4 +81,11 @@ public class BoardDAO {
 	public List<ContentBean> getMonthly3Content() {
 		return boardMapper.getMonthly3Content();
 	}
+	
+	// -----------------------------------------------
+	
+	// 검색
+	public List<ContentBean> getSearchResult(String keyWord, int board_info_idx) {
+		return boardMapper.getSearchResult(keyWord, board_info_idx);
+	}
 }

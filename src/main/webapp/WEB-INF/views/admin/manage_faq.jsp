@@ -50,6 +50,15 @@
 <!-- 원일용 스타일 -->
 <link rel="stylesheet" href="${root }css/wonil_style.css">
 
+<style>
+.wonil_btn-modify2 {
+	padding: 5px 10px;
+	background-color: #FEC5BB;
+	border: none;
+	cursor: pointer;
+}
+</style>
+
 </head>
 <body class="theme-red">
 
@@ -129,12 +138,23 @@
 															<td>${obj.faq_user_nickname}</td>
 															<td>${obj.faq_user_email}</td>
 															<td>${obj.faq_user_text}</td>
-															<td><button class="wonil_btn-modify"
+															<td>
+																<button
+																	class="${obj.faq_answer == null ? 'wonil_btn-modify' : 'wonil_btn-modify2'}"
 																	onclick="openResponseModal(this)"
 																	data-idx="${obj.faq_idx}"
 																	data-name="${obj.faq_user_nickname}"
 																	data-email="${obj.faq_user_email}"
-																	data-text="${obj.faq_user_text}">응답</button></td>
+																	data-text="${obj.faq_user_text}">
+
+																	<c:choose>
+																		<c:when test="${obj.faq_answer == null}">
+                															응답</c:when>
+																		<c:otherwise>
+                															확인 </c:otherwise>
+																	</c:choose>
+																</button>
+															</td>
 															<td><button class="wonil_btn-delete"
 																	onclick="openDeleteModal(this)"
 																	data-idx="${obj.faq_idx}"
@@ -291,6 +311,8 @@
 	<!-- 원일용 스크립트 -->
 	<script>
 		function openResponseModal(button) {
+			document.getElementById('response_text').value = '';
+			
 			var idx = button.getAttribute('data-idx');
 			var name = button.getAttribute('data-name');
 			var email = button.getAttribute('data-email');
@@ -302,9 +324,11 @@
 			document.getElementById('response_user_text').value = text;
 
 			document.getElementById('wonil_response_modal').style.display = 'block';
+			
 		}
 
 		function openDeleteModal(button) {
+
 			var idx = button.getAttribute('data-idx');
 			var name = button.getAttribute('data-name');
 			var email = button.getAttribute('data-email');
@@ -314,12 +338,14 @@
 			document.getElementById('delete_user_name').value = name;
 			document.getElementById('delete_user_email').value = email;
 			document.getElementById('delete_user_text').value = text;
+			document.getElementById('response_text').value = '';
 
 			document.getElementById('wonil_delete_modal').style.display = 'block';
 		}
 
-		function closeModal(modalId) {
-			document.getElementById(modalId).style.display = 'none';
+		function closeModal(modalId) { 
+			document.getElementById(modalId).style.display = 'none';  
+
 		}
 	</script>
 </body>

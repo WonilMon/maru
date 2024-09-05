@@ -48,8 +48,12 @@ public interface IconMapper {
 	@Select("SELECT COUNT(*) FROM user_icon WHERE user_idx = #{user_idx} AND icon_idx = #{icon_idx}")
 	int userOwnsIcon(@Param("user_idx") int user_idx, @Param("icon_idx") int icon_idx);
 
-	//프로필 바꿀 때 쓸거임
-	@Update("UPDATE user_icon SET icon_path = #{icon_path} WHERE user_idx = #{user_idx}")
-	void updateUserIconPath(@Param("user_idx") int user_idx, @Param("icon_path") String icon_path);
+	// 이건 profile에서 아이콘 가져오는 메서드
+	@Select("SELECT icon_path FROM icon WHERE icon_idx = #{icon_idx}")
+	String getIconPathByIconIdx(@Param("icon_idx") int iconIdx);
+
+//	//프로필 바꿀 때 쓸거임
+//	@Update("UPDATE user_icon SET icon_path = #{icon_path} WHERE user_idx = #{user_idx}")
+//	void updateUserIconPath(@Param("user_idx") int user_idx, @Param("icon_path") String icon_path);
 
 }

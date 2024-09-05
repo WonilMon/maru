@@ -1,16 +1,35 @@
-// 아이콘 리스트를 토글하는 함수
-function toggleIcons(iconType) {
-    const iconList = document.getElementById(iconType + 'Icons');
-    
-    // 선택한 아이콘 리스트가 보이는지 여부에 따라 토글
-    if (iconList.style.display === 'flex') {
-        iconList.style.display = 'none';
-    } else {
-        iconList.style.display = 'flex';
+function buyRandomIcon(user_idx) {
+    console.log("사용자 ID:", user_idx, "로 랜덤 아이콘 구매 시도 중");
+    const confirmation = confirm("랜덤 아이콘을 구매하시겠습니까?");
+    if (!confirmation) {
+        return; // 구매 취소
     }
+    $.ajax({
+        url: '/Maru/shop/buyRandomIcon',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ user_idx: user_idx }),
+        success: function(response) {
+            console.log("서버 응답:", response);
+            if (response === "success") {
+                alert("랜덤 아이콘 구매 성공!");
+                location.reload(); // 구매 완료 후 페이지 새로고침
+            } else if (response === "insufficient_points_or_no_available_icons") {
+                alert("포인트가 부족하거나 구매 가능한 아이콘이 없습니다.");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX 요청 실패:", status, error);
+            if (xhr.status === 400) {
+                alert("포인트가 부족하여 아이콘을 구매할 수 없습니다.");
+            } else {
+                alert("아이콘을 구매하는 중 오류가 발생했습니다.");
+            }
+        }
+    });
 }
 
-// 아이콘을 구매하는 함수
+//아이템을 구매하는 함수
 function buyIcon(icon_idx, user_idx) {
     console.log("아이콘 ID:", icon_idx, "사용자 ID:", user_idx, "로 아이콘 구매 시도 중");
     // 구매 확인
@@ -43,11 +62,26 @@ function buyIcon(icon_idx, user_idx) {
     });
 }
 
+
+
+
+
+// 아이콘 리스트를 토글하는 함수
+function toggleIcons(iconType) {
+    const iconList = document.getElementById(iconType + 'Icons');
+    
+    // 선택한 아이콘 리스트가 보이는지 여부에 따라 토글
+    if (iconList.style.display === 'flex') {
+        iconList.style.display = 'none';
+    } else {
+        iconList.style.display = 'flex';
+    }
+}
+
 // 선택한 아이콘을 기본 아이콘으로 설정하는 함수
 function selectIcon(iconType, iconIndex) {
     const defaultIconElement = document.getElementById('default' + capitalizeFirstLetter(iconType) + 'Icon');
     const selectedIconElement = document.getElementById(iconType + 'Icon' + iconIndex);
-
     if (defaultIconElement && selectedIconElement) {
         defaultIconElement.src = selectedIconElement.src;
     } else {
@@ -70,7 +104,6 @@ function selectUserIcon(iconIndex) {
         console.error("사용자 아이콘 인덱스:", iconIndex, "에 대한 요소를 찾을 수 없습니다.");
     }
 }
-
 
 // 문자열의 첫 글자를 대문자로 변환하는 함수
 function capitalizeFirstLetter(string) {
@@ -95,5 +128,5 @@ window.onload = function() {
     document.getElementById('dogIcons').style.display = 'none';
     document.getElementById('gorillaIcons').style.display = 'none';
     document.getElementById('otterIcons').style.display = 'none';
-    document.getElementById('rabbitIcons').style.display = 'none'; 
+    document.getElementById('rabbitIcons').style.display = 'none';
 };

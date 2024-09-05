@@ -54,8 +54,6 @@ public class UserService {
 		// 별자리 계산
 		String zodiacSign = getZodiacSign(birthDate);
 
-		System.out.println("zodiac" + zodiacSign);
-
 		// password hash
 		String encryptedPassword = passwordEncoder.encode(addUserBean.getUser_pass());
 		addUserBean.setUser_pass(encryptedPassword);
@@ -150,6 +148,7 @@ public class UserService {
 			loginUserBean.setUser_nickname(tempLoginUserBean2.getUser_nickname());
 			loginUserBean.setUser_age(tempLoginUserBean2.getUser_age());
 			loginUserBean.setUser_gender(tempLoginUserBean2.getUser_gender());
+			loginUserBean.setUser_email(tempLoginUserBean2.getUser_email());
 			loginUserBean.setUser_pass(tempLoginUserBean2.getUser_pass());
 			loginUserBean.setUser_point(tempLoginUserBean2.getUser_point());
 			loginUserBean.setUser_role(tempLoginUserBean2.getUser_role());
@@ -161,28 +160,25 @@ public class UserService {
 	}
 
 //	로그인 API
-	public void getLoginUserAPI(String user_email) {
+	public void getLoginUserAPI(UserBean tempLoginUserBean) {
 
-		UserBean tempLoginUserBean2 = userDao.getLoginUserAPI(user_email);
+		UserBean tempLoginUserBean2 = userDao.getLoginUser(tempLoginUserBean);
 
 		if (tempLoginUserBean2 != null) {
 			loginUserBean.setUser_idx(tempLoginUserBean2.getUser_idx());
 			loginUserBean.setUser_nickname(tempLoginUserBean2.getUser_nickname());
-			loginUserBean.setUser_email(tempLoginUserBean2.getUser_email());
 			loginUserBean.setUser_age(tempLoginUserBean2.getUser_age());
 			loginUserBean.setUser_gender(tempLoginUserBean2.getUser_gender());
+			loginUserBean.setUser_email(tempLoginUserBean2.getUser_email());
 			loginUserBean.setUser_pass(tempLoginUserBean2.getUser_pass());
 			loginUserBean.setUser_point(tempLoginUserBean2.getUser_point());
 			loginUserBean.setUser_role(tempLoginUserBean2.getUser_role());
 			loginUserBean.setUser_statustext(tempLoginUserBean2.getUser_statustext());
 			loginUserBean.setUser_img(tempLoginUserBean2.getUser_img());
 			loginUserBean.setUser_zodiac(tempLoginUserBean2.getUser_zodiac());
-			loginUserBean.setUserLogin(true); // 판별을 true로 바꾸기
-
-			System.out.println("google" + tempLoginUserBean2.getUser_idx());
-			System.out.println("google" + tempLoginUserBean2.getUser_email());
-			System.out.println("google" + tempLoginUserBean2.getUser_nickname());
+			loginUserBean.setUserLogin(true);
 		}
+
 	}
 
 	public UserBean getModifyUserInfo(int user_idx) {
@@ -263,6 +259,11 @@ public class UserService {
 		loginUserBean.setUser_statustext(user_statustext);
 		userDao.updateStatusText(user_statustext, user_idx);
 	}
+	
+	// 모달 유저 정보
+	public UserBean getUserModal(String user_nickname) {
+		return userDao.getUserModal(user_nickname);
+	}
 
 	// -----------------------------현석--
 	// 기존 상점 관련 메서드들
@@ -290,5 +291,11 @@ public class UserService {
 	public String getImgFile(int user_idx) {
 		return userDao.getImgFile(user_idx);
 	}
+	
+    // 아이콘 경로 업데이트 메서드
+    public void updateUserIcon(int userIdx, String iconPath) {
+        userMapper.updateUserIcon(userIdx, iconPath);
+    }
+	
 
 }

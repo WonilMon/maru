@@ -1,6 +1,6 @@
 package kr.co.softsoldesk.config;
 
-import javax.annotation.Resource;
+import javax.annotation.Resource;	
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 import kr.co.softsoldesk.Interceptor.MainInterceptor;
 import kr.co.softsoldesk.Interceptor.CheckLoginInterceptor;
@@ -29,10 +28,9 @@ import kr.co.softsoldesk.service.UserService;
 
 @Configuration
 @EnableWebMvc
-@EnableWebSocket
 @ComponentScan("kr.co.softsoldesk.controller")
-@ComponentScan(basePackages = "edu.kh.project.chatting")
 @ComponentScan(basePackages = "kr.co.softsoldesk")
+@ComponentScan(basePackages = {"kr.co.softsoldesk.controller", "kr.co.softsoldesk.dao", "kr.co.softsoldesk.websocket", "kr.co.softsoldesk.service", "kr.co.softsoldesk.config"})
 public class ServletAppContext implements WebMvcConfigurer {
 //WebMvcConfigurer: Spring MVC 프로젝트 설정 인터페이스
 
@@ -84,11 +82,12 @@ public class ServletAppContext implements WebMvcConfigurer {
 		CheckLoginInterceptor checkLoginInterceptor = new CheckLoginInterceptor(loginUserBean);
 		InterceptorRegistration reg2 = registry.addInterceptor(checkLoginInterceptor);
 		reg2.addPathPatterns("/user/modify", "/user/logout", "/board/*");
+		reg2.excludePathPatterns("/board/main", "/board/search");
 
 		CheckLoginInterceptor checkInterceptor = new CheckLoginInterceptor(loginUserBean);
 		InterceptorRegistration reg3 = registry.addInterceptor(checkInterceptor);
 		reg3.addPathPatterns("/user/modify", "/user/logout", "/board/*"); // 해당요청들을 잡아서 checkInterceptor 하겠다
-		reg3.excludePathPatterns("/board/main"); // 예외처리 (로그아웃 사용자가 게시판 글쓰기,수정 등은 안되지만 게시판은 들어갈 수 있게)
+		reg3.excludePathPatterns("/board/main", "/board/search"); // 예외처리 (로그아웃 사용자가 게시판 글쓰기,수정 등은 안되지만 게시판은 들어갈 수 있게)
 
 		CheckUserInterceptor checkUserInterceptor = new CheckUserInterceptor(loginUserBean, boardService);
 		InterceptorRegistration reg4 = registry.addInterceptor(checkUserInterceptor);

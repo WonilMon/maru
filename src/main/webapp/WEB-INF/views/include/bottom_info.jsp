@@ -103,7 +103,7 @@ l-3.7-5.1L35.7,33.1h8.1l12.3,17.2l3.7,5.1l16.6,23.4h-7.8L55.3,60.2z"></path></sv
 									<p class="u-align-left u-text u-text-default u-text-3">
 										<a
 											class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-2"
-											data-href="https://www.mext.go.jp/b_menu/link/kyoiku.htm">地域別教育委員会 </a>
+											data-href="https://www.mext.go.jp/b_menu/link/kyoiku.htm" style="margin-left: 50px;">地域別教育委員会 </a>
 									</p>
 									<p class="u-align-left u-text u-text-default u-text-4">
 										<a

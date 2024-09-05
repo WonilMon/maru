@@ -6,6 +6,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import kr.co.softsoldesk.DAO.CompanyDAO;
@@ -29,7 +31,10 @@ public class CompanyService {
 
 	@Value("${page.paginationcnt}")
 	private int paginationcnt;
-
+	
+	@Autowired
+	private MailSender mailSender;
+	
 	// ------------------------------
 
 	// FAQ 등록 (faq.jsp)
@@ -68,10 +73,30 @@ public class CompanyService {
 
 		return pageBean;
 	}
+	
+	// FAQ관리 - FAQ확인
+	public void updateFaqAnswerToConfirmed(int faq_idx) {
+		companyDao.updateFaqAnswerToConfirmed(faq_idx);
+	}
 
 	// 관리자 홈 - 글 TOP 5
 	public List<UserBean> getUserList_mostContent() {
 		return companyDao.getUserList_mostContent();
+	}
+	
+	// 관리자 홈 - 포인트 TOP 5
+	public List<UserBean> getUserList_mostPoint() {
+		return companyDao.getUserList_mostPoint();
+	}
+	
+	// 관리자 홈 - 관리자 리스트
+	public List<UserBean> getUserList_admin() {
+		return companyDao.getUserList_admin();
+	}
+	
+	// 관리자 홈 - 신규 유저 (7일간)
+	public List<Integer> getUserList_flow() {
+		return companyDao.getUserList_flow();
 	}
 	
 	// 관리자 홈 - 일주일간 가입한 회원 수
@@ -151,5 +176,14 @@ public class CompanyService {
 
 		return pageBean;
 	}
+	
+	//faq 메일전송
+    public void sendFaqMail(String to, String subject, String text) throws Exception {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(to);
+        mailMessage.setSubject(subject);
+        mailMessage.setText(text);
+        mailSender.send(mailMessage);
+    }
 
 }

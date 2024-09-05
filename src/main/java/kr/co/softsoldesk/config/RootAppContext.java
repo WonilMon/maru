@@ -22,13 +22,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.mapper.BoardMapper;
-import kr.co.softsoldesk.mapper.ChatMapper;
 import kr.co.softsoldesk.mapper.CommentMapper;
 import kr.co.softsoldesk.mapper.CompanyMapper;
 import kr.co.softsoldesk.mapper.IconMapper;
 import kr.co.softsoldesk.mapper.MessageMapper;
+import kr.co.softsoldesk.mapper.RouletteMapper;
 import kr.co.softsoldesk.mapper.UserIconMapper;
 import kr.co.softsoldesk.mapper.UserMapper;
+import kr.co.softsoldesk.websocket.ChatMapper;
 
 @Configuration
 @EnableWebMvc
@@ -85,14 +86,12 @@ public class RootAppContext implements WebMvcConfigurer {
 
 		return mailSender;
 	}
-	
-	
+
 //	security config
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 //	데이터베이스 접속 정보 관리 (아예 컨테이너에 올려놓고 쓸게요)
 	@Bean
@@ -193,6 +192,14 @@ public class RootAppContext implements WebMvcConfigurer {
 		MapperFactoryBean<CompanyMapper> factoryBean = new MapperFactoryBean<CompanyMapper>(CompanyMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 
+		return factoryBean;
+	}
+
+	// 룰렛
+	@Bean
+	public MapperFactoryBean<RouletteMapper> getRouletteMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<RouletteMapper> factoryBean = new MapperFactoryBean<>(RouletteMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
 }

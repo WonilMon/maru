@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
@@ -81,5 +82,9 @@ public interface BoardMapper {
 	int contentView(int content_idx);
 
 	// -----------------------------------------------
+	
+	// 검색
+	@Select("select * FROM content WHERE (LOWER(content_subject) LIKE '%' || LOWER(#{keyWord}) || '%' OR LOWER(content_text) LIKE '%' || LOWER(#{keyWord}) || '%') and board_info_idx = #{board_info_idx}")
+	List<ContentBean> getSearchResult(@Param("keyWord") String keyWord, @Param("board_info_idx") int board_info_idx);
 
 }

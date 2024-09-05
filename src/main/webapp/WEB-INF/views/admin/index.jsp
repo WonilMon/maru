@@ -97,6 +97,27 @@
 	width: 100%; /* 부모 요소의 너비를 100%로 설정 */
 	overflow: hidden; /* 넘치는 부분 숨기기 */
 }
+
+.scroll-box {
+	max-height: 230px; /* 원하는 최대 높이 */
+	overflow-y: auto; /* 수직 스크롤 활성화 */
+	padding: 10px; /* 안쪽 여백 */
+	border: 1px solid #ccc; /* 테두리 추가 */
+}
+
+.chart-container {
+	position: relative;
+	width: 100%; /* 부모 요소의 너비에 맞추어 크기 조정 */
+	height: 260px; /* 원하는 높이로 설정 */
+	max-width: 400px; /* 캔버스의 최대 너비 설정 (옵션) */
+	margin: 10px; /* 중앙 정렬 */
+	overflow: hidden; /* 부모 요소가 넘치는 부분을 숨김 */
+}
+
+#myChart {
+	width: 100%; /* 부모 요소에 맞추어 너비 조정 */
+	height: 80%; /* 부모 요소에 맞추어 높이 조정 */
+}
 </style>
 
 </head>
@@ -187,50 +208,38 @@
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 					<div class="card">
 						<div class="body bg-pink">
-							<div class="sparkline" data-type="line" data-spot-Radius="4"
-								data-highlight-Spot-Color="rgb(233, 30, 99)"
-								data-highlight-Line-Color="#fff"
-								data-min-Spot-Color="rgb(255,255,255)"
-								data-max-Spot-Color="rgb(255,255,255)"
-								data-spot-Color="rgb(255,255,255)" data-offset="90"
-								data-width="100%" data-height="92px" data-line-Width="2"
-								data-line-Color="rgba(255,255,255,0.7)"
-								data-fill-Color="rgba(0, 188, 212, 0)">1,9,2,8,4,6,2,6,2</div>
-							<ul class="dashboard-stat-list">
+							<div class="m-b--35 font-bold">新規ユーザー</div>
+
+							<!-- 그래프를 그릴 캔버스 요소 추가 -->
+							<div class="chart-container">
+								<canvas id="myChart"></canvas>
+							</div>
+
+							<!-- <ul class="dashboard-stat-list">
 								<li>YESTERDAY <span class="pull-right"><b>3 872</b>
-										<small>USERS</small></span>
-								</li>
-								<li>TODAY <span class="pull-right"><b>1 200</b> <small>USERS</small></span>
-								</li>
+										<small>USERS</small></span></li>
+								<li>TODAY <span class="pull-right"><b>1 200</b> <small>USERS</small></span></li>
 								<li>LAST WEEK <span class="pull-right"><b>26 582</b>
-										<small>USERS</small></span>
-								</li>
-							</ul>
+										<small>USERS</small></span></li>
+							</ul> -->
 						</div>
 					</div>
 				</div>
+
 				<!-- #END# Visitors -->
 				<!-- Latest Social Trends -->
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 					<div class="card">
-						<div class="body bg-cyan">
-							<div class="m-b--35 font-bold">LATEST SOCIAL TRENDS</div>
+						<div class="body bg-cyan" style="height: 305px;">
+							<div class="m-b--35 font-bold">가장 많은 포인트를 가진 유저</div>
 							<ul class="dashboard-stat-list">
-								<li>#socialtrends <span class="pull-right"> <i
-										class="material-icons">trending_up</i>
-								</span>
-								</li>
-								<li>#materialdesign <span class="pull-right"> <i
-										class="material-icons">trending_up</i>
-								</span>
-								</li>
-								<li>#adminbsb</li>
-								<li>#freeadmintemplate</li>
-								<li>#bootstraptemplate</li>
-								<li>#freehtmltemplate <span class="pull-right"> <i
-										class="material-icons">trending_up</i>
-								</span>
-								</li>
+								<c:forEach var="obj" items="${userList_mostPoint}"
+									varStatus="status">
+									<li><span>${status.index + 1}</span><span> . </span> <span><strong>${obj.user_nickname}</strong></span>
+										<span class="pull-right"> <b>${obj.user_point}<b><small>
+														point</small></b></span>
+									<li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -239,22 +248,14 @@
 				<!-- Answered Tickets -->
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 					<div class="card">
-						<div class="body bg-teal">
-							<div class="font-bold m-b--35">ANSWERED TICKETS</div>
-							<ul class="dashboard-stat-list">
-								<li>TODAY <span class="pull-right"><b>12</b> <small>TICKETS</small></span>
-								</li>
-								<li>YESTERDAY <span class="pull-right"><b>15</b> <small>TICKETS</small></span>
-								</li>
-								<li>LAST WEEK <span class="pull-right"><b>90</b> <small>TICKETS</small></span>
-								</li>
-								<li>LAST MONTH <span class="pull-right"><b>342</b> <small>TICKETS</small></span>
-								</li>
-								<li>LAST YEAR <span class="pull-right"><b>4 225</b>
-										<small>TICKETS</small></span>
-								</li>
-								<li>ALL <span class="pull-right"><b>8 752</b> <small>TICKETS</small></span>
-								</li>
+						<div class="body bg-teal" style="height: 300px;">
+							<div class="font-bold m-b--35">관리자 목록</div>
+							<ul class="dashboard-stat-list scroll-box">
+								<c:forEach var="obj" items="${userList_admin}">
+									<li><span><strong>${obj.user_nickname}</strong> (
+											${obj.user_gender } )</span> <span class="pull-right"> <b>${obj.user_email}</b></span>
+									<li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -300,15 +301,15 @@
 												<td><c:set var="progressBarClass" value="bg-light-blue" />
 													<c:choose>
 														<c:when
-															test="${obj.user_content_count > 20 && obj.user_content_count <= 40}">
+															test="${obj.user_content_count > 2 && obj.user_content_count <= 4}">
 															<c:set var="progressBarClass" value="bg-green" />
 														</c:when>
 														<c:when
-															test="${obj.user_content_count > 40 && obj.user_content_count <= 60}">
+															test="${obj.user_content_count > 4 && obj.user_content_count <= 6}">
 															<c:set var="progressBarClass" value="bg-orange" />
 														</c:when>
 														<c:when
-															test="${obj.user_content_count > 60 && obj.user_content_count <= 100}">
+															test="${obj.user_content_count > 6 && obj.user_content_count <= 10}">
 															<c:set var="progressBarClass" value="bg-red" />
 														</c:when>
 													</c:choose>
@@ -316,10 +317,11 @@
 														<div class="progress-bar ${progressBarClass}"
 															role="progressbar"
 															aria-valuenow="${obj.user_content_count}"
-															aria-valuemin="0" aria-valuemax="100"
+															aria-valuemin="0" aria-valuemax="10"
 															style="width: ${obj.user_content_count}%;"></div>
 													</div></td>
 											</tr>
+
 										</c:forEach>
 									</tbody>
 
@@ -380,6 +382,70 @@
 
 	<!-- Demo Js -->
 	<script src="${root }admin/js/demo.js"></script>
+
+	<!-- Chart.js 라이브러리 추가 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // JSP에서 전달된 userList_flow 데이터를 JavaScript 배열로 변환
+        const dataPoints = [];
+        
+        // JSP에서 userList_flow 데이터를 JavaScript 배열로 변환
+        <c:forEach var="value" items="${userList_flow}">
+            dataPoints.push(${value});
+        </c:forEach>
+
+        // 차트 데이터 설정
+        const data = {
+            labels: ['7日前', '６日前', '５日前', '４日前', '３日前', '２日前', '昨日'],
+            datasets: [{
+                label: 'Flow',
+                data: dataPoints,
+                borderColor: 'rgba(255, 255, 255, 0.7)',
+                backgroundColor: 'rgba(0, 188, 212, 0.2)',
+                borderWidth: 2
+            }]
+        };
+
+        // 차트 옵션 설정
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        title: {
+                            display: true
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: true
+                        },
+                        title: {
+                            display: true
+                        }
+                    }
+                }
+            }
+        };
+
+        // 차트 생성
+        var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    });
+</script>
+
+
+
 </body>
 
 </html>

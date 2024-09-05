@@ -1,6 +1,6 @@
 package kr.co.softsoldesk.DAO;
 
-import java.util.List;
+import java.util.List;	
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.softsoldesk.beans.CommentBean;
 import kr.co.softsoldesk.mapper.CommentMapper;
-import lombok.RequiredArgsConstructor;
 
 @Repository
 public class CommentDAO {

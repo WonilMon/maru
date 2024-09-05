@@ -158,4 +158,11 @@ public class BoardService {
 	public List<ContentBean> getMonthly3Content() {
 		return boardDAO.getMonthly3Content();
 	}
+	
+	// -----------------------------------------------
+	
+	// 검색
+	public List<ContentBean> getSearchResult(String keyWord, int board_info_idx) {
+		return boardDAO.getSearchResult(keyWord, board_info_idx);
+	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,12 +76,28 @@ public class CompanyController {
 
 		List<FaqBean> faqList = companyService.getFaqList(page);
 
+		companyService.updateFaqAnswerToConfirmed(adminFaqBean.getFaq_idx());
+
 		model.addAttribute("faqList", faqList);
 
 		PageBean pageBean = companyService.getFaqCnt(page);
 		model.addAttribute("pageBean", pageBean);
+		try {
+			String to = adminFaqBean.getFaq_user_email();
+			String subject = "【重要】ご質問に対するご回答について";
 
-		return "admin/manage_faq";
+			String text = "こんにちは、" + adminFaqBean.getFaq_user_nickname() + "さん。\n\n"
+					+ "平素より弊社サービスをご利用いただき、誠にありがとうございます。\n\n"
+					+ "この度は、ご質問をいただきありがとうございました。以下の通り、ご質問に対するご回答をお送りいたしますので、ご確認ください。" + "\n\n" + "【ご質問】\n"
+					+ adminFaqBean.getFaq_user_text() + "\n\n" + "【応答】\n" + adminFaqBean.getResponse_text() + "\n\n"
+					+ "ご不明な点や追加のご質問がございましたら、どうぞお気軽にご連絡ください。\n\n" + "この度はご利用いただき、誠にありがとうございます。引き続き、どうぞよろしくお願いいたします。\n\n"
+					+ "敬具,\n" + "サポートチーム";
+
+			companyService.sendFaqMail(to, subject, text);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/company/manage_faq?page=" + page;
 	}
 
 	// FAQ관리 - 삭제
@@ -108,11 +125,17 @@ public class CompanyController {
 		loginUserBean.setNewContentCount(companyService.getNewContentCount());
 		loginUserBean.setNewCommentCount(companyService.getNewCommentCount());
 		loginUserBean.setNewFaqCount(companyService.getNewFaqCount());
-		
+
 		List<UserBean> userList_mostContent = companyService.getUserList_mostContent();
+		List<UserBean> userList_mostPoint = companyService.getUserList_mostPoint();
+		List<UserBean> userList_admin = companyService.getUserList_admin();
+		List<Integer> userList_flow = companyService.getUserList_flow();
 		String admin_notice = companyService.getAdminNotice();
 
 		model.addAttribute("userList_mostContent", userList_mostContent);
+		model.addAttribute("userList_mostPoint", userList_mostPoint);
+		model.addAttribute("userList_admin", userList_admin);
+		model.addAttribute("userList_flow", userList_flow);
 		model.addAttribute("admin_notice", admin_notice);
 
 		return "admin/index";

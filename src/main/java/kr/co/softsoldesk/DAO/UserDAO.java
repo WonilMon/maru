@@ -31,10 +31,10 @@ public class UserDAO {
 	public UserBean getLoginUser(UserBean tempLoginUserBean) {
 		return userMapper.getLoginUser(tempLoginUserBean);
 	}
-
-	// 로그인 (API)
-	public UserBean getLoginUserAPI(String user_email) {
-		return userMapper.getLoginUserAPI(user_email);
+	
+	// 로그인(API)
+	public String getPass(String user_email) {
+		return userMapper.getPass(user_email);
 	}
 
 	// 정보수정
@@ -55,6 +55,11 @@ public class UserDAO {
 	// 상태메시지 변경
 	public void updateStatusText(String user_statustext, int user_idx) {
 		userMapper.updateStatusText(user_statustext, user_idx);
+	}
+	
+	// 모달 유저 정보
+	public UserBean getUserModal(String user_nickname) {
+		return userMapper.getUserModal(user_nickname);
 	}
 
 	// 회원삭제

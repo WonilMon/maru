@@ -9,6 +9,7 @@ public class FaqBean {
 	private String faq_user_nickname;
 	private String faq_user_email;
 	private String faq_user_text;
+	private String faq_answer;
 
 	// ------------------------------
 
@@ -54,6 +55,14 @@ public class FaqBean {
 
 	public void setResponse_text(String response_text) {
 		this.response_text = response_text;
+	}
+
+	public String getFaq_answer() {
+		return faq_answer;
+	}
+
+	public void setFaq_answer(String faq_answer) {
+		this.faq_answer = faq_answer;
 	}
 
 }

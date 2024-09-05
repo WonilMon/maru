@@ -295,6 +295,63 @@
 	color: #555555;
 	white-space: nowrap; /* 텍스트가 줄 바꿈 없이 한 줄로 유지되도록 설정 */
 }
+
+.hidden-input {
+	display: none;
+}
+
+.fixed-button {
+	position: fixed;
+	bottom: 100px; /* 화면 하단에서 100px */
+	right: 50px; /* 화면 오른쪽에서 50px */
+	height: 180px; /* 버튼의 높이 */
+	transform: translateY(-50%); /* 버튼을 중앙에 위치 */
+	background-color: #fec5bb; /* 버튼 배경색 */
+	color: white; /* 버튼 텍스트 색상 */
+	padding: 10px 20px; /* 버튼의 패딩 */
+	border: 2px solid #F8EDEB; /* 버튼 테두리 추가 */
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+	cursor: pointer; /* 마우스 커서 변경 */
+	z-index: 1000; /* 버튼이 다른 요소 위에 표시되도록 */
+	border-radius: 20px; /* 버튼 모서리 둥글게 */
+	writing-mode: vertical-rl; /* 글자를 세로로 표시 */
+	text-orientation: upright; /* 세로 글자 방향 설정 */
+}
+
+.scroll-to-top {
+	position: fixed;
+	bottom: 50px; /* 화면의 하단에서 20px 위치 */
+	right: 50px; /* 화면의 오른쪽에서 20px 위치 */
+	width: 50px; /* 버튼의 너비 */
+	height: 50px; /* 버튼의 높이 */
+	background-image: url('${root}images/UP.png'); /* 이미지 경로 */
+	background-size: cover; /* 이미지가 버튼 전체를 덮도록 설정 */
+	background-repeat: no-repeat; /* 이미지 반복 방지 */
+	background-color: rgba(0, 0, 0, 0);
+	border: none; /* 버튼 테두리 없음 */
+	border-radius: 5px; /* 버튼 모서리 둥글게 */
+	cursor: pointer; /* 클릭 시 커서 포인터 */
+	z-index: 1000; /* 다른 요소들 위에 위치 */
+	display: none; /* 기본적으로 버튼 숨기기 */
+}
+
+.scroll-to-top.show {
+	display: block; /* 페이지 스크롤 시 버튼 표시 */
+}
+
+#translation-container {
+	max-height: 200px; /* 최대 높이를 설정하여 제한 */
+	overflow-y: hidden; /* 기본적으로 스크롤바를 숨김 */
+	position: relative;
+}
+
+#translation-container.expanded {
+	overflow-y: auto; /* 더보기를 누르면 스크롤바 활성화 */
+}
+
+#translation-result {
+	white-space: pre-wrap; /* 줄바꿈을 유지 */
+}
 </style>
 </head>
 <body data-path-to-root="/" data-include-products="false"
@@ -303,13 +360,16 @@
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
 	<c:import url="/WEB-INF/views/include/first_section_main.jsp"></c:import>
 
-	<a href="${root }index.do">index</a>
-	<a href="${root }chat.do">chat</a>
-
 	<section
 		class="u-clearfix u-container-align-center u-white u-section-2"
 		id="carousel_88b7">
 		<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+
+
+			<button class="fixed-button" onclick="openRoulettePage()">イベント</button>
+
+			<button class="scroll-to-top" id="scrollToTopBtn"></button>
+
 			<div
 				class="data-layout-selected u-clearfix u-expanded-width u-gutter-40 u-layout-wrap u-layout-wrap-1">
 				<div class="u-gutter-0 u-layout">
@@ -435,7 +495,16 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 										</div>
 										<div class="lower-section" id="zodiac-section">
 											<p>${loginUserBean.user_zodiac }의오늘의운세</p>
-											<p>오늘은 비가 옵니다</p>
+											<div id="translation-container">
+												<p id="horoscope-result">운세를 불러오는 중...</p>
+											</div>
+											<%-- 
+											<div id="translation-container">
+												<p id="translation-result">${loginUserBean.user_zodiac }의
+													오늘의운세 <br /> 운세를 불러오는 중...
+												</p>
+											</div>
+ --%>
 										</div>
 									</div>
 
@@ -489,13 +558,15 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 										</div>
 										<div class="u-social-icons u-spacing-10 u-social-icons-1"
-											style="display: flex; gap: 10px;">
+											style="display: flex; gap: 10px; justify-content: flex-start; margin: 0; margin-left: 170px;">
 											<div id="lineButtonDiv" onclick="lineLogin()"
 												class="social-login-button">
 												<img id="lineLoginButton" src="${root}images/line_icon.png"
-													alt="Line Logo"> <span>LINE 계정으로 로그인</span>
+													alt="Line Logo"> <span>LINEでログイン</span>
 											</div>
 										</div>
+
+
 										<div class="google-icons">
 											<div id="buttonDiv"></div>
 										</div>
@@ -545,7 +616,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 
 								<c:forEach var="today" items="${today3Content}">
-									<a href="${root }board/board_read?content_idx=${today.content_idx }&board_info_idx=${today.board_info_idx}">
+									<a
+										href="${root }board/board_read?content_idx=${today.content_idx }&board_info_idx=${today.board_info_idx}">
 										<li>${today.content_subject }</li>
 									</a>
 								</c:forEach>
@@ -568,7 +640,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<h3 class="u-align-center u-text u-text-5">週間ランキング</h3>
 							<ol class="u-align-center u-text u-text-6">
 								<c:forEach var="week" items="${weekly3Content}">
-									<a href="${root }board/board_read?content_idx=${week.content_idx }&board_info_idx=${week.board_info_idx}">
+									<a
+										href="${root }board/board_read?content_idx=${week.content_idx }&board_info_idx=${week.board_info_idx}">
 										<li>${week.content_subject }</li>
 									</a>
 								</c:forEach>
@@ -589,7 +662,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<h3 class="u-align-center u-text u-text-7">月間ランキング</h3>
 							<ol class="u-align-center u-text u-text-8">
 								<c:forEach var="month" items="${monthly3Content}">
-									<a href="${root }board/board_read?content_idx=${month.content_idx }&board_info_idx=${month.board_info_idx}">
+									<a
+										href="${root }board/board_read?content_idx=${month.content_idx }&board_info_idx=${month.board_info_idx}">
 										<li>${month.content_subject }</li>
 									</a>
 								</c:forEach>
@@ -880,6 +954,191 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		// 공통 스타일 설정 (배경 크기와 위치)
 		lowerSection.style.backgroundSize = "contain";
 		lowerSection.style.backgroundPosition = "center";
+	</script>
+
+	<!-- 별자리 별 운세 가져오기  -->
+	<script>
+		$(document)
+				.ready(
+						function() {
+							// 사용자 별자리와 날짜를 설정합니다.
+							const userZodiac = "${loginUserBean.user_zodiac}";
+							const zodiacMap = {
+								"양자리" : "aries",
+								"황소자리" : "taurus",
+								"쌍둥이자리" : "gemini",
+								"게자리" : "cancer",
+								"사자자리" : "leo",
+								"처녀자리" : "virgo",
+								"천칭자리" : "libra",
+								"전갈자리" : "scorpio",
+								"사수자리" : "sagittarius",
+								"염소자리" : "capricorn",
+								"물병자리" : "aquarius",
+								"물고기자리" : "pisces",
+								"おひつじ座" : "aries",
+								"おうし座" : "taurus",
+								"ふたご座" : "gemini",
+								"かに座" : "cancer",
+								"しし座" : "leo",
+								"おとめ座" : "virgo",
+								"てんびん座" : "libra",
+								"さそり座" : "scorpio",
+								"いて座" : "sagittarius",
+								"やぎ座" : "capricorn",
+								"みずがめ座" : "aquarius",
+								"うお座" : "pisces"
+							};
+
+							// 사용자의 별자리를 영어로 변환
+							const zodiacInEnglish = zodiacMap[userZodiac];
+
+							const url = "https://best-daily-astrology-and-horoscope-api.p.rapidapi.com/api/Detailed-Horoscope/?zodiacSign="
+									+ zodiacInEnglish;
+
+							if (zodiacInEnglish) {
+
+								const settings = {
+									async : true,
+									crossDomain : true,
+									url : url,
+									method : 'GET',
+									headers : {
+										'x-rapidapi-key' : 'a7e3973170mshed5dc83b245df4fp127dcfjsna7507577f0bd',
+										/* 발표전에는 key 새로 발급받아서 쓰기 240903 yelim */
+										'x-rapidapi-host' : 'best-daily-astrology-and-horoscope-api.p.rapidapi.com'
+									}
+								};
+
+								$
+										.ajax(settings)
+										.done(
+												function(response) {
+													const horoscopeText = response.prediction;
+
+													//Translate API를 사용하여 일본어로 번역
+													$
+															.ajax({
+																url : 'https://translation.googleapis.com/language/translate/v2',
+																method : 'POST',
+																data : {
+																	q : horoscopeText,
+																	target : 'ja', // 일본어
+																	key : 'AIzaSyDyaS4V_2nK7uAFew0NSReWeoXcVhrFfrc'
+																},
+																success : function(
+																		translationResponse) {
+																	const translatedText = translationResponse.data.translations[0].translatedText;
+
+																	const maxLength = 50;
+
+																	// 텍스트를 잘라내기
+																	let truncatedText = translatedText
+																			.substring(
+																					0,
+																					maxLength);
+
+																	// 더보기 기능을 위한 표시
+																	if (translatedText.length > maxLength) {
+																		console
+																				.log(
+																						'dd',
+																						translatedText.length);
+																		truncatedText += '... <a href="#" id="show-more">더보기</a>';
+																	}
+																	// 잘라낸 텍스트를 표시
+																	$(
+																			'#horoscope-result')
+																			.html(
+																					truncatedText);
+
+																	// 더보기 클릭 시 전체 텍스트 표시 및 스크롤 활성화
+																	$(
+																			'#horoscope-result')
+																			.on(
+																					'click',
+																					'#show-more',
+																					function(
+																							event) {
+																						event
+																								.preventDefault();
+																						$(
+																								'#horoscope-result')
+																								.html(
+																										translatedText); // 전체 텍스트를 표시
+																						$(
+																								'#translation-container')
+																								.addClass(
+																										'expanded'); // 스크롤 활성화
+																					});
+																},
+																error : function(
+																		jqXHR,
+																		textStatus,
+																		errorThrown) {
+																	console
+																			.error(
+																					"Error fetching translation:",
+																					textStatus,
+																					errorThrown);
+																	$(
+																			'#horoscope-result')
+																			.text(
+																					"운세를 번역하는 중 오류가 발생했습니다.");
+																}
+															});
+												})
+										.fail(
+												function(jqXHR, textStatus,
+														errorThrown) {
+													console
+															.error(
+																	"Error fetching horoscope:",
+																	textStatus,
+																	errorThrown);
+													$('#horoscope-result')
+															.text(
+																	"운세를 불러오는 중 오류가 발생했습니다.");
+												});
+							} else {
+								$('#horoscope-result').text("잘못된 별자리 정보입니다.");
+							}
+						});
+	</script>
+
+	<script>
+		function openRoulettePage() {
+			const root = '${root}';
+			const rouletteUrl = root + 'spinRoulette';
+			const width = 400;
+			const height = 500;
+			const left = (window.screen.width - width) / 2;
+			const top = (window.screen.height - height) / 2;
+
+			window.open(rouletteUrl, '_blank', 'width=' + width + ',height='
+					+ height + ',left=' + left + ',top=' + top);
+		}
+	</script>
+
+	<script>
+		// 버튼 클릭 시 페이지 상단으로 스크롤
+		document.getElementById('scrollToTopBtn').addEventListener('click',
+				function() {
+					window.scrollTo({
+						top : 0,
+						behavior : 'smooth'
+					});
+				});
+
+		// 페이지 스크롤 시 버튼 표시/숨기기
+		window.addEventListener('scroll', function() {
+			const button = document.getElementById('scrollToTopBtn');
+			if (window.scrollY > 300) { // 300px 이상 스크롤된 경우
+				button.classList.add('show');
+			} else {
+				button.classList.remove('show');
+			}
+		});
 	</script>
 </body>
 

@@ -22,6 +22,8 @@
 	src="${root }js/jquery.js" defer=""></script> --%>
 <script class="u-script" type="text/javascript"
 	src="${root }js/nicepage.js" defer=""></script>
+<!-- Google reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <meta name="referrer" content="origin">
 <link id="u-theme-google-font" rel="stylesheet"
@@ -273,7 +275,9 @@
 						</div>
 						<form:errors path="user_gender" style="color:red"></form:errors>
 					</div>
-
+					
+			        <div style="margin: 10px 10px 10px 20px;" class="g-recaptcha" data-sitekey="6LclwjAqAAAAAJnIj0aIVdzw245ymUeEn-9vZmmY"></div>
+					
 					<div class="u-align-right u-form-group u-form-submit">
 						<button type="submit"
 							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">登録する</button>

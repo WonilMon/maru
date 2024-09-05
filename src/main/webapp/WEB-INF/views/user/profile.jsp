@@ -16,9 +16,10 @@
 <title>profile</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root }css/profile.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
-	defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <link id="u-theme-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Noto+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
@@ -45,13 +46,22 @@
 <meta property="og:title" content="profile">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+<style>
+#profileIcon {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+}
+</style>
+
+
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
-	
-	
+
+
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
-	
+
 	<section
 		class="skrollable u-align-center u-clearfix u-container-align-center u-image u-parallax u-shading u-section-1"
 		id="sec-8345" data-image-width="425" data-image-height="425">
@@ -60,7 +70,8 @@
 	<section class="u-clearfix u-container-align-center u-section-2"
 		id="sec-fbb4">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<h2 class="u-align-center u-subtitle u-text u-text-default u-text-1">My Profile</h2>
+			<h2 class="u-align-center u-subtitle u-text u-text-default u-text-1">My
+				Profile</h2>
 			<div
 				class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-palette-3-light-3 u-radius u-layout-wrap-1">
 				<div class="u-gutter-0 u-layout">
@@ -94,13 +105,17 @@
 															<div class="u-back-slide">
 																<c:choose>
 																	<c:when test="${img != null }">
-																		<img id="profileImage" src="${root}getProfileImage/${img}" class="u-back-image u-expanded" alt="프로필 이미지">
+																		<img id="profileImage"
+																			src="${root}getProfileImage/${img}"
+																			class="u-back-image u-expanded" alt="프로필 이미지">
 																	</c:when>
 																	<c:otherwise>
-																		<img id="profileImage" src="${root}images/90fc53c9.svg" class="u-back-image u-expanded" alt="프로필 이미지">
+																		<img id="profileImage"
+																			src="${root}images/90fc53c9.svg"
+																			class="u-back-image u-expanded" alt="프로필 이미지">
 																	</c:otherwise>
 																</c:choose>
-																
+
 															</div>
 															<div class="u-over-slide u-over-slide-1"></div>
 														</div>
@@ -160,14 +175,24 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 									class="u-container-align-center u-container-style u-layout-cell u-size-60 u-layout-cell-2">
 									<div
 										class="u-container-layout u-valign-middle u-container-layout-2">
-										<h2 class="u-align-center u-subtitle u-text u-text-2">${profileUser.user_nickname }</h2>
-										<span class="u-align-center u-file-icon u-icon u-icon-1"><img
-											src="/images/2356780.png" alt=""></span>
-											<!-- 아이콘 가지고 와서 표시하도록 수정 필요 -->
+										<h2 class="u-align-center u-subtitle u-text u-text-2"
+											style="display: flex; align-items: center; justify-content: center;">
+											${profileUser.user_nickname}
+											<!-- 프로필 아이콘 표시 -->
+											<span class="u-align-center u-file-icon u-icon u-icon-1"
+												style="margin-left: 5px;"> <c:if
+													test="${not empty profileUser.user_icon}">
+													<img id="profileIcon" src="${root}${profileUser.user_icon}"
+														alt="" />
+												</c:if>
+											</span>
+										</h2>
+										<!-- 아이콘 가지고 와서 표시하도록 수정 필요 -->
 										<p class="u-align-center u-text u-text-3">${profileUser.user_statustext }</p>
 										<a href="#"
-											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">1:1
-											chat </a>
+											onclick="openChatWindow('${root}chat/room?sender_idx=${loginUserBean.user_idx}&receiver_idx=${profileUser.user_idx}'); return false;"
+											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">
+											1:1 chat </a>
 									</div>
 								</div>
 							</div>
@@ -181,8 +206,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		class="u-align-center u-clearfix u-container-align-center u-section-3"
 		id="sec-da49">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<p class="u-align-center u-text u-text-default u-text-1">${profileUser.user_nickname }님의 글
-			</p>
+			<p class="u-align-center u-text u-text-default u-text-1">${profileUser.user_nickname }님의
+				글</p>
 			<div
 				class="custom-expanded data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
 				<div class="u-layout">
@@ -245,8 +270,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<!--blog_post_metadata-->
 							<div class="u-blog-control u-metadata u-metadata-2">
 								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon">
-									<!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
+								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
 								</span>
 								<!--/blog_post_metadata_author-->
 							</div>
@@ -273,8 +297,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<!--blog_post_metadata-->
 							<div class="u-blog-control u-metadata u-metadata-4">
 								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon">
-									<!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
+								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
 								</span>
 								<!--/blog_post_metadata_author-->
 							</div>
@@ -301,8 +324,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<!--blog_post_metadata-->
 							<div class="u-blog-control u-metadata u-metadata-6">
 								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon">
-									<!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
+								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
 								</span>
 								<!--/blog_post_metadata_author-->
 							</div>
@@ -329,8 +351,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<!--blog_post_metadata-->
 							<div class="u-blog-control u-metadata u-metadata-8">
 								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon">
-									<!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
+								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
 								</span>
 								<!--/blog_post_metadata_author-->
 							</div>
@@ -357,8 +378,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<!--blog_post_metadata-->
 							<div class="u-blog-control u-metadata u-metadata-10">
 								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon">
-									<!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
+								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
 								</span>
 								<!--/blog_post_metadata_author-->
 							</div>
@@ -385,8 +405,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							<!--blog_post_metadata-->
 							<div class="u-blog-control u-metadata u-metadata-12">
 								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon">
-									<!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
+								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
 								</span>
 								<!--/blog_post_metadata_author-->
 							</div>
@@ -435,6 +454,15 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
-
+	<script>
+		function openChatWindow(url) {
+			const width = 800;
+			const height = 600;
+			const left = (window.screen.width - width) / 2;
+			const top = (window.screen.height - height) / 2;
+			window.open(url, 'ChatRoomWindow', 'width=' + width + ',height='
+					+ height + ',left=' + left + ',top=' + top);
+		}
+	</script>
 </body>
 </html>

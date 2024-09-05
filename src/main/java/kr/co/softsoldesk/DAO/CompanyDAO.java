@@ -39,6 +39,11 @@ public class CompanyDAO {
 	public void deleteFaq(int faq_idx) {
 		companyMapper.deleteFaq(faq_idx);
 	}
+	
+	// FAQ관리 - FAQ확인
+	public void updateFaqAnswerToConfirmed(int faq_idx) {
+		companyMapper.updateFaqAnswerToConfirmed(faq_idx);
+	}
 
 	// FAQ관리 - 페이지네이션 (FAQ 수)
 	public int getFaqCnt() {
@@ -49,7 +54,22 @@ public class CompanyDAO {
 	public List<UserBean> getUserList_mostContent() {
 		return companyMapper.getUserList_mostContent();
 	}
+	
+	// 관리자 홈 - 포인트 TOP 5
+	public List<UserBean> getUserList_mostPoint() {
+		return companyMapper.getUserList_mostPoint();
+	}
+	
+	// 관리자 홈 - 관리자 리스트
+	public List<UserBean> getUserList_admin() {
+		return companyMapper.getUserList_admin();
+	}
 
+	// 관리자 홈 - 신규 유저 (7일간)
+	public List<Integer> getUserList_flow() {
+		return companyMapper.getUserList_flow();
+	}
+	
 	// 관리자 홈 - 일주일간 가입한 회원 수
 	public int getNewUserCount () {
 		return companyMapper.getNewUserCount();

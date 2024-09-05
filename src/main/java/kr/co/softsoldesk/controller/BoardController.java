@@ -24,10 +24,13 @@ import com.google.gson.GsonBuilder;
 import kr.co.softsoldesk.beans.BoardInfoBean;
 import kr.co.softsoldesk.beans.CommentBean;
 import kr.co.softsoldesk.beans.ContentBean;
+import kr.co.softsoldesk.beans.IconBean;
 import kr.co.softsoldesk.beans.PageBean;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.service.BoardService;
 import kr.co.softsoldesk.service.CommentService;
+import kr.co.softsoldesk.service.IconService;
+import kr.co.softsoldesk.service.UserIconService;
 
 @Controller
 @RequestMapping("/board")
@@ -38,7 +41,7 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-	
+
 	@Autowired
 	CommentService commentService;
 
@@ -51,53 +54,52 @@ public class BoardController {
 	private String sharing_list() {
 		return "board/sharing_list";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/addComment")
-	public int addComment(@RequestParam("comment_text") String comment_text, @RequestParam("user_idx") int user_idx, @RequestParam("content_idx") int content_idx) {
-		
+	public int addComment(@RequestParam("comment_text") String comment_text, @RequestParam("user_idx") int user_idx,
+			@RequestParam("content_idx") int content_idx) {
+
 		CommentBean addComment = new CommentBean();
-		
+
 		addComment.setComment_text(comment_text);
 		addComment.setContent_idx(content_idx);
 		addComment.setUser_idx(user_idx);
-		
+
 		int result = 0;
-	    try {
-	    	result = commentService.addComment(addComment);
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	        result = -1;
-	    }
-	    return result;
+		try {
+			result = commentService.addComment(addComment);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = -1;
+		}
+		return result;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="getCommentList",
-			produces="application/json; charset=utf-8")
+	@RequestMapping(value = "getCommentList", produces = "application/json; charset=utf-8")
 	private String getCommentList(int content_idx) {
-		
+
 		List<CommentBean> rList = commentService.getCommentList(content_idx);
-		
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		
+
 		return gson.toJson(rList);
 	}
-	
-	
+
 	@GetMapping("/board_prev_main")
 	private String board_prev_main(Model model) {
 
 		ArrayList<List<ContentBean>> list = new ArrayList<List<ContentBean>>();
 		List<BoardInfoBean> boardList = boardService.getBoardInfoList();
-		
+
 		int count = 1;
-		for(int i=0; i<=2; i++) {
+		for (int i = 0; i <= 2; i++) {
 			List<ContentBean> list1 = boardService.getPrevContentList(count);
 			list.add(list1);
 			count++;
 		}
-		
+
 		model.addAttribute("list", list);
 		model.addAttribute("boardList", boardList);
 
@@ -115,7 +117,7 @@ public class BoardController {
 		model.addAttribute("board_info_name", board_info_name);
 		model.addAttribute("board_info_idx", board_info_idx);
 		model.addAttribute("contentList", contentList);
-		
+
 		PageBean pageBean = boardService.getContentCnt(board_info_idx, page);
 		model.addAttribute("pageBean", pageBean);
 
@@ -151,21 +153,21 @@ public class BoardController {
 
 		return "board/board_write_success";
 	}
-	
+
 	@GetMapping("/board_read")
 	private String board_read(@RequestParam("content_idx") int content_idx,
 			@RequestParam("board_info_idx") int board_info_idx, Model model) {
 
 		ContentBean readContent = boardService.getReadContent(content_idx);
 		CommentBean commentBean = new CommentBean();
-		
+
 		model.addAttribute("user_name", loginuserBean.getUser_nickname());
 		model.addAttribute("readContent", readContent);
 		model.addAttribute("board_info_idx", board_info_idx);
 		model.addAttribute("content_idx", content_idx);
 		model.addAttribute("user_idx", loginuserBean.getUser_idx());
 		model.addAttribute("commentBean", commentBean);
-		
+
 		return "board/board_read";
 
 	}
@@ -212,6 +214,25 @@ public class BoardController {
 
 		return "board/board_delete";
 	}
-	
+
+	// -----------------------------------------------
+
+	// 검색
+	@GetMapping("/search")
+	private String search(@RequestParam("keyWord") String keyWord, Model model) {
+
+		System.out.println("키워드드러옹ㅁ ㅋ" + keyWord);
+
+		List<ContentBean> searchList_1 = boardService.getSearchResult(keyWord, 1);
+		List<ContentBean> searchList_2 = boardService.getSearchResult(keyWord, 2);
+		List<ContentBean> searchList_3 = boardService.getSearchResult(keyWord, 3);
+
+		model.addAttribute("keyWord", keyWord);
+		model.addAttribute("searchList_1", searchList_1);
+		model.addAttribute("searchList_2", searchList_2);
+		model.addAttribute("searchList_3", searchList_3);
+
+		return "board/search";
+	}
 
 }

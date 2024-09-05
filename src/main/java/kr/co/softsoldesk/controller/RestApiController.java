@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -16,10 +19,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.softsoldesk.beans.IconBean;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.service.UserIconService;
 import kr.co.softsoldesk.service.UserService;
@@ -70,9 +76,6 @@ public class RestApiController {
 
 	@GetMapping("/user/modifyStatustext/{user_idx}")
 	public String modifyStatustext(@PathVariable("user_idx") String user_statustext) {
-		System.out.println(user_statustext);
-
-		// 실제 로직을 구현해야 합니다.
 		return "수정된 상태 메시지: " + user_statustext;
 	}
 
@@ -87,6 +90,20 @@ public class RestApiController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("insufficient_points");
 		}
 	}
+	  // 랜덤 아이콘 구매
+	@PostMapping("/buyRandomIcon")
+    public ResponseEntity<String> buyRandomIcon(@RequestBody Map<String, Integer> request) {
+        int user_idx = request.get("user_idx");
+
+        IconBean purchasedIcon = userIconService.buyRandomIcon(user_idx);
+        if (purchasedIcon != null) {
+            return ResponseEntity.ok("success");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("insufficient_points_or_no_available_icons");
+        }
+    }
+	
+	
 
 	// 프로필 이미지 변경
 	@Value("${path.upload}")
@@ -146,4 +163,13 @@ public class RestApiController {
 		}
 	}
 
+	@GetMapping("/getUserInfo")
+	public ResponseEntity<UserBean> getUserInfo(@RequestParam("user_name") String user_nickname) {
+		UserBean user = userService.getUserModal(user_nickname);
+		if (user != null) {
+			return ResponseEntity.ok(user);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
 }
