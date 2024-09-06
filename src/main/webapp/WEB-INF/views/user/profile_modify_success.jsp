@@ -6,6 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script>
-	alert("수정이 완료되었습니다")
+	alert("プロフィール情報の編集に成功しました。")
 	location.href = "${root}user/profile_modify?user_idx=${modifyUser.user_idx}"
 </script>

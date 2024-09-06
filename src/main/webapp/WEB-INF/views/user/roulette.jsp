@@ -148,23 +148,23 @@
 	   const rLayerPopup = (num) => {
 	      switch (num) {
 	         case 1:
-	            alert("축하드립니다! 2포인트를 획득하셨습니다.");
+	            alert("おめでとうございます！ 2ポイントを獲得しました。");
 	            point = 2;
 	            break;
 	         case 3:
-	            alert("축하드립니다! 100포인트를 획득하셨습니다.");
+	            alert("おめでとうございます！ 100ポイントを獲得しました。");
 	            point = 100;
 	            break;
 	         case 5:
-	            alert("축하드립니다! 50포인트를 획득하셨습니다.");
+	            alert("おめでとうございます！ 50ポイントを獲得しました。");
 	            point = 50;
 	            break;
 	         case 7:
-	            alert("축하드립니다! 10포인트를 획득하셨습니다.");
+	            alert("おめでとうございます！ 10ポイントを獲得しました。");
 	            point = 10;
 	            break;
 	         default:
-	            alert("꽝! 다음 기회에");
+	            alert("はずれ！ またの機会にチャレンジしてください");
 	         	point = 0;
 	      }
 	   };
@@ -184,11 +184,11 @@
 		                btn.disabled = false; // 버튼 활성화
 		                btn.style.pointerEvents = "auto";
 		            } else {
-		                alert("오늘은 이미 룰렛을 돌리셨습니다.");
+		                alert("本日のルーレットはすでに回されています。また明日、再度お試しください");
 		            }
 		        },
 		        error: function(error) {
-		            alert("서버와 통신 중 오류가 발생했습니다.");
+		            alert("サーバーと通信中、エラーが発生しました。");
 		        }
 		    });
 
@@ -215,7 +215,7 @@
 		            }
 		        },
 		        error: function(error) {
-		            alert("포인트 저장 중 오류가 발생했습니다.");
+		            alert("ポイントの保存中、エラーが発生しました。");
 		        }
 		   });
 	   }

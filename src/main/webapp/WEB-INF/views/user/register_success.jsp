@@ -6,6 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script>
-	alert("新規会員登録が完了しました")
+	alert("新規会員登録が完了しました。")
 	location.href = "${root}main"
 </script>

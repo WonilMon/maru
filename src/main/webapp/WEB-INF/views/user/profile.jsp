@@ -206,8 +206,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		class="u-align-center u-clearfix u-container-align-center u-section-3"
 		id="sec-da49">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<p class="u-align-center u-text u-text-default u-text-1">${profileUser.user_nickname }님의
-				글</p>
+			<p class="u-align-center u-text u-text-default u-text-1">${profileUser.user_nickname }さんの投稿</p>
 			<div
 				class="custom-expanded data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
 				<div class="u-layout">
@@ -218,14 +217,14 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 									class="u-container-align-center u-container-style u-layout-cell u-size-37 u-layout-cell-1">
 									<div
 										class="u-container-layout u-valign-middle u-container-layout-1">
-										<p class="u-align-center u-text u-text-default u-text-2">제목</p>
+										<p class="u-align-center u-text u-text-default u-text-2">タイトル</p>
 									</div>
 								</div>
 								<div
 									class="u-container-align-center u-container-style u-layout-cell u-size-11 u-layout-cell-2">
 									<div
 										class="u-container-layout u-valign-middle u-container-layout-2">
-										<p class="u-align-center u-text u-text-default u-text-3">작성자
+										<p class="u-align-center u-text u-text-default u-text-3">投稿者
 										</p>
 									</div>
 								</div>
@@ -233,7 +232,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 									class="u-container-align-center u-container-style u-layout-cell u-size-12 u-layout-cell-3">
 									<div
 										class="u-container-layout u-valign-middle u-container-layout-3">
-										<p class="u-align-center u-text u-text-default u-text-4">작성일자
+										<p class="u-align-center u-text u-text-default u-text-4">投稿日時
 										</p>
 									</div>
 								</div>

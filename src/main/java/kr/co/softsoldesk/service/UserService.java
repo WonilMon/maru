@@ -73,40 +73,40 @@ public class UserService {
 
 		if (birthMonthDay.isAfter(MonthDay.of(Month.MARCH, 20))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.APRIL, 20))) {
-			return "양자리";
+			return "おひつじ座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.APRIL, 19))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.MAY, 21))) {
-			return "황소자리";
+			return "おうし座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.MAY, 20))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.JUNE, 21))) {
-			return "쌍둥이자리";
+			return "ふたご座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.JUNE, 20))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.JULY, 23))) {
-			return "게자리";
+			return "かに座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.JULY, 22))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.AUGUST, 23))) {
-			return "사자자리";
+			return "しし座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.AUGUST, 22))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.SEPTEMBER, 23))) {
-			return "처녀자리";
+			return "おとめ座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.SEPTEMBER, 22))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.OCTOBER, 23))) {
-			return "천칭자리";
+			return "てんびん座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.OCTOBER, 22))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.NOVEMBER, 22))) {
-			return "전갈자리";
+			return "さそり座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.NOVEMBER, 21))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.DECEMBER, 22))) {
-			return "사수자리";
+			return "いて座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.DECEMBER, 21))
 				|| birthMonthDay.isBefore(MonthDay.of(Month.JANUARY, 20))) {
-			return "염소자리";
+			return "やぎ座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.JANUARY, 19))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.FEBRUARY, 19))) {
-			return "물병자리";
+			return "みずがめ座";
 		} else if (birthMonthDay.isAfter(MonthDay.of(Month.FEBRUARY, 18))
 				&& birthMonthDay.isBefore(MonthDay.of(Month.MARCH, 21))) {
-			return "물고기자리";
+			return "うお座";
 		} else {
 			return "Unknown";
 		}

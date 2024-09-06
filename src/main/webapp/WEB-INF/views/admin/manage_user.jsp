@@ -74,7 +74,7 @@
 						<div class="header">
 							<div class="row clearfix">
 								<div class="col-xs-12 col-sm-6">
-									<h2>회원 관리</h2>
+									<h2>ユーザー管理</h2>
 								</div>
 							</div>
 							<ul class="header-dropdown m-r--5">
@@ -104,27 +104,27 @@
 											<!-- 검색 바 -->
 											<div class="wonil_search-bar">
 												<select id="wonil_select">
-													<option>--선택--</option>
-													<option>닉네임</option>
-													<option>이메일</option>
+													<option>--選択--</option>
+													<option>ニックネーム</option>
+													<option>メールアドレス</option>
 												</select> <input type="text" id="wonil_search_input"
-													placeholder="입력 쿠다사이">
-												<button id="wonil_search_button">검색</button>
-												<button id="wonil_reset_button">취소</button>
+													placeholder="入力してください">
+												<button id="wonil_search_button">検索</button>
+												<button id="wonil_reset_button">取消</button>
 											</div>
 
 											<!-- 회원 정보 테이블 -->
 											<table id="wonil_table">
 												<thead>
 													<tr>
-														<th id="wonil_th_id">닉네임</th>
-														<th id="wonil_th_pw">이메일</th>
-														<th id="wonil_th_name">비밀번호</th>
-														<th id="wonil_th_posts">게시글수</th>
-														<th id="wonil_th_comments">댓글수</th>
-														<th id="wonil_th_answers">나이</th>
-														<th id="wonil_th_answers">성별</th>
-														<th id="wonil_th_actions">정보수정</th>
+														<th id="wonil_th_id">ニックネーム</th>
+														<th id="wonil_th_pw">メールアドレス</th>
+														<th id="wonil_th_name">パスワード</th>
+														<th id="wonil_th_posts">投稿数</th>
+														<th id="wonil_th_comments">コメント数</th>
+														<th id="wonil_th_answers">年齢</th>
+														<th id="wonil_th_answers">性別</th>
+														<th id="wonil_th_actions">情報編集</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -146,7 +146,7 @@
 																	data-pass="${obj.user_pass}" data-age="${obj.user_age}"
 																	data-gender="${obj.user_gender}"
 																	data-point="${obj.user_point}"
-																	data-role="${obj.user_role}">수정</button>
+																	data-role="${obj.user_role}">編集</button>
 															</td>
 														</tr>
 													</c:forEach>
@@ -186,31 +186,31 @@
 													<form:form id="wonil_userEditForm"
 														action="${root }company/manage_user_modal"
 														modelAttribute="adminUserBean" method="post">
-														<form:label path="user_nickname">닉네임:</form:label>
+														<form:label path="user_nickname">ニックネーム:</form:label>
 														<form:input path="user_nickname" id="user_nickname"
 															readonly="true" />
-														<form:label path="user_email">이메일:</form:label>
+														<form:label path="user_email">メールアドレス:</form:label>
 														<form:input path="user_email" id="user_email"
 															readonly="true" />
-														<form:label path="user_pass">비밀번호:</form:label>
+														<form:label path="user_pass">パスワード:</form:label>
 														<form:input path="user_pass" id="user_pass"
 															readonly="true" />
-														<form:label path="user_age">나이:</form:label>
+														<form:label path="user_age">年齢:</form:label>
 														<form:input path="user_age" id="user_age" readonly="true" />
-														<form:label path="user_gender">성별:</form:label>
+														<form:label path="user_gender">性別:</form:label>
 														<form:input path="user_gender" id="user_gender"
 															readonly="true" />
-														<form:label path="user_point">포인트:</form:label>
+														<form:label path="user_point">ポイント:</form:label>
 														<form:input path="user_point" id="user_point" />
 
-														<form:label path="user_role">역할:</form:label>
+														<form:label path="user_role">ロール:</form:label>
 														<form:select path="user_role" id="user_role">
-															<option value="USER">사용자</option>
-															<option value="ADMIN">관리자</option>
+															<option value="USER">使用者</option>
+															<option value="ADMIN">管理者</option>
 														</form:select>
 
-														<button type="submit">저장</button>
-														<button type="button" onclick="closeModalUser()">취소</button>
+														<button type="submit">保存</button>
+														<button type="button" onclick="closeModalUser()">取消</button>
 													</form:form>
 												</div>
 											</div>

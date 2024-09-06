@@ -6,6 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script>
-	alert("회원삭제가 성공적으로 진행됐습니다.")
+	alert("会員退会に成功しました。トップページに移動します。")
 	location.href = "${root}main"
 </script>

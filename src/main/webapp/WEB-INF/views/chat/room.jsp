@@ -132,7 +132,7 @@ h2.text-primary {
 
 	function connect() {
 		if (!nickname) {
-			alert("유저ID를 찾을 수 없습니다.");
+			alert("ユーザーⅠDが見つかりません");
 			return;
 		}
 
@@ -140,7 +140,7 @@ h2.text-primary {
 		websock = Stomp.over(socket);
 
 		websock.connect({}, function(frame) {
-			appendMessage(nickname + "님이 채팅방에 입장했습니다!!", 'my-message');
+			appendMessage(nickname + "さんがチャットルームに入室しました!!", 'my-message');
 			websock.subscribe('${root}/topic/messages/${room.room_idx}', function(message) {
 				var receivedMessage = JSON.parse(message.body);
 				 if (receivedMessage.sender_idx !== ${loginUserBean.user_idx}) {
@@ -148,7 +148,7 @@ h2.text-primary {
 	                }
 			});
 		}, function(error) {
-			appendMessage("웹소켓 에러: " + error, 'my-message');
+			appendMessage("webソケットエラー: " + error, 'my-message');
 		});
 	}
 
@@ -172,13 +172,13 @@ h2.text-primary {
 			appendMessage(formattedMessage, 'my-message'); // 내 메시지를 좌측 정렬
 			$('#message').val(''); // 메시지 입력란을 비웁니다.
 		} else {
-			appendMessage('웹소켓이 연결되지 않았습니다.', 'my-message');
+			appendMessage('webソケット接続エラーが発生しました', 'my-message');
 		}
 	}
 
 	function disconnect() {
 		if (websock) {
-			appendMessage(nickname + "님이 채팅방을 나갔습니다!!", 'my-message');
+			appendMessage(nickname + "さんがチャットルームから退室しました！！", 'my-message');
 			websock.disconnect(function() {
 			 	window.close();
 			});
@@ -231,9 +231,9 @@ h2.text-primary {
 
 		<div>
 			<input type="text" id="message" required="required"
-				placeholder="메시지를 입력하세요..."> <input type="button" value="전송"
+				placeholder="メッセージを入力してください..."> <input type="button" value="送信"
 				id="sendBtn" class="btn btn-info"> <input type="button"
-				value="퇴장" id="exitBtn" class="btn btn-danger">
+				value="退室" id="exitBtn" class="btn btn-danger">
 		</div>
 	</div>
 </body>

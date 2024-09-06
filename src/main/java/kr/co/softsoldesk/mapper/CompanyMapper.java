@@ -33,7 +33,7 @@ public interface CompanyMapper {
 	int getFaqCnt();
 
 	// FAQ관리 - 응답
-	@Update("update faq set faq_answer = '확인' WHERE faq_idx = #{faq_idx}")
+	@Update("update faq set faq_answer = '確認' WHERE faq_idx = #{faq_idx}")
 	void updateFaqAnswerToConfirmed(@Param("faq_idx") int faqIdx);
 
 	// FAQ관리 - 삭제

@@ -6,6 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script>
-   alert("入力されたメールアドレスは登録されていません。もう一度お試しください");
+   alert("入力されたメールアドレスは登録されていません。もう一度お試しください。");
    location.href = "${root}user/search_password";
 </script>

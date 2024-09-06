@@ -59,7 +59,7 @@
 			<p class="u-align-center u-text u-text-default u-text-2">
 				<a
 					class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
-					data-href="#">문의사항 : www.maru.faq.com </a>
+					data-href="#">お問い合わせ : www.maru.faq.com </a>
 			</p>
 			<div class="u-form u-radius-20 u-white u-form-1">
 				<form action="https://forms.nicepagesrv.com/v2/form/process"

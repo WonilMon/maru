@@ -73,7 +73,7 @@
 							<div class="header">
 								<div class="row clearfix">
 									<div class="col-xs-12 col-sm-6">
-										<h2>게시글 관리</h2>
+										<h2>投稿管理</h2>
 									</div>
 								</div>
 								<ul class="header-dropdown m-r--5">
@@ -104,25 +104,25 @@
 												<!-- 검색 바 -->
 												<div class="wonil_search-bar">
 													<select id="wonil_select">
-														<option value="">--선택--</option>
-														<option value="">제목</option>
-														<option value="">닉네임</option>
+														<option value="">--選択--</option>
+														<option value="">タイトル</option>
+														<option value="">ニックネーム</option>
 													</select> <input type="text" id="wonil_search_input"
-														placeholder="입력 쿠다사이">
-													<button id="wonil_search_button">검색</button>
-													<button id="wonil_reset_button">취소</button>
+														placeholder="入力してください">
+													<button id="wonil_search_button">検索</button>
+													<button id="wonil_reset_button">取消</button>
 												</div>
 
 												<!-- 정보 테이블 -->
 												<table id="wonil_table">
 													<thead>
 														<tr>
-															<th id="wonil_th_id">번호</th>
-															<th id="wonil_th_pw">제목</th>
-															<th id="wonil_th_name">닉네임</th>
-															<th id="wonil_th_posts">댓글수</th>
-															<th id="wonil_th_comments">작성일</th>
-															<th id="wonil_th_answers">삭제</th>
+															<th id="wonil_th_id">ユーザー番号</th>
+															<th id="wonil_th_pw">タイトル</th>
+															<th id="wonil_th_name">ニックネーム</th>
+															<th id="wonil_th_posts">コメント数</th>
+															<th id="wonil_th_comments">投稿日時</th>
+															<th id="wonil_th_answers">削除</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -141,7 +141,7 @@
 																		data-subject="${obj.content_subject}"
 																		data-name="${obj.user_name}"
 																		data-comments="${obj.content_comment_count}"
-																		data-date="${obj.content_date}">삭제</button></td>
+																		data-date="${obj.content_date}">削除</button></td>
 															</tr>
 														</c:forEach>
 													</tbody>
@@ -185,21 +185,21 @@
 															<form:hidden path="content_idx" id="content_idx" />
 															<form:hidden path="board_info_idx" />
 
-															<form:label path="content_subject">제목:</form:label>
+															<form:label path="content_subject">タイトル:</form:label>
 															<form:input path="content_subject" id="content_subject"
 																readonly="true" />
-															<form:label path="user_name">작성자:</form:label>
+															<form:label path="user_name">投稿者:</form:label>
 															<form:input path="user_name" id="user_name"
 																readonly="true" />
-															<form:label path="content_comment_count">댓글 수:</form:label>
+															<form:label path="content_comment_count">コメント数:</form:label>
 															<form:input path="content_comment_count"
 																id="content_comment_count" readonly="true" />
-															<form:label path="content_date">작성날짜:</form:label>
+															<form:label path="content_date">投稿日時:</form:label>
 															<form:input path="content_date" id="content_date"
 																readonly="true" />
 
-															<button type="submit">삭제</button>
-															<button type="button" onclick="closeModal()">취소</button>
+															<button type="submit">削除</button>
+															<button type="button" onclick="closeModal()">取消</button>
 														</form:form>
 													</div>
 												</div>

@@ -60,7 +60,7 @@
 	<section class="u-align-center u-clearfix u-section-2" id="sec-3ed0">
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<p class="u-align-center u-text u-text-default u-text-1">
-				<span style="font-weight: 700;">즐겨찾기 </span>
+				<span style="font-weight: 700;">ブックマーク </span>
 			</p>
 			<div
 				class="custom-expanded data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
@@ -72,14 +72,14 @@
 									class="u-container-align-center u-container-style u-layout-cell u-size-37 u-layout-cell-1">
 									<div
 										class="u-container-layout u-valign-middle u-container-layout-1">
-										<p class="u-align-center u-text u-text-default u-text-2">제목</p>
+										<p class="u-align-center u-text u-text-default u-text-2">タイトル</p>
 									</div>
 								</div>
 								<div
 									class="u-container-align-center u-container-style u-layout-cell u-size-11 u-layout-cell-2">
 									<div
 										class="u-container-layout u-valign-middle u-container-layout-2">
-										<p class="u-align-center u-text u-text-default u-text-3">작성자
+										<p class="u-align-center u-text u-text-default u-text-3">投稿者
 										</p>
 									</div>
 								</div>
@@ -87,7 +87,7 @@
 									class="u-container-align-center u-container-style u-layout-cell u-size-12 u-layout-cell-3">
 									<div
 										class="u-container-layout u-valign-middle u-container-layout-3">
-										<p class="u-align-center u-text u-text-default u-text-4">작성일자
+										<p class="u-align-center u-text u-text-default u-text-4">作成日時
 										</p>
 									</div>
 								</div>

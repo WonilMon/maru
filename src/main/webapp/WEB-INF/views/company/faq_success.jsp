@@ -6,6 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script>
-	alert("건의사항이 접수되었습니다.")
+	alert("お問い合わせを送信しました。返信までしばしお待ちください。")
 	location.href = "${root}company/faq"
 </script>

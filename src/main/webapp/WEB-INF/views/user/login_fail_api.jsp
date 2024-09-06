@@ -5,6 +5,6 @@
 <c:set var='root' value='${pageContext.request.contextPath}/' />
 
 <script>
-	alert('로그인에 실패하였습니다. 회원가입페이지로 이동합니다.')
+	alert('ログインに失敗しました。会員登録ページに移動します。')
 	location.href = '${root}user/register'
 </script>

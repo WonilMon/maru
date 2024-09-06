@@ -47,7 +47,7 @@
 		let user_nickname = $("#user_nickname").val() // 사용자가 입력한 nickname값 가져오기
 
 		if (user_nickname.length == 0) {
-			alert("닉네임을 입력하세요")
+			alert("ニックネームを入力してください。")
 			return
 
 		}
@@ -108,10 +108,10 @@
             success: function(result) {
                 setBackgroundColorBasedOn();
                 if (result.trim() == "true") {
-                    alert("사용 가능한 닉네임입니다");
+                    alert("使用可能なニックネームです。");
                     $("#userNickNameExist").val("true");
                 } else {
-                    alert("그 닉네임은 이미 존재합니다");
+                    alert("その、ニックネームは既に使用されています。");
                     $("#userNickNameExist").val("false");
                 }
                 setBackgroundColorBasedOn();
@@ -140,12 +140,12 @@
         if (!isEditMode) {
             input.removeAttribute('readonly');
             input.focus();
-            button.textContent = '확인';
+            button.textContent = '確認';
             button.classList.remove('edit-mode');
             button.classList.add('save-mode');
         } else {
             input.setAttribute('readonly', 'true');
-            button.textContent = '변경';
+            button.textContent = '変更';
             button.classList.remove('save-mode');
             button.classList.add('edit-mode');
 
@@ -160,9 +160,9 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     if (xhr.responseText === "success") {
-                        alert("상태 메시지가 변경되었습니다.");
+                        alert("プロフィールメッセージを変更しました。");
                     } else {
-                        alert("상태 메시지 변경에 실패했습니다.");
+                        alert("プロフィールメッセージの変更に失敗しました。");
                     }
                 }
             };
@@ -206,10 +206,10 @@ function selectIcon(event) {
 function getSelectedIcon() {
     const selectedIcons = document.querySelectorAll('#userIcons img.clicked');
     if (selectedIcons.length === 0) {
-        alert('아이콘을 선택해주세요.');
+        alert('アイコンを選択してください。');
         return null;
     } else if (selectedIcons.length > 1) {
-        alert('아이콘은 하나만 선택해주세요.');
+        alert('アイコンは一つだけ選択してください。');
         return null;
     }
     return selectedIcons[0].getAttribute('data-icon-idx');
@@ -224,7 +224,7 @@ function changeIcon() {
             iconIdxInput.value = iconIdx;
             return true; // 폼을 제출하도록 허용
         } else {
-            console.error('아이콘 인덱스 입력 필드를 찾을 수 없습니다.');
+            console.error('アイコンが見つかりません。');
             return false; // 폼 제출을 막음
         }
     }
@@ -484,25 +484,25 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 										</h2>
 
 										<div class="status-container">
-											<label for="user_statustext">상태메시지</label>
+											<label for="user_statustext">プロフィールメッセージ</label>
 											<div class="input-container">
 												<input type="text" id="user_statustext"
 													name="user_statustext"
 													value="${modifyUser.user_statustext}" readonly />
-												<button id="changeStatusTextBtn" onclick="toggleEditMode()">변경</button>
+												<button id="changeStatusTextBtn" onclick="toggleEditMode()">変更</button>
 											</div>
 										</div>
 
 										<!-- change icon 버튼 -->
 										<a href="#"
 											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1"
-											onclick="openModal()">change icon</a>
+											onclick="openModal()">アイコン変更</a>
 
 										<!-- 아이콘 선택 모달 -->
 										<div id="iconModal" class="modal">
 											<div class="modal-content">
 												<span class="close" onclick="closeModal()">&times;</span>
-												<h2>아이콘 선택</h2>
+												<h2>アイコンを選択してください。</h2>
 												<div id="userIconsContainer"
 													style="background-color: #FFE5D9; overflow-x: auto; white-space: nowrap; width: 100%; margin: 0 auto;">
 													<div id="userIcons" style="background-color: #FFE5D9;">
@@ -518,25 +518,25 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 													method="POST" onsubmit="return changeIcon();">
 													<input type="hidden" id="iconIdx" name="icon_idx" /> <input
 														type="hidden" name="user_idx" value="${user_idx}" />
-													<button id="changeIconBtn" type="submit" class="edit-mode">변경</button>
+													<button id="changeIconBtn" type="submit" class="edit-mode">確認</button>
 												</form>
 											</div>
 										</div>
 
 										<a href="#" id="changeImageBtn"
 											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-2">
-											change image</a> <input type="file" id="imageFileInput"
+											プロフィール写真変更</a> <input type="file" id="imageFileInput"
 											style="display: none;" /> <a href="#"
 											onclick="openChatWindow('${root}chat/roomList?sender_idx=${loginUserBean.user_idx}')"
 											style="position: relative; z-index: 10;"
 											class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-3">
-											chat_log </a>
+											マイチャット </a>
 
 
 										<form action="${root}user/deleteUser" method="get">
 											<input type="hidden" name="user_idx" value="${user_idx}" />
 											<button
-												class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-4">delete</button>
+												class="u-align-center u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-4">会員退会</button>
 										</form>
 									</div>
 								</div>
@@ -553,11 +553,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		id="sec-7f48" data-animation-name="" data-animation-duration="0"
 		data-animation-delay="0" data-animation-direction="">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<h2 class="u-align-center u-text u-text-default u-text-1">Register</h2>
+			<h2 class="u-align-center u-text u-text-default u-text-1">アカウント情報編集</h2>
 			<p class="u-align-center u-text u-text-default u-text-2">
 				<a
 					class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1"
-					data-href="#">문의사항 : www.maru.faq.com </a>
+					data-href="#">お問い合わせ : www.maru.faq.com </a>
 			</p>
 			<div class="u-form u-radius-20 u-white u-form-1">
 				<form:form action="${root }user/profile_modify_pro"
@@ -573,7 +573,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 					<form:hidden path="userNickNameExist" />
 
 					<div class="u-form-group u-form-name">
-						<form:label path="user_nickname" class="u-label">NickName</form:label>
+						<form:label path="user_nickname" class="u-label">ニックネーム</form:label>
 						<form:input type="text" path="user_nickname"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
 							placeholder="${modifyUser.user_nickname }"
@@ -581,7 +581,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 						<form:errors path="user_nickname" style="color:red" />
 					</div>
 					<div class="u-form-email u-form-group">
-						<form:label path="user_email" class="u-label">Email</form:label>
+						<form:label path="user_email" class="u-label">メールアドレス</form:label>
 						<form:input type="email" placeholder="${modifyUser.user_email }"
 							id="email-4c18" path="user_email"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
@@ -589,20 +589,20 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							style="color: #666666; opacity: 1; background-color: #F0F0F0;" />
 					</div>
 					<div class="u-form-group u-form-group-3">
-						<form:label path="user_pass" class="u-label">Password</form:label>
-						<form:password placeholder="입력" path="user_pass"
+						<form:label path="user_pass" class="u-label">パスワード</form:label>
+						<form:password placeholder="半角英数字4~20文字で入力してください" path="user_pass"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
 							required="required" />
 						<form:errors path="user_pass" style="color:red" />
 					</div>
 					<div class="u-form-group u-form-group-3">
-						<form:label path="user_pass2" class="u-label">Password2</form:label>
-						<form:password placeholder="입력" path="user_pass2"
+						<form:label path="user_pass2" class="u-label">パスワード再入力</form:label>
+						<form:password placeholder="確認のため、もう一度入力してください" path="user_pass2"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" />
 						<form:errors path="user_pass2" style="color:red" />
 					</div>
 					<div class="u-form-date u-form-group u-form-group-4">
-						<form:label path="user_age" class="u-label">Date</form:label>
+						<form:label path="user_age" class="u-label">生年月日</form:label>
 						<form:input type="text" path="user_age"
 							placeholder="${modifyUser.user_age }"
 							class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
@@ -612,7 +612,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 					</div>
 
 					<div class="u-form-group u-form-select u-form-group-5">
-						<form:label path="user_gender" class="u-label">gender of parents</form:label>
+						<form:label path="user_gender" class="u-label">性別</form:label>
 						<div class="u-form-select-wrapper">
 							<form:input type="text" path="user_gender"
 								class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle"
@@ -625,12 +625,12 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 						<label for="agree-a472"
 							class="u-agree-label u-block-4c4f-16 u-field-label" style="">
-							위 내용으로 프로필을 변경합니다. </label>
+							上記の内容でアカウント情報を編集します。 </label>
 					</div>
 					<div class="u-align-right u-form-group u-form-submit">
 						<button type="submit"
 							class="u-active-palette-4-light-1 u-border-active-palette-4-light-1 u-border-hover-palette-4-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-2-base u-radius-10 u-btn-2">
-							변경하기</button>
+							編集する</button>
 
 					</div>
 
@@ -657,12 +657,12 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 	            xhr.open('POST', '${root}user/uploadProfileImage', true);
 	            xhr.onload = function () {
 	                if (xhr.status === 200) {
-	                    alert('이미지가 성공적으로 변경되었습니다.');
+	                    alert('プロフィール写真の変更に成功しました。');
 	                    var response = xhr.responseText;
 	                    var newImagePath = '${root}getProfileImage/' + response.split(': ')[1];
 	                    document.getElementById('profileImage').src = newImagePath;
 	                } else {
-	                    alert('이미지 변경에 실패했습니다.');
+	                    alert('プロフィール写真の変更に失敗しました。');
 	                }
 	            };
 	            xhr.send(formData);
@@ -695,7 +695,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 														&& userNickNameExist === "false") {
 													form.off("submit").submit();
 												} else if (userNickNameExist === "false") {
-													alert("닉네임 중복 체크를 완료해 주세요.");
+													alert("ニックネーム重複チェックを行ってください。");
 													event.preventDefault();
 												} else {
 													form.off("submit").submit();
@@ -710,7 +710,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		    var password2 = document.querySelector('input[name="user_pass2"]').value;
 		    
 		    if (password.trim() === '' || password2.trim() === '') {
-		        alert('패스워드를 입력해주세요.');
+		        alert('パスワードを入力してください。');
 		        return false; // 폼 제출 방지
 		    }
 		    

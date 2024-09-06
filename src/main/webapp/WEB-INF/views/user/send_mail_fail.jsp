@@ -6,6 +6,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script>
-	alert("パスワードがリセットに失敗しました。メールアドレスをご確認の後、もう一度お試しください")
+	alert("パスワードがリセットに失敗しました。メールアドレスをご確認の後、もう一度お試しください。")
 	location.href = "${root}user/search_password"
 </script>

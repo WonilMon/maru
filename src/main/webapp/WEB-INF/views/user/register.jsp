@@ -309,10 +309,10 @@
 												"#userEmailExist").val();
 
 										if (userNickNameExist === "false") {
-											alert("ニックネーム重複チェックを行ってください");
+											alert("ニックネーム重複チェックを行ってください。");
 											event.preventDefault();
 										} else if (userEmailExist === "false") {
-											alert("メールアドレス重複チェックを行ってください");
+											alert("メールアドレス重複チェックを行ってください。");
 											event.preventDefault();
 										} else {
 											form.off("submit").submit();

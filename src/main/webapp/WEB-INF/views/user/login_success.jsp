@@ -5,6 +5,6 @@
 <c:set var='root' value='${pageContext.request.contextPath }/'/>
 
 <script>
-   alert('ログインに成功しました')
+   alert('ログインに成功しました。')
    location.href = '${root}main'
 </script>

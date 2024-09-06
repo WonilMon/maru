@@ -55,36 +55,36 @@
 
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }main" style="padding: 10px 20px;">home</a></li>
+								href="${root }main" style="padding: 10px 20px;">ホーム</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }company/company" style="padding: 10px 20px;">company</a></li>
+								href="${root }company/company" style="padding: 10px 20px;">企業案内</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
 								href="${root }shop/shop?user_idx=${loginUserBean.user_idx}"
-								style="padding: 10px 20px;">shop</a></li>
+								style="padding: 10px 20px;">ショップ</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }board/board_prev_main" style="padding: 10px 20px;">board_prev_main</a>
+								href="${root }board/board_prev_main" style="padding: 10px 20px;">掲示板</a>
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }sharing/sharing_main" style="padding: 10px 20px;">sharing_main</a>
+								href="${root }sharing/sharing_main" style="padding: 10px 20px;">おすそわけ</a>
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
 								href="${root }company/faq" style="padding: 10px 20px;">FAQ</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }user/favorite" style="padding: 10px 20px;">favorite</a></li>
+								href="${root }user/favorite" style="padding: 10px 20px;">ブックマーク</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }user/profile_modify" style="padding: 10px 20px;">mypage</a>
+								href="${root }user/profile_modify" style="padding: 10px 20px;">マイページ</a>
 							</li>
 							<c:if test="${loginUserBean.user_role eq '管理者' }">
 								<li class="u-nav-item"><a
 									class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-									href="${root }company/admin_index" style="padding: 10px 20px;">admin</a>
+									href="${root }company/admin_index" style="padding: 10px 20px;">管理者</a>
 								</li>
 							</c:if>
 
@@ -93,25 +93,25 @@
 
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }main" style="padding: 10px 20px;">home</a></li>
+								href="${root }main" style="padding: 10px 20px;">ホーム</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }company/company" style="padding: 10px 20px;">company</a></li>
+								href="${root }company/company" style="padding: 10px 20px;">企業案内</a></li>
 
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }board/board_prev_main" style="padding: 10px 20px;">board_prev_main</a>
+								href="${root }board/board_prev_main" style="padding: 10px 20px;">掲示板</a>
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }sharing/sharing_main" style="padding: 10px 20px;">sharing_main</a>
+								href="${root }sharing/sharing_main" style="padding: 10px 20px;">おすそわけ</a>
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
 								href="${root }company/faq" style="padding: 10px 20px;">FAQ</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }user/register" style="padding: 10px 20px;">register</a></li>
+								href="${root }user/register" style="padding: 10px 20px;">会員登録</a></li>
 
 						</c:otherwise>
 					</c:choose>
@@ -129,49 +129,49 @@
 							<c:choose>
 								<c:when test="${loginUserBean.userLogin == true }">
 									<li class="u-nav-item"><a
-										class="u-button-style u-nav-link" href="${root }main">home</a></li>
+										class="u-button-style u-nav-link" href="${root }main">ホーム</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }company/company">company</a></li>
+										href="${root }company/company">企業案内</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }shop/shop?user_idx=${loginUserBean.user_idx}">shop</a></li>
+										href="${root }shop/shop?user_idx=${loginUserBean.user_idx}">ショップ</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }board/board_prev_main">board_prev_main</a></li>
+										href="${root }board/board_prev_main">掲示板</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }sharing/sharing_main">sharing_main</a></li>
+										href="${root }sharing/sharing_main">おすそわけ</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link" href="${root }company/faq">FAQ</a></li>
 									<li class="u-nav-item"><a
-										class="u-button-style u-nav-link" href="${root }user/favorite">favorite</a></li>
+										class="u-button-style u-nav-link" href="${root }user/favorite">ブックマーク</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }user/profile_modify">mypage</a></li>
+										href="${root }user/profile_modify">マイページ</a></li>
 									<c:if test="${loginUserBean.user_role eq '管理者' }">
 										<li class="u-nav-item"><a
 											class="u-button-style u-nav-link"
-											href="${root }company/admin_index">admin</a></li>
+											href="${root }company/admin_index">管理者</a></li>
 									</c:if>
 
 								</c:when>
 								<c:otherwise>
 									<li class="u-nav-item"><a
-										class="u-button-style u-nav-link" href="${root }main">home</a></li>
+										class="u-button-style u-nav-link" href="${root }main">ホーム</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }company/company">company</a></li>
+										href="${root }company/company">企業案内</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }board/board_prev_main">board_prev_main</a></li>
+										href="${root }board/board_prev_main">掲示板</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }sharing/sharing_main">sharing_main</a></li>
+										href="${root }sharing/sharing_main">おすそわけ</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link" href="${root }company/faq">FAQ</a></li>
 									<li class="u-nav-item"><a
-										class="u-button-style u-nav-link" href="${root }user/register">register</a></li>
+										class="u-button-style u-nav-link" href="${root }user/register">会員登録</a></li>
 
 								</c:otherwise>
 							</c:choose>

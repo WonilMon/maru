@@ -494,9 +494,9 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 											</div>
 										</div>
 										<div class="lower-section" id="zodiac-section">
-											<p>${loginUserBean.user_zodiac }의오늘의운세</p>
+											<p>${loginUserBean.user_zodiac }の今日の運勢</p>
 											<div id="translation-container">
-												<p id="horoscope-result">운세를 불러오는 중...</p>
+												<p id="horoscope-result">運勢を読み込み中...</p>
 											</div>
 											<%-- 
 											<div id="translation-container">
@@ -600,7 +600,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		id="carousel_29f6">
 		<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
 			<h2
-				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">投稿ランキング
+				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">ベスト投稿
 			</h2>
 			<p
 				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-2">당신의
@@ -870,7 +870,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		<h2
 			class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-1"
 			data-animation-name="customAnimationIn"
-			data-animation-duration="1500">오늘의 건강뉴스</h2>
+			data-animation-duration="1500">今日の健康ニュース</h2>
 		<div class="news-container">
 			<c:forEach var="article" items="${articles}">
 				<div class="news-item">
@@ -910,40 +910,40 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 		// user_zodiac 값에 따라 배경 이미지를 설정
 		switch (userZodiac) {
-		case '양자리':
+		case 'おひつじ座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/양자리.png')";
 			break;
-		case '황소자리':
+		case 'おうし座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/황소자리.png')";
 			break;
-		case '쌍둥이자리':
+		case 'ふたご座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/쌍둥이자리.png')";
 			break;
-		case '게자리':
+		case 'かに座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/게자리.png')";
 			break;
-		case '사자자리':
+		case 'しし座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/사자자리.png')";
 			break;
-		case '처녀자리':
+		case 'おとめ座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/처녀자리.png')";
 			break;
-		case '천칭자리':
+		case 'てんびん座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/천칭자리.png')";
 			break;
-		case '전갈자리':
+		case 'さそり座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/전갈자리.png')";
 			break;
-		case '사수자리':
+		case 'いて座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/사수자리.png')";
 			break;
-		case '염소자리':
+		case 'やぎ座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/염소자리.png')";
 			break;
-		case '물병자리':
+		case 'みずがめ座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/물병자리.png')";
 			break;
-		case '물고기자리':
+		case 'うお座':
 			lowerSection.style.backgroundImage = "url('${root}images/zodiac/물고기자리.png')";
 			break;
 
@@ -964,7 +964,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							// 사용자 별자리와 날짜를 설정합니다.
 							const userZodiac = "${loginUserBean.user_zodiac}";
 							const zodiacMap = {
-								"양자리" : "aries",
+								/* "양자리" : "aries",
 								"황소자리" : "taurus",
 								"쌍둥이자리" : "gemini",
 								"게자리" : "cancer",
@@ -975,7 +975,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 								"사수자리" : "sagittarius",
 								"염소자리" : "capricorn",
 								"물병자리" : "aquarius",
-								"물고기자리" : "pisces",
+								"물고기자리" : "pisces", */
 								"おひつじ座" : "aries",
 								"おうし座" : "taurus",
 								"ふたご座" : "gemini",
@@ -1084,7 +1084,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 																	$(
 																			'#horoscope-result')
 																			.text(
-																					"운세를 번역하는 중 오류가 발생했습니다.");
+																					"運勢の翻訳中、エラーが発生しました。");
 																}
 															});
 												})
@@ -1098,10 +1098,10 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 																	errorThrown);
 													$('#horoscope-result')
 															.text(
-																	"운세를 불러오는 중 오류가 발생했습니다.");
+																	"運勢の読み込み中、エラーが発生しました。");
 												});
 							} else {
-								$('#horoscope-result').text("잘못된 별자리 정보입니다.");
+								$('#horoscope-result').text("星座の情報が一致しません。");
 							}
 						});
 	</script>
