@@ -17,6 +17,7 @@
 <title>board_write</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root }css/board_write.css" media="screen">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script class="u-script" type="text/javascript"
 	src="${root }js/jquery.js" defer=""></script>
 <script class="u-script" type="text/javascript"
@@ -47,6 +48,99 @@
 <meta property="og:title" content="board_write">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+<style>
+body {
+	font-family: 'Noto Sans', sans-serif;
+	background-color: #F8EDEB;
+	color: #6D6875;
+}
+
+.form-wrapper {
+	max-width: 1000px;
+	margin: 100px auto;
+	padding: 30px;
+	background-color: #FAE1DD;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-title {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #B5838D;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+.form-group input[type="text"], .form-group textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #B5838D;
+	border-radius: 5px;
+	font-size: 1rem;
+}
+
+.form-group textarea {
+	resize: vertical;
+	height: 150px;
+}
+
+.form-errors {
+	color: red;
+	font-size: 0.875rem;
+}
+
+.upload-section {
+	margin-top: 20px;
+	text-align: center;
+	border: 2px dashed #B5838D;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #FFF0F0;
+}
+
+.upload-section input[type="file"] {
+	margin-top: 10px;
+}
+
+.upload-section label {
+	font-weight: bold;
+	color: #B5838D;
+}
+
+.form-footer {
+	text-align: center;
+	margin-top: 30px;
+}
+
+.hashtag-item {
+	display: inline-block;
+	background-color: #FFE5E5;
+	color: #B5838D;
+	padding: 5px 10px;
+	margin: 5px;
+	border-radius: 20px;
+	font-size: 0.875rem;
+}
+
+.hashtag-item button {
+	background: none;
+	border: none;
+	color: #B5838D;
+	margin-left: 5px;
+	cursor: pointer;
+}
+</style>
 
 </head>
 <body data-path-to-root="/" data-include-products="false"
@@ -55,247 +149,180 @@
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
 	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
 
-	<section class="u-clearfix u-section-2" id="sec-b8b2">
-		<form:form action="${root }board/board_write_pro"
+	<section class="form-wrapper">
+		<form:form action="${root}board/board_write_pro"
 			modelAttribute="writeContentBean" method="post"
 			enctype="multipart/form-data">
 			<form:hidden path="content_idx" />
 			<form:hidden path="board_info_idx" />
-			<div class="u-clearfix u-sheet u-sheet-1">
-				<p class="u-text u-text-default u-text-1">글쓰기</p>
-				<div
-					class="data-layout-selected u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
-					<div class="u-layout">
-						<div class="u-layout-col">
-							<div class="u-size-12">
-								<div class="u-layout-row">
-									<div
-										class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-1">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-1">
-											<p class="u-align-center u-text u-text-default u-text-2">제목
-											</p>
-										</div>
-									</div>
-									<div
-										class="u-container-style u-layout-cell u-size-51 u-layout-cell-2">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-container-layout-2">
-											<p class="u-text u-text-default u-text-3">
-												<form:input path="content_subject" class="form-control"
-													size="90" />
-												<form:errors path="content_subject" style="color:red;" />
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="u-size-12">
-								<div class="u-layout-row">
-									<div
-										class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-3">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-3">
-											<p class="u-align-center u-text u-text-default u-text-4">
-												작성자<br>
-											</p>
-										</div>
-									</div>
-									<div
-										class="u-container-style u-layout-cell u-size-51 u-layout-cell-4">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-container-layout-4">
-											<p class="u-text u-text-default u-text-5">
-											${user_name }
-											</p>
-											<span
-												class="u-file-icon u-gradient u-icon u-icon-circle u-icon-1"><img
-												src="${root }images/11272422-db773b7e.png" alt=""></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="u-size-12">
-								<div class="u-layout-row">
-									<div
-										class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-5">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-5">
-											<p class="u-align-center u-text u-text-default u-text-6">작성날짜
-											</p>
-										</div>
-									</div>
-									<div
-										class="u-container-style u-layout-cell u-size-51 u-layout-cell-6">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-container-layout-6">
-											<p class="u-text u-text-default u-text-7">Sample text.
-												Click to select the Text Element.</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="u-size-12">
-								<div class="u-layout-row">
-									<div
-										class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-60 u-layout-cell-7">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-7">
-											<p class="u-align-center u-text u-text-default u-text-8">
-												내용<br>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="u-size-12">
-								<div class="u-layout-row">
-									<div
-										class="cell-temp-clone u-container-style u-layout-cell u-size-60 u-layout-cell-8">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-container-layout-8">
-											<p class="u-text u-text-default u-text-9">
-												<form:textarea path="content_text" class="form-control"
-													rows="18" style="width: 100%;" />
-												<form:errors path="content_text" style="color:red;" />
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div
-					class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-palette-3-light-3 u-layout-wrap-2">
-					<div class="u-layout">
-						<div class="u-layout-col">
-							<div class="u-size-30">
-								<div class="u-layout-row">
-									<div
-										class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-60 u-layout-cell-9">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-9">
-											<p class="u-align-center u-text u-text-default u-text-10">
-												<span style="font-weight: 700; font-size: 1.25rem;">이미지</span>
-												<br>* 본문 가장 위에 삽입<br>* 일반 파일 첨부는 전체 용량 150MB, 3개까지
-												첨부가능, 파일 하나의 용량이 50MB를 초과할 수 없습니다.
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="u-size-30">
-								<div class="u-layout-row">
-									<div
-										class="u-container-align-center u-container-style u-layout-cell u-size-60 u-layout-cell-10">
-										<div
-											class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-10">
-											<form:input type="file" path="upload_file" accept="images/*"
-												class="u-align-center u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius u-btn-1" />
-											<form:errors path="upload_file" />
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="u-form u-form-1">
-					<%-- <form action="https://forms.nicepagesrv.com/v2/form/process"
-						class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form"
-						source="email" name="form" style="padding: 10px;">
-						<div class="u-form-email u-form-group">
-							<label for="email-5fb5" class="u-label">Hashtag</label> <input
-								type="email" placeholder="입력" id="email-5fb5" name="text"
-								class="u-input u-input-rectangle" required="">
-						</div>
-						<div class="u-align-left u-form-group u-form-submit">
-							<a href="#" class="u-btn u-btn-submit u-button-style">Submit</a>
-							<input type="submit" value="submit" class="u-form-control-hidden">
-						</div>
-						<div class="u-form-send-message u-form-send-success">Thank
-							you! Your message has been sent.</div>
-						<div class="u-form-send-error u-form-send-message">Unable to
-							send your message. Please fix errors then try again.</div>
-						<input type="hidden" value="" name="recaptchaResponse"> <input
-							type="hidden" name="formServices"
-							value="50d0594d-1c60-31b9-19af-78b3c1587d79">
-					</form> --%>
 
-					<!-- 해시태그 -->
+			<div class="form-title">글쓰기</div>
 
-					<!--사진업로드 Form-->
-					<form id="uploadForm" class="upload-form">
-						<input type="file" name="file" onchange="imageChoose(this)" />
-						<div class="upload-img">
-							<img src="/images/person.jpeg" alt="" id="imageUploadPreview" />
-						</div>
+			<div class="form-group">
+				<label for="subject">제목</label>
+				<form:input path="content_subject" class="form-control" />
+				<form:errors path="content_subject" class="form-errors" />
+			</div>
 
-						<!--사진설명 + 업로드버튼-->
-						<div class="upload-form-detail">
-							<input type="text" placeholder="사진을 설명해보세요!" name="caption">
+			<div class="form-group">
+				<label>작성자</label>
+				<p><c:choose>
+													<c:when test="${img == anonymousOff }">
+														${user_name }
+														<form:hidden path="content_isAnonymous" value="false" />
+													</c:when>
+													<c:otherwise>
+														익명
+														<form:hidden path="content_isAnonymous" value="true" />
+													</c:otherwise>
+												</c:choose></p>
+												<c:if test="${board_info_idx == 2 }">
+											<a
+												class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1"
+												id="anonymousBtn"> <span
+												class="u-file-icon u-gradient u-icon u-icon-circle u-icon-1">
+													<img src="${root }${img }">
+											</span>
+											</a>
+											</c:if>
+			</div>
 
-							<!-- 해시 태그 -->
-							<div class="upload-form-hashtag" align="center">
-								<input type="text" placeholder="해시태그를 추가해보세요!" id="hashtag"
-									name="hashtag">
-								<button type="button" class="cta blue" onclick="addHashtag()">추가</button>
-							</div>
+			<div class="form-group">
+				<label>작성날짜</label>
+				<p>${now}</p>
+			</div>
 
-							<!-- 추가한 해시 태그 리스트 -->
-							<div class="hashtagList" id="hashtagList"></div>
-							<!-- 해시 태그 end -->
+			<div class="form-group">
+				<label for="content">내용</label>
+				<form:textarea path="content_text" class="form-control" />
+				<form:errors path="content_text" class="form-errors" />
+			</div>
 
-							<button type="button" id="uploadBtn" class="cta blue">업로드</button>
-						</div>
-						<!--사진설명end-->
 
-					</form>
-					<!--사진업로드 Form-->
+			<div class="upload-section">
+				<label for="upload_file">이미지 첨부</label>
+				<form:input type="file" path="upload_files" accept="image/*"
+					multiple="multiple" id="upload_files"></form:input>
+				<div id="file-preview"></div>
 
-					<!-- 해시태그 끝 -->
 
-				</div>
-				<div class="u-list u-list-1">
-					<div class="u-repeater u-repeater-1">
-						<div class="u-container-style u-list-item u-repeater-item">
-							<div
-								class="u-container-layout u-similar-container u-container-layout-11">
-								<p class="u-custom-item u-text u-text-default u-text-11">해시태그
-									입력받는 곳</p>
-							</div>
-						</div>
-						<div class="u-container-style u-list-item u-repeater-item">
-							<div
-								class="u-container-layout u-similar-container u-container-layout-12">
-								<p class="u-custom-item u-text u-text-default u-text-12">해시태그
-									입력받는 곳</p>
-							</div>
-						</div>
-						<div class="u-container-style u-list-item u-repeater-item">
-							<div
-								class="u-container-layout u-similar-container u-container-layout-13">
-								<p class="u-custom-item u-text u-text-default u-text-13">해시태그
-									입력받는 곳</p>
-							</div>
-						</div>
-					</div>
-				</div>
+			</div>
+
+			<input type="hidden" id="hashtag-input-hidden" name="hashtags"
+				value="" />
+
+			<div class="form-group">
+				<label for="hashtag-input">해시태그</label> <input type="text"
+					id="hashtag-input" class="form-control" placeholder="해시태그 입력 후 엔터" />
+				<div id="hashtag-container"></div>
+			</div>
+
+
+			<div class="form-footer">
 				<a
-					href="board_main?board_info_idx=${writeContentBean.board_info_idx }"
-					class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-3">목록
-				</a>
+					href="board_main?board_info_idx=${writeContentBean.board_info_idx}"
+					style="padding: 10px 20px; background-color: #FFCDB2; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">목록</a>
 				<form:button type="submit"
-					class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-4">등록
-				</form:button>
+					style="padding: 10px 20px; background-color: #E5989B; color: white; border: none; border-radius: 5px;">등록</form:button>
 			</div>
 		</form:form>
 	</section>
 
-	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
+	<script src="${root}js/jquery.js"></script>
 
-	<!-- jquary무시하고 강제 실행 -->
+
+	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<script>
+
+	$(document).ready(function() {
+	    var hashtagList = [];
+
+	    // 엔터키로 해시태그 추가
+	    $('#hashtag-input').on('keypress', function(e) {
+	        if (e.which === 13) {
+	            e.preventDefault();
+	            var hashtag = $(this).val().trim();  
+	            if (hashtag !== '' && !hashtagList.includes(hashtag)) {
+	                hashtagList.push(hashtag);
+	                updateHashtagContainer();
+	                $(this).val(''); 
+	            }
+	        }
+	    });
+
+	    // 해시태그 삭제
+	    $(document).on('click', '.remove-hashtag', function() {
+	        var hashtagToRemove = $(this).data('hashtag');
+	        hashtagList = hashtagList.filter(function(tag) {
+	            return tag !== hashtagToRemove;
+	        });
+	        updateHashtagContainer();
+	    });
+
+	    // 해시태그 목록 업데이트
+        function updateHashtagContainer() {
+            var container = $('#hashtag-container');
+            container.empty();
+            hashtagList.forEach(function(tag) {
+                container.append(`
+                    <span class="hashtag-item">#` + tag + `
+                        <button class="remove-hashtag" data-hashtag=` + tag + `>x</button>
+                    </span>
+                `);
+            });
+            $('#hashtag-input-hidden').val(hashtagList.join(',')); 
+        }
+    });
+</script>
+
+
+	<script>
+    $(document).ready(function() {
+        $('#upload_files').on('change', function() {
+
+            var files = this.files;
+            $('#file-preview').empty();
+            if (files.length > 0) {
+                for (var i = 0; i < files.length; i++) {
+                    var reader = new FileReader();
+                    var file = files[i];
+                    reader.onload = function(e) {
+                        // 이미지 미리보기 추가
+                        $('#file-preview').append('<img src="' + e.target.result + '" alt="Image" style="max-width: 200px; margin: 10px;">');
+                    }
+
+     		 reader.readAsDataURL(files[i]); 
+                }
+            }
+        });
+    });
+</script>
+
+	<script>
+const dataTransfer = new DataTransfer();
+
+$("#upload_files").change(function(){
+   
+    let fileArr = document.getElementById("upload_files").files
+
+    if(fileArr != null && fileArr.length>0){
+
+      // =====DataTransfer 파일 관리========
+        for(var i=0; i<fileArr.length; i++){
+            dataTransfer.items.add(fileArr[i])
+        }
+        document.getElementById("upload_files").files = dataTransfer.files; 
+        console.log("dataTransfer =>",dataTransfer.files)
+        console.log("input FIles =>", document.getElementById("upload_files").files)
+	// ==========================================
+       
+    }
+     
+})
+</script>
+
 	<script>
 		$(document).ready(
 				function() {
@@ -308,5 +335,33 @@
 							});
 				});
 	</script>
+<script>
+		$(document).ready(function() {
+			$("#anonymousBtn").on("click",function(event) {
+			event.preventDefault();
+				var user_idx = ${loginUserBean.user_idx};
+				var anonymous_img = '${img}';
+				var anonymousOff = '${anonymousOff}';
+				var anonymousOn = '${anonymousOn}';
+				var param = {};
+				param.user_idx = user_idx;
+				$.ajax({
+					type : "post",
+					url : "${root}board/anonymous",
+					data : param,
+					success : function() {
+						if (anonymous_img === anonymousOff) {
+								alert("익명으로 변경되었습니다.");
+							} else if (anonymous_img === anonymousOn) {
+								alert("익명이 해지되었습니다.");
+							}
+							location.href = "${root}board/board_write?board_info_idx=${board_info_idx}";
+						}
+					})
+				})
+			})
+	</script>
+
+
 </body>
 </html>

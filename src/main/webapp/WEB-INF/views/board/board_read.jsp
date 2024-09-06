@@ -48,7 +48,243 @@
 <meta property="og:title" content="sharing_read">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+<style>
 
+.mk-u-size-60 {
+	flex: 60 0 auto;
+	justify-content: center;
+	background-color: #F8EDEB;
+}
+
+.mk-comment-section {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+	font-family: Arial, sans-serif;
+}
+
+.mk-comment, .mk-reply-comment {
+	padding: 10px;
+	border: 1px solid #e0e0e0;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	background-color: #f9f9f9;
+}
+
+.mk-reply-comment {
+	margin-left: 40px;
+	background-color: #f4f8fc;
+}
+
+.mk-comment-header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.mk-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.mk-author {
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.mk-badge {
+	background-color: #FEC89A;
+	color: white;
+	padding: 3px 5px;
+	border-radius: 3px;
+	font-size: 12px;
+	margin-left: 5px;
+}
+
+.mk-timestamp {
+	color: #888;
+	font-size: 12px;
+	margin-left: auto;
+}
+
+.mk-comment-content {
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+.mk-comment-footer {
+	text-align: right;
+}
+
+.mk-reply {
+	color: #000000;
+	cursor: pointer;
+	font-size: 14px;
+	background-color: #FEC89A;
+	padding: 3px 5px;
+	border-radius: 3px;
+}
+
+.mk-comment-input {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border: 1px solid #e0e0e0;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+}
+
+.mk-comment-input input {
+	flex: 1;
+	border: none;
+	outline: none;
+	padding: 10px;
+	margin-right: 10px;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+.mk-comment-input .mk-submit-button {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.mk-comment-input .mk-submit-button:hover {
+	background-color: #45a049;
+}
+
+.mk-reply-item {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-left: 3px solid #B5838D;
+    margin-left: 20px; /* 부모 댓글과 시각적 구분을 위해 들여쓰기 */
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: none;
+    position: relative;
+}
+
+.mk-reply-item::before {
+    content: "↳";
+    position: absolute;
+    left: -15px; /* 대댓글 앞에 위치할 수 있도록 조정 */
+    top: 10px;
+    font-size: 16px;
+    color: #888;
+}
+
+.comment-box {
+	width: 100%;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	padding: 10px;
+	box-sizing: border-box;
+	background-color: #fff;
+	font-family: Arial, sans-serif;
+}
+
+/* 댓글 입력 구간 css */
+.mk2-comment-box {
+	width: 100%;
+	width: 600px; /* 너비 조정 */
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	padding: 10px;
+	box-sizing: border-box;
+	background-color: #fff;
+	font-family: Arial, sans-serif;
+}
+
+.mk2-comment-section {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+	font-family: Arial, sans-serif;
+}
+
+.mk2-comment-header {
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	text-align: left; /* 중앙 정렬 */
+}
+
+.mk2-comment-input {
+	width: 100%;
+	height: 60px;
+	border: none;
+	resize: none;
+	outline: none;
+	font-size: 14px;
+	color: #333;
+	background-color: #f9f9f9; /* 연한 배경색 */
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 4px;
+	margin-bottom: 10px;
+}
+
+.mk2-comment-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mk2-comment-icons {
+	display: flex;
+	gap: 8px;
+}
+
+.mk2-icon-button {
+	border: none;
+	background: none;
+	cursor: pointer;
+	padding: 0;
+	font-size: 14px; /* 텍스트 크기 */
+	display: flex;
+	align-items: center;
+}
+
+.mk2-icon-button img {
+	width: 20px;
+	height: 20px;
+	margin-right: 5px; /* 아이콘과 텍스트 사이 간격 */
+}
+
+.mk2-comment-actions {
+	display: flex;
+	gap: 10px;
+	justify-content: right;
+}
+
+.mk2-cancel-button, .mk2-submit-button {
+	font-size: 14px;
+	border: none;
+	background: none;
+	cursor: pointer;
+	color: #888;
+}
+
+.mk2-submit-button {
+	color: #1e88e5;
+	font-weight: bold;
+}
+
+.mk-reply-arrow {
+    font-size: 14px; /* 적절한 크기로 설정 */
+    color: #888; /* 화살표 색상 설정 */
+    display: inline-block; /* 블록 요소로 설정하여 정렬 문제 해결 */
+    margin-right: 5px; /* 화살표와 텍스트 사이의 여백 설정 */
+}
+
+</style>
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
@@ -59,7 +295,7 @@
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<p class="u-align-center u-text u-text-default u-text-1">Read</p>
 			<p class="u-align-center u-text u-text-default u-text-2">views_${readContent.content_views }</p>
-			<p class="u-align-center u-text u-text-default u-text-3">comment_</p>
+			<p class="u-align-center u-text u-text-default u-text-3">댓글수 : ${count}</p>
 			<div
 				class="data-layout-selected u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
 				<div class="u-layout">
@@ -80,10 +316,12 @@
 										class="u-border-2 u-border-white u-container-layout u-container-layout-2">
 										<p class="u-text u-text-default u-text-5">
 											${readContent.content_subject }</p>
-										<a href="#"
-											class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1"><span
-											class="u-file-icon u-icon u-text-palette-1-light-1 u-icon-1"><img
-												src="${root }images/2099045-6f30adb4.png" alt=""></span> </a>
+										<a
+											class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1" id="addfavorite">
+											<span class="u-file-icon u-icon u-text-palette-1-light-1 u-icon-1">
+												<img src= "${root }${img}"/>
+											</span>
+										</a>
 									</div>
 								</div>
 							</div>
@@ -103,16 +341,21 @@
 									class="u-container-style u-layout-cell u-size-51 u-layout-cell-4">
 									<div
 										class="u-border-2 u-border-white u-container-layout u-container-layout-4">
-
-										<button
+										<!-- 안되면 p를 지워봥 -->
+										<p class="u-text u-text-default u-text-7">
+										<c:choose>
+											<c:when test="${readContent.content_isAnonymous eq false}">
+												<button
 											class="wonil_modal_user_button u-text u-text-default u-text-7"
 											id="wonil_modal_user_name">${readContent.user_name}
-										</button>
+										</button>}</p>
+											</c:when>
+											<c:otherwise>
+												익명
+											</c:otherwise>
+										</c:choose>
 
-
-										<span
-											class="u-border-2 u-border-palette-1-base u-file-icon u-gradient u-icon u-icon-circle u-icon-2"><img
-											src="${root }images/2076218-122ef5be.png" alt=""></span>
+										
 									</div>
 								</div>
 							</div>
@@ -182,13 +425,16 @@
 									<div
 										class="u-border-2 u-border-white u-container-layout u-container-layout-8">
 										<p class="u-text u-text-default u-text-11">
-											<c:if test="${readContent.content_file != null }">
+											<c:if test="${not empty readContent.content_files}">
 												<div class="form-group" style="text-align: center;">
-													<label for="content_file"></label> <img
-														src="${root }upload/${readContent.content_file}"
-														width="50%" />
+													<c:forEach var="file" items="${readContent.content_files}">
+														<label for="content_file"></label>
+														<img src="${root}getProfileImage/${file}" width="50%"
+															style="margin-bottom: 10px;" />
+													</c:forEach>
 												</div>
 											</c:if>
+
 
 											${readContent.content_text }
 										</p>
@@ -265,174 +511,347 @@
 			<div
 				class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
 				<div class="u-layout">
-					<div class="u-layout-col">
-						<div class="u-size-60">
-							<div class="u-layout-row" id="commentListArea">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-1">
-									<div
-										class="u-container-layout u-valign-middle u-container-layout-1">
-										<p class="u-align-center u-text u-text-default u-text-1"></p>
-									</div>
+						<div class="u-layout-col" style="background-color: #F8EDEB;">
+						<div class="mk-u-size-60">
+
+							<!-- 댓글 출력 구간 -->
+							<div class="mk-comment-section" id="commentListArea"></div>
+
+						</div>
+						<!-- 댓글 입력 구간 -->
+						<form action="${root }board/addComment"
+							class="mk2-comment-section">
+							<div class="mk2-comment-box">
+								<div class="mk2-comment-header">
+									<c:choose>
+										<c:when test="${readContent.user_idx == loginUserBean.user_idx}">
+											<c:choose>
+												<c:when test="${readContent.content_isAnonymous}">
+													익명
+												</c:when>
+												<c:otherwise>
+													${loginUserBean.user_nickname }
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+											<c:otherwise>
+												${loginUserBean.user_nickname }
+											</c:otherwise>
+										</c:choose>
 								</div>
-								<div
-									class="u-container-style u-layout-cell u-size-51 u-layout-cell-2">
-									<div class="u-container-layout u-container-layout-2">
-										<span class="u-file-icon u-icon u-icon-1"> <img
-											src="${root }images/4021546.png" alt="">
-										</span> <span class="u-file-icon u-icon u-icon-2"> <img
-											src="${root }images/505261.png" alt="">
-										</span>
-										<p class="u-text u-text-2">
-											<br>
-										</p>
-									</div>
+								<textarea class="mk2-comment-input" placeholder="내용을 입력해주세요"
+									id="comment_text"></textarea>
+								<div class="mk2-comment-footer"></div>
+								<div class="mk2-comment-actions">
+									<button class="mk-reply" type="submit" id="commentAdd">등록</button>
+									<!-- <button class="mk2-cancel-button">취소</button> -->
 								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
+
 			</div>
+		</div>
 
-			<!-- 댓글 구간 -->
-
-
-
-
-			<div class="u-expanded-width u-form u-form-1">
-				<form action="${root }board/addComment"
-					class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form"
-					style="padding: 15px;" source="email">
-
-					<div class="u-form-group u-form-name u-label-none">
-						<label for="name-ef64" class="u-label">Name</label> <input
-							type="hidden" name="content_idx" id="context_idx"
-							value="${product.PRODUCT_CODE }"> <input type="text"
-							placeholder="내용을 입력해주세요" id="comment_text"
-							class="u-input u-input-rectangle" />
-					</div>
-
-					<div class="u-form-group u-form-submit">
-						<button type="submit" class="u-btn u-btn-submit u-button-style"
-							id="commentAdd">Submit</button>
-
-					</div>
-					<input type="hidden" value="" name="recaptchaResponse"> <input
-						type="hidden" name="formServices"
-						value="50d0594d-1c60-31b9-19af-78b3c1587d79">
-				</form>
-
-				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-				<script>
-			 	$(document).ready(function() {
-			 	    $("#commentAdd").on("click", function(event) {
-			 	    	
-			 	    	console.log(${content_idx});
-			 	    	
-			 	    	
-			 	    	event.preventDefault();
-			 	        var comment_text = $("#comment_text").val();
-			 	        var user_idx = ${readContent.user_idx};
-			 	        var content_idx = ${content_idx};
-			 	        
-			 	        var param = {};
-			 	        param.comment_text = comment_text;
-			 	        param.user_idx = user_idx;
-			 	        param.content_idx = content_idx;
-			 	        
-			 	        
-			 	       console.log("아작스 시작전");
-			 	        $.ajax({
-			 	            type: "post",
-			 	            url: "${root}board/addComment",
-			 	            data: param,
-			 	            success: function(result) {
-			 	                var msg;
-			 	               console.log("아작스 시작후");
-			 	                switch (result) {
-			 	                    case 1:
-			 	                        msg = "댓글이 등록되었습니다.";
-			 	                        console.log("댓글등록 확인");
-			 	                        $("#comment_text").val("");
-			 	                        CommentList();
-			 	                        break;
-			 	                    case 0:
-			 	                        msg = "댓글 등록 실패";
-			 	                        break;
-			 	                    case -1:
-			 	                        msg = "댓글 등록 오류 발생";
-			 	                        break;
-			 	                }
-
-			 	                alert(msg);
-			 	            }
-			 	        });
-			 	    });
-
-			 	    function CommentList() {
-			 	        var content_idx = ${content_idx};
-			 	        
-			 	       console.log("댓글리스트 확인전");
-			 	       console.log("content_idx : ", content_idx);
-			 	        $.ajax({
-			 	            type: "get",
-			 	            url: "${root}board/getCommentList",
-			 	            data: {"content_idx": content_idx},
-			 	            dataType: "json",
-			 	            success: function(rList) {
-			 	                var $rArea = $("#commentListArea");
-			 	               console.log("댓글리스트 확인후");
-			 	                if (rList == "") {
-			 	                    $rArea.html("<li>등록된 댓글이 없습니다.</li>");
-			 	                } else {
-			 	                    $rArea.html("");
-									console.log("우우아아")
-			 	                    $.each(rList, function(i) { // 콤마로 수정
-			 	                        var $li = $("<li>");
-			 	                        var $rWriter = $("<span>").prop("class", "rWriter").html(rList[i].user_nickname);
-			 	                        var $rDate = $("<span>").prop("class", "wDate").html(rList[i].comment_date);
-			 	                        var $rText = $("<p>").prop("class", "comment_text").html(rList[i].comment_text);
-			 	                        var $hr = $("<hr>");
-
-			 	                        $li.append($rWriter).append($rDate).append($rText); // 수정된 부분
-			 	                        $rArea.append($li).append($hr); // $rArea 오타 수정
-			 	                    });
-			 	                }
-			 	            },
-			 	            error: function() {
-			 	                console.log("댓글 목록 조회 ajax 통신 실패");
-			 	            }
-			 	        });
-			 	    }
-
-			 	    $(function() {
-			 	        CommentList();
-
-			 	        // 10초마다 댓글 갱신
-			 	        setInterval(function() {
-			 	            CommentList(); // 함수 호출 괄호 추가
-			 	        }, 10000);
-			 	    });
-			 	});
-
+		<!-- 댓글 구간 -->
+		<div class="u-expanded-width u-form u-form-1">
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<script>
+			$(document).ready(function() {
+			    $("#commentAdd").on("click", function(event) {
+			        event.preventDefault();
+			        var comment_text = $("#comment_text").val();
+			        var user_idx = ${loginUserBean.user_idx};
+			        var content_idx = ${content_idx};
+			        var param = {};
+			        param.comment_text = comment_text;
+			        param.user_idx = user_idx;
+			        param.content_idx = content_idx;
+			        
+			        if (comment_text !== "") {
+			            $.ajax({
+			                type: "post",
+			                url: "${root}board/addComment",
+			                data: param,
+			                success: function(result) {
+			                    var msg;
+			                    switch (result) {
+			                        case 1:
+			                            msg = "댓글이 등록되었습니다.";
+			                            console.log("댓글등록 확인");
+			                            $("#comment_text").val("");
+			                            CommentList();
+			                            break;
+			                        case 0:
+			                            msg = "댓글 등록 실패";
+			                            break;
+			                        case -1:
+			                            msg = "댓글 등록 오류 발생";
+			                            break;
+			                    }
+			                    alert(msg);
+			                }
+			            });
+			        } else {
+			            alert("내용을 입력해 주세요.");
+			        }
+			    });
+			    
+			    // 댓글을 출력 및 삭제 수정 버튼 AJAX
+			    function CommentList() {
+			        var content_idx = ${content_idx};
+			        var user_idx = ${loginUserBean.user_idx};
+			        var anonymous = ${readContent.content_isAnonymous};
+			        var writer_idx = ${readContent.user_idx};
+			        var user_name = "${user_name}";
+			        
+			        console.log("content_idx : ", content_idx);
+			        $.ajax({
+			            type: "get",
+			            url: "${root}board/getCommentList",
+			            data: {"content_idx": content_idx},
+			            dataType: "json",
+			            success: function(rList) {
+			                var $rArea = $("#commentListArea");
+			                if (rList.length === 0) {
+			                    $rArea.html("<li>등록된 댓글이 없습니다.</li>");
+			                } else {
+			                    $rArea.html("");
+			                    $.each(rList, function(i) {
+			                    	var $comment = $("<div>").prop("class", "mk-comment");
+			                        var $commentHeader = $("<div>").prop("class", "mk-comment-header");
+			                       	if (rList[i].comment_step == 1) {
+			                       		$comment = $("<div>").prop("class", "mk-reply-item");
+			                       	}
+			                        var $author = $("<span>").prop("class", "mk-author").html(rList[i].user_nickname);
+			                        
+			                       	if(rList[i].user_idx == writer_idx) {
+			                        	if(anonymous == true) {
+			                        		$author.html("익명");
+			                        	}else {
+			                        		$author.html(rList[i].user_nickname);
+			                        	}
+			                        } else {
+			                        	$author.html(rList[i].user_nickname);
+			                        }
+			                        var $timestamp = $("<span>").prop("class", "mk-timestamp").html(rList[i].comment_date);
+			                        var $commentContent = $("<div>").prop("class", "mk-comment-content").html(rList[i].comment_text);
+			                        var $comment1 = rList[i].comment_parent_idx;
+			                        var $comment2 = rList[i].comment_idx;
+			                        var $commentFooter = $("<div>").prop("class", "mk-comment-footer");
+			                        if (rList[i].user_idx == writer_idx) {
+			                        	var $badge = $("<span>").prop("class", "mk-badge").html("작성자");
+			                        }
+			                     	
+			                        //답글달기 버튼
+			                        	 var $reply = $("<button>")
+				                            .prop("class", "mk-reply")
+				                            .text("답글 달기")
+				                            .on("click", function() {
+				                            	$(this).text("취소 하기");
+			                            	
+			                            	//답글창 중복 방지
+			                            	var $existingReplyBox = $reply.closest('.mk-comment-section').find(".mk2-comment-box");
+											
+											if ($existingReplyBox.length > 0) {
+												console.log("답글 박스가 이미 존재합니다. 제거합니다.");
+											    $existingReplyBox.remove();
+											    $(this).text("답글 달기");
+											    return;
+			                                }
+			                                var $commentBox = $("<div>").prop("class", "mk2-comment-box");
+			                                var $header = $("<div>").prop("class", "mk2-comment-header");
+			                                var $name = $("<span>").prop("class", "mk-author").html(user_name);
+			                                
+			                                if(user_idx == writer_idx) {
+					                        	if(anonymous == true) {
+					                        		$name.html("익명");
+					                        	}else {
+					                        		$name.html(user_name);
+					                        	}
+					                        } else {
+					                        	$name.html(user_name);
+					                        }
+			                                
+			                                var $text = $("<textarea>").prop("id", "comment_text").prop("class", "mk2-comment-input");
+			                                var $action = $("<div>").prop("class", "mk2-comment-actions");
+			                                //var $writer_name = $("<div>").prop("class", "mk-author").text("댓글 작성자 ").html(rList[i].user_nickname);
+			                                var $addReply = $("<button>")
+			                                    .text("등록")
+			                                    .prop("class", "mk2-submit-button")
+			                                    .on("click", function() {
+			                                        var comment_parent_idx = $comment1;
+			                                        var comment_text = $text.val();
+			                                        var user_idx = ${loginUserBean.user_idx};
+			                                        var content_idx = ${content_idx};
+			                                        var type = "reply";
+			                                        var param2 = {
+			                                            comment_text: comment_text,
+			                                            user_idx: user_idx,
+			                                            content_idx: content_idx,
+			                                            comment_parent_idx: comment_parent_idx,
+			                                            type : type
+			                                        };
+			                                        $.ajax({
+			                                            type: "post",
+			                                            url: "${root}board/addComment",
+			                                            data: param2,
+			                                            success: function(result) {
+			                                                var msg;
+			                                                switch (result) {
+			                                                    case 1:
+			                                                        msg = "답글이 등록되었습니다.";
+			                                                        console.log("답글등록 확인");
+			                                                        $commentBox.remove();
+			                                                        CommentList();
+			                                                        break;
+			                                                    case 0:
+			                                                        msg = "답글 등록 실패";
+			                                                        break;
+			                                                    case -1:
+			                                                        msg = "답글 등록 오류 발생";
+			                                                        break;
+			                                                }
+			                                                alert(msg);
+			                                            }
+			                                        });
+			                                    });
+			                                $commentBox.append($header).append($text).append($action);
+			                                $header.append($name);
+			                                $action.append($addReply);
+			                                $(this).closest('.mk-comment').after($commentBox);
+			                            });
+			                        
+			                        //삭제 버튼
+			                        
+			                        var $deleteIcon = $("<button>")
+			                            .css({
+			                                "background-image": "url('${root}images/4021546.png')",
+			                                "background-size": "cover",
+			                                "cursor": "pointer",
+			                                "background-color": "transparent",
+			                                "width": "25px",
+			                                "height": "25px",
+			                                "border": "none"
+			                            })
+			                            .on("click", function(){
+			                                var comment_idx = $comment2;
+			                                
+			                                if (confirm("댓글을 삭제하시겠습니까?")) {
+			                                    $.ajax({
+			                                        type: "get",
+			                                        url: "${root}board/deleteComment",
+			                                        data: {"comment_idx": comment_idx},
+			                                        dataType: "json",
+			                                        success: function() {
+			                                            alert("댓글이 삭제되었습니다");
+			                                            CommentList();
+			                                        },
+			                                        error: function() {
+			                                            console.log("제발 삭제하게 해줘");
+			                                        }
+			                                    });
+			                                }
+			                            });
+			                        var isEditMode = false;
+			                        var $modifyIcon = $("<button>")
+			                            .css({
+			                                "background-image": "url('${root}images/505261.png')",
+			                                "background-size": "cover",
+			                                "cursor": "pointer",
+			                                "background-color": "transparent",
+			                                "width": "25px",
+			                                "height": "25px",
+			                                "border": "none"
+			                            }).on("click", function() {
+			                            if (!isEditMode) {
+			                            	$commentContent.attr("contenteditable", "true");
+			                                $commentContent.focus();
+			                                $(this).text("확인");
+			                            } else {
+			                                $commentContent.attr("contenteditable", "false");
+			                                const updatedCommentText = $commentContent.html();
+			                                const comment_idx = rList[i].comment_idx;
+			                                $.ajax({
+			                                    type: "post",
+			                                    url: "${root}board/modifyComment",
+			                                    data: JSON.stringify({
+			                                        "comment_text": updatedCommentText,
+			                                        "comment_idx": comment_idx
+			                                    }),
+			                                    contentType: "application/json",
+			                                    success: function(response) {
+			                                        console.log("응답 데이터:", response);
+			                                        CommentList();
+			                                    }
+			                                });
+			                            }
+			                            isEditMode = !isEditMode;
+			                        });
+			                        if (rList[i].user_idx == ${loginUserBean.user_idx}) {
+			                            $commentFooter.append($modifyIcon).append($deleteIcon);
+			                        }
+			                        $commentHeader.append($author).append($badge).append($timestamp);
+			                        $comment.append($commentHeader);
+			                        $comment.append($commentContent);
+			                        if(rList[i].comment_step == 0){
+			                        	$commentFooter.append($reply);
+			                        }
+			                        $comment.append($commentFooter);
+			                        
+			                        $rArea.append($comment);
+			                    });
+			                }
+			            },
+			            error: function() {
+			                console.log("댓글 목록 조회 ajax 통신 실패");
+			            }
+			        });
+			    }
+			    CommentList();
+			});
 				</script>
+				
+				<!-- 즐겨찾기 버튼 ajax -->
+				<script>
+				$(document).ready(function() {
+					$("#addfavorite").on("click", function(event) {
+						event.preventDefault();
+						var user_idx = ${loginUserBean.user_idx};
+						var content_idx = ${content_idx};
+						var favorite_img = '${img}';
+						var favoriteOn = '${favoriteOn}';
+						var favoriteOff = '${favoriteOff}';
+						
+						var param = {};
+						param.user_idx = user_idx;
+						param.content_idx = content_idx;
+						
+						console.log(content_idx);
+						console.log(user_idx);
+						
+						$.ajax({
+							type:"post",
+							url: "${root}board/addfavorite",
+							data: param,
+							success: function() {
+								if(favorite_img === favoriteOff) {
+									alert("즐겨찾기에 추가되었습니다.");
+								} else if(favorite_img === favoriteOn) {
+									alert("즐겨찾기에서 제외되었습니다.");
+								}
+								location.href="${root}board/board_read?content_idx=${content_idx}&board_info_idx=${board_info_idx}";
+							}
+						})
+					})
+				})
+				</script>
+				
 
-			</div>
 		</div>
-
 	</section>
-
-	<section class="u-claerfix u-section-5" id="sec-8282">
-		<div class="u-clearfix u-sheet u-sheet-1">
-
-			<div class="">
-				<span class="" id="comment-number">댓글 수 : </span> <span class=""
-					id="comment-count"></span>
-			</div>
-
-			<div class="comment-input"></div>
-		</div>
-	</section>
+	
 	<section class="u-clearfix u-section-5" id="sec-5822">
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<a href="#"

@@ -1,6 +1,7 @@
 package kr.co.softsoldesk.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,8 +40,6 @@ public class BoardService {
 	private UserBean loginUserBean;
 
 	public String saveUploadFile(MultipartFile upload_file) {
-
-		String path_upload = "/Users/minki/git/maru/src/main/webapp/WEB-INF/resources/upload";
 		String file_name = System.currentTimeMillis() + "_" + upload_file.getOriginalFilename();
 
 		try {
@@ -50,22 +49,28 @@ public class BoardService {
 		}
 
 		return file_name;
-
 	}
 
 	public void addContent(ContentBean writeContentBean) {
+		List<MultipartFile> upload_files = writeContentBean.getUpload_files();
 
-		MultipartFile upload_file = writeContentBean.getUpload_file();
-
-		if (upload_file.getSize() > 0) {
-			String file_name = saveUploadFile(upload_file);
-			writeContentBean.setContent_file(file_name);
-
+		if (upload_files != null && !upload_files.isEmpty()) {
+			List<String> fileNames = new ArrayList<>();
+			for (MultipartFile file : upload_files) {
+				if (!file.isEmpty()) {
+					String file_name = saveUploadFile(file);
+					fileNames.add(file_name);
+				}
+			}
+			writeContentBean.setContent_files(fileNames);
 		}
 
 		writeContentBean.setUser_idx(loginUserBean.getUser_idx());
 		boardDAO.addContent(writeContentBean);
+	}
 
+	public void addHashTag(int content_idx, String tag) {
+		boardDAO.addHashTag(content_idx, tag);
 	}
 
 	public String getBoardInfoName(int board_info_idx) {
@@ -85,6 +90,16 @@ public class BoardService {
 		boardDAO.contentView(content_idx);
 
 		return boardDAO.getReadContent(content_idx);
+	}
+
+	// 파일 목록
+	public List<String> getContentFiles(int content_idx) {
+		return boardDAO.getContentFiles(content_idx);
+	}
+
+	// 해시태그 목록
+	public List<String> getHashTags(int content_idx) {
+		return boardDAO.getHashTags(content_idx);
 	}
 
 	public int getContentIdx() {
@@ -116,21 +131,21 @@ public class BoardService {
 
 		return pageBean;
 	}
-
-	public void updateContent(ContentBean modifyContentBean) {
-
-		MultipartFile upload_file = modifyContentBean.getUpload_file();
-
-		if (upload_file.getSize() > 0) {
-
-			String file_name = saveUploadFile(upload_file);
-			modifyContentBean.setContent_file(file_name);
-		}
-
-		modifyContentBean.setUser_idx(loginUserBean.getUser_idx());
-
-		boardDAO.updateContent(modifyContentBean);
-	}
+//
+//	public void updateContent(ContentBean modifyContentBean) {
+//
+//		MultipartFile upload_file = modifyContentBean.getUpload_file();
+//
+//		if (upload_file.getSize() > 0) {
+//
+//			String file_name = saveUploadFile(upload_file);
+//			modifyContentBean.setContent_file(file_name);
+//		}
+//
+//		modifyContentBean.setUser_idx(loginUserBean.getUser_idx());
+//
+//		boardDAO.updateContent(modifyContentBean);
+//	}
 
 	public void deleteContent(int content_idx) {
 		boardDAO.deleteContent(content_idx);
@@ -158,11 +173,21 @@ public class BoardService {
 	public List<ContentBean> getMonthly3Content() {
 		return boardDAO.getMonthly3Content();
 	}
-	
-	// -----------------------------------------------
-	
-	// 검색
-	public List<ContentBean> getSearchResult(String keyWord, int board_info_idx) {
-		return boardDAO.getSearchResult(keyWord, board_info_idx);
+
+	public int getCommentCount(int content_idx) {
+		return boardDAO.getCommentCount(content_idx);
 	}
+
+	public void addfavorite(int content_idx, int user_idx) {
+		boardDAO.addfavorite(content_idx, user_idx);
+	}
+
+	public void deletefavorite(int content_idx, int user_idx) {
+		boardDAO.deletefavorite(content_idx, user_idx);
+	}
+
+	public boolean getFavoriteIdx(int content_idx, int user_idx) {
+		return boardDAO.getFavoriteIdx(content_idx, user_idx) == 0 ? true : false;
+	}
+
 }

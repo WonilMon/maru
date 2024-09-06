@@ -1,6 +1,7 @@
 package kr.co.softsoldesk.controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.Cookie;
@@ -61,8 +62,13 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+
+
 	@Autowired
 	private UserValidator userValidator;
+
+	@Autowired
+	private MailSender mailSender;
 
 	@Autowired
 	private IconService iconService;
@@ -264,6 +270,7 @@ public class UserController {
 			return "user/login_fail";
 		}
 	}
+
 
 	@GetMapping("/not_login")
 	public String not_login() {

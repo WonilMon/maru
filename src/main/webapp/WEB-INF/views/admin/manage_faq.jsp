@@ -84,7 +84,7 @@
 						<div class="header">
 							<div class="row clearfix">
 								<div class="col-xs-12 col-sm-6">
-									<h2>FAQ관리</h2>
+									<h2>FAQ管理</h2>
 								</div>
 							</div>
 							<ul class="header-dropdown m-r--5">
@@ -113,21 +113,21 @@
 											<!-- 검색 바 -->
 											<div class="wonil_search-bar">
 												<input type="text" id="wonil_search_input"
-													placeholder="입력 쿠다사이">
-												<button id="wonil_search_button">검색</button>
-												<button id="wonil_reset_button">취소</button>
+													placeholder="入力してください">
+												<button id="wonil_search_button">検索</button>
+												<button id="wonil_reset_button">取消</button>
 											</div>
 
 											<!-- 정보 테이블 -->
 											<table id="wonil_table">
 												<thead>
 													<tr>
-														<th id="wonil_th_id">번호</th>
-														<th id="wonil_th_pw">작성자</th>
-														<th id="wonil_th_name">이메일</th>
-														<th id="wonil_th_posts">내용</th>
-														<th id="wonil_th_answers">응답</th>
-														<th id="wonil_th_answers">삭제</th>
+														<th id="wonil_th_id">ユーザー番号</th>
+														<th id="wonil_th_pw">投稿者</th>
+														<th id="wonil_th_name">メールアドレス</th>
+														<th id="wonil_th_posts">内容</th>
+														<th id="wonil_th_answers">応答</th>
+														<th id="wonil_th_answers">削除</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -149,9 +149,9 @@
 
 																	<c:choose>
 																		<c:when test="${obj.faq_answer == null}">
-                															응답</c:when>
+                															応答</c:when>
 																		<c:otherwise>
-                															확인 </c:otherwise>
+                															完了 </c:otherwise>
 																	</c:choose>
 																</button>
 															</td>
@@ -160,7 +160,7 @@
 																	data-idx="${obj.faq_idx}"
 																	data-name="${obj.faq_user_nickname}"
 																	data-email="${obj.faq_user_email}"
-																	data-text="${obj.faq_user_text}">삭제</button></td>
+																	data-text="${obj.faq_user_text}">削除</button></td>
 														</tr>
 													</c:forEach>
 												</tbody>
@@ -203,20 +203,20 @@
 
 														<form:hidden path="faq_idx" id="response_faq_idx" />
 
-														<form:label path="faq_user_nickname">작성자:</form:label>
+														<form:label path="faq_user_nickname">投稿者:</form:label>
 														<form:input path="faq_user_nickname"
 															id="response_user_name" readonly="true" />
-														<form:label path="faq_user_email">이메일:</form:label>
+														<form:label path="faq_user_email">メールアドレス:</form:label>
 														<form:input path="faq_user_email" id="response_user_email"
 															readonly="true" />
-														<form:label path="faq_user_text">내용:</form:label>
+														<form:label path="faq_user_text">内容:</form:label>
 														<form:textarea path="faq_user_text"
 															id="response_user_text" readonly="true"></form:textarea>
-														<form:label path="response_text">응답:</form:label>
+														<form:label path="response_text">応答:</form:label>
 														<form:textarea path="response_text" id="response_text"></form:textarea>
-														<button type="submit">전송</button>
+														<button type="submit">送信</button>
 														<button type="button"
-															onclick="closeModal('wonil_response_modal')">취소</button>
+															onclick="closeModal('wonil_response_modal')">取消</button>
 													</form:form>
 												</div>
 											</div>
@@ -232,18 +232,18 @@
 
 														<form:hidden path="faq_idx" id="delete_faq_idx" />
 
-														<form:label path="faq_user_nickname">작성자:</form:label>
+														<form:label path="faq_user_nickname">投稿者:</form:label>
 														<form:input path="faq_user_nickname" id="delete_user_name"
 															readonly="true" />
-														<form:label path="faq_user_email">이메일:</form:label>
+														<form:label path="faq_user_email">メールアドレス:</form:label>
 														<form:input path="faq_user_email" id="delete_user_email"
 															readonly="true" />
-														<form:label path="faq_user_text">내용:</form:label>
+														<form:label path="faq_user_text">内容:</form:label>
 														<form:textarea path="faq_user_text" id="delete_user_text"
 															readonly="true"></form:textarea>
-														<button type="submit">삭제</button>
+														<button type="submit">削除</button>
 														<button type="button"
-															onclick="closeModal('wonil_delete_modal')">취소</button>
+															onclick="closeModal('wonil_delete_modal')">取消</button>
 													</form:form>
 												</div>
 											</div>

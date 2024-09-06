@@ -66,18 +66,18 @@ public class RouletteController {
 					int currentPoints = rouletteService.getUserPoints(user_idx);
 					loginUserBean.setUser_point(currentPoints); // UserBean에 업데이트된 포인트 반영
 					response.put("status", "success");
-					response.put("message", "축하합니다! " + points + " 포인트 획득했습니다!");
+					response.put("message", "おめでとうございます！! " + points + "ポイントを獲得しました。");
 				} else {
 					response.put("status", "failure");
-					response.put("message", "포인트 업데이트 중 문제가 발생했습니다.");
+					response.put("message", "ポイントのアップデート中、エラーが発生しました。");
 				}
 			} else {
 				response.put("status", "failure");
-				response.put("message", "오늘은 이미 룰렛을 돌렸습니다. 내일 다시 시도해주세요.");
+				response.put("message", "本日のルーレットはすでに回されています。また明日、再度お試しください。");
 			}
 		} else {
 			response.put("status", "failure");
-			response.put("message", "로그인이 필요합니다.");
+			response.put("message", "ログインしてください。");
 		}
 
 		return response;
@@ -90,7 +90,7 @@ public class RouletteController {
 		Integer userIdx = params.get("user_idx");
 
 		if (userIdx == null) {
-			throw new IllegalArgumentException("user_idx가 누락되었습니다.");
+			throw new IllegalArgumentException("user_idxが見つかりません。");
 		}
 
 		boolean canSpin = rouletteService.canSpinRoulette(userIdx);

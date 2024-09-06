@@ -57,7 +57,7 @@
 			<img class="u-image u-image-circle u-image-1"
 				src="${root}images/d7d1c4acd724b3bbb7b4b910ada08d71e928fad1983bf433440c9a111026c224a0fdc6d7b01f8a2e394a445e138620006189cb8b806cc50ffbe3aa_1280.jpg"
 				alt="" data-image-width="1280" data-image-height="1101">
-			<p class="u-text u-text-default u-text-1">404 에러 페이지 입니다.</p>
+			<p class="u-text u-text-default u-text-1">404 エラーページです。</p>
 		</div>
 	</section>
 

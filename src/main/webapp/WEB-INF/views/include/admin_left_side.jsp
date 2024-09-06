@@ -36,39 +36,39 @@
 			<li class="header">MAIN NAVIGATION</li>
 			<li class="${currentPath.endsWith('/admin_index') ? 'active' : ''}">
 				<a href="${root}company/admin_index"> <i class="material-icons">home</i>
-					<span>Home</span>
+					<span>ホーム</span>
 			</a>
 			</li>
 
 			<li class="${currentPath.endsWith('/manage_user') ? 'active' : ''}">
 				<a href="${root}company/manage_user"> <i class="material-icons">assignment</i>
-					<span>회원 관리</span>
+					<span>ユーザー管理</span>
 			</a>
 			</li>
 			<li
 				class="${currentPath.contains('/manage_content') ? 'active' : ''}">
 				<a href="#" class="menu-toggle"> <i class="material-icons">view_list</i>
-					<span>게시판 관리</span>
+					<span>掲示板管理</span>
 			</a>
 				<ul class="ml-menu">
 					<li
 						class="${currentPath.contains('board_info_idx=1') ? 'active' : ''}">
-						<a href="${root}company/manage_content?board_info_idx=1">자유게시판</a>
+						<a href="${root}company/manage_content?board_info_idx=1">自由掲示板</a>
 					</li>
 					<li
 						class="${currentPath.contains('board_info_idx=2') ? 'active' : ''}">
-						<a href="${root}company/manage_content?board_info_idx=2">익명게시판</a>
+						<a href="${root}company/manage_content?board_info_idx=2">匿名掲示板</a>
 					</li>
 					<li
 						class="${currentPath.contains('board_info_idx=3') ? 'active' : ''}">
-						<a href="${root}company/manage_content?board_info_idx=3">정보공유게시판</a>
+						<a href="${root}company/manage_content?board_info_idx=3">情報共有掲示板</a>
 					</li>
 				</ul>
 			</li>
 
 
 			<li><a href="javascript:void(0);"> <i class="material-icons">perm_media</i>
-					<span>나눔 포인트 관리</span>
+					<span>おすそわけポイント管理</span>
 			</a></li>
 			<!-- 			<li><a href="javascript:void(0);" class="menu-toggle"> <i
 					class="material-icons">pie_chart</i> <span>Charts</span>
@@ -83,7 +83,7 @@
  -->
 			<li class="${currentPath.endsWith('/manage_faq') ? 'active' : ''}">
 				<a href="${root}company/manage_faq"> <i class="material-icons">content_copy</i>
-					<span>FAQ 관리</span>
+					<span>FAQ管理</span>
 			</a>
 			</li>
 

@@ -19,11 +19,17 @@ public class BoardDAO {
 //	글 등록
 	public void addContent(ContentBean writeContentBean) {
 		boardMapper.addContent(writeContentBean);
+
+		if (writeContentBean.getContent_files() != null) {
+			for (String fileName : writeContentBean.getContent_files()) {
+				boardMapper.addFile(boardMapper.getLatestIdx(), fileName);
+			}
+		}
 	}
-//	public int getLatestIdx() {
-//		return boardMapper.getLatestIdx();
-//	}
-//
+
+	public void addHashTag(int content_idx, String tag) {
+		boardMapper.addHashTag(content_idx, tag);
+	}
 
 	public List<BoardInfoBean> getBoardInfoList() {
 		List<BoardInfoBean> boardList = boardMapper.getBoardInfoList();
@@ -35,7 +41,26 @@ public class BoardDAO {
 	}
 
 	public ContentBean getReadContent(int content_idx) {
-		return boardMapper.getReadContent(content_idx);
+		ContentBean content = boardMapper.getReadContent(content_idx);
+
+		// 파일 목록
+		List<String> contentFiles = boardMapper.getContentFiles(content_idx);
+		content.setContent_files(contentFiles);
+		// 해시태그 목록
+		List<String> hashTags = boardMapper.getHashTags(content_idx);
+		content.setHashTags(hashTags);
+
+		return content;
+	}
+
+	// 파일 목록
+	public List<String> getContentFiles(int content_idx) {
+		return boardMapper.getContentFiles(content_idx);
+	}
+
+	// 해시태그 목록
+	public List<String> getHashTags(int content_idx) {
+		return boardMapper.getHashTags(content_idx);
 	}
 
 	public List<ContentBean> getContentList(int board_info_idx, RowBounds rowBounds) {
@@ -81,11 +106,29 @@ public class BoardDAO {
 	public List<ContentBean> getMonthly3Content() {
 		return boardMapper.getMonthly3Content();
 	}
-	
-	// -----------------------------------------------
-	
-	// 검색
-	public List<ContentBean> getSearchResult(String keyWord, int board_info_idx) {
-		return boardMapper.getSearchResult(keyWord, board_info_idx);
+
+	public int getCommentCount(int content_idx) {
+		return boardMapper.getCommentCount(content_idx);
 	}
+
+	public void addfavorite(int content_idx, int user_idx) {
+		boardMapper.addfavorite(content_idx, user_idx);
+	}
+
+	public void deletefavorite(int content_idx, int user_idx) {
+		boardMapper.deletefavorite(content_idx, user_idx);
+	}
+
+	public int favorList(int user_idx) {
+		return boardMapper.favorList(user_idx);
+	}
+
+	public int getFavoriteIdx(int content_idx, int user_idx) {
+		return boardMapper.getFavoriteIdx(content_idx, user_idx);
+	}
+
+	public boolean anonymous(boolean content_isAnonymous) {
+		return boardMapper.anonymous(content_isAnonymous);
+	}
+
 }

@@ -19,35 +19,34 @@ public class ContentBean {
 	private String content_text;
 
 //	DB에 파일 이름을 담을 변수
-	private String content_file;
+//	private String content_file;
+	private List<String> content_files;
+
+	private List<String> hashTags;
 
 	private String content_date;
 
 	private boolean content_isAnonymous;
-
-	private String content_hashTag1;
-	private String content_hashTag2;
-	private String content_hashTag3;
 
 	private int content_views;
 
 	private int user_idx;
 
 	private int board_info_idx;
-
+	private int favorite_idx;
+	
 //	----------------------------------------------------------- ↓↓ DB 테이블에 없는 변수들 (추가한 변수들) ↓↓
 
 	private String user_name; // 유저 테이블에 있는 작성자 이름
-	
+
 	private int content_comment_count;
 
 //	브라우저가 보낸 파일 데이터
-	private MultipartFile upload_file;
+//	private MultipartFile upload_file;
+	private List<MultipartFile> upload_files;
 //	파일을 올려보이면 여기서 해당 파일을 받고 경로를 지정한 후 content_file에다 주고 DB에 넘김
 
 //	-----------------------------------------------------------
-	
-
 
 	public int getContent_idx() {
 		return content_idx;
@@ -73,14 +72,6 @@ public class ContentBean {
 		this.content_text = content_text;
 	}
 
-	public String getContent_file() {
-		return content_file;
-	}
-
-	public void setContent_file(String content_file) {
-		this.content_file = content_file;
-	}
-
 	public String getContent_date() {
 		return content_date;
 	}
@@ -95,30 +86,6 @@ public class ContentBean {
 
 	public void setContent_isAnonymous(boolean content_isAnonymous) {
 		this.content_isAnonymous = content_isAnonymous;
-	}
-
-	public String getContent_hashTag1() {
-		return content_hashTag1;
-	}
-
-	public void setContent_hashTag1(String content_hashTag1) {
-		this.content_hashTag1 = content_hashTag1;
-	}
-
-	public String getContent_hashTag2() {
-		return content_hashTag2;
-	}
-
-	public void setContent_hashTag2(String content_hashTag2) {
-		this.content_hashTag2 = content_hashTag2;
-	}
-
-	public String getContent_hashTag3() {
-		return content_hashTag3;
-	}
-
-	public void setContent_hashTag3(String content_hashTag3) {
-		this.content_hashTag3 = content_hashTag3;
 	}
 
 	public int getContent_views() {
@@ -153,20 +120,36 @@ public class ContentBean {
 		this.user_name = user_name;
 	}
 
-	public MultipartFile getUpload_file() {
-		return upload_file;
-	}
-
-	public void setUpload_file(MultipartFile upload_file) {
-		this.upload_file = upload_file;
-	}
-
 	public int getContent_comment_count() {
 		return content_comment_count;
 	}
 
 	public void setContent_comment_count(int content_comment_count) {
 		this.content_comment_count = content_comment_count;
+	}
+
+	public List<String> getContent_files() {
+		return content_files;
+	}
+
+	public void setContent_files(List<String> content_files) {
+		this.content_files = content_files;
+	}
+
+	public List<MultipartFile> getUpload_files() {
+		return upload_files;
+	}
+
+	public void setUpload_files(List<MultipartFile> upload_files) {
+		this.upload_files = upload_files;
+	}
+
+	public List<String> getHashTags() {
+		return hashTags;
+	}
+
+	public void setHashTags(List<String> hashTags) {
+		this.hashTags = hashTags;
 	}
 
 }

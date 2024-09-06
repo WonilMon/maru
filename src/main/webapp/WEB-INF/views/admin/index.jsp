@@ -58,13 +58,13 @@
 			// Switch to edit mode
 			input.removeAttribute('readonly');
 			input.focus();
-			button.textContent = '확인';
+			button.textContent = '確認';
 			button.classList.remove('edit-mode');
 			button.classList.add('save-mode');
 		} else {
 			// Switch back to view mode
 			input.setAttribute('readonly', 'true');
-			button.textContent = '변경';
+			button.textContent = '変更';
 			button.classList.remove('save-mode');
 			button.classList.add('edit-mode');
 
@@ -78,9 +78,9 @@
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					if (xhr.responseText === "success") {
-						alert("상태 메시지가 변경되었습니다.");
+						alert("ステータスメッセージが変更されました。");
 					} else {
-						alert("상태 메시지 변경에 실패했습니다.");
+						alert("ステータスメッセージの変更に失敗しました。");
 					}
 				}
 			};
@@ -144,7 +144,7 @@
 						<div class="header">
 							<div class="row clearfix">
 								<div class="col-xs-12 col-sm-6">
-									<h2>공지사항</h2>
+									<h2>お知らせ</h2>
 								</div>
 							</div>
 							<ul class="header-dropdown m-r--5">
@@ -179,14 +179,14 @@
 
 
 												<div class="status-container" style="margin: 30px;">
-													<label for="user_statustext">관리자들에게</label>
+													<label for="user_statustext">管理者</label>
 													<div class="input-container">
 														<input type="text" id="admin_notice" name="admin_notice"
 															value="${admin_notice}" readonly
 															style="width: 50%; height: 50px; font-size: 18px; box-sizing: border-box;" />
 
 														<button id="changeStatusTextBtn"
-															onclick="toggleEditMode()">변경</button>
+															onclick="toggleEditMode()">変更</button>
 													</div>
 												</div>
 											</div>
@@ -231,7 +231,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 					<div class="card">
 						<div class="body bg-cyan" style="height: 305px;">
-							<div class="m-b--35 font-bold">가장 많은 포인트를 가진 유저</div>
+							<div class="m-b--35 font-bold">最多ポイント獲得者</div>
 							<ul class="dashboard-stat-list">
 								<c:forEach var="obj" items="${userList_mostPoint}"
 									varStatus="status">
@@ -249,7 +249,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 					<div class="card">
 						<div class="body bg-teal" style="height: 300px;">
-							<div class="font-bold m-b--35">관리자 목록</div>
+							<div class="font-bold m-b--35">管理者目録</div>
 							<ul class="dashboard-stat-list scroll-box">
 								<c:forEach var="obj" items="${userList_admin}">
 									<li><span><strong>${obj.user_nickname}</strong> (
@@ -268,7 +268,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div class="card">
 						<div class="header">
-							<h2>가장 많은 글을 남긴 유저</h2>
+							<h2>最多投稿者</h2>
 							<ul class="header-dropdown m-r--5">
 								<li class="dropdown"><a href="javascript:void(0);"
 									class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -287,9 +287,9 @@
 								<table class="table table-hover dashboard-task-infos">
 									<thead>
 										<tr>
-											<th>번호</th>
-											<th>닉네임</th>
-											<th>게시글수</th>
+											<th>ユーザー番号</th>
+											<th>ニックネーム</th>
+											<th>投稿数</th>
 										</tr>
 									</thead>
 									<tbody>

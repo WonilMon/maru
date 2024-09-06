@@ -27,6 +27,7 @@ import kr.co.softsoldesk.mapper.CompanyMapper;
 import kr.co.softsoldesk.mapper.IconMapper;
 import kr.co.softsoldesk.mapper.MessageMapper;
 import kr.co.softsoldesk.mapper.RouletteMapper;
+import kr.co.softsoldesk.mapper.SearchMapper;
 import kr.co.softsoldesk.mapper.UserIconMapper;
 import kr.co.softsoldesk.mapper.UserMapper;
 import kr.co.softsoldesk.websocket.ChatMapper;
@@ -192,6 +193,15 @@ public class RootAppContext implements WebMvcConfigurer {
 		MapperFactoryBean<CompanyMapper> factoryBean = new MapperFactoryBean<CompanyMapper>(CompanyMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 
+		return factoryBean;
+	}
+	
+//	쿼리문 실행을 위한 객체 mapper10
+	@Bean
+	public MapperFactoryBean<SearchMapper> getSearchMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<SearchMapper> factoryBean = new MapperFactoryBean<SearchMapper>(SearchMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		
 		return factoryBean;
 	}
 

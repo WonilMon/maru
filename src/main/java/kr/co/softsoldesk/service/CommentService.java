@@ -23,29 +23,27 @@ public class CommentService {
 	private CommentDAO commentDAO;
 	
 	public int addComment(CommentBean addComment) {
-		
 		addComment.setComment_text(addComment.getComment_text().replace("\n", "<br>"));
-		
-		return commentDAO.addComment(addComment);
+		addComment.setComment_parent_idx(addComment.getComment_idx());
+		int result = commentDAO.addComment(addComment);
+		return result;
 	}
 	
-//	public void modifyComment(CommentBean updateComment) {
-//		commentDAO.updateComment(updateComment);
-//	}
-//	
-//	public void deleteComment(int comment_idx) {
-//		commentDAO.deleteComment(comment_idx);
-//	}
-//	
-//	public CommentBean getCommentInfo(int comment_idx) {
-//		return commentDAO.getCommentInfo(comment_idx);
-//	}
+	public int addReply(CommentBean addReply) {
+		addReply.setComment_text(addReply.getComment_text().replace("\n", "<br>"));
+		addReply.setComment_step(1);
+		return commentDAO.addReply(addReply);
+	}
+	
+	public void modifyComment(int comment_idx, String comment_text) {
+		commentDAO.modifyComment(comment_idx, comment_text);
+	}
+	
+	public void deleteComment(int comment_idx) {
+		commentDAO.deleteComment(comment_idx);
+	}
 	
 	public List<CommentBean> getCommentList(int cotent_idx) {
 		return commentDAO.getCommentList(cotent_idx);
 	}
-	
-//	public List<CommentBean> getReplyList(int comment_parent_idx) {
-//		return commentDAO.getReplyList(comment_parent_idx);
-//	}
 }

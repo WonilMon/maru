@@ -127,11 +127,11 @@ h2 {
 </head>
 <body>
 	<div>
-		<h2>채팅방 목록</h2>
+		<h2>チャット目録</h2>
 		<ul class="chat-room-list">
 			<c:choose>
 				<c:when test="${empty rooms}">
-					<li class="no-chat-message">대화가 없습니다</li>
+					<li class="no-chat-message">チャット履歴がありません</li>
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="room" items="${rooms}">

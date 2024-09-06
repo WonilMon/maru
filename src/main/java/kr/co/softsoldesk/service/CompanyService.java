@@ -37,6 +37,11 @@ public class CompanyService {
 	
 	// ------------------------------
 
+//	// 공지사항 (notice_main.jsp)
+//	public List<ContentBean> getNoticeList(int board_info_idx){
+//		return companyDao.getNoticeList(board_info_idx);
+//	}
+	
 	// FAQ 등록 (faq.jsp)
 	public void addFaq(FaqBean addFaqBean) {
 

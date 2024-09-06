@@ -59,6 +59,7 @@ public class UserBean {
 	// 회원가입 전 중복확인 판별
 	private boolean userNickNameExist;
 	private boolean userEmailExist;
+	private boolean userAnonymous;
 
 	// 로그인 상태
 	private boolean userLogin;
@@ -246,6 +247,14 @@ public class UserBean {
 
 	public void setNewFaqCount(int newFaqCount) {
 		this.newFaqCount = newFaqCount;
+	}
+
+	public boolean isUserAnonymous() {
+		return userAnonymous;
+	}
+
+	public void setUserAnonymous(boolean userAnonymous) {
+		this.userAnonymous = userAnonymous;
 	}
 
 }

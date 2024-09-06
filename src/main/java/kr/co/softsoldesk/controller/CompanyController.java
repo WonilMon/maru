@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.co.softsoldesk.beans.ContentBean;
 import kr.co.softsoldesk.beans.FaqBean;
 import kr.co.softsoldesk.beans.PageBean;
@@ -25,6 +23,10 @@ import kr.co.softsoldesk.service.CompanyService;
 @RequestMapping("/company")
 public class CompanyController {
 
+//
+//	@Autowired
+//	BoardService boardService;
+	
 	@Autowired
 	private CompanyService companyService;
 
@@ -38,6 +40,41 @@ public class CompanyController {
 	private String company() {
 		return "company/company";
 	}
+
+//	// 공지사항 (notice_main.jsp)
+//	@GetMapping("/notice")
+//	private String notice(Model model) {
+//		int board_info_idx = 5;
+//		List<ContentBean> noticeList = companyService.getNoticeList(board_info_idx);
+//		model.addAttribute("noticeList", noticeList);
+//		return "company/notice_main";
+//	}
+////
+//	// 공지사항 글쓰기 (notice_write.jsp)
+//	@GetMapping("/notice_write")
+//	private String notice_write(Model model) {
+//		model.addAttribute("user_name", loginUserBean.getUser_nickname());
+//		model.addAttribute("board_info_idx",5);
+//		return "company/notice_write";
+//	}
+//	
+//	// 공지사항 글쓰기 (notice_write.jsp)
+//	@PostMapping("/notice_write_pro")
+//	private String notice_wirte_pro(@Valid @ModelAttribute("writeContentBean") ContentBean writeContentBean,
+//			BindingResult result, Model model) {
+//
+//		if (result.hasErrors()) {
+//			return "company/notice_write";
+//		}
+//
+//		boardService.addContent(writeContentBean);
+//
+//		int content_idx = boardService.getContentIdx();
+//
+//		model.addAttribute("content_idx", content_idx);
+//
+//		return "company/notice_write_success";
+//	}
 
 	// FAQ (faq.jsp)
 	@GetMapping("/faq")

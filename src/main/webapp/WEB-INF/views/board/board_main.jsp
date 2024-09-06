@@ -46,6 +46,107 @@
 <meta property="og:title" content="board_main">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+<style>
+.u-blog-post {
+	border: 1px solid #ddd;
+	border-left: none;
+	border-right: none;
+	background-color: #f9f9f9;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.u-blog-post:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.u-container-layout {
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.u-image {
+	width: 100%;
+	height: 180px;
+	object-fit: cover;
+	border-radius: 8px;
+	margin-bottom: 15px;
+}
+
+.u-text-2 {
+	font-size: 20px;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 10px;
+}
+
+.u-text-2 a {
+	color: #333;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.u-text-2 a:hover {
+	color: #f76c6c;
+}
+
+.u-text-3 {
+	font-size: 14px;
+	color: #666;
+	line-height: 1.6;
+	margin-bottom: 15px;
+	max-height: 80px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.u-metadata {
+	font-size: 13px;
+	color: #999;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.u-meta-author {
+	font-weight: bold;
+	color: #333;
+}
+
+.u-meta-date {
+	color: #999;
+}
+
+.u-post-tags {
+	font-size: 13px;
+	color: #f76c6c;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.u-post-tags a {
+	color: #f76c6c;
+	text-decoration: none;
+	margin-right: 8px;
+}
+
+.u-post-tags a:hover {
+	text-decoration: underline;
+}
+
+.u-repeater-1 {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+</style>
+
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
@@ -76,8 +177,9 @@
 							class="u-blog-post u-border-1 u-border-grey-75 u-border-no-left u-border-no-right u-palette-3-light-2 u-repeater-item u-repeater-item-1">
 							<div
 								class="u-container-layout u-similar-container u-valign-bottom-xs u-container-layout-1">
-								<a class="u-post-header-link" href="/blog/post-5.html"> <img
-									src="${root }images/8ad73f3c.jpeg" alt=""
+								<a class="u-post-header-link"
+									href="${root }board/board_read?board_info_idx=${obj.board_info_idx}&content_idx=${obj.content_idx}">
+									<img src="${root }images/8ad73f3c.jpeg" alt=""
 									class="u-blog-control u-image u-image-default u-image-1">
 
 								</a>
@@ -99,8 +201,10 @@
 
 								<div class="u-blog-control u-post-tags u-post-tags-1">
 
-									<a>${obj.content_hashTag1}</a>,<a>${obj.content_hashTag2}</a>,<a>${obj.content_hashTag3}</a>
 
+									<c:forEach var="hash" items="${obj.hashTags }">
+										<a>#${hash }</a>
+									</c:forEach>
 								</div>
 
 							</div>

@@ -16,6 +16,13 @@ import kr.co.softsoldesk.beans.UserBean;
 
 public interface CompanyMapper {
 
+//	// 공지사항 (notice_main.jsp)
+//	@Select("select c. content_idx, c.content_subject, c.content_date, u.user_idx AS user_idx, c.content_views"
+//			+ "from content c "
+//			+ "join users u on u.user_idx = c.user_idx "
+//			+ "where c.board_info_idx = #{board_info_idx}")
+//	List<ContentBean> getNoticeList(int board_info_idx);
+	
 	// FAQ 등록 (faq.jsp)
 	@Insert("insert into faq(faq_idx, faq_user_nickname, faq_user_email, faq_user_text, faq_date) values (faq_seq.nextval, #{faq_user_nickname}, #{faq_user_email}, #{faq_user_text}, SYSDATE)")
 	void addFaq(FaqBean addFaqBean);
@@ -33,7 +40,7 @@ public interface CompanyMapper {
 	int getFaqCnt();
 
 	// FAQ관리 - 응답
-	@Update("update faq set faq_answer = '확인' WHERE faq_idx = #{faq_idx}")
+	@Update("update faq set faq_answer = '確認' WHERE faq_idx = #{faq_idx}")
 	void updateFaqAnswerToConfirmed(@Param("faq_idx") int faqIdx);
 
 	// FAQ관리 - 삭제

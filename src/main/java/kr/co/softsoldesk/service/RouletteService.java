@@ -28,8 +28,8 @@ public class RouletteService {
 
 		Calendar today = Calendar.getInstance();
 
-		System.out.println(" 오늘 " + today.get(Calendar.DAY_OF_YEAR));
-		System.out.println(" 이전 " + lastSpinCal.get(Calendar.DAY_OF_YEAR));
+//		System.out.println(" 오늘 " + today.get(Calendar.DAY_OF_YEAR));
+//		System.out.println(" 이전 " + lastSpinCal.get(Calendar.DAY_OF_YEAR));
 		
 		if (today.get(Calendar.DAY_OF_YEAR) != lastSpinCal.get(Calendar.DAY_OF_YEAR)) {
 			// 사용자가 룰렛을 한 번도 돌리지 않은 경우

@@ -20,6 +20,11 @@ public class CompanyDAO {
 
 	// ------------------------------
 
+//	// 공지사항 (notice_main.jsp)
+//	public List<ContentBean> getNoticeList(int board_info_idx) {
+//		return companyMapper.getNoticeList(board_info_idx);
+//	}
+
 	// FAQ 등록 (faq.jsp)
 	public void addFaq(FaqBean addFaqBean) {
 		companyMapper.addFaq(addFaqBean);
@@ -39,7 +44,7 @@ public class CompanyDAO {
 	public void deleteFaq(int faq_idx) {
 		companyMapper.deleteFaq(faq_idx);
 	}
-	
+
 	// FAQ관리 - FAQ확인
 	public void updateFaqAnswerToConfirmed(int faq_idx) {
 		companyMapper.updateFaqAnswerToConfirmed(faq_idx);
@@ -54,12 +59,12 @@ public class CompanyDAO {
 	public List<UserBean> getUserList_mostContent() {
 		return companyMapper.getUserList_mostContent();
 	}
-	
+
 	// 관리자 홈 - 포인트 TOP 5
 	public List<UserBean> getUserList_mostPoint() {
 		return companyMapper.getUserList_mostPoint();
 	}
-	
+
 	// 관리자 홈 - 관리자 리스트
 	public List<UserBean> getUserList_admin() {
 		return companyMapper.getUserList_admin();
@@ -69,27 +74,27 @@ public class CompanyDAO {
 	public List<Integer> getUserList_flow() {
 		return companyMapper.getUserList_flow();
 	}
-	
+
 	// 관리자 홈 - 일주일간 가입한 회원 수
-	public int getNewUserCount () {
+	public int getNewUserCount() {
 		return companyMapper.getNewUserCount();
 	}
-	
+
 	// 관리자 홈 - 일주일간 들어온 FAQ 수
-	public int getNewFaqCount () {
+	public int getNewFaqCount() {
 		return companyMapper.getNewFaqCount();
 	}
-	
+
 	// 관리자 홈 - 일주일간 들어온 게시글 수
-	public int getNewContentCount () {
+	public int getNewContentCount() {
 		return companyMapper.getNewContentCount();
 	}
-	
+
 	// 관리자 홈 - 일주일간 들어온 댓글 수
-	public int getNewCommentCount () {
+	public int getNewCommentCount() {
 		return companyMapper.getNewCommentCount();
 	}
-	
+
 	// 상태메시지 get (profile_modify.jsp)
 	public String getAdminNotice() {
 		return companyMapper.getAdminNotice();
