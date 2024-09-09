@@ -284,6 +284,174 @@
     margin-right: 5px; /* 화살표와 텍스트 사이의 여백 설정 */
 }
 
+
+
+
+
+/* write와 같은 css */
+
+
+
+
+/* 공통 스타일 */
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #F8EDEB;
+    color: #6D6875;
+}
+
+.form-wrapper, .read-wrapper {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #FAE1DD;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.mk-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px;
+}
+
+/* 글쓰기 페이지의 타이틀 스타일 */
+.form-title, .read-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #B5838D;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 입력 필드 및 텍스트 영역 스타일 */
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* 글 읽기 페이지의 테이블 스타일 추가 */
+.read-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.read-group label {
+    font-weight: bold;
+    color: #6D6875;
+    margin-bottom: 8px;
+}
+
+.read-group .content {
+    background-color: #FFF0F0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #B5838D;
+    margin-bottom: 20px;
+}
+
+/* 이미지가 튀어나오지 않도록 조정 */
+.read-group img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}
+
+/* 업로드 섹션 */
+.upload-section {
+    margin-top: 20px;
+    text-align: center;
+    border: 2px dashed #B5838D;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #FFF0F0;
+}
+
+/* 업로드 파일의 텍스트 스타일 */
+.upload-section input[type="file"] {
+    margin-top: 10px;
+}
+
+.upload-section label {
+    font-weight: bold;
+    color: #B5838D;
+}
+
+/* 해시태그 스타일 */
+.hashtag-item {
+    display: inline-block;
+    background-color: #FFE5E5;
+    color: #B5838D;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+}
+
+.hashtag-item button {
+    background: none;
+    border: none;
+    color: #B5838D;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* 푸터 */
+.form-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+.mk-form-content {
+    width: 900px; /* 좌우 길이 900px */
+    background-color: #fff; /* 흰색 배경 */
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+
+
+/* 즐겨찾기버튼 */
+.u-file-icon img {
+    border-radius: 50%; /* 이미지를 원형으로 */
+    border: 2px solid #f4a261; /* 테두리 추가, 필요에 따라 색상 조정 */
+    width: 100px; /* 이미지 크기 조정 */
+    height: 100px; /* 이미지 크기 조정 */
+    object-fit: cover; /* 이미지가 영역을 꽉 채우도록 */
+}
+
+
+/* 우측정렬을 시키기 위한 부모값 */
+.parent-element {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mk-hash-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px;
+   	margin: 10px;
+}
+
+.iconSize {
+    width: 50px; /* 가로 크기 */
+    height: 50px; /* 세로 크기 */
+    object-fit: cover; /* 이미지 비율을 유지하며 잘라냄 */
+}
+
 </style>
 </head>
 <body data-path-to-root="/" data-include-products="false"
@@ -291,78 +459,53 @@
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
 	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
 
-	<section class="u-clearfix u-section-2" id="sec-0fc5">
-		<div class="u-clearfix u-sheet u-sheet-1">
-			<p class="u-align-center u-text u-text-default u-text-1">Read</p>
-			<p class="u-align-center u-text u-text-default u-text-2">views_${readContent.content_views }</p>
-			<p class="u-align-center u-text u-text-default u-text-3">댓글수 : ${count}</p>
-			<div
-				class="data-layout-selected u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
-				<div class="u-layout">
-					<div class="u-layout-col">
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-1">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-1">
-										<p class="u-align-center u-text u-text-default u-text-4">제목
-										</p>
-									</div>
-								</div>
-								<div
-									class="u-container-style u-layout-cell u-size-51 u-layout-cell-2">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-container-layout-2">
-										<p class="u-text u-text-default u-text-5">
-											${readContent.content_subject }</p>
-										<a
-											class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1" id="addfavorite">
-											<span class="u-file-icon u-icon u-text-palette-1-light-1 u-icon-1">
-												<img src= "${root }${img}"/>
-											</span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-3">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-3">
-										<p class="u-align-center u-text u-text-default u-text-6">
-											작성자<br>
-										</p>
-									</div>
-								</div>
-								<div
-									class="u-container-style u-layout-cell u-size-51 u-layout-cell-4">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-container-layout-4">
-										<!-- 안되면 p를 지워봥 -->
-										<p class="u-text u-text-default u-text-7">
-										<c:choose>
-											<c:when test="${readContent.content_isAnonymous eq false}">
-												<button
-											class="wonil_modal_user_button u-text u-text-default u-text-7"
-											id="wonil_modal_user_name">${readContent.user_name}
-										</button>}</p>
-											</c:when>
-											<c:otherwise>
-												익명
-											</c:otherwise>
-										</c:choose>
+<section class="form-wrapper" id="sec-0fc5">
+	<div class="mk-header-container">
+       	<div class="parent-element">
+       		<div class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1" id="addfavorite">
+					<img class="iconSize" src= "${root }${img}"/>					
+			</div>
+		</div>
+		<div class="read-title">${readContent.content_subject}</div>
+		<div>조회수 : ${readContent.content_views }</div>
+	</div>
+        <div class="form-group">
+            <label>작성자</label>
+             <c:choose>
+				<c:when test="${readContent.content_isAnonymous eq false}">
+					<button class="wonil_modal_user_button u-text u-text-default u-text-7" id="wonil_modal_user_name">
+						${readContent.user_name}
+					</button>
+				</c:when>
+				<c:otherwise>
+					익명
+				</c:otherwise>
+			</c:choose>
+        </div>
 
-										
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
-						<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+        <div class="form-group">
+            <label>작성 날짜</label>
+            <p class="form-control">${readContent.content_date}</p>
+        </div>
+ 		<label>내용</label>
+        <div class="mk-form-content">
+            											<c:if test="${not empty readContent.content_files}">
+												<div style="text-align: center;">
+													<c:forEach var="file" items="${readContent.content_files}">
+														<label for="content_file"></label>
+														<img src="${root}getProfileImage/${file}" width="50%"
+															style="margin-bottom: 10px;" />
+													</c:forEach>
+												</div>
+											</c:if>
+											${readContent.content_text }
+        </div>
+        
+        <div id="hashtag-container">
+        	<div></div>
+        </div>
+        <!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+		<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
 
 						<div id="wonil_modal" class="wonil_modal">
 							<div class="wonil_modal_content">
@@ -382,132 +525,38 @@
 							</div>
 						</div>
 
-						<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
-						<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+		<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+		<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
 
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-5">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-5">
-										<p class="u-align-center u-text u-text-default u-text-8">작성날짜
-										</p>
-									</div>
-								</div>
-								<div
-									class="u-container-style u-layout-cell u-size-51 u-layout-cell-6">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-container-layout-6">
-										<p class="u-text u-text-default u-text-9">
-											${readContent.content_date }</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-60 u-layout-cell-7">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-7">
-										<p class="u-align-center u-text u-text-default u-text-10">
-											내용<br>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="cell-temp-clone u-container-style u-layout-cell u-size-60 u-layout-cell-8">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-container-layout-8">
-										<p class="u-text u-text-default u-text-11">
-											<c:if test="${not empty readContent.content_files}">
-												<div class="form-group" style="text-align: center;">
-													<c:forEach var="file" items="${readContent.content_files}">
-														<label for="content_file"></label>
-														<img src="${root}getProfileImage/${file}" width="50%"
-															style="margin-bottom: 10px;" />
-													</c:forEach>
-												</div>
-											</c:if>
-
-
-											${readContent.content_text }
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 첨부 이미지 띄울 곳 -->
-
-					</div>
-				</div>
+        
+        
+        <div class="mk-hash-container">
+        <div>
+        	<label>해시태그</label>
+       		<c:forEach var="hashtag" items="${hashTag}">
+          	  <a class="hashtag-items">#${hashtag}  </a>
+      		</c:forEach>
+        </div>
+        <div>
+        <c:if test="${readContent.user_idx == user_idx }">
+				<a href="${root }board/board_modify?content_idx=${content_idx }&board_info_idx=${board_info_idx}"
+				style="padding: 10px 20px; background-color: #FFCDB2; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">수정</a>
+			</c:if>
+		<c:choose>
+			<c:when test="${board_info_idx == 4}">
+				<a href="${root }board/board_main_share?board_info_idx=${board_info_idx}"
+				style="padding: 10px 20px; background-color: #E5989B; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">목록</a>
+			</c:when>
+			<c:otherwise>
+				<a href="${root }board/board_main?board_info_idx=${board_info_idx}"
+				style="padding: 10px 20px; background-color: #E5989B; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">목록</a>
+			</c:otherwise>
+		</c:choose>
 			</div>
 		</div>
-	</section>
-	<section class="u-clearfix u-section-3" id="sec-8618">
-		<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-			<div class="u-list u-list-1">
-				<div class="u-repeater u-repeater-1">
-					<div class="u-container-style u-list-item u-repeater-item">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-1">
-							<a href="#"
-								class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-button-style u-custom-item u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-1">hashtag1
-							</a>
-						</div>
-					</div>
-					<div class="u-container-style u-list-item u-repeater-item">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-2">
-							<a href="#"
-								class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-button-style u-custom-item u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-2">
-								hashtag2</a>
-						</div>
-					</div>
-					<div class="u-container-style u-list-item u-repeater-item">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-3">
-							<a href="#"
-								class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-button-style u-custom-item u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-3">
-								hashtag3</a>
-						</div>
-
-					</div>
-
-				</div>
-
-				<div class="u-repeater u-repeater-2"
-					style="display: flex; justify-content: flex-end; align-items: center;">
-					<div class="u-container-style u-list-item u-repeater-item"
-						style="display: flex; gap: 10px;">
-						<div>
-							<div class="u-container-style u-list-item u-repeater-item">
-								<a
-									href="${root }board/board_main?board_info_idx=${board_info_idx}"
-									class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white ">목록
-								</a>
-								<c:if test="${readContent.user_idx == user_idx }">
-									<a
-										href="${root }board/board_modify?content_idx=${content_idx }&board_info_idx=${board_info_idx}"
-										class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white ">수정
-									</a>
-								</c:if>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+</section>
 	<section class="u-align-center u-clearfix u-section-4" id="sec-8bdb">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<div
-				class="u-align-center u-border-1 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
 			<div
 				class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
 				<div class="u-layout">
@@ -515,8 +564,10 @@
 						<div class="mk-u-size-60">
 
 							<!-- 댓글 출력 구간 -->
-							<div class="mk-comment-section" id="commentListArea"></div>
-
+							<div class="mk2-comment-box">
+								<div>댓글 수 : ${count}</div>
+								<div class="mk-comment-section" id="commentListArea"></div>
+							</div>
 						</div>
 						<!-- 댓글 입력 구간 -->
 						<form action="${root }board/addComment"
@@ -847,24 +898,42 @@
 					})
 				})
 				</script>
-				
-
 		</div>
 	</section>
-	
 	<section class="u-clearfix u-section-5" id="sec-5822">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<a href="#"
+		<c:if test="${not empty nextContent}">
+			<a href="${root}/board/board_read?content_idx=${nextContent.content_idx}&board_info_idx=${board_info_idx}"
 				class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-1">Next&nbsp;<span
-				class="u-icon u-text-white"><svg class="u-svg-content"
-						viewBox="0 0 512 512" x="0px" y="0px"
+				class="u-icon u-text-white">
+			<svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px"
 						style="width: 1em; height: 1em;">
 						<path
 							d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068 c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557 l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104 c0.006-.006,0.011-.013,0.018-.019C513.968,262.339,513.943,249.635,506.134,241.843z"></path></svg></span>
-			</a> <a href="#"
-				class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-2"><span
-				class="u-file-icon u-icon u-text-white"><img
-					src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;Next </a>
+			</a>
+			</c:if>
+			<c:if test="${empty nextContent}">
+			<a class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-1" id="nextButton">없음&nbsp;<span
+				class="u-icon u-text-white">
+			<svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px"
+						style="width: 1em; height: 1em;">
+						<path
+							d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068 c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557 l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104 c0.006-.006,0.011-.013,0.018-.019C513.968,262.339,513.943,249.635,506.134,241.843z"></path></svg></span>
+			</a>
+			</c:if>
+			
+			<c:if test="${not empty previousContent}">
+	    		<a href="${root}/board/board_read?content_idx=${previousContent.content_idx}&board_info_idx=${board_info_idx}"
+				class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-2">
+				<span class="u-file-icon u-icon u-text-white">
+				<img src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;Next </a>
+			</c:if>
+			<c:if test="${empty previousContent}">
+			<a class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-2" id="previousButton">
+  			  <span class="u-file-icon u-icon u-text-white">
+				<img src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;없음 </a>
+			</c:if>
+
 		</div>
 	</section>
 
@@ -923,11 +992,34 @@
         document.getElementById("wonil_modal").style.display = "none";
     };
 
+    
     window.onclick = function(event) {
         if (event.target == document.getElementById("wonil_modal")) {
             document.getElementById("wonil_modal").style.display = "none";
         }
     };
+</script>
+
+<script>
+
+$(document).ready(function() {
+    var previousButton = document.getElementById("previousButton");
+    if (previousButton) {
+        previousButton.addEventListener("click", function() {
+            alert("가장 마지막글입니다.");
+        });
+    }
+});
+
+$(document).ready(function() {
+    var previousButton = document.getElementById("nextButton");
+    if (previousButton) {
+        previousButton.addEventListener("click", function() {
+            alert("가장 최신글입니다.");
+        });
+    }
+});
+
 </script>
 
 

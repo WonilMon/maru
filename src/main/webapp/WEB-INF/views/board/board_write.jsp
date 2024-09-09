@@ -166,7 +166,7 @@ body {
 
 			<div class="form-group">
 				<label>작성자</label>
-				<p><c:choose>
+				<span><c:choose>
 													<c:when test="${img == anonymousOff }">
 														${user_name }
 														<form:hidden path="content_isAnonymous" value="false" />
@@ -175,7 +175,7 @@ body {
 														익명
 														<form:hidden path="content_isAnonymous" value="true" />
 													</c:otherwise>
-												</c:choose></p>
+												</c:choose></span>
 												<c:if test="${board_info_idx == 2 }">
 											<a
 												class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1"
@@ -189,7 +189,7 @@ body {
 
 			<div class="form-group">
 				<label>작성날짜</label>
-				<p>${now}</p>
+				<p>${today}</p>
 			</div>
 
 			<div class="form-group">
@@ -219,11 +219,18 @@ body {
 
 
 			<div class="form-footer">
-				<a
-					href="board_main?board_info_idx=${writeContentBean.board_info_idx}"
-					style="padding: 10px 20px; background-color: #FFCDB2; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">목록</a>
-				<form:button type="submit"
-					style="padding: 10px 20px; background-color: #E5989B; color: white; border: none; border-radius: 5px;">등록</form:button>
+			
+			<c:choose>
+				<c:when test="${board_info_idx == 4}">
+					<a href="board_main_share?board_info_idx=${writeContentBean.board_info_idx}"
+					style="padding: 10px 20px; background-color: #FFCDB2; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">취소</a>
+				</c:when>
+				<c:otherwise>
+					<a href="board_main?board_info_idx=${writeContentBean.board_info_idx}"
+					style="padding: 10px 20px; background-color: #FFCDB2; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">취소</a>
+				</c:otherwise>
+			</c:choose>
+			<form:button type="submit" style="padding: 10px 20px; background-color: #E5989B; color: white; border: none; border-radius: 5px;">등록</form:button>
 			</div>
 		</form:form>
 	</section>

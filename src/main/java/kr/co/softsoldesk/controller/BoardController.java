@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -58,6 +59,39 @@ public class BoardController {
 	@GetMapping("/sharing_list")
 	private String sharing_list() {
 		return "board/sharing_list";
+	}
+	
+	
+	@GetMapping("/board_main_share")
+	private String board_main_share(@RequestParam("board_info_idx") int board_info_idx, Model model,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
+
+		String board_info_name = boardService.getBoardInfoName(board_info_idx);
+		List<ContentBean> contentList = boardService.getContentList(board_info_idx, page);
+		List<ContentBean> contentList2 = new ArrayList<ContentBean>();
+		
+		if (!contentList.isEmpty()) {
+			for (ContentBean content : contentList) {
+
+				if (!boardService.getContentFiles(content.getContent_idx()).isEmpty()) {
+					content.setContent_files(boardService.getContentFiles(content.getContent_idx()));
+				}
+				if (!boardService.getContentFiles(content.getContent_idx()).isEmpty()) {
+					content.setHashTags(boardService.getHashTags(content.getContent_idx()));
+				}
+
+				contentList2.add(content);
+
+			}
+		}
+		
+		model.addAttribute("board_info_name", board_info_name);
+		model.addAttribute("board_info_idx", board_info_idx);
+		model.addAttribute("contentList", contentList2);
+		PageBean pageBean = boardService.getContentCnt(board_info_idx, page);
+		model.addAttribute("pageBean", pageBean);
+		
+		return "board/board_main_share";
 	}
 
 	
@@ -177,8 +211,10 @@ public class BoardController {
 
 	@GetMapping("/board_read")
 	private String board_read(@RequestParam("content_idx") int content_idx,
-			@RequestParam("board_info_idx") int board_info_idx, Model model) {
-
+			@RequestParam("board_info_idx") int board_info_idx, Model model,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
+		
+		List<ContentBean> hashTagList = boardService.getContentList(board_info_idx, page);
 		boolean favorite_idx = boardService.getFavoriteIdx(content_idx, loginuserBean.getUser_idx());
 		int count = boardService.getCommentCount(content_idx);
 		ContentBean readContent = boardService.getReadContent(content_idx);
@@ -191,6 +227,13 @@ public class BoardController {
 		} else {
 			img = favoriteOn;
 		}
+		
+		List<String> hashTag = readContent.getHashTags();
+		
+		Map<String, Object> result = boardService.getNextContent(content_idx, board_info_idx);
+		ContentBean previousContent = (ContentBean) result.get("previousContent");
+	    ContentBean nextContent = (ContentBean) result.get("nextContent");
+		
 		model.addAttribute("user_name", loginuserBean.getUser_nickname());
 		model.addAttribute("readContent", readContent);
 		model.addAttribute("board_info_idx", board_info_idx);
@@ -202,39 +245,69 @@ public class BoardController {
 		model.addAttribute("favorite_idx", favorite_idx);
 		model.addAttribute("favoriteOn", favoriteOn);
 		model.addAttribute("favoriteOff", favoriteOff);
+		model.addAttribute("hashTagList", hashTagList);
+		model.addAttribute("hashTag", hashTag);
+		model.addAttribute("previousContent", previousContent);
+		model.addAttribute("nextContent", nextContent);
 		return "board/board_read";
-
 	}
 
 	@GetMapping("/board_modify")
 	private String board_modify(@RequestParam("content_idx") int content_idx,
 			@RequestParam("board_info_idx") int board_info_idx, Model model) {
-
+		
 		ContentBean modifyContent = boardService.getReadContent(content_idx);
-
+		List<String> hashTags = modifyContent.getHashTags();
+		
+		String hashTagsString = String.join(",", modifyContent.getHashTags());
+		
+		model.addAttribute("hashSize", hashTags.size());
 		model.addAttribute("modifyContent", modifyContent);
+		model.addAttribute("hashTagsString", hashTagsString);
 		model.addAttribute("board_info_idx", board_info_idx);
 		model.addAttribute("content_idx", content_idx);
 
 		return "board/board_modify";
 	}
 
-//	@PostMapping("/board_modify_pro")
-//	private String board_modify_pro(@Valid @ModelAttribute("modifyContent") ContentBean modifyContent,
-//			BindingResult result, Model model) {
-//
-//		if (result.hasErrors()) {
-//			System.out.println("에러발생");
-//			return "board/board_modify";
-//		}
-//		int content_idx = modifyContent.getContent_idx();
-//		int board_info_idx = modifyContent.getBoard_info_idx();
-//		model.addAttribute("content_idx", content_idx);
-//		model.addAttribute("board_info_idx", board_info_idx);
-//		boardService.updateContent(modifyContent);
-//		return "board/board_modify_success";
-//
-//	}
+	@PostMapping("/board_modify_pro")
+	private String board_modify_pro(@Valid @ModelAttribute("modifyContent") ContentBean modifyContent,
+			BindingResult result,@RequestParam("hashtags") String hashtags,  @RequestParam("content_idx") int content_idx ,
+			Model model) {
+
+		if (result.hasErrors()) {
+			System.out.println("에러발생");
+			return "board/board_modify";
+		}
+		
+		boardService.deleteHashTag(content_idx);
+		
+		int mk_content_idx = modifyContent.getContent_idx();
+		int board_info_idx = modifyContent.getBoard_info_idx();
+		model.addAttribute("content_idx", mk_content_idx);
+		model.addAttribute("board_info_idx", board_info_idx);
+		boardService.updateContent(modifyContent);
+		
+		for (MultipartFile file : modifyContent.getUpload_files()) {
+			if (!file.isEmpty()) {
+				System.out.println("파일 이름: " + file.getOriginalFilename());
+				System.out.println("파일 크기: " + file.getSize());
+			}
+		}
+		
+		List<String> hashtagList = Arrays.stream(hashtags.split(",")).map(String::trim).filter(tag -> !tag.isEmpty())
+				.collect(Collectors.toList());
+		
+		if (!hashtagList.isEmpty()) {
+			for (String tag : hashtagList) {
+				boardService.addHashTag(content_idx, tag);
+			}
+
+		}
+		
+		return "board/board_modify_success";
+
+	}
 
 	@GetMapping("/board_delete")
 	private String delete(@RequestParam("content_idx") int content_idx,

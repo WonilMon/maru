@@ -2,7 +2,9 @@ package kr.co.softsoldesk.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -72,12 +74,15 @@ public class BoardService {
 	public void addHashTag(int content_idx, String tag) {
 		boardDAO.addHashTag(content_idx, tag);
 	}
+	
+	public void deleteHashTag(int content_idx) {
+		boardDAO.deleteHashTag(content_idx);
+	}
 
 	public String getBoardInfoName(int board_info_idx) {
 
 		return boardDAO.getBoardInfoName(board_info_idx);
 	}
-
 	public List<BoardInfoBean> getBoardInfoList() {
 		List<BoardInfoBean> boardList = boardDAO.getBoardInfoList();
 
@@ -131,21 +136,25 @@ public class BoardService {
 
 		return pageBean;
 	}
-//
-//	public void updateContent(ContentBean modifyContentBean) {
-//
-//		MultipartFile upload_file = modifyContentBean.getUpload_file();
-//
-//		if (upload_file.getSize() > 0) {
-//
-//			String file_name = saveUploadFile(upload_file);
-//			modifyContentBean.setContent_file(file_name);
-//		}
-//
-//		modifyContentBean.setUser_idx(loginUserBean.getUser_idx());
-//
-//		boardDAO.updateContent(modifyContentBean);
-//	}
+
+	public void updateContent(ContentBean modifyContentBean) {
+		List<MultipartFile> upload_files = modifyContentBean.getUpload_files();
+
+		if (upload_files != null && !upload_files.isEmpty()) {
+			List<String> fileNames = new ArrayList<>();
+			for (MultipartFile file : upload_files) {
+				if (!file.isEmpty()) {
+					String file_name = saveUploadFile(file);
+					fileNames.add(file_name);
+				}
+			}
+			modifyContentBean.setContent_files(fileNames);
+		}
+
+		modifyContentBean.setUser_idx(loginUserBean.getUser_idx());
+
+		boardDAO.updateContent(modifyContentBean);
+	}
 
 	public void deleteContent(int content_idx) {
 		boardDAO.deleteContent(content_idx);
@@ -189,5 +198,28 @@ public class BoardService {
 	public boolean getFavoriteIdx(int content_idx, int user_idx) {
 		return boardDAO.getFavoriteIdx(content_idx, user_idx) == 0 ? true : false;
 	}
+	
+	
+	//다음글, 이전글
+	public Map<String, Object> getNextContent(int content_idx, int board_info_idx) {
+		List<ContentBean> nextList = boardDAO.selectContentList(board_info_idx);
+		
+		int next_content_idx = -1;
+		for (int i=0; i<nextList.size(); i++) {
+			if (nextList.get(i).getContent_idx() == content_idx) {
+				next_content_idx = i;
+				break;
+			}
+		}
+		ContentBean previousContent = (next_content_idx > 0) ? nextList.get(next_content_idx - 1) : null;
+        ContentBean nextContent = (next_content_idx >= 0 && next_content_idx < nextList.size() - 1) ? nextList.get(next_content_idx + 1) : null;
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("previousContent", previousContent);
+        result.put("nextContent", nextContent);
+        return result;
+	}
+	
+	
 
 }

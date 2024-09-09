@@ -6,5 +6,11 @@
 
 <script>
 	alert("삭제되었습니다.")
-	location.href="${root}board/board_main?board_info_idx=${board_info_idx}"
+	var board_info_idx = ${board_info_idx};
+	
+	if (board_info_idx == 4) {
+		location.href="${root}board/board_main_share?board_info_idx=" + board_info_idx;
+	} else{
+		location.href="${root}board/board_main?board_info_idx=" + board_info_idx;
+	}
 </script>

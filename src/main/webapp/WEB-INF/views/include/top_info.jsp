@@ -69,7 +69,7 @@
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }sharing/sharing_main" style="padding: 10px 20px;">おすそわけ</a>
+								href="${root }board/board_main_share?board_info_idx=4" style="padding: 10px 20px;">おすそわけ</a>
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
@@ -104,7 +104,7 @@
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }sharing/sharing_main" style="padding: 10px 20px;">おすそわけ</a>
+								href="${root }board/board_main_share?board_info_idx=4" style="padding: 10px 20px;">おすそわけ</a>
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
@@ -141,7 +141,7 @@
 										href="${root }board/board_prev_main">掲示板</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }sharing/sharing_main">おすそわけ</a></li>
+										href="${root }board/board_main_share?board_info_idx=4">おすそわけ</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link" href="${root }company/faq">FAQ</a></li>
 									<li class="u-nav-item"><a
@@ -167,12 +167,11 @@
 										href="${root }board/board_prev_main">掲示板</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }sharing/sharing_main">おすそわけ</a></li>
+										href="${root }board/board_main_share?board_info_idx=4">おすそわけ</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link" href="${root }company/faq">FAQ</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link" href="${root }user/register">会員登録</a></li>
-
 								</c:otherwise>
 							</c:choose>
 

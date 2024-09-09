@@ -30,6 +30,10 @@ public class BoardDAO {
 	public void addHashTag(int content_idx, String tag) {
 		boardMapper.addHashTag(content_idx, tag);
 	}
+	
+	public void deleteHashTag(int content_idx) {
+		boardMapper.deleteHashTag(content_idx);
+	}
 
 	public List<BoardInfoBean> getBoardInfoList() {
 		List<BoardInfoBean> boardList = boardMapper.getBoardInfoList();
@@ -46,6 +50,7 @@ public class BoardDAO {
 		// 파일 목록
 		List<String> contentFiles = boardMapper.getContentFiles(content_idx);
 		content.setContent_files(contentFiles);
+		
 		// 해시태그 목록
 		List<String> hashTags = boardMapper.getHashTags(content_idx);
 		content.setHashTags(hashTags);
@@ -129,6 +134,10 @@ public class BoardDAO {
 
 	public boolean anonymous(boolean content_isAnonymous) {
 		return boardMapper.anonymous(content_isAnonymous);
+	}
+	
+	public List<ContentBean> selectContentList(int board_info_idx) {
+	    return boardMapper.selectContentList(board_info_idx);
 	}
 
 }

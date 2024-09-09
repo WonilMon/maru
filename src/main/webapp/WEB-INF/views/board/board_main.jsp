@@ -183,7 +183,7 @@
 									class="u-blog-control u-image u-image-default u-image-1">
 
 								</a>
-								<h2 class="u-blog-control u-text u-text-2">
+								<h2 class="u-blog-control u-text u-txext-2">
 									<a class="u-post-header-link"
 										href='${root }board/board_read?board_info_idx=${obj.board_info_idx}&content_idx=${obj.content_idx}'>
 										${obj.content_subject}</a>
