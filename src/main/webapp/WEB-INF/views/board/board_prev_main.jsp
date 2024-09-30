@@ -59,11 +59,10 @@
 		id="sec-545a">
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<h2
-				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">게시판
+				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">掲示板
 			</h2>
 			<p
-				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-2">게시판을
-				고르세용</p>
+				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-2"></p>
 			<div class="u-expanded-width u-list u-list-1">
 				<div class="u-repeater u-repeater-1">
 				<c:forEach var="obj" items="${list }" varStatus="idx">
@@ -85,7 +84,7 @@
 								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-1"
 								data-animation-name="" data-animation-duration="0"
 								data-animation-delay="0" data-animation-direction="">
-								${boardList[idx.index].board_info_name }으로 가기</a>
+								${boardList[idx.index].board_info_name }に行く</a>
 						</div>
 					</div>
 					</c:forEach>

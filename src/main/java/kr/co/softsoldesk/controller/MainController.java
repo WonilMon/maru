@@ -17,9 +17,15 @@ import kr.co.softsoldesk.beans.Article;
 import kr.co.softsoldesk.beans.ContentBean;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.service.BoardService;
-
+import kr.co.softsoldesk.service.NewsService;
 @Controller
 public class MainController {
+
+	private final NewsService newsService;
+
+	public MainController(NewsService newsService) {
+		this.newsService = newsService;
+	}
 
 	@Autowired
 	private BoardService boardService;
@@ -33,18 +39,20 @@ public class MainController {
 	private String main(@ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean,
 			@RequestParam(value = "fail", defaultValue = "false") boolean fail, Model model) {
 
-
+//		List<Article> articles = newsService.getTopHeadlines();
 		List<ContentBean> today3Content = boardService.getToday3Content();
 		List<ContentBean> weekly3Content = boardService.getWeekly3Content();
 		List<ContentBean> monthly3Content = boardService.getMonthly3Content();
+		List<ContentBean> lastly6Sharing = boardService.getLastly6Sharing();
 
 		model.addAttribute("fail", fail);
 		model.addAttribute("loginUserBean", loginUserBean);
-
+//		model.addAttribute("articles", articles);
 		model.addAttribute("img", loginUserBean.getUser_img());
 		model.addAttribute("today3Content", today3Content);
 		model.addAttribute("weekly3Content", weekly3Content);
 		model.addAttribute("monthly3Content", monthly3Content);
+		model.addAttribute("lastly6Sharing", lastly6Sharing);
 
 		return "main";
 	}

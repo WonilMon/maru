@@ -47,6 +47,11 @@
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
 <style>
+.u-container-layout {
+	padding: 10px;
+	margin: 0 auto;
+}
+
 .u-blog-post {
 	border: 1px solid #ddd;
 	border-left: none;
@@ -67,7 +72,6 @@
 	padding: 15px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 }
 
 .u-image {
@@ -76,6 +80,10 @@
 	object-fit: cover;
 	border-radius: 8px;
 	margin-bottom: 15px;
+}
+
+.u-image-1 {
+	flex-shrink: 0;
 }
 
 .u-text-2 {
@@ -163,10 +171,10 @@
 			</p>
 
 			<a href="${root }board/board_write?board_info_idx=${board_info_idx }"
-				class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">글쓰기
+				class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-1">作成
 			</a> <a href="${root }board/board_prev_main"
-				class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-2">보드
-				홈 </a>
+				class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white u-btn-2">
+				ホーム </a>
 
 			<div class="u-blog u-blog-1">
 				<div class="u-list-control"></div>
@@ -176,14 +184,28 @@
 						<div
 							class="u-blog-post u-border-1 u-border-grey-75 u-border-no-left u-border-no-right u-palette-3-light-2 u-repeater-item u-repeater-item-1">
 							<div
-								class="u-container-layout u-similar-container u-valign-bottom-xs u-container-layout-1">
-								<a class="u-post-header-link"
+								class="u-container-layout u-similar-container u-valign-bottom-xs u-container-layout-1"
+								style="height: 200px;">
+								<a class="u-post-header-link" style="height: 10px;"
 									href="${root }board/board_read?board_info_idx=${obj.board_info_idx}&content_idx=${obj.content_idx}">
-									<img src="${root }images/8ad73f3c.jpeg" alt=""
-									class="u-blog-control u-image u-image-default u-image-1">
+
+
+									<c:choose>
+										<c:when test="${obj.test_file != null }">
+											<img src="${root}getProfileImage/${obj.test_file}" alt=""
+												class="u-blog-control u-image u-image-default u-image-1"
+												style="width: 200px; height: 150px;">
+										</c:when>
+										<c:otherwise>
+											<img src="${root }images/8ad73f3c.jpeg" alt=""
+												class="u-blog-control u-image u-image-default u-image-1"
+												style="width: 200px; height: 150px;">
+										</c:otherwise>
+									</c:choose>
 
 								</a>
-								<h2 class="u-blog-control u-text u-text-2">
+								<h2 class="u-blog-control u-text u-text-2"
+									style="margin-left: 250px; margin-top: 10px;">
 									<a class="u-post-header-link"
 										href='${root }board/board_read?board_info_idx=${obj.board_info_idx}&content_idx=${obj.content_idx}'>
 										${obj.content_subject}</a>
@@ -192,14 +214,25 @@
 								<div
 									class="u-blog-control u-post-content u-text u-text-3 fr-view">${obj.content_text }</div>
 
-								<div class="u-blog-control u-metadata u-metadata-1">
+								<div class="u-blog-control u-metadata u-metadata-1"
+									style="margin: 11px auto 0 250px;">
 
-									<span class="u-meta-author u-meta-icon">${obj.user_name}
-									</span> <span class="u-meta-date u-meta-icon">${obj.content_date }</span>
+									<c:choose>
+										<c:when test="${board_info_idx == 2 }">
+											<span class="u-meta-author u-meta-icon">匿名</span>
+										</c:when>
+										<c:otherwise>
+											<span class="u-meta-author u-meta-icon">${obj.user_name}</span>
+										</c:otherwise>
+									</c:choose>
+
+
+									<span class="u-meta-date u-meta-icon">${obj.content_date }</span>
 
 								</div>
 
-								<div class="u-blog-control u-post-tags u-post-tags-1">
+								<div class="u-blog-control u-post-tags u-post-tags-1"
+									style="margin: 11px auto 0 250px;">
 
 
 									<c:forEach var="hash" items="${obj.hashTags }">
@@ -226,7 +259,7 @@
 
 				</p>
 				<a href="#"
-					class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-1">Next&nbsp;<span
+					class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-1">前へ&nbsp;<span
 					class="u-icon u-text-white"><svg class="u-svg-content"
 							viewBox="0 0 512 512" x="0px" y="0px"
 							style="width: 1em; height: 1em;">
@@ -235,7 +268,7 @@
 				</a> <a href="#"
 					class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-2"><span
 					class="u-file-icon u-icon u-text-white"><img
-						src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;Next </a>
+						src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;次へ </a>
 			</div>
 	</section>
 

@@ -9,8 +9,9 @@ public class FavoriteBean {
 
 	private int user_idx;
 	private int content_idx;
-	
-	private int favorite_status;
+
+	// ---------------------------------------------------------------
+
 
 	// ---------------------------------------------------------------
 
@@ -38,12 +39,5 @@ public class FavoriteBean {
 		this.content_idx = content_idx;
 	}
 
-	public int getFavorite_status() {
-		return favorite_status;
-	}
 
-	public void setFavorite_status(int favorite_status) {
-		this.favorite_status = favorite_status;
-	}
-	
 }

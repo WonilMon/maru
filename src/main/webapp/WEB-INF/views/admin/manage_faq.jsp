@@ -177,7 +177,7 @@
 													end="${pageBean.max}">
 													<c:choose>
 														<c:when test="${page == pageBean.currentPage}">
-															<a href="${root}company/manage_user?page=${page}"
+															<a href="${root}company/manage_faq?page=${page}"
 																class="active">${page}</a>
 														</c:when>
 														<c:otherwise>

@@ -1,6 +1,5 @@
 package kr.co.softsoldesk.websocket;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -21,5 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 //        registry.addEndpoint("/chat-ws").setAllowedOrigins("http://localhost:8078/Maru/chat/room", "http://localhost:8078/Maru/main").withSockJS();
 		registry.addEndpoint("/chat-ws").withSockJS();
+
 	}
+
 }

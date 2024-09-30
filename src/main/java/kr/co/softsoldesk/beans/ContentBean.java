@@ -21,6 +21,8 @@ public class ContentBean {
 //	DB에 파일 이름을 담을 변수
 //	private String content_file;
 	private List<String> content_files;
+	
+	private String test_file;
 
 	private List<String> hashTags;
 
@@ -38,9 +40,12 @@ public class ContentBean {
 //	----------------------------------------------------------- ↓↓ DB 테이블에 없는 변수들 (추가한 변수들) ↓↓
 
 	private String user_name; // 유저 테이블에 있는 작성자 이름
+	private String user_icon;
 
 	private int content_comment_count;
 
+	private String board_info_name;
+	
 //	브라우저가 보낸 파일 데이터
 //	private MultipartFile upload_file;
 	private List<MultipartFile> upload_files;
@@ -150,6 +155,38 @@ public class ContentBean {
 
 	public void setHashTags(List<String> hashTags) {
 		this.hashTags = hashTags;
+	}
+
+	public String getTest_file() {
+		return test_file;
+	}
+
+	public void setTest_file(String test_file) {
+		this.test_file = test_file;
+	}
+
+	public int getFavorite_idx() {
+		return favorite_idx;
+	}
+
+	public void setFavorite_idx(int favorite_idx) {
+		this.favorite_idx = favorite_idx;
+	}
+
+	public String getBoard_info_name() {
+		return board_info_name;
+	}
+
+	public void setBoard_info_name(String board_info_name) {
+		this.board_info_name = board_info_name;
+	}
+
+	public String getUser_icon() {
+		return user_icon;
+	}
+
+	public void setUser_icon(String user_icon) {
+		this.user_icon = user_icon;
 	}
 
 }

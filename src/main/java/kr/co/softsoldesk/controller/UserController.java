@@ -44,13 +44,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import kr.co.softsoldesk.beans.ContentBean;
 import kr.co.softsoldesk.beans.IconBean;
 import kr.co.softsoldesk.beans.LineProfile;
+import kr.co.softsoldesk.beans.PageBean;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.groups.LoginGroup;
 import kr.co.softsoldesk.groups.ModifyGroup;
 import kr.co.softsoldesk.groups.RegisterGroup;
 import kr.co.softsoldesk.service.IconService;
+import kr.co.softsoldesk.service.LineLoginService;
 import kr.co.softsoldesk.service.UserIconService;
 import kr.co.softsoldesk.service.UserService;
 import kr.co.softsoldesk.validator.UserValidator;
@@ -62,13 +65,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-
-
 	@Autowired
 	private UserValidator userValidator;
 
 	@Autowired
 	private MailSender mailSender;
+
+	@Autowired
+	private LineLoginService lineLoginService;
 
 	@Autowired
 	private IconService iconService;
@@ -97,7 +101,8 @@ public class UserController {
 //	-------------------------------------------
 
 	@GetMapping("/profile")
-	private String profile(@RequestParam("user_idx") int user_idx, Model model, HttpSession session) {
+	private String profile(@RequestParam("user_idx") int user_idx, Model model, HttpSession session,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
 
 		UserBean profileUser = userService.getModifyUserInfo(user_idx);
 
@@ -111,10 +116,16 @@ public class UserController {
 
 		List<IconBean> userIcons = userIconService.getIconsByUserId(user_idx);
 
+		List<ContentBean> myList = userService.getMyList(user_idx, page);
+
+		PageBean pageBean = userService.getMyListCnt(user_idx, page);
+
 		model.addAttribute("img", img);
 		model.addAttribute("profileUser", profileUser);
 		model.addAttribute("iconPath", iconPath); // 프로필 아이콘 경로 추가
 		model.addAttribute("userIcons", userIcons);
+		model.addAttribute("myList", myList);
+		model.addAttribute("pageBean", pageBean);
 
 		return "user/profile";
 	}
@@ -271,6 +282,65 @@ public class UserController {
 		}
 	}
 
+	@PostMapping("/google")
+	@ResponseBody
+	public Map<String, Object> google(@RequestBody Map<String, String> request,
+			@ModelAttribute("tempLoginUserBean") UserBean tempLoginUserBean, Model model, HttpSession session) {
+
+		Map<String, Object> response = new HashMap<>();
+
+		tempLoginUserBean.setUser_email(request.get("api_email"));
+
+		userService.getLoginUserAPI(tempLoginUserBean);
+
+		if (loginUserBean.isUserLogin() == true) {
+			session.setAttribute("user_idx", loginUserBean.getUser_idx());
+			response.put("success", true);
+		} else {
+			response.put("success", false);
+		}
+		return response;
+	}
+
+	@RequestMapping("/line")
+	public String lineCallback(@RequestParam(value = "code", required = false) String code,
+			@RequestParam(value = "state", required = false) String state, HttpSession session, Model model) {
+
+		// Access Token과 Id Token을 동시에 가져옴
+		Map<String, String> tokens = lineLoginService.getTokens(code);
+		String accessToken = tokens.get("access_token");
+		String idToken = tokens.get("id_token");
+
+		// 사용자 프로필 정보 가져오기
+		LineProfile profile = lineLoginService.getUserProfile(accessToken);
+
+		// JWT 디코딩하여 이메일 추출
+		DecodedJWT decodedJWT = JWT.decode(idToken);
+		String user_email = decodedJWT.getClaim("email").asString();
+
+		System.out.println(profile.getUserId());
+		System.out.println(profile.getDisplayName());
+		System.out.println(user_email); // email 출력
+
+		// 사용자 정보를 세션에 저장
+		session.setAttribute("userProfile", profile);
+		model.addAttribute("tempLoginUserBean", new UserBean());
+
+		UserBean tempLoginUserBean = new UserBean();
+		tempLoginUserBean.setUser_email(user_email);
+
+		userService.getLoginUserAPI(tempLoginUserBean);
+
+		if (loginUserBean.isUserLogin() == true) {
+			session.setAttribute("user_idx", loginUserBean.getUser_idx());
+			return "user/login_success";
+		} else {
+			model.addAttribute("api_email", user_email);
+			model.addAttribute("addUserBean", new UserBean());
+			return "user/register";
+		}
+
+	}
 
 	@GetMapping("/not_login")
 	public String not_login() {

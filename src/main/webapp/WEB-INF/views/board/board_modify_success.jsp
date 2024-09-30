@@ -3,6 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var='root' value='${pageContext.request.contextPath}/'/>
 <script>
-	alert('수정되었습니다')
+	alert('投稿の編集に成功しました。')
 	location.href = '${root }board/board_read?content_idx=${content_idx}&board_info_idx=${board_info_idx}'
 </script>

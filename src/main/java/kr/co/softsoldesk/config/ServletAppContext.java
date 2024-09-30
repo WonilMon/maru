@@ -1,8 +1,9 @@
 package kr.co.softsoldesk.config;
 
-import javax.annotation.Resource;	
-
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -30,7 +33,8 @@ import kr.co.softsoldesk.service.UserService;
 @EnableWebMvc
 @ComponentScan("kr.co.softsoldesk.controller")
 @ComponentScan(basePackages = "kr.co.softsoldesk")
-@ComponentScan(basePackages = {"kr.co.softsoldesk.controller", "kr.co.softsoldesk.dao", "kr.co.softsoldesk.websocket", "kr.co.softsoldesk.service", "kr.co.softsoldesk.config"})
+@ComponentScan(basePackages = { "kr.co.softsoldesk.controller", "kr.co.softsoldesk.dao", "kr.co.softsoldesk.websocket",
+		"kr.co.softsoldesk.service", "kr.co.softsoldesk.config" })
 public class ServletAppContext implements WebMvcConfigurer {
 //WebMvcConfigurer: Spring MVC 프로젝트 설정 인터페이스
 
@@ -96,6 +100,7 @@ public class ServletAppContext implements WebMvcConfigurer {
 		ShopInterceptor shopInterceptor = new ShopInterceptor(loginUserBean);
 		InterceptorRegistration reg5 = registry.addInterceptor(shopInterceptor);
 		reg5.addPathPatterns("/shop/**");
+
 	}
 
 	// 에러메시지 등록
@@ -118,5 +123,26 @@ public class ServletAppContext implements WebMvcConfigurer {
 		return new StandardServletMultipartResolver();
 	}
 
+	//-------웹소켓 비동기지원 활성화----------
+	@Bean
+	public DispatcherServlet dispatcherServlet() {
+	    return new DispatcherServlet();
+	}
+	
+	@Bean
+	public ServletRegistrationBean<DispatcherServlet> dispatcherServletRegistration(DispatcherServlet dispatcherServlet) {
+	    ServletRegistrationBean<DispatcherServlet> registration = new ServletRegistrationBean<>(dispatcherServlet);
+	    registration.addUrlMappings("/");
+	    registration.setAsyncSupported(true); // 비동기 지원 활성화
+	    return registration;
+	}
+
+	@Bean
+	public FilterRegistrationBean<CharacterEncodingFilter> characterEncodingFilterRegistration() {
+	    FilterRegistrationBean<CharacterEncodingFilter> registration = new FilterRegistrationBean<>();
+	    registration.setFilter(new CharacterEncodingFilter());
+	    registration.setAsyncSupported(true); // 비동기 지원 활성화
+	    return registration;
+	}
 
 }

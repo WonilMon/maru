@@ -4,6 +4,6 @@
 <c:set var='root' value='${pageContext.request.contextPath }/'/>
 
 <script>
-	alert('작성되었습니다')
+	alert('投稿の作成に成功しました。')
 	location.href = '${root}board/board_read?board_info_idx=${board_info_idx}&content_idx=${content_idx}'
 </script>

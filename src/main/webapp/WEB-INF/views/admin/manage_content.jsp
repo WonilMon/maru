@@ -103,11 +103,7 @@
 
 												<!-- 검색 바 -->
 												<div class="wonil_search-bar">
-													<select id="wonil_select">
-														<option value="">--選択--</option>
-														<option value="">タイトル</option>
-														<option value="">ニックネーム</option>
-													</select> <input type="text" id="wonil_search_input"
+													<input type="text" id="wonil_search_input"
 														placeholder="入力してください">
 													<button id="wonil_search_button">検索</button>
 													<button id="wonil_reset_button">取消</button>

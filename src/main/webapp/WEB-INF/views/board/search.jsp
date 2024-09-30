@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!-- 절대경로 (어떤 폴더건 상관없이) -->
 <c:set var="root" value="${pageContext.request.contextPath }/" />
@@ -147,33 +148,51 @@
 
 	<section class="u-align-center u-clearfix u-section-2" id="sec-ea52">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<p class="u-align-left u-text u-text-default u-text-1">검색 결과</p>
+			<p class="u-align-left u-text u-text-default u-text-1">検索結果</p>
 
 			<!-- 검색 결과 헤더 -->
 			<div class="search-results-header">
-				<div>게시판</div>
-				<div>제목</div>
-				<div>내용</div>
-				<div>작성자</div>
-				<div>댓글수</div>
-				<div>작성날짜</div>
+				<div>掲示板</div>
+				<div>タイトル</div>
+				<div>内容</div>
+				<div>投稿者</div>
+				<div>コメント数</div>
+				<div>投稿日時</div>
 			</div>
 
 			<!-- 검색 결과 리스트 -->
 			<div class="search-results-container">
 				<c:forEach var="obj" items="${searchList}">
 					<div class="search-result-item">
-						<div class="result-category">${obj.board_info_idx}</div>
+
+						<c:choose>
+							<c:when test="${obj.board_info_idx == 3}">
+								<div class="result-category">${fn:substring(obj.board_info_name, 0, 4)}</div>
+							</c:when>
+							<c:when test="${obj.board_info_idx == 4}">
+								<div class="result-category">${obj.board_info_name}</div>
+							</c:when>
+							<c:when test="${obj.board_info_idx == 5}">
+								<div class="result-category">${fn:substring(obj.board_info_name, 0, 4)}</div>
+							</c:when>
+							<c:otherwise>
+								<div class="result-category">${fn:substring(obj.board_info_name, 0, 2)}</div>
+							</c:otherwise>
+						</c:choose>
+
+
 						<div class="result-title">
-							<a href="${result.link}">${obj.content_subject}</a>
+							<a
+								href="${root }board/board_read?board_info_idx=${obj.board_info_idx}&content_idx=${obj.content_idx}">${obj.content_subject}</a>
 						</div>
 						<div class="result-content">${obj.content_text}</div>
-						<div class="result-comments">${obj.user_idx}</div>
-						<div class="result-comments">${obj.user_idx}댓글</div>
+						<div class="result-comments">${obj.user_name}</div>
+						<div class="result-comments">${obj.content_comment_count}</div>
 						<div class="result-date">${obj.content_date}</div>
 					</div>
 				</c:forEach>
 			</div>
+
 
 			<!-- 페이지네이션 -->
 			<div class="wonil_pagination">
@@ -184,13 +203,11 @@
 				<c:forEach var="page" begin="${pageBean.min}" end="${pageBean.max}">
 					<c:choose>
 						<c:when test="${page == pageBean.currentPage}">
-							<a
-								href="${root}search/main?page=${page}&keyWord=${keyWord}"
+							<a href="${root}search/main?page=${page}&keyWord=${keyWord}"
 								class="active">${page}</a>
 						</c:when>
 						<c:otherwise>
-							<a
-								href="${root}search/main?page=${page}&keyWord=${keyWord}">${page}</a>
+							<a href="${root}search/main?page=${page}&keyWord=${keyWord}">${page}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>

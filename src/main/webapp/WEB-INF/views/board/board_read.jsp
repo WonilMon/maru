@@ -49,7 +49,6 @@
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
 <style>
-
 .mk-u-size-60 {
 	flex: 60 0 auto;
 	justify-content: center;
@@ -161,23 +160,23 @@
 }
 
 .mk-reply-item {
-    padding: 10px;
-    background-color: #f5f5f5;
-    border-left: 3px solid #B5838D;
-    margin-left: 20px; /* 부모 댓글과 시각적 구분을 위해 들여쓰기 */
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: none;
-    position: relative;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-left: 3px solid #B5838D;
+	margin-left: 20px; /* 부모 댓글과 시각적 구분을 위해 들여쓰기 */
+	margin-bottom: 10px;
+	border-radius: 5px;
+	box-shadow: none;
+	position: relative;
 }
 
 .mk-reply-item::before {
-    content: "↳";
-    position: absolute;
-    left: -15px; /* 대댓글 앞에 위치할 수 있도록 조정 */
-    top: 10px;
-    font-size: 16px;
-    color: #888;
+	content: "↳";
+	position: absolute;
+	left: -15px; /* 대댓글 앞에 위치할 수 있도록 조정 */
+	top: 10px;
+	font-size: 16px;
+	color: #888;
 }
 
 .comment-box {
@@ -278,12 +277,167 @@
 }
 
 .mk-reply-arrow {
-    font-size: 14px; /* 적절한 크기로 설정 */
-    color: #888; /* 화살표 색상 설정 */
-    display: inline-block; /* 블록 요소로 설정하여 정렬 문제 해결 */
-    margin-right: 5px; /* 화살표와 텍스트 사이의 여백 설정 */
+	font-size: 14px; /* 적절한 크기로 설정 */
+	color: #888; /* 화살표 색상 설정 */
+	display: inline-block; /* 블록 요소로 설정하여 정렬 문제 해결 */
+	margin-right: 5px; /* 화살표와 텍스트 사이의 여백 설정 */
 }
 
+/* write와 같은 css */
+
+/* 공통 스타일 */
+body {
+	font-family: 'Noto Sans', sans-serif;
+	background-color: #F8EDEB;
+	color: #6D6875;
+}
+
+.form-wrapper, .read-wrapper {
+	max-width: 1000px;
+	margin: 30px auto;
+	padding: 30px;
+	background-color: #FAE1DD;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.mk-header-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	padding: 10px;
+}
+
+/* 글쓰기 페이지의 타이틀 스타일 */
+.form-title, .read-title {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #B5838D;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+/* 입력 필드 및 텍스트 영역 스타일 */
+.form-group label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+/* 글 읽기 페이지의 테이블 스타일 추가 */
+.read-group {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+.read-group label {
+	font-weight: bold;
+	color: #6D6875;
+	margin-bottom: 8px;
+}
+
+.read-group .content {
+	background-color: #FFF0F0;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #B5838D;
+	margin-bottom: 20px;
+}
+
+/* 이미지가 튀어나오지 않도록 조정 */
+.read-group img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	margin-top: 10px;
+}
+
+/* 업로드 섹션 */
+.upload-section {
+	margin-top: 20px;
+	text-align: center;
+	border: 2px dashed #B5838D;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #FFF0F0;
+}
+
+/* 업로드 파일의 텍스트 스타일 */
+.upload-section input[type="file"] {
+	margin-top: 10px;
+}
+
+.upload-section label {
+	font-weight: bold;
+	color: #B5838D;
+}
+
+/* 해시태그 스타일 */
+.hashtag-item {
+	display: inline-block;
+	background-color: #FFE5E5;
+	color: #B5838D;
+	padding: 5px 10px;
+	margin: 5px;
+	border-radius: 20px;
+	font-size: 0.875rem;
+}
+
+.hashtag-item button {
+	background: none;
+	border: none;
+	color: #B5838D;
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+/* 푸터 */
+.form-footer {
+	text-align: center;
+	margin-top: 30px;
+}
+
+.mk-form-content {
+	width: 900px; /* 좌우 길이 900px */
+	background-color: #fff; /* 흰색 배경 */
+	padding: 20px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	text-align: center;
+}
+
+/* 즐겨찾기버튼 */
+.u-file-icon img {
+	border-radius: 50%; /* 이미지를 원형으로 */
+	border: 2px solid #f4a261; /* 테두리 추가, 필요에 따라 색상 조정 */
+	width: 100px; /* 이미지 크기 조정 */
+	height: 100px; /* 이미지 크기 조정 */
+	object-fit: cover; /* 이미지가 영역을 꽉 채우도록 */
+}
+
+/* 우측정렬을 시키기 위한 부모값 */
+.parent-element {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.mk-hash-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	padding: 10px;
+	margin: 10px;
+}
+
+.iconSize {
+	width: 50px; /* 가로 크기 */
+	height: 50px; /* 세로 크기 */
+	object-fit: cover; /* 이미지 비율을 유지하며 잘라냄 */
+}
 </style>
 </head>
 <body data-path-to-root="/" data-include-products="false"
@@ -291,232 +445,126 @@
 	<c:import url="/WEB-INF/views/include/top_info.jsp"></c:import>
 	<c:import url="/WEB-INF/views/include/first_section_sub.jsp"></c:import>
 
-	<section class="u-clearfix u-section-2" id="sec-0fc5">
-		<div class="u-clearfix u-sheet u-sheet-1">
-			<p class="u-align-center u-text u-text-default u-text-1">Read</p>
-			<p class="u-align-center u-text u-text-default u-text-2">views_${readContent.content_views }</p>
-			<p class="u-align-center u-text u-text-default u-text-3">댓글수 : ${count}</p>
-			<div
-				class="data-layout-selected u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
-				<div class="u-layout">
-					<div class="u-layout-col">
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-1">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-1">
-										<p class="u-align-center u-text u-text-default u-text-4">제목
-										</p>
-									</div>
-								</div>
-								<div
-									class="u-container-style u-layout-cell u-size-51 u-layout-cell-2">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-container-layout-2">
-										<p class="u-text u-text-default u-text-5">
-											${readContent.content_subject }</p>
-										<a
-											class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1" id="addfavorite">
-											<span class="u-file-icon u-icon u-text-palette-1-light-1 u-icon-1">
-												<img src= "${root }${img}"/>
-											</span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-3">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-3">
-										<p class="u-align-center u-text u-text-default u-text-6">
-											작성자<br>
-										</p>
-									</div>
-								</div>
-								<div
-									class="u-container-style u-layout-cell u-size-51 u-layout-cell-4">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-container-layout-4">
-										<!-- 안되면 p를 지워봥 -->
-										<p class="u-text u-text-default u-text-7">
-										<c:choose>
-											<c:when test="${readContent.content_isAnonymous eq false}">
-												<button
-											class="wonil_modal_user_button u-text u-text-default u-text-7"
-											id="wonil_modal_user_name">${readContent.user_name}
-										</button>}</p>
-											</c:when>
-											<c:otherwise>
-												익명
-											</c:otherwise>
-										</c:choose>
+	<section class="form-wrapper" id="sec-0fc5">
+		<div class="mk-header-container">
+			<div class="parent-element">
+				<div
+					class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1"
+					id="addfavorite">
+					<img class="iconSize" src="${root }${img}" />
+				</div>
+			</div>
+			<div class="read-title">${readContent.content_subject}</div>
+			<div>閲覧 : ${readContent.content_views }</div>
+		</div>
+		<div class="form-group">
+			<label>投稿者</label>
+			<c:choose>
+				<c:when test="${readContent.content_isAnonymous eq false}">
+					<button
+						class="wonil_modal_user_button u-text u-text-default u-text-7"
+						id="wonil_modal_user_name">${readContent.user_name}
+						<c:if
+							test="${not empty readContent.user_icon}">
+							<img id="profileIcon" src="${root}${readContent.user_icon}"
+								style="width: 20px; height: 20px;" alt="" />
+						</c:if>
+					</button>
+				</c:when>
+				<c:otherwise>
+					匿名
+				</c:otherwise>
+			</c:choose>
+		</div>
 
-										
-									</div>
-								</div>
-							</div>
-						</div>
+		<div class="form-group">
+			<label>投稿日時</label>
+			<p class="form-control">${readContent.content_date}</p>
+		</div>
+		<label>内容</label>
+		<div class="mk-form-content">
+			<c:if test="${not empty readContent.content_files}">
+				<div style="text-align: center;">
+					<c:forEach var="file" items="${readContent.content_files}">
+						<label for="content_file"></label>
+						<img src="${root}getProfileImage/${file}" width="50%"
+							style="margin-bottom: 10px;" />
+					</c:forEach>
+				</div>
+			</c:if>
+			${readContent.content_text }
+		</div>
 
-						<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
-						<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+		<div id="hashtag-container">
+			<div></div>
+		</div>
+		<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+		<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓모달입니다↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
 
-						<div id="wonil_modal" class="wonil_modal">
-							<div class="wonil_modal_content">
-								<span class="wonil_modal_close">&times;</span>
-								<div class="wonil_modal_body">
-									<img id="wonil_modal_user_img" src="" alt="User Image"
-										class="wonil_modal_user_img">
-									<div class="wonil_modal_user_info">
-										<p class="user_combined_info"
-											id="wonil_modal_user_nickname_gender"></p>
-										<p id="wonil_modal_user_statustext"></p>
-										<p id="wonil_modal_user_zodiac"></p>
-										<button class="wonil_modal_button profile">상세 프로필</button>
-										<button class="wonil_modal_button chat">1:1 chat</button>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
-						<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
-
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-9 u-layout-cell-5">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-5">
-										<p class="u-align-center u-text u-text-default u-text-8">작성날짜
-										</p>
-									</div>
-								</div>
-								<div
-									class="u-container-style u-layout-cell u-size-51 u-layout-cell-6">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-container-layout-6">
-										<p class="u-text u-text-default u-text-9">
-											${readContent.content_date }</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-palette-5-light-2 u-size-60 u-layout-cell-7">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-valign-middle u-container-layout-7">
-										<p class="u-align-center u-text u-text-default u-text-10">
-											내용<br>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="u-size-12">
-							<div class="u-layout-row">
-								<div
-									class="cell-temp-clone u-container-style u-layout-cell u-size-60 u-layout-cell-8">
-									<div
-										class="u-border-2 u-border-white u-container-layout u-container-layout-8">
-										<p class="u-text u-text-default u-text-11">
-											<c:if test="${not empty readContent.content_files}">
-												<div class="form-group" style="text-align: center;">
-													<c:forEach var="file" items="${readContent.content_files}">
-														<label for="content_file"></label>
-														<img src="${root}getProfileImage/${file}" width="50%"
-															style="margin-bottom: 10px;" />
-													</c:forEach>
-												</div>
-											</c:if>
-
-
-											${readContent.content_text }
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 첨부 이미지 띄울 곳 -->
-
+		<div id="wonil_modal" class="wonil_modal">
+			<div class="wonil_modal_content">
+				<span class="wonil_modal_close">&times;</span>
+				<div class="wonil_modal_body">
+					<img id="wonil_modal_user_img" src="" alt="User Image"
+						class="wonil_modal_user_img">
+					<div class="wonil_modal_user_info">
+						<p class="user_combined_info"
+							id="wonil_modal_user_nickname_gender"></p>
+						<p id="wonil_modal_user_statustext"></p>
+						<p id="wonil_modal_user_zodiac"></p>
+						<button class="wonil_modal_button profile">詳細プロフィール</button>
+						<button class="wonil_modal_button chat">1:1 チャット</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-	<section class="u-clearfix u-section-3" id="sec-8618">
-		<div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-			<div class="u-list u-list-1">
-				<div class="u-repeater u-repeater-1">
-					<div class="u-container-style u-list-item u-repeater-item">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-1">
-							<a href="#"
-								class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-button-style u-custom-item u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-1">hashtag1
-							</a>
-						</div>
-					</div>
-					<div class="u-container-style u-list-item u-repeater-item">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-2">
-							<a href="#"
-								class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-button-style u-custom-item u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-2">
-								hashtag2</a>
-						</div>
-					</div>
-					<div class="u-container-style u-list-item u-repeater-item">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-3">
-							<a href="#"
-								class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-button-style u-custom-item u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-3">
-								hashtag3</a>
-						</div>
 
-					</div>
+		<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+		<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑모달입니다↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
 
-				</div>
 
-				<div class="u-repeater u-repeater-2"
-					style="display: flex; justify-content: flex-end; align-items: center;">
-					<div class="u-container-style u-list-item u-repeater-item"
-						style="display: flex; gap: 10px;">
-						<div>
-							<div class="u-container-style u-list-item u-repeater-item">
-								<a
-									href="${root }board/board_main?board_info_idx=${board_info_idx}"
-									class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white ">목록
-								</a>
-								<c:if test="${readContent.user_idx == user_idx }">
-									<a
-										href="${root }board/board_modify?content_idx=${content_idx }&board_info_idx=${board_info_idx}"
-										class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius u-text-body-color u-text-hover-white ">수정
-									</a>
-								</c:if>
-							</div>
-						</div>
-					</div>
-				</div>
+
+		<div class="mk-hash-container">
+			<div>
+				<label>ハッシュタグ</label>
+				<c:forEach var="hashtag" items="${hashTag}">
+					<a class="hashtag-items">#${hashtag} </a>
+				</c:forEach>
+			</div>
+			<div>
+				<c:if test="${readContent.user_idx == user_idx }">
+					<a
+						href="${root }board/board_modify?content_idx=${content_idx }&board_info_idx=${board_info_idx}"
+						style="padding: 10px 20px; background-color: #FFCDB2; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">編集</a>
+				</c:if>
+				<c:choose>
+					<c:when test="${board_info_idx == 4}">
+						<a
+							href="${root }board/board_main_share?board_info_idx=${board_info_idx}"
+							style="padding: 10px 20px; background-color: #E5989B; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">目録</a>
+					</c:when>
+					<c:otherwise>
+						<a
+							href="${root }board/board_main?board_info_idx=${board_info_idx}"
+							style="padding: 10px 20px; background-color: #E5989B; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">目録</a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</section>
 	<section class="u-align-center u-clearfix u-section-4" id="sec-8bdb">
 		<div class="u-clearfix u-sheet u-sheet-1">
 			<div
-				class="u-align-center u-border-1 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
-			<div
 				class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
 				<div class="u-layout">
-						<div class="u-layout-col" style="background-color: #F8EDEB;">
+					<div class="u-layout-col" style="background-color: #F8EDEB;">
 						<div class="mk-u-size-60">
 
 							<!-- 댓글 출력 구간 -->
-							<div class="mk-comment-section" id="commentListArea"></div>
-
+							<div class="mk2-comment-box">
+								<div>コメント数 : ${count}</div>
+								<div class="mk-comment-section" id="commentListArea"></div>
+							</div>
 						</div>
 						<!-- 댓글 입력 구간 -->
 						<form action="${root }board/addComment"
@@ -524,26 +572,27 @@
 							<div class="mk2-comment-box">
 								<div class="mk2-comment-header">
 									<c:choose>
-										<c:when test="${readContent.user_idx == loginUserBean.user_idx}">
+										<c:when
+											test="${readContent.user_idx == loginUserBean.user_idx}">
 											<c:choose>
 												<c:when test="${readContent.content_isAnonymous}">
-													익명
+													匿名
 												</c:when>
 												<c:otherwise>
 													${loginUserBean.user_nickname }
 												</c:otherwise>
 											</c:choose>
 										</c:when>
-											<c:otherwise>
+										<c:otherwise>
 												${loginUserBean.user_nickname }
-											</c:otherwise>
-										</c:choose>
+										</c:otherwise>
+									</c:choose>
 								</div>
-								<textarea class="mk2-comment-input" placeholder="내용을 입력해주세요"
+								<textarea class="mk2-comment-input" placeholder="内容を入力してください"
 									id="comment_text"></textarea>
 								<div class="mk2-comment-footer"></div>
 								<div class="mk2-comment-actions">
-									<button class="mk-reply" type="submit" id="commentAdd">등록</button>
+									<button class="mk-reply" type="submit" id="commentAdd">登録</button>
 									<!-- <button class="mk2-cancel-button">취소</button> -->
 								</div>
 							</div>
@@ -578,23 +627,23 @@
 			                    var msg;
 			                    switch (result) {
 			                        case 1:
-			                            msg = "댓글이 등록되었습니다.";
-			                            console.log("댓글등록 확인");
+			                            msg = "コメントが登録されました。";
+			                            console.log("コメント登録確認");
 			                            $("#comment_text").val("");
 			                            CommentList();
 			                            break;
 			                        case 0:
-			                            msg = "댓글 등록 실패";
+			                            msg = "コメント登録失敗";
 			                            break;
 			                        case -1:
-			                            msg = "댓글 등록 오류 발생";
+			                            msg = "コメント登録エラー";
 			                            break;
 			                    }
 			                    alert(msg);
 			                }
 			            });
 			        } else {
-			            alert("내용을 입력해 주세요.");
+			            alert("内容を入力してください。");
 			        }
 			    });
 			    
@@ -615,7 +664,7 @@
 			            success: function(rList) {
 			                var $rArea = $("#commentListArea");
 			                if (rList.length === 0) {
-			                    $rArea.html("<li>등록된 댓글이 없습니다.</li>");
+			                    $rArea.html("<li>登録されたコメントがありません</li>");
 			                } else {
 			                    $rArea.html("");
 			                    $.each(rList, function(i) {
@@ -628,7 +677,7 @@
 			                        
 			                       	if(rList[i].user_idx == writer_idx) {
 			                        	if(anonymous == true) {
-			                        		$author.html("익명");
+			                        		$author.html("匿名");
 			                        	}else {
 			                        		$author.html(rList[i].user_nickname);
 			                        	}
@@ -647,17 +696,17 @@
 			                        //답글달기 버튼
 			                        	 var $reply = $("<button>")
 				                            .prop("class", "mk-reply")
-				                            .text("답글 달기")
+				                            .text("返信する")
 				                            .on("click", function() {
-				                            	$(this).text("취소 하기");
+				                            	$(this).text("取消");
 			                            	
 			                            	//답글창 중복 방지
 			                            	var $existingReplyBox = $reply.closest('.mk-comment-section').find(".mk2-comment-box");
 											
 											if ($existingReplyBox.length > 0) {
-												console.log("답글 박스가 이미 존재합니다. 제거합니다.");
+												console.log("コメントボックスが既に存在します。");
 											    $existingReplyBox.remove();
-											    $(this).text("답글 달기");
+											    $(this).text("返信する");
 											    return;
 			                                }
 			                                var $commentBox = $("<div>").prop("class", "mk2-comment-box");
@@ -666,7 +715,7 @@
 			                                
 			                                if(user_idx == writer_idx) {
 					                        	if(anonymous == true) {
-					                        		$name.html("익명");
+					                        		$name.html("匿名");
 					                        	}else {
 					                        		$name.html(user_name);
 					                        	}
@@ -678,7 +727,7 @@
 			                                var $action = $("<div>").prop("class", "mk2-comment-actions");
 			                                //var $writer_name = $("<div>").prop("class", "mk-author").text("댓글 작성자 ").html(rList[i].user_nickname);
 			                                var $addReply = $("<button>")
-			                                    .text("등록")
+			                                    .text("確認")
 			                                    .prop("class", "mk2-submit-button")
 			                                    .on("click", function() {
 			                                        var comment_parent_idx = $comment1;
@@ -701,16 +750,16 @@
 			                                                var msg;
 			                                                switch (result) {
 			                                                    case 1:
-			                                                        msg = "답글이 등록되었습니다.";
-			                                                        console.log("답글등록 확인");
+			                                                        msg = "返信が登録されました。";
+			                                                        console.log("返信登録確認");
 			                                                        $commentBox.remove();
 			                                                        CommentList();
 			                                                        break;
 			                                                    case 0:
-			                                                        msg = "답글 등록 실패";
+			                                                        msg = "返信登録失敗";
 			                                                        break;
 			                                                    case -1:
-			                                                        msg = "답글 등록 오류 발생";
+			                                                        msg = "返信登録エラー発生";
 			                                                        break;
 			                                                }
 			                                                alert(msg);
@@ -723,72 +772,73 @@
 			                                $(this).closest('.mk-comment').after($commentBox);
 			                            });
 			                        
-			                        //삭제 버튼
-			                        
-			                        var $deleteIcon = $("<button>")
-			                            .css({
-			                                "background-image": "url('${root}images/4021546.png')",
-			                                "background-size": "cover",
-			                                "cursor": "pointer",
-			                                "background-color": "transparent",
-			                                "width": "25px",
-			                                "height": "25px",
-			                                "border": "none"
-			                            })
-			                            .on("click", function(){
-			                                var comment_idx = $comment2;
-			                                
-			                                if (confirm("댓글을 삭제하시겠습니까?")) {
-			                                    $.ajax({
-			                                        type: "get",
-			                                        url: "${root}board/deleteComment",
-			                                        data: {"comment_idx": comment_idx},
-			                                        dataType: "json",
-			                                        success: function() {
-			                                            alert("댓글이 삭제되었습니다");
-			                                            CommentList();
-			                                        },
-			                                        error: function() {
-			                                            console.log("제발 삭제하게 해줘");
-			                                        }
-			                                    });
-			                                }
-			                            });
-			                        var isEditMode = false;
-			                        var $modifyIcon = $("<button>")
-			                            .css({
-			                                "background-image": "url('${root}images/505261.png')",
-			                                "background-size": "cover",
-			                                "cursor": "pointer",
-			                                "background-color": "transparent",
-			                                "width": "25px",
-			                                "height": "25px",
-			                                "border": "none"
-			                            }).on("click", function() {
-			                            if (!isEditMode) {
-			                            	$commentContent.attr("contenteditable", "true");
-			                                $commentContent.focus();
-			                                $(this).text("확인");
-			                            } else {
-			                                $commentContent.attr("contenteditable", "false");
-			                                const updatedCommentText = $commentContent.html();
-			                                const comment_idx = rList[i].comment_idx;
-			                                $.ajax({
-			                                    type: "post",
-			                                    url: "${root}board/modifyComment",
-			                                    data: JSON.stringify({
-			                                        "comment_text": updatedCommentText,
-			                                        "comment_idx": comment_idx
-			                                    }),
-			                                    contentType: "application/json",
-			                                    success: function(response) {
-			                                        console.log("응답 데이터:", response);
-			                                        CommentList();
-			                                    }
-			                                });
-			                            }
-			                            isEditMode = !isEditMode;
-			                        });
+			                        	 //삭제 버튼
+					                        
+					                        var $deleteIcon = $("<button>")
+					                            .css({
+					                                "background-image": "url('${root}images/delete.png')",
+					                                "background-size": "cover",
+					                                "cursor": "pointer",
+					                                "background-color": "transparent",
+					                                "width": "25px",
+					                                "height": "25px",
+					                                "border": "none"
+					                            })
+					                            .on("click", function(){
+					                                var comment_idx = $comment2;
+					                                
+					                                if (confirm("コメントを削除しますか")) {
+					                                    $.ajax({
+					                                        type: "get",
+					                                        url: "${root}board/deleteComment",
+					                                        data: {"comment_idx": comment_idx},
+					                                        dataType: "json",
+					                                        success: function() {
+					                                            alert("コメントが削除されました。");
+					                                            CommentList();
+					                                        },
+					                                        error: function() {
+					                                            console.log("お願いだから削除させてくれ");
+					                                        }
+					                                    });
+					                                }
+					                            });
+					                        var isEditMode = false;
+					                        var $modifyIcon = $("<button>")
+					                        .css({
+					                            "background-image": "url('${root}images/comment_modify.png')",
+					                            "background-size": "cover",
+					                            "cursor": "pointer",
+					                            "background-color": "transparent",
+					                            "width": "25px",
+					                            "height": "25px",
+					                            "border": "none"
+					                        }).on("click", function() {
+					                            if (!isEditMode) {
+					                                $commentContent.attr("contenteditable", "true");
+					                                $commentContent.focus();
+					                                $(this).css("background-image", "url('${root}images/comment_modify2.png')");
+					                            } else {
+					                                $commentContent.attr("contenteditable", "false");
+					                                const updatedCommentText = $commentContent.html();
+					                                const comment_idx = rList[i].comment_idx;
+					                                $.ajax({
+					                                    type: "post",
+					                                    url: "${root}board/modifyComment",
+					                                    data: JSON.stringify({
+					                                        "comment_text": updatedCommentText,
+					                                        "comment_idx": comment_idx
+					                                    }),
+					                                    contentType: "application/json",
+					                                    success: function(response) {
+					                                        console.log("응답 데이터:", response);
+					                                        CommentList();
+					                                    }
+					                                });
+					                                $(this).css("background-image", "url('${root}images/comment_modify.png')");
+					                            }
+					                            isEditMode = !isEditMode;
+					                        });
 			                        if (rList[i].user_idx == ${loginUserBean.user_idx}) {
 			                            $commentFooter.append($modifyIcon).append($deleteIcon);
 			                        }
@@ -805,16 +855,16 @@
 			                }
 			            },
 			            error: function() {
-			                console.log("댓글 목록 조회 ajax 통신 실패");
+			                console.log("コメント登録 ajax 通信失敗");
 			            }
 			        });
 			    }
 			    CommentList();
 			});
 				</script>
-				
-				<!-- 즐겨찾기 버튼 ajax -->
-				<script>
+
+			<!-- 즐겨찾기 버튼 ajax -->
+			<script>
 				$(document).ready(function() {
 					$("#addfavorite").on("click", function(event) {
 						event.preventDefault();
@@ -837,9 +887,9 @@
 							data: param,
 							success: function() {
 								if(favorite_img === favoriteOff) {
-									alert("즐겨찾기에 추가되었습니다.");
+									alert("ブックマークに追加されました。");
 								} else if(favorite_img === favoriteOn) {
-									alert("즐겨찾기에서 제외되었습니다.");
+									alert("ブックマークから削除されました。");
 								}
 								location.href="${root}board/board_read?content_idx=${content_idx}&board_info_idx=${board_info_idx}";
 							}
@@ -847,24 +897,50 @@
 					})
 				})
 				</script>
-				
-
 		</div>
 	</section>
-	
 	<section class="u-clearfix u-section-5" id="sec-5822">
 		<div class="u-clearfix u-sheet u-sheet-1">
-			<a href="#"
-				class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-1">Next&nbsp;<span
-				class="u-icon u-text-white"><svg class="u-svg-content"
-						viewBox="0 0 512 512" x="0px" y="0px"
-						style="width: 1em; height: 1em;">
+			<c:if test="${not empty nextContent}">
+				<a
+					href="${root}/board/board_read?content_idx=${nextContent.content_idx}&board_info_idx=${board_info_idx}"
+					class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-1">次へ
+					&nbsp;<span class="u-icon u-text-white"> <svg
+							class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px"
+							style="width: 1em; height: 1em;">
 						<path
-							d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068 c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557 l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104 c0.006-.006,0.011-.013,0.018-.019C513.968,262.339,513.943,249.635,506.134,241.843z"></path></svg></span>
-			</a> <a href="#"
-				class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-2"><span
-				class="u-file-icon u-icon u-text-white"><img
-					src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;Next </a>
+								d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068 c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557 l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104 c0.006-.006,0.011-.013,0.018-.019C513.968,262.339,513.943,249.635,506.134,241.843z"></path></svg></span>
+				</a>
+			</c:if>
+			<c:if test="${empty nextContent}">
+				<a
+					class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-1"
+					id="nextButton">なし&nbsp;<span class="u-icon u-text-white">
+						<svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px"
+							style="width: 1em; height: 1em;">
+						<path
+								d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068 c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557 l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104 c0.006-.006,0.011-.013,0.018-.019C513.968,262.339,513.943,249.635,506.134,241.843z"></path></svg>
+				</span>
+				</a>
+			</c:if>
+
+			<c:if test="${not empty previousContent}">
+				<a
+					href="${root}/board/board_read?content_idx=${previousContent.content_idx}&board_info_idx=${board_info_idx}"
+					class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-2">
+					<span class="u-file-icon u-icon u-text-white"> <img
+						src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;次へ
+				</a>
+			</c:if>
+			<c:if test="${empty previousContent}">
+				<a
+					class="u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-2"
+					id="previousButton"> <span
+					class="u-file-icon u-icon u-text-white"> <img
+						src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;なし
+				</a>
+			</c:if>
+
 		</div>
 	</section>
 
@@ -908,13 +984,13 @@
                 } catch (error) {
                     console.error('Parsing error:', error);
                     console.error('Received text:', text);  
-                    alert("사용자 정보를 불러오는데 실패했습니다. 다시 시도해주세요.");
+                    alert("プロフィールの情報の読み込みに失敗しました。再度読み込みください。");
                     document.getElementById("wonil_modal").style.display = "block";
                 }
             })
             .catch(error => {
                 console.error('Error fetching user info:', error);
-                alert("사용자 정보를 불러오는데 실패했습니다. 다시 시도해주세요.");
+                alert("プロフィールの情報の読み込みに失敗しました。再度読み込みください。");
                 document.getElementById("wonil_modal").style.display = "block";
             });
     };
@@ -923,11 +999,34 @@
         document.getElementById("wonil_modal").style.display = "none";
     };
 
+    
     window.onclick = function(event) {
         if (event.target == document.getElementById("wonil_modal")) {
             document.getElementById("wonil_modal").style.display = "none";
         }
     };
+</script>
+
+	<script>
+
+$(document).ready(function() {
+    var previousButton = document.getElementById("previousButton");
+    if (previousButton) {
+        previousButton.addEventListener("click", function() {
+            alert("最も古い投稿です。");
+        });
+    }
+});
+
+$(document).ready(function() {
+    var previousButton = document.getElementById("nextButton");
+    if (previousButton) {
+        previousButton.addEventListener("click", function() {
+            alert("最も新しい投稿です。");
+        });
+    }
+});
+
 </script>
 
 

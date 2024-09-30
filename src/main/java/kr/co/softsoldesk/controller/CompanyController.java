@@ -3,30 +3,35 @@ package kr.co.softsoldesk.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.co.softsoldesk.beans.CommentBean;
 import kr.co.softsoldesk.beans.ContentBean;
 import kr.co.softsoldesk.beans.FaqBean;
 import kr.co.softsoldesk.beans.PageBean;
+import kr.co.softsoldesk.beans.SharingBean;
 import kr.co.softsoldesk.beans.UserBean;
+import kr.co.softsoldesk.service.BoardService;
 import kr.co.softsoldesk.service.CompanyService;
 
 @Controller
 @RequestMapping("/company")
 public class CompanyController {
 
-//
-//	@Autowired
-//	BoardService boardService;
-	
+	@Autowired
+	BoardService boardService;
+
 	@Autowired
 	private CompanyService companyService;
 
@@ -41,40 +46,85 @@ public class CompanyController {
 		return "company/company";
 	}
 
-//	// 공지사항 (notice_main.jsp)
-//	@GetMapping("/notice")
-//	private String notice(Model model) {
-//		int board_info_idx = 5;
-//		List<ContentBean> noticeList = companyService.getNoticeList(board_info_idx);
-//		model.addAttribute("noticeList", noticeList);
-//		return "company/notice_main";
-//	}
-////
-//	// 공지사항 글쓰기 (notice_write.jsp)
-//	@GetMapping("/notice_write")
-//	private String notice_write(Model model) {
-//		model.addAttribute("user_name", loginUserBean.getUser_nickname());
-//		model.addAttribute("board_info_idx",5);
-//		return "company/notice_write";
-//	}
-//	
-//	// 공지사항 글쓰기 (notice_write.jsp)
-//	@PostMapping("/notice_write_pro")
-//	private String notice_wirte_pro(@Valid @ModelAttribute("writeContentBean") ContentBean writeContentBean,
-//			BindingResult result, Model model) {
-//
-//		if (result.hasErrors()) {
-//			return "company/notice_write";
-//		}
-//
-//		boardService.addContent(writeContentBean);
-//
-//		int content_idx = boardService.getContentIdx();
-//
-//		model.addAttribute("content_idx", content_idx);
-//
-//		return "company/notice_write_success";
-//	}
+	// 공지사항 (notice_main.jsp)
+	@GetMapping("/notice")
+	private String notice(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+		
+		int board_info_idx = 5;
+		
+		List<ContentBean> noticeList = companyService.getNoticeList(board_info_idx, page);
+		
+		PageBean pageBean = companyService.getNoticeCnt(page);
+	
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("pageBean", pageBean);
+		
+		return "company/notice_main";
+	}
+
+	// 공지사항 글쓰기 (notice_write.jsp)
+	@GetMapping("/notice_write")
+	private String notice_write(Model model) {
+
+		ContentBean writeContentBean = new ContentBean();
+		writeContentBean.setBoard_info_idx(5);
+
+		model.addAttribute("writeContentBean", writeContentBean);
+		model.addAttribute("user_name", loginUserBean.getUser_nickname());
+
+		return "company/notice_write";
+	}
+
+	// 공지사항 글쓰기 (notice_write.jsp)
+	@PostMapping("/notice_write_pro")
+	private String notice_wirte_pro(@Valid @ModelAttribute("writeContentBean") ContentBean writeContentBean,
+			BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			return "company/notice_write";
+		}
+
+		boardService.addNoticeContent(writeContentBean);
+
+		int content_idx = boardService.getContentIdx();
+
+		model.addAttribute("content_idx", content_idx);
+		model.addAttribute("board_info_idx", 5);
+
+		return "company/notice_write_success";
+	}
+
+	// 공지사항 읽기 (notice_read.jsp)
+	@GetMapping("/notice_read")
+	private String board_read(@RequestParam("content_idx") int content_idx,
+			@RequestParam("board_info_idx") int board_info_idx, Model model) {
+
+		boolean favorite_idx = boardService.getFavoriteIdx(content_idx, loginUserBean.getUser_idx());
+		int count = boardService.getCommentCount(content_idx);
+		ContentBean readContent = boardService.getReadContent(content_idx);
+		CommentBean commentBean = new CommentBean();
+		String img;
+		String favoriteOff = "/images/2099045.png";
+		String favoriteOn = "/images/2099045-6f30adb4.png";
+		if (favorite_idx) {
+			img = favoriteOff;
+		} else {
+			img = favoriteOn;
+		}
+		model.addAttribute("user_name", loginUserBean.getUser_nickname());
+		model.addAttribute("readContent", readContent);
+		model.addAttribute("board_info_idx", board_info_idx);
+		model.addAttribute("content_idx", content_idx);
+		model.addAttribute("user_idx", loginUserBean.getUser_idx());
+		model.addAttribute("commentBean", commentBean);
+		model.addAttribute("count", count);
+		model.addAttribute("img", img);
+		model.addAttribute("favorite_idx", favorite_idx);
+		model.addAttribute("favoriteOn", favoriteOn);
+		model.addAttribute("favoriteOff", favoriteOff);
+		return "company/notice_read";
+
+	}
 
 	// FAQ (faq.jsp)
 	@GetMapping("/faq")
@@ -259,5 +309,56 @@ public class CompanyController {
 
 		return "admin/manage_content";
 	}
+
+	// 나눔관리 - 리스트
+	@GetMapping("/manage_share")
+	private String manage_share(@ModelAttribute("adminShareBean") SharingBean adminShareBean, Model model,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
+
+		List<SharingBean> shareList = companyService.getShareList(page);
+
+		model.addAttribute("shareList", shareList);
+
+		PageBean pageBean = companyService.getShareCnt(page);
+		model.addAttribute("pageBean", pageBean);
+
+		return "admin/manage_share";
+	}
+
+	// 나눔관리 - 응답
+	@PostMapping("/manage_share_modal_answer")
+	private String manage_share_modal_answer(@ModelAttribute("adminShareBean") SharingBean adminShareBean, Model model,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
+
+		List<SharingBean> shareList = companyService.getShareList(page);
+
+		model.addAttribute("shareList", shareList);
+
+		PageBean pageBean = companyService.getShareCnt(page);
+		model.addAttribute("pageBean", pageBean);
+
+		companyService.updatePoint(adminShareBean.getSender_name());
+		companyService.updatePoint(adminShareBean.getReceiver_name());
+		companyService.updateAfter(adminShareBean.getShare_idx());
+
+		return "admin/manage_share_success";
+	}
+
+//	// FAQ관리 - 삭제
+//	@PostMapping("/manage_faq_modal_delete")
+//	private String manage_faq_modal_delete(@ModelAttribute("adminFaqBean") FaqBean adminFaqBean, Model model,
+//			@RequestParam(value = "page", defaultValue = "1") int page) {
+//
+//		companyService.deleteFaq(adminFaqBean.getFaq_idx());
+//
+//		List<FaqBean> faqList = companyService.getFaqList(page);
+//
+//		model.addAttribute("faqList", faqList);
+//
+//		PageBean pageBean = companyService.getFaqCnt(page);
+//		model.addAttribute("pageBean", pageBean);
+//
+//		return "admin/manage_faq";
+//	}
 
 }

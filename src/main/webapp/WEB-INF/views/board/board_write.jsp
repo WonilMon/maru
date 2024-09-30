@@ -156,51 +156,53 @@ body {
 			<form:hidden path="content_idx" />
 			<form:hidden path="board_info_idx" />
 
-			<div class="form-title">글쓰기</div>
+			<div class="form-title">作成</div>
 
 			<div class="form-group">
-				<label for="subject">제목</label>
+				<label for="subject">タイトル</label>
 				<form:input path="content_subject" class="form-control" />
 				<form:errors path="content_subject" class="form-errors" />
 			</div>
 
 			<div class="form-group">
-				<label>작성자</label>
-				<p><c:choose>
-													<c:when test="${img == anonymousOff }">
+				<label>投稿者</label>
+				<p>
+					<c:choose>
+						<c:when test="${img == anonymousOff }">
 														${user_name }
 														<form:hidden path="content_isAnonymous" value="false" />
-													</c:when>
-													<c:otherwise>
-														익명
+						</c:when>
+						<c:otherwise>
+														匿名
 														<form:hidden path="content_isAnonymous" value="true" />
-													</c:otherwise>
-												</c:choose></p>
-												<c:if test="${board_info_idx == 2 }">
-											<a
-												class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1"
-												id="anonymousBtn"> <span
-												class="u-file-icon u-gradient u-icon u-icon-circle u-icon-1">
-													<img src="${root }${img }">
-											</span>
-											</a>
-											</c:if>
+						</c:otherwise>
+					</c:choose>
+				</p>
+				<c:if test="${board_info_idx == 2 }">
+					<a
+						class="u-border-2 u-border-hover-palette-3-base u-border-palette-1-base u-btn u-btn-round u-button-style u-none u-radius u-text-palette-2-base u-btn-1"
+						id="anonymousBtn"> <span
+						class="u-file-icon u-gradient u-icon u-icon-circle u-icon-1">
+							<img src="${root }${img }">
+					</span>
+					</a>
+				</c:if>
 			</div>
 
 			<div class="form-group">
-				<label>작성날짜</label>
+				<label>投稿日時</label>
 				<p>${now}</p>
 			</div>
 
 			<div class="form-group">
-				<label for="content">내용</label>
+				<label for="content">内容</label>
 				<form:textarea path="content_text" class="form-control" />
 				<form:errors path="content_text" class="form-errors" />
 			</div>
 
 
 			<div class="upload-section">
-				<label for="upload_file">이미지 첨부</label>
+				<label for="upload_file">画像をアップロード</label>
 				<form:input type="file" path="upload_files" accept="image/*"
 					multiple="multiple" id="upload_files"></form:input>
 				<div id="file-preview"></div>
@@ -212,8 +214,8 @@ body {
 				value="" />
 
 			<div class="form-group">
-				<label for="hashtag-input">해시태그</label> <input type="text"
-					id="hashtag-input" class="form-control" placeholder="해시태그 입력 후 엔터" />
+				<label for="hashtag-input">ハッシュタグ</label> <input type="text"
+					id="hashtag-input" class="form-control" placeholder="ハッシュタグを入力してください" />
 				<div id="hashtag-container"></div>
 			</div>
 
@@ -221,9 +223,9 @@ body {
 			<div class="form-footer">
 				<a
 					href="board_main?board_info_idx=${writeContentBean.board_info_idx}"
-					style="padding: 10px 20px; background-color: #FFCDB2; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">목록</a>
+					style="padding: 10px 20px; background-color: #FFCDB2; color: #6D6875; text-decoration: none; border-radius: 5px; margin-right: 10px;">目録</a>
 				<form:button type="submit"
-					style="padding: 10px 20px; background-color: #E5989B; color: white; border: none; border-radius: 5px;">등록</form:button>
+					style="padding: 10px 20px; background-color: #E5989B; color: white; border: none; border-radius: 5px;">登録</form:button>
 			</div>
 		</form:form>
 	</section>
@@ -232,7 +234,7 @@ body {
 
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<script>
 
@@ -276,9 +278,7 @@ body {
         }
     });
 </script>
-
-
-	<script>
+<script>
     $(document).ready(function() {
         $('#upload_files').on('change', function() {
 
@@ -300,7 +300,7 @@ body {
     });
 </script>
 
-	<script>
+<script>
 const dataTransfer = new DataTransfer();
 
 $("#upload_files").change(function(){
@@ -314,8 +314,6 @@ $("#upload_files").change(function(){
             dataTransfer.items.add(fileArr[i])
         }
         document.getElementById("upload_files").files = dataTransfer.files; 
-        console.log("dataTransfer =>",dataTransfer.files)
-        console.log("input FIles =>", document.getElementById("upload_files").files)
 	// ==========================================
        
     }
@@ -335,7 +333,7 @@ $("#upload_files").change(function(){
 							});
 				});
 	</script>
-<script>
+	<script>
 		$(document).ready(function() {
 			$("#anonymousBtn").on("click",function(event) {
 			event.preventDefault();
@@ -351,9 +349,9 @@ $("#upload_files").change(function(){
 					data : param,
 					success : function() {
 						if (anonymous_img === anonymousOff) {
-								alert("익명으로 변경되었습니다.");
+								alert("匿名に変更されました。");
 							} else if (anonymous_img === anonymousOn) {
-								alert("익명이 해지되었습니다.");
+								alert("匿名が解除されました。");
 							}
 							location.href = "${root}board/board_write?board_info_idx=${board_info_idx}";
 						}

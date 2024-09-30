@@ -267,8 +267,8 @@
 							<form:select path="user_gender"
 								class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
 								<option value="선택" data-calc="">---あなたの性別---</option>
-								<option value="남" data-calc="">男性</option>
-								<option value="여" data-calc="">女性</option>
+								<option value="男性" data-calc="">男性</option>
+								<option value="女性" data-calc="">女性</option>
 								<option value="어느 쪽도 아님" data-calc="">その他</option>
 
 							</form:select>

@@ -1,8 +1,12 @@
 package kr.co.softsoldesk.DAO;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.softsoldesk.beans.ContentBean;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.mapper.UserMapper;
 
@@ -40,6 +44,16 @@ public class UserDAO {
 	// 정보수정
 	public UserBean getModifyUserBeanInfo(int user_idx) {
 		return userMapper.getModifyUserInfo(user_idx);
+	}
+	
+	// 내가 쓴 글 
+	public List<ContentBean> getMyList(int user_idx, RowBounds rowBounds) {
+		return userMapper.getMyList(user_idx, rowBounds);
+	}
+	
+	// 내가 쓴 글 - 페이지네이션
+	public int getMyListCnt(int user_idx) {
+		return userMapper.getMyListCnt(user_idx);
 	}
 
 	// 정보수정

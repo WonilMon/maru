@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.softsoldesk.beans.BoardInfoBean;
 import kr.co.softsoldesk.beans.ContentBean;
+import kr.co.softsoldesk.beans.FavoriteBean;
 import kr.co.softsoldesk.mapper.BoardMapper;
 
 @Repository
@@ -27,8 +28,23 @@ public class BoardDAO {
 		}
 	}
 
+//	공지 등록
+	public void addNoticeContent(ContentBean writeContentBean) {
+		boardMapper.addNoticeContent(writeContentBean);
+
+		if (writeContentBean.getContent_files() != null) {
+			for (String fileName : writeContentBean.getContent_files()) {
+				boardMapper.addFile(boardMapper.getLatestIdx(), fileName);
+			}
+		}
+	}
+
 	public void addHashTag(int content_idx, String tag) {
 		boardMapper.addHashTag(content_idx, tag);
+	}
+
+	public void deleteHashTag(int content_idx) {
+		boardMapper.deleteHashTag(content_idx);
 	}
 
 	public List<BoardInfoBean> getBoardInfoList() {
@@ -106,7 +122,12 @@ public class BoardDAO {
 	public List<ContentBean> getMonthly3Content() {
 		return boardMapper.getMonthly3Content();
 	}
-
+	
+	// 최근나눔 main
+	public List<ContentBean> getLastly6Sharing() {
+		return boardMapper.getLastly6Sharing();
+	}
+	
 	public int getCommentCount(int content_idx) {
 		return boardMapper.getCommentCount(content_idx);
 	}
@@ -129,6 +150,25 @@ public class BoardDAO {
 
 	public boolean anonymous(boolean content_isAnonymous) {
 		return boardMapper.anonymous(content_isAnonymous);
+	}
+
+	public List<ContentBean> selectContentList(int board_info_idx) {
+		return boardMapper.selectContentList(board_info_idx);
+	}
+
+	// 글의 사진 한장만 가져오기
+	public String getFile(int content_idx) {
+		return boardMapper.getFile(content_idx);
+	}
+
+	// 즐겨찾기 리스트
+	public List<ContentBean> getFavoriteList(int user_idx, RowBounds rowBounds) {
+		return boardMapper.getFavoriteList(user_idx, rowBounds);
+	}
+
+	// 즐겨찾기 - 페이지네이션
+	public int getFavoriteCnt(int user_idx) {
+		return boardMapper.getFavoriteCnt(user_idx);
 	}
 
 }

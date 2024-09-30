@@ -1,10 +1,15 @@
 package kr.co.softsoldesk.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
+
+import kr.co.softsoldesk.beans.ContentBean;
 import kr.co.softsoldesk.beans.UserBean;
 
 public interface UserMapper {
@@ -28,6 +33,19 @@ public interface UserMapper {
 	@Select("select * from users where user_idx=${user_idx}")
 	UserBean getModifyUserInfo(int user_idx);
 
+	// 내가 쓴 글
+	@Select("select c.content_idx, c.content_subject, c.content_date, c.content_views, u.user_nickname AS user_name, b.board_info_idx AS board_info_idx, b.board_info_name AS board_info_name "
+			+ "from content c "
+			+ "join users u on u.user_idx = c.user_idx "
+			+ "join board_info b on b.board_info_idx = c.board_info_idx "
+			+ "where u.user_idx = #{user_idx} "
+			+ "order by c.content_date desc")
+	List<ContentBean> getMyList(@Param("user_idx") int user_idx, RowBounds rowBounds);
+	
+	// 내가 쓴 글 - 페이지네이션
+	@Select("select count(*) from content where user_idx = #{user_idx}")
+	int getMyListCnt(@Param("user_idx") int user_idx);
+	
 	// 유저 정보 수정 modify
 	@Update("update users set user_nickname = #{user_nickname}, user_pass = #{user_pass} where user_idx = #{user_idx}")
 	void modifyUser(UserBean modifyUserBean);

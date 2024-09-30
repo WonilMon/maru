@@ -65,32 +65,18 @@
 					</li>
 				</ul>
 			</li>
-
-
-			<li><a href="javascript:void(0);"> <i class="material-icons">perm_media</i>
+			
+			<li class="${currentPath.endsWith('/manage_share') ? 'active' : ''}"><a
+				href="${root }company/manage_share"> <i class="material-icons">perm_media</i>
 					<span>おすそわけポイント管理</span>
 			</a></li>
-			<!-- 			<li><a href="javascript:void(0);" class="menu-toggle"> <i
-					class="material-icons">pie_chart</i> <span>Charts</span>
-			</a>
-				<ul class="ml-menu">
-					<li><a href="pages/charts/morris.html">Morris</a></li>
-					<li><a href="pages/charts/flot.html">Flot</a></li>
-					<li><a href="pages/charts/chartjs.html">ChartJS</a></li>
-					<li><a href="pages/charts/sparkline.html">Sparkline</a></li>
-					<li><a href="pages/charts/jquery-knob.html">Jquery Knob</a></li>
-				</ul></li>
- -->
+
 			<li class="${currentPath.endsWith('/manage_faq') ? 'active' : ''}">
 				<a href="${root}company/manage_faq"> <i class="material-icons">content_copy</i>
 					<span>FAQ管理</span>
 			</a>
 			</li>
 
-
-			<!-- 			<li><a href="pages/changelogs.html"> <i
-					class="material-icons">update</i> <span>Changelogs</span>
-			</a></li> -->
 			<li class="header">LABELS</li>
 			<li><a href="javascript:void(0);"> <i
 					class="material-icons col-red">donut_large</i> <span>Important</span>
@@ -113,6 +99,9 @@
 				activeClass : "active"
 			}, {
 				selector : ".sidebar .menu a[href*='/manage_user']",
+				activeClass : "active"
+			}, {
+				selector : ".sidebar .menu a[href*='/manage_share']",
 				activeClass : "active"
 			}, {
 				selector : ".sidebar .menu a[href*='/manage_faq']",

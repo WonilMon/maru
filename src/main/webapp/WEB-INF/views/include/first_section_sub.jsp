@@ -12,7 +12,7 @@
 	style="background-image: url('${root}images/child.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;"
 	data-image-width="425" data-image-height="425">
 	<div class="u-clearfix u-sheet u-sheet-1">
-		<p class="u-text u-text-default u-text-1">
+		<p class="u-text u-text-default u-text-1" style="font-size:30px; margin=40px;" >
 			子供の一生、<br>まると一緒。
 		</p>
 		<div

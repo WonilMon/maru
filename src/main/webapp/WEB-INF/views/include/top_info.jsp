@@ -69,17 +69,17 @@
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }sharing/sharing_main" style="padding: 10px 20px;">おすそわけ</a>
+								href="${root }board/board_main_share?board_info_idx=4" style="padding: 10px 20px;">おすそわけ</a>
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
 								href="${root }company/faq" style="padding: 10px 20px;">FAQ</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }user/favorite" style="padding: 10px 20px;">ブックマーク</a></li>
+								href="${root }board/favorite?user_idx=${loginUserBean.user_idx}" style="padding: 10px 20px;">ブックマーク</a></li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }user/profile_modify" style="padding: 10px 20px;">マイページ</a>
+								href="${root }user/profile_modify?user_idx=${loginUserBean.user_idx}" style="padding: 10px 20px;">マイページ</a>
 							</li>
 							<c:if test="${loginUserBean.user_role eq '管理者' }">
 								<li class="u-nav-item"><a
@@ -104,7 +104,7 @@
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-								href="${root }sharing/sharing_main" style="padding: 10px 20px;">おすそわけ</a>
+								href="${root }board/board_main_share?board_info_idx=4" style="padding: 10px 20px;">おすそわけ</a>
 							</li>
 							<li class="u-nav-item"><a
 								class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
@@ -141,14 +141,14 @@
 										href="${root }board/board_prev_main">掲示板</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }sharing/sharing_main">おすそわけ</a></li>
+										href="${root }board/board_main_share?board_info_idx=4">おすそわけ</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link" href="${root }company/faq">FAQ</a></li>
 									<li class="u-nav-item"><a
-										class="u-button-style u-nav-link" href="${root }user/favorite">ブックマーク</a></li>
+										class="u-button-style u-nav-link" href="${root }board/favorite?user_idx=${loginUserBean.user_idx}">ブックマーク</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }user/profile_modify">マイページ</a></li>
+										href="${root }user/profile_modify?user_idx=${loginUserBean.user_idx}">マイページ</a></li>
 									<c:if test="${loginUserBean.user_role eq '管理者' }">
 										<li class="u-nav-item"><a
 											class="u-button-style u-nav-link"
@@ -167,7 +167,7 @@
 										href="${root }board/board_prev_main">掲示板</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link"
-										href="${root }sharing/sharing_main">おすそわけ</a></li>
+										href="${root }board/board_main_share?board_info_idx=4">おすそわけ</a></li>
 									<li class="u-nav-item"><a
 										class="u-button-style u-nav-link" href="${root }company/faq">FAQ</a></li>
 									<li class="u-nav-item"><a
@@ -182,7 +182,7 @@
 				<div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
 			</div>
 		</nav>
-		<form action="${root}board/search" method="get"
+		<form action="${root}search/main" method="get"
 			class="u-align-center u-border-1 u-border-grey-30 u-expanded-width-xs u-search u-search-right u-white u-search-1">
 			<input class="u-search-input" type="search" name="keyWord"
 				placeholder="Search" value="${keyWord }" />

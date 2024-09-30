@@ -2,7 +2,9 @@ package kr.co.softsoldesk.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.softsoldesk.DAO.BoardDAO;
 import kr.co.softsoldesk.beans.BoardInfoBean;
 import kr.co.softsoldesk.beans.ContentBean;
+import kr.co.softsoldesk.beans.FavoriteBean;
 import kr.co.softsoldesk.beans.PageBean;
 import kr.co.softsoldesk.beans.UserBean;
 
@@ -69,8 +72,30 @@ public class BoardService {
 		boardDAO.addContent(writeContentBean);
 	}
 
+	public void addNoticeContent(ContentBean writeContentBean) {
+		List<MultipartFile> upload_files = writeContentBean.getUpload_files();
+
+		if (upload_files != null && !upload_files.isEmpty()) {
+			List<String> fileNames = new ArrayList<>();
+			for (MultipartFile file : upload_files) {
+				if (!file.isEmpty()) {
+					String file_name = saveUploadFile(file);
+					fileNames.add(file_name);
+				}
+			}
+			writeContentBean.setContent_files(fileNames);
+		}
+
+		writeContentBean.setUser_idx(loginUserBean.getUser_idx());
+		boardDAO.addNoticeContent(writeContentBean);
+	}
+
 	public void addHashTag(int content_idx, String tag) {
 		boardDAO.addHashTag(content_idx, tag);
+	}
+
+	public void deleteHashTag(int content_idx) {
+		boardDAO.deleteHashTag(content_idx);
 	}
 
 	public String getBoardInfoName(int board_info_idx) {
@@ -131,21 +156,25 @@ public class BoardService {
 
 		return pageBean;
 	}
-//
-//	public void updateContent(ContentBean modifyContentBean) {
-//
-//		MultipartFile upload_file = modifyContentBean.getUpload_file();
-//
-//		if (upload_file.getSize() > 0) {
-//
-//			String file_name = saveUploadFile(upload_file);
-//			modifyContentBean.setContent_file(file_name);
-//		}
-//
-//		modifyContentBean.setUser_idx(loginUserBean.getUser_idx());
-//
-//		boardDAO.updateContent(modifyContentBean);
-//	}
+
+	public void updateContent(ContentBean modifyContentBean) {
+		List<MultipartFile> upload_files = modifyContentBean.getUpload_files();
+
+		if (upload_files != null && !upload_files.isEmpty()) {
+			List<String> fileNames = new ArrayList<>();
+			for (MultipartFile file : upload_files) {
+				if (!file.isEmpty()) {
+					String file_name = saveUploadFile(file);
+					fileNames.add(file_name);
+				}
+			}
+			modifyContentBean.setContent_files(fileNames);
+		}
+
+		modifyContentBean.setUser_idx(loginUserBean.getUser_idx());
+
+		boardDAO.updateContent(modifyContentBean);
+	}
 
 	public void deleteContent(int content_idx) {
 		boardDAO.deleteContent(content_idx);
@@ -173,6 +202,20 @@ public class BoardService {
 	public List<ContentBean> getMonthly3Content() {
 		return boardDAO.getMonthly3Content();
 	}
+	
+	// 최근나눔 main
+	public List<ContentBean> getLastly6Sharing() {
+		
+		List<ContentBean> list = boardDAO.getLastly6Sharing();
+		List<ContentBean> list2 = new ArrayList<ContentBean>();
+		
+		for(ContentBean content : list) {
+			content.setTest_file(boardDAO.getFile(content.getContent_idx()));
+			list2.add(content);
+		}
+		
+		return list2;
+	}
 
 	public int getCommentCount(int content_idx) {
 		return boardDAO.getCommentCount(content_idx);
@@ -190,4 +233,49 @@ public class BoardService {
 		return boardDAO.getFavoriteIdx(content_idx, user_idx) == 0 ? true : false;
 	}
 
+	// 글의 사진 한장만 가져오기
+	public String getFile(int content_idx) {
+		return boardDAO.getFile(content_idx);
+	}
+
+	// 즐겨찾기 리스트
+	public List<ContentBean> getFavoriteList(int user_idx, int page) {
+
+		int start = (page - 1) * page_list;
+
+		RowBounds rowBounds = new RowBounds(start, page_list);
+
+		return boardDAO.getFavoriteList(user_idx, rowBounds);
+	}
+
+	// 즐겨찾기 - 페이지네이션
+	public PageBean getFavoriteCnt(int currentPage) {
+
+		int content_cnt = boardDAO.getFavoriteCnt(loginUserBean.getUser_idx());
+		PageBean pageBean = new PageBean(content_cnt, currentPage, page_list, paginationcnt);
+
+		return pageBean;
+	}
+
+	// 다음글, 이전글
+	public Map<String, Object> getNextContent(int content_idx, int board_info_idx) {
+		List<ContentBean> nextList = boardDAO.selectContentList(board_info_idx);
+
+		int next_content_idx = -1;
+		for (int i = 0; i < nextList.size(); i++) {
+			if (nextList.get(i).getContent_idx() == content_idx) {
+				next_content_idx = i;
+				break;
+			}
+		}
+		ContentBean previousContent = (next_content_idx > 0) ? nextList.get(next_content_idx - 1) : null;
+		ContentBean nextContent = (next_content_idx >= 0 && next_content_idx < nextList.size() - 1)
+				? nextList.get(next_content_idx + 1)
+				: null;
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("previousContent", previousContent);
+		result.put("nextContent", nextContent);
+		return result;
+	}
 }

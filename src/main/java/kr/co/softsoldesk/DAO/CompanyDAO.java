@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.softsoldesk.beans.ContentBean;
 import kr.co.softsoldesk.beans.FaqBean;
+import kr.co.softsoldesk.beans.SharingBean;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.mapper.CompanyMapper;
 
@@ -20,10 +21,15 @@ public class CompanyDAO {
 
 	// ------------------------------
 
-//	// 공지사항 (notice_main.jsp)
-//	public List<ContentBean> getNoticeList(int board_info_idx) {
-//		return companyMapper.getNoticeList(board_info_idx);
-//	}
+	// 공지사항 (notice_main.jsp)
+	public List<ContentBean> getNoticeList(int board_info_idx, RowBounds rowBounds) {
+		return companyMapper.getNoticeList(board_info_idx, rowBounds);
+	}
+
+	// 공지사항 - 페이지네이션
+	public int getNoticeCnt(int board_info_idx) {
+		return companyMapper.getNoticeCnt(board_info_idx);
+	}
 
 	// FAQ 등록 (faq.jsp)
 	public void addFaq(FaqBean addFaqBean) {
@@ -135,4 +141,28 @@ public class CompanyDAO {
 		return companyMapper.getContentCnt(board_info_idx);
 	}
 
+	// share 인증파일 추가
+	public void addImgFile(String file_name, int sender_idx, int receiver_idx, int content_idx) {
+		companyMapper.addImgFile(file_name, sender_idx, receiver_idx, content_idx);
+	}
+
+	// 나눔관리 - 리스트
+	public List<SharingBean> getShareList(RowBounds rowBounds) {
+		return companyMapper.getShareList(rowBounds);
+	}
+
+	// 나눔관리 - 페이지네이션
+	public int getShareCnt() {
+		return companyMapper.getShareCnt();
+	}
+
+	// 나눔관리 - 포인트 지급
+	public void updatePoint(String user_nickname) {
+		companyMapper.updatePoint(user_nickname);
+	}
+
+	// 나눔관리 - 완료처리
+	public void updateAfter(int share_idx) {
+		companyMapper.updateAfter(share_idx);
+	}
 }

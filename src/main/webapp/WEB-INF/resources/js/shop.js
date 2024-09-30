@@ -1,6 +1,6 @@
 function buyRandomIcon(user_idx) {
     console.log("사용자 ID:", user_idx, "로 랜덤 아이콘 구매 시도 중");
-    const confirmation = confirm("랜덤 아이콘을 구매하시겠습니까?");
+    const confirmation = confirm("ランダムアイコンを購入しますか?");
     if (!confirmation) {
         return; // 구매 취소
     }
@@ -12,18 +12,18 @@ function buyRandomIcon(user_idx) {
         success: function(response) {
             console.log("서버 응답:", response);
             if (response === "success") {
-                alert("랜덤 아이콘 구매 성공!");
+                alert("ランダムアイコン購入成功!");
                 location.reload(); // 구매 완료 후 페이지 새로고침
             } else if (response === "insufficient_points_or_no_available_icons") {
-                alert("포인트가 부족하거나 구매 가능한 아이콘이 없습니다.");
+                alert("ポイントが不足しているか、購入できるアイコンがありません。");
             }
         },
         error: function(xhr, status, error) {
             console.error("AJAX 요청 실패:", status, error);
             if (xhr.status === 400) {
-                alert("포인트가 부족하여 아이콘을 구매할 수 없습니다.");
+                alert("ポイントが不足しているため、アイコンを購入できません。");
             } else {
-                alert("아이콘을 구매하는 중 오류가 발생했습니다.");
+                alert("アイコンの購入中にエラーが発生しました。");
             }
         }
     });
@@ -33,7 +33,7 @@ function buyRandomIcon(user_idx) {
 function buyIcon(icon_idx, user_idx) {
     console.log("아이콘 ID:", icon_idx, "사용자 ID:", user_idx, "로 아이콘 구매 시도 중");
     // 구매 확인
-    const confirmation = confirm("이 아이콘을 구매하시겠습니까?");
+    const confirmation = confirm("このアイコンを購入しますか？");
     if (!confirmation) {
         return; // 구매 취소
     }
@@ -45,18 +45,18 @@ function buyIcon(icon_idx, user_idx) {
         success: function(response) {
             console.log("서버 응답:", response);
             if (response === "success") {
-                alert("구매 성공!");
+                alert("購入成功！");
                 location.reload(); // 구매 완료 후 페이지 새로고침
             } else if (response === "insufficient_points") {
-                alert("포인트가 부족하여 아이콘을 구매할 수 없습니다.");
+                alert("ポイントが不足しているため、アイコンを購入できません。");
             }
         },
         error: function(xhr, status, error) {
             console.error("AJAX 요청 실패:", status, error);
             if (xhr.status === 400) {
-                alert("포인트가 부족하여 아이콘을 구매할 수 없습니다.");
+                alert("ポイントが不足しているため、アイコンを購入できません。");
             } else {
-                alert("아이콘을 구매하는 중 오류가 발생했습니다.");
+                alert("アイコンの購入中にエラーが発生しました。");
             }
         }
     });

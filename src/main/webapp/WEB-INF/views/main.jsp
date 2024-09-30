@@ -397,29 +397,28 @@
 											class="u-active u-carousel-item u-effect-fade u-gallery-item u-carousel-item-1">
 											<div class="u-back-slide">
 												<img class="u-back-image u-expanded"
-													src="${root }images/90fc53c9.svg">
+													src="${root }images/여름1.png" style="border-radius: 5%;">
 											</div>
 											<div
-												class="u-align-center u-container-align-center u-over-slide u-shading u-valign-bottom u-over-slide-1">
+												class="u-align-center u-container-align-center u-over-slide u-shading u-valign-bottom u-over-slide-1"
+												onclick="pic1()">
 												<h3 class="u-align-center u-gallery-heading"
-													style="margin-right: 0px; margin-left: 0px;">Sample
-													Title</h3>
+													style="margin-right: 0px; margin-left: 0px;">夏の注意事項</h3>
 												<p class="u-align-center u-gallery-text"
-													style="margin-right: 0px; margin-left: 0px;">Sample
-													Text</p>
+													style="margin-right: 0px; margin-left: 0px;">Click</p>
 											</div>
 										</div>
 										<div
 											class="u-carousel-item u-effect-fade u-gallery-item u-carousel-item-2">
 											<div class="u-back-slide">
 												<img class="u-back-image u-expanded"
-													src="${root }images/90fc53c9.svg">
+													src="${root }images/태풍1.png" style="border-radius: 5%;">
 											</div>
 											<div
-												class="u-align-center u-container-align-center u-over-slide u-shading u-valign-bottom u-over-slide-2">
-												<h3 class="u-align-center u-gallery-heading">Sample
-													Title</h3>
-												<p class="u-align-center u-gallery-text">Sample Text</p>
+												class="u-align-center u-container-align-center u-over-slide u-shading u-valign-bottom u-over-slide-2"
+												onclick="pic2()">
+												<h3 class="u-align-center u-gallery-heading">大雨台風注意報</h3>
+												<p class="u-align-center u-gallery-text">Click</p>
 											</div>
 										</div>
 									</div>
@@ -482,7 +481,13 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 											</div>
 											<div class="right-section">
 												<div class="u-profile-header">
-													<h2 class="u-username">${loginUserBean.user_nickname }</h2>
+													<h2 class="u-username">${loginUserBean.user_nickname }
+														<c:if test="${not empty loginUserBean.user_icon}">
+															<img id="profileIcon"
+																src="${root}${loginUserBean.user_icon}"
+																style="width: 30px; height: 30px;" alt="" />
+														</c:if>
+													</h2>
 													<p class="u-status-message">${loginUserBean.user_statustext }</p>
 													<div class="u-profile-actions gap-2">
 														<a
@@ -603,8 +608,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">ベスト投稿
 			</h2>
 			<p
-				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-2">당신의
-				소녀에게 투표하세요</p>
+				class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-2">注目のユーザー投稿</p>
 			<div class="u-expanded-width u-list u-list-1">
 				<div class="u-repeater u-repeater-1">
 					<div
@@ -626,11 +630,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 
 							</ol>
-							<a href="#"
+							<a href="${root }board/board_prev_main"
 								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-2"
 								data-animation-name="" data-animation-duration="0"
-								data-animation-delay="0" data-animation-direction="">
-								Inquire for rates</a>
+								data-animation-delay="0" data-animation-direction=""> Learn
+								More</a>
 						</div>
 					</div>
 					<div
@@ -648,11 +652,11 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 								<br>
 							</ol>
-							<a href="#"
+							<a href="${root }board/board_prev_main"
 								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-4"
 								data-animation-name="" data-animation-duration="0"
-								data-animation-delay="0" data-animation-direction="">
-								Inquire for rates</a>
+								data-animation-delay="0" data-animation-direction=""> Learn
+								More</a>
 						</div>
 					</div>
 					<div
@@ -670,7 +674,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 
 								<br>
 							</ol>
-							<a href="#"
+							<a href="${root }board/board_prev_main"
 								class="u-align-center u-border-2 u-border-active-grey-50 u-border-hover-grey-50 u-border-palette-2-light-1 u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-none u-radius-50 u-text-body-color u-btn-6"
 								data-animation-name="" data-animation-duration="0"
 								data-animation-delay="0" data-animation-direction=""> Learn
@@ -687,151 +691,44 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		<h2
 			class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-1"
 			data-animation-name="customAnimationIn"
-			data-animation-duration="1500">今日のおすそわけ</h2>
+			data-animation-duration="1500">新しいおすそわけ</h2>
 		<p
 			class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-2"
 			data-animation-name="customAnimationIn"
-			data-animation-duration="1500" data-animation-delay="500">나눔나눔</p>
+			data-animation-duration="1500" data-animation-delay="500">新しいアイテム</p>
 		<div class="u-expanded-width u-layout-horizontal u-list u-list-1">
 			<div class="u-repeater u-repeater-1">
-				<div
-					class="u-container-style u-image u-image-round u-list-item u-radius u-repeater-item u-shading u-image-1"
-					data-image-width="425" data-image-height="283"
-					data-animation-name="customAnimationIn"
-					data-animation-duration="1500" data-animation-delay="500">
+
+				<c:forEach var="obj" items="${lastly6Sharing }">
+
 					<div
-						class="u-container-layout u-similar-container u-valign-bottom u-container-layout-1">
+						class="u-container-style u-image u-image-round u-list-item u-radius u-repeater-item u-shading u-image-1"
+						style="background-image: url('${root}getProfileImage/${obj.test_file}'); background-size: cover; background-position: center;"
+						data-image-width="425" data-image-height="283"
+						data-animation-name="customAnimationIn"
+						data-animation-duration="1500" data-animation-delay="500">
+
 						<div
-							class="u-black u-container-align-left u-container-style u-expanded-width u-group u-radius u-shape-round u-group-1">
+							class="u-container-layout u-similar-container u-valign-bottom u-container-layout-1">
 							<div
-								class="u-container-layout u-valign-middle u-container-layout-2">
-								<h3 class="u-align-left u-text u-text-default u-text-3"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1750" data-animation-delay="500">User
-									Sign-In</h3>
-								<p class="u-align-left u-text u-text-default u-text-4"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1500" data-animation-delay="500">
-									Ut enim ad minim veniam</p>
+								class="u-black u-container-align-left u-container-style u-expanded-width u-group u-radius u-shape-round u-group-1">
+								<div
+									class="u-container-layout u-valign-middle u-container-layout-2">
+									<h3 class="u-align-left u-text u-text-default u-text-3"
+										data-animation-name="customAnimationIn"
+										data-animation-duration="1750" data-animation-delay="500">${obj.content_subject }</h3>
+									<p class="u-align-left u-text u-text-default u-text-4"
+										data-animation-name="customAnimationIn"
+										data-animation-duration="1500" data-animation-delay="500">
+										${obj.user_name } | ${obj.content_date }</p>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div
-					class="u-container-style u-image u-image-round u-list-item u-radius u-repeater-item u-shading u-image-2"
-					data-image-width="425" data-image-height="303"
-					data-animation-name="customAnimationIn"
-					data-animation-duration="1500" data-animation-delay="500">
-					<div
-						class="u-container-layout u-similar-container u-valign-bottom u-container-layout-3">
-						<div
-							class="u-black u-container-style u-expanded-width u-group u-radius u-shape-round u-group-2">
-							<div
-								class="u-container-layout u-valign-middle u-container-layout-4">
-								<h3 class="u-align-left u-text u-text-default u-text-5"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1750" data-animation-delay="500">Photo
-									Viewer</h3>
-								<p class="u-align-left u-text u-text-default u-text-6"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1500" data-animation-delay="500">
-									Ut enim ad minim veniam</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div
-					class="u-container-style u-image u-image-round u-list-item u-radius u-repeater-item u-shading u-image-3"
-					data-image-width="425" data-image-height="283"
-					data-animation-name="customAnimationIn"
-					data-animation-duration="1500" data-animation-delay="500">
-					<div
-						class="u-container-layout u-similar-container u-valign-bottom u-container-layout-5">
-						<div
-							class="u-black u-container-style u-expanded-width u-group u-radius u-shape-round u-group-3">
-							<div
-								class="u-container-layout u-valign-middle u-container-layout-6">
-								<h3 class="u-align-left u-text u-text-default u-text-7"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1750" data-animation-delay="500">Interactive
-									Slider</h3>
-								<p class="u-align-left u-text u-text-default u-text-8"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1500" data-animation-delay="500">
-									Ut enim ad minim veniam</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div
-					class="u-container-style u-image u-image-round u-list-item u-radius u-repeater-item u-shading u-image-4"
-					data-image-width="425" data-image-height="283"
-					data-animation-name="customAnimationIn"
-					data-animation-duration="1500" data-animation-delay="500">
-					<div
-						class="u-container-layout u-similar-container u-valign-bottom u-container-layout-7">
-						<div
-							class="u-black u-container-align-left u-container-style u-expanded-width u-group u-radius u-shape-round u-group-4">
-							<div
-								class="u-container-layout u-valign-middle u-container-layout-8">
-								<h3 class="u-align-left u-text u-text-default u-text-9"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1750" data-animation-delay="500">Visual
-									Display</h3>
-								<p class="u-align-left u-text u-text-default u-text-10"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1500" data-animation-delay="500">
-									Ut enim ad minim veniam</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div
-					class="u-container-style u-image u-image-round u-list-item u-radius u-repeater-item u-shading u-image-5"
-					data-image-width="319" data-image-height="425"
-					data-animation-name="customAnimationIn"
-					data-animation-duration="1500" data-animation-delay="500">
-					<div
-						class="u-container-layout u-similar-container u-valign-bottom u-container-layout-9">
-						<div
-							class="u-black u-container-style u-expanded-width u-group u-radius u-shape-round u-group-5">
-							<div
-								class="u-container-layout u-valign-middle u-container-layout-10">
-								<h3 class="u-align-left u-text u-text-default u-text-11"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1750" data-animation-delay="500">Login
-									Interface</h3>
-								<p class="u-align-left u-text u-text-default u-text-12"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1500" data-animation-delay="500">
-									Ut enim ad minim veniam</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div
-					class="u-container-style u-image u-image-round u-list-item u-radius u-repeater-item u-shading u-image-6"
-					data-image-width="283" data-image-height="425"
-					data-animation-name="customAnimationIn"
-					data-animation-duration="1500" data-animation-delay="500">
-					<div
-						class="u-container-layout u-similar-container u-valign-bottom u-container-layout-11">
-						<div
-							class="u-black u-container-style u-expanded-width u-group u-radius u-shape-round u-group-6">
-							<div
-								class="u-container-layout u-valign-middle u-container-layout-12">
-								<h3 class="u-align-left u-text u-text-default u-text-13"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1750" data-animation-delay="500">Image
-									Slideshow</h3>
-								<p class="u-align-left u-text u-text-default u-text-14"
-									data-animation-name="customAnimationIn"
-									data-animation-duration="1500" data-animation-delay="500">
-									Ut enim ad minim veniam</p>
-							</div>
-						</div>
-					</div>
-				</div>
+
+				</c:forEach>
+
+
 			</div>
 			<a
 				class="u-absolute-vcenter u-gallery-nav u-gallery-nav-prev u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-white u-gallery-nav-1"
@@ -939,7 +836,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		window.onload = function() {
 			google.accounts.id
 					.initialize({
-						client_id : "984358048061-jn1296ctnkm3i82irasvhii7pc0br6q7.apps.googleusercontent.com",
+						client_id : "asdasd123123",
 						callback : handleCredentialResponse
 					});
 
@@ -957,7 +854,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 	<!-- 라인 API -->
 	<script>
 		document.getElementById("lineLoginButton").onclick = function() {
-			const clientId = "2006071190"; // 클라이언트 ID
+			const clientId = "asdasd123123"; // 클라이언트 ID
 			const redirectUri = encodeURIComponent("http://localhost:8078/Maru/user/line"); // 리디렉션 URI
 			const state = "RANDOM_STRING"; // CSRF 방지용 상태 값
 			const scope = "profile%20openid%20email"; // 요청할 권한에 email 추가
@@ -999,40 +896,40 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 		// user_zodiac 값에 따라 배경 이미지를 설정
 		switch (userZodiac) {
 		case 'おひつじ座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/양자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/おひつじ座.png')";
 			break;
 		case 'おうし座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/황소자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/おうし座.png')";
 			break;
 		case 'ふたご座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/쌍둥이자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/ふたご座.png')";
 			break;
 		case 'かに座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/게자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/かに座.png')";
 			break;
 		case 'しし座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/사자자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/しし座.png')";
 			break;
 		case 'おとめ座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/처녀자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/おとめ座.png')";
 			break;
 		case 'てんびん座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/천칭자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/てんびん座.png')";
 			break;
 		case 'さそり座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/전갈자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/さそり座.png')";
 			break;
 		case 'いて座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/사수자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/いて座.png')";
 			break;
 		case 'やぎ座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/염소자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/やぎ座.png')";
 			break;
 		case 'みずがめ座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/물병자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/みずがめ座.png')";
 			break;
 		case 'うお座':
-			lowerSection.style.backgroundImage = "url('${root}images/zodiac/물고기자리.png')";
+			lowerSection.style.backgroundImage = "url('${root}images/zodiac/うお座.png')";
 			break;
 
 		default:
@@ -1052,7 +949,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 							// 사용자 별자리와 날짜를 설정합니다.
 							const userZodiac = "${loginUserBean.user_zodiac}";
 							const zodiacMap = {
-								/* "양자리" : "aries",
+								/*  "양자리" : "aries",
 								"황소자리" : "taurus",
 								"쌍둥이자리" : "gemini",
 								"게자리" : "cancer",
@@ -1063,7 +960,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 								"사수자리" : "sagittarius",
 								"염소자리" : "capricorn",
 								"물병자리" : "aquarius",
-								"물고기자리" : "pisces", */
+								"물고기자리" : "pisces",  */
 								"おひつじ座" : "aries",
 								"おうし座" : "taurus",
 								"ふたご座" : "gemini",
@@ -1092,9 +989,9 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 									url : url,
 									method : 'GET',
 									headers : {
-										'x-rapidapi-key' : 'a7e3973170mshed5dc83b245df4fp127dcfjsna7507577f0bd',
+										'x-rapidapi-key' : 'asdasd123123',
 										/* 발표전에는 key 새로 발급받아서 쓰기 240903 yelim */
-										'x-rapidapi-host' : 'best-daily-astrology-and-horoscope-api.p.rapidapi.com'
+										'x-rapidapi-host' : 'asdasd123123'
 									}
 								};
 
@@ -1112,7 +1009,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 																data : {
 																	q : horoscopeText,
 																	target : 'ja', // 일본어
-																	key : 'AIzaSyDyaS4V_2nK7uAFew0NSReWeoXcVhrFfrc'
+																	key : 'asdasd123123'
 																},
 																success : function(
 																		translationResponse) {
@@ -1132,7 +1029,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 																				.log(
 																						'dd',
 																						translatedText.length);
-																		truncatedText += '... <a href="#" id="show-more">더보기</a>';
+																		truncatedText += '... <a href="#" id="show-more">more</a>';
 																	}
 																	// 잘라낸 텍스트를 표시
 																	$(
@@ -1227,6 +1124,15 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
 				button.classList.remove('show');
 			}
 		});
+	</script>
+
+	<script>
+		function pic1() {
+			window.location.href = "${root}board/board_read?board_info_idx=5&content_idx=5";
+		}
+		function pic2() {
+			window.location.href = "${root}board/board_read?board_info_idx=5&content_idx=3";
+		}
 	</script>
 </body>
 

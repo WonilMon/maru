@@ -12,16 +12,20 @@ import org.apache.ibatis.session.RowBounds;
 
 import kr.co.softsoldesk.beans.ContentBean;
 import kr.co.softsoldesk.beans.FaqBean;
+import kr.co.softsoldesk.beans.SharingBean;
 import kr.co.softsoldesk.beans.UserBean;
 
 public interface CompanyMapper {
 
-//	// 공지사항 (notice_main.jsp)
-//	@Select("select c. content_idx, c.content_subject, c.content_date, u.user_idx AS user_idx, c.content_views"
-//			+ "from content c "
-//			+ "join users u on u.user_idx = c.user_idx "
-//			+ "where c.board_info_idx = #{board_info_idx}")
-//	List<ContentBean> getNoticeList(int board_info_idx);
+	// 공지사항 (notice_main.jsp)
+	@Select("select c. content_idx, c.content_subject, c.content_date, u.user_nickname AS user_name, c.content_views "
+			+ "from content c " + "join users u on u.user_idx = c.user_idx "
+			+ "where board_info_idx = #{board_info_idx}")
+	List<ContentBean> getNoticeList(int board_info_idx, RowBounds rowBounds);
+
+	// 공지사항 - 페이지네이션
+	@Select("select count(*) from content where board_info_idx = #{board_info_idx}")
+	int getNoticeCnt(int board_info_idx);
 	
 	// FAQ 등록 (faq.jsp)
 	@Insert("insert into faq(faq_idx, faq_user_nickname, faq_user_email, faq_user_text, faq_date) values (faq_seq.nextval, #{faq_user_nickname}, #{faq_user_email}, #{faq_user_text}, SYSDATE)")
@@ -125,4 +129,35 @@ public interface CompanyMapper {
 	// 게시글관리 - 페이지네이션 (게시글 수)
 	@Select("select count(*) from content where board_info_idx = #{board_info_idx}")
 	int getContentCnt(int board_info_idx);
+
+	// share 인증파일 추가
+	@Insert("insert into sharing (share_idx, share_file, sender_idx, receiver_idx, content_idx, after_point) values (sharing_seq.nextval, #{file_name}, #{sender_idx}, #{receiver_idx}, #{content_idx}, 0)")
+	void addImgFile(@Param("file_name") String file_name, @Param("sender_idx") int sender_idx,
+			@Param("receiver_idx") int receiver_idx, @Param("content_idx")int content_idx);
+
+	// 나눔관리 - 리스트
+	@Select("select s.share_idx, s.share_file, s.after_point, c.content_subject AS content_subject, c.content_text AS content_text, c.content_date AS content_date, u1.user_nickname AS sender_name, u2.user_nickname AS receiver_name "
+			+ "from sharing s "
+			+ "join content c on c.content_idx = s.content_idx "
+			+ "join users u1 on u1.user_idx = s.sender_idx "
+			+ "join users u2 on u2.user_idx = s.receiver_idx "
+			+ "order by s.after_point asc, c.content_date desc")
+	List<SharingBean> getShareList(RowBounds rowBounds);
+
+	// 나눔관리 - 페이지네이션
+	@Select("select count(*) from sharing")
+	int getShareCnt();
+	
+	// 나눔관리 - 포인트 지급
+	@Update("UPDATE users SET user_point = user_point + 50 "
+			+ "WHERE user_nickname = #{user_nickname}")
+	void updatePoint (@Param("user_nickname") String user_nickname);
+
+	// 나눔관리 - 완료처리
+	@Update("UPDATE sharing SET after_point = 1 "
+			+ "WHERE share_idx = #{share_idx}")
+	void updateAfter (@Param("share_idx") int share_idx);
+	
+	
+	
 }

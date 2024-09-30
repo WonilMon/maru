@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.softsoldesk.beans.IconBean;
 import kr.co.softsoldesk.beans.UserBean;
+import kr.co.softsoldesk.service.CompanyService;
 import kr.co.softsoldesk.service.UserIconService;
 import kr.co.softsoldesk.service.UserService;
 
@@ -39,6 +40,9 @@ public class RestApiController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private CompanyService companyService;
 
 	@Autowired
 	private UserIconService userIconService;
@@ -90,20 +94,19 @@ public class RestApiController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("insufficient_points");
 		}
 	}
-	  // 랜덤 아이콘 구매
-	@PostMapping("/buyRandomIcon")
-    public ResponseEntity<String> buyRandomIcon(@RequestBody Map<String, Integer> request) {
-        int user_idx = request.get("user_idx");
 
-        IconBean purchasedIcon = userIconService.buyRandomIcon(user_idx);
-        if (purchasedIcon != null) {
-            return ResponseEntity.ok("success");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("insufficient_points_or_no_available_icons");
-        }
-    }
-	
-	
+	// 랜덤 아이콘 구매
+	@PostMapping("/buyRandomIcon")
+	public ResponseEntity<String> buyRandomIcon(@RequestBody Map<String, Integer> request) {
+		int user_idx = request.get("user_idx");
+
+		IconBean purchasedIcon = userIconService.buyRandomIcon(user_idx);
+		if (purchasedIcon != null) {
+			return ResponseEntity.ok("success");
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("insufficient_points_or_no_available_icons");
+		}
+	}
 
 	// 프로필 이미지 변경
 	@Value("${path.upload}")
@@ -141,6 +144,36 @@ public class RestApiController {
 		}
 
 		return new ResponseEntity<>("업로드 완료: " + fileName, HttpStatus.OK);
+	}
+
+	@PostMapping("/chat/uploadShareImage")
+	public ResponseEntity<String> uploadShareImage(@RequestParam("addImage") MultipartFile file,
+			@RequestParam("receiver_idx") int receiver_idx, @RequestParam("content_idx") int content_idx) {
+		try {
+	        if (file.isEmpty()) {
+	            return new ResponseEntity<>("파일없음", HttpStatus.BAD_REQUEST);
+	        }
+
+	        String fileName = saveUploadFile(file);
+	        
+	        if (fileName == null) {
+	            System.out.println("파일 저장 실패: 파일명이 null입니다.");
+	            return new ResponseEntity<>("파일 저장 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+	        }
+
+	        System.out.println("업로드된 파일 이름: " + fileName);
+	        System.out.println("업로더 ID: " + loginUserBean.getUser_idx());
+	        System.out.println("수신자 ID: " + receiver_idx);
+	        System.out.println("글 ID: " + content_idx);
+
+	        companyService.addImgFile(fileName, loginUserBean.getUser_idx(), receiver_idx, content_idx);
+
+	        return new ResponseEntity<>("업로드 완료: " + fileName, HttpStatus.OK);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<>("서버 오류: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
 
 	@GetMapping("/getProfileImage/{fileName}")

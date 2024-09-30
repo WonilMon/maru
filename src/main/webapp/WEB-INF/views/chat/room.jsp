@@ -103,14 +103,13 @@ h2.text-primary {
 	var nickname = "${loginUserBean.user_nickname}";
 	var roomIdx = ${room.room_idx}; 
 	var senderIdx = ${loginUserBean.user_idx};
-    var receiverIdx = ${receiver_idx_real};
-    console.log(receiverIdx);
+    var receiverIdx = ${room.receiver_idx};
 
 
 	$(function() {
 		$('#message').keypress(function(event) {
 			var keycode = event.keyCode ? event.keyCode : event.which;
-			if (keycode == 13) { // 엔터키 이벤트
+			if (keycode == 13) {
 				send();
 			}
 			event.stopPropagation();
@@ -128,6 +127,19 @@ h2.text-primary {
 
 		// 자동으로 채팅에 연결
 		connect();
+		
+		$(window).on('beforeunload', function() {
+            if (websock) {
+                $.ajax({
+                    url: '${root}/chat/exit',
+                    type: 'POST',
+                    data: {
+                        senderIdx: senderIdx
+                    },
+                    async: false
+                });
+            }
+        });
 	});
 
 	function connect() {
@@ -136,15 +148,16 @@ h2.text-primary {
 			return;
 		}
 
-		var socket = new SockJS('${root}/chat-ws');
+		 var socket = new SockJS('${root}/chat-ws'); 
+		/* var socket = new SockJS('https://3afa-175-192-170-212.ngrok-free.app/Maru/chat-ws'); */
+
 		websock = Stomp.over(socket);
 
 		websock.connect({}, function(frame) {
-			appendMessage(nickname + "さんがチャットルームに入室しました!!", 'my-message');
-			websock.subscribe('${root}/topic/messages/${room.room_idx}', function(message) {
+			websock.subscribe('/topic/messages/${room.room_idx}', function(message) {
 				var receivedMessage = JSON.parse(message.body);
 				 if (receivedMessage.sender_idx !== ${loginUserBean.user_idx}) {
-	                    appendMessage(receivedMessage.sender_idx + ": " + receivedMessage.messages_text, 'other-message');
+	                    appendMessage(receivedMessage.messages_text, 'other-message');
 	                }
 			});
 		}, function(error) {
@@ -155,33 +168,24 @@ h2.text-primary {
 	function send() {
 		var message = $('#message').val();
 		if (websock && websock.connected) {
-			var formattedMessage = nickname + ": " + message; // 화면에 표시할 메시지 형식
+			var formattedMessage = message;
 			
 			 var senderIdx = ${loginUserBean.user_idx};
-		     var receiverIdx = ${receiver_idx_real};
+		     var receiverIdx = ${room.receiver_idx};
 		     var roomIdx = ${room.room_idx}; 
 			
 			
 			websock.send("/app/chat", {}, JSON.stringify({
 				'room_idx': ${room.room_idx}, 
 	            'sender_idx': ${loginUserBean.user_idx},
-	            'receiver_idx': ${receiver_idx_real}, 
+	            'receiver_idx': ${room.receiver_idx}, 
 	            'messages_text': message,
 	            'messages_date': new Date().toISOString() 
 			}));
-			appendMessage(formattedMessage, 'my-message'); // 내 메시지를 좌측 정렬
-			$('#message').val(''); // 메시지 입력란을 비웁니다.
+			appendMessage(formattedMessage, 'my-message'); 
+			$('#message').val('');
 		} else {
 			appendMessage('webソケット接続エラーが発生しました', 'my-message');
-		}
-	}
-
-	function disconnect() {
-		if (websock) {
-			appendMessage(nickname + "さんがチャットルームから退室しました！！", 'my-message');
-			websock.disconnect(function() {
-			 	window.close();
-			});
 		}
 	}
 
@@ -195,6 +199,39 @@ h2.text-primary {
 		$('#chatArea').scrollTop(maxScroll);
 		$('#chatArea').scrollTop($('#chatMessageArea')[0].scrollHeight);
 	}
+
+
+ 	function disconnect() {
+		if (websock) {
+			appendMessage(nickname + "さんがチャットルームから退室しました！！", 'my-message');
+			websock.disconnect(function() {
+				 $.ajax({
+			            url: '${root}/chat/exit',
+			            type: 'POST',
+			            data: {
+			                senderIdx: senderIdx
+			            },
+			            async: false 
+			        });
+			 	window.close();
+			});
+		}
+	} 
+ 	function submitFormAndRedirect() {
+ 	    $.ajax({
+ 	        url: '${root}/chat/exit',
+ 	        type: 'POST',
+ 	        data: {
+ 	            senderIdx: ${room.sender_idx}
+ 	        },
+ 	        success: function() {
+ 	            window.location.href = '${root }/chat/shareList?user_idx=${room.sender_idx}&receiver_idx=${room.receiver_idx}';
+ 	        },
+ 	        error: function() {
+ 	            alert('失敗');
+ 	        }
+ 	    });
+ 	}
 </script>
 </head>
 <body>
@@ -203,11 +240,21 @@ h2.text-primary {
 			<h2 class="text-primary">
 				<img src="${root}/getProfileImage/${room.receiver_img}"
 					style="width: 30px; height: 30px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-				${room.receiver_nickname}とのチャット
+				${room.receiver_nickname}とのチャット<span>
+					<button class="btn btn-danger">
+						<form id="exitForm" action="${root}/chat/exit" method="POST"
+							style="display: none;">
+							<input type="hidden" name="senderIdx"
+								value="${room.sender_idx}">
+						</form>
+
+						<a href="#" onclick="submitFormAndRedirect(); return false;">
+							おすそ分けリスト 
+						</a>
+					</button>
+				</span>
 			</h2>
-			<span>
-				<button 　class="btn btn-danger">おすそ分け</button>
-			</span>
+
 		</div>
 		<div id="chatArea"
 			style="border: 1px solid #ccc; height: 300px; overflow-y: scroll;">
@@ -217,10 +264,10 @@ h2.text-primary {
 
 						<c:choose>
 							<c:when test="${message.sender_idx eq loginUserBean.user_idx}">
-								<div class="message my-message">${message.sender_nickname}:${message.messages_text}</div>
+								<div class="message my-message">${message.messages_text}</div>
 							</c:when>
 							<c:otherwise>
-								<div class="message other-message">${message.sender_nickname}:${message.messages_text}</div>
+								<div class="message other-message">${message.messages_text}</div>
 							</c:otherwise>
 						</c:choose>
 
@@ -231,10 +278,11 @@ h2.text-primary {
 
 		<div>
 			<input type="text" id="message" required="required"
-				placeholder="メッセージを入力してください..."> <input type="button" value="送信"
-				id="sendBtn" class="btn btn-info"> <input type="button"
-				value="退室" id="exitBtn" class="btn btn-danger">
+				placeholder="メッセージを入力してください..."> <input type="button"
+				value="送信" id="sendBtn" class="btn btn-info"> <input
+				type="button" value="退室" id="exitBtn" class="btn btn-danger">
 		</div>
 	</div>
+
 </body>
 </html>

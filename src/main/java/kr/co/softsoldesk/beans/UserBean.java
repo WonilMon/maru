@@ -17,7 +17,7 @@ public class UserBean {
 	private int user_idx;
 
 	@Size(min = 2, max = 4, groups = { ModifyGroup.class, RegisterGroup.class })
-	@Pattern(regexp = "[가-힣]*", groups = { ModifyGroup.class, RegisterGroup.class })
+	@Pattern(regexp = "[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]*", groups = { ModifyGroup.class, RegisterGroup.class })
 	private String user_nickname;
 
 	@Size(min = 4, max = 30, groups = { LoginGroup.class, RegisterGroup.class })

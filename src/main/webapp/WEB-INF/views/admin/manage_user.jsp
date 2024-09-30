@@ -103,11 +103,7 @@
 
 											<!-- 검색 바 -->
 											<div class="wonil_search-bar">
-												<select id="wonil_select">
-													<option>--選択--</option>
-													<option>ニックネーム</option>
-													<option>メールアドレス</option>
-												</select> <input type="text" id="wonil_search_input"
+												<input type="text" id="wonil_search_input"
 													placeholder="入力してください">
 												<button id="wonil_search_button">検索</button>
 												<button id="wonil_reset_button">取消</button>
@@ -205,8 +201,8 @@
 
 														<form:label path="user_role">ロール:</form:label>
 														<form:select path="user_role" id="user_role">
-															<option value="USER">使用者</option>
-															<option value="ADMIN">管理者</option>
+															<option value="使用者">使用者</option>
+															<option value="管理者">管理者</option>
 														</form:select>
 
 														<button type="submit">保存</button>

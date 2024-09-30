@@ -17,9 +17,10 @@
 <title>about</title>
 <link rel="stylesheet" href="${root }css/nicepage.css" media="screen">
 <link rel="stylesheet" href="${root }css/about.css" media="screen">
-<script class="u-script" type="text/javascript" src="${root }js/jquery.js" defer=""></script>
-<script class="u-script" type="text/javascript" src="${root }js/nicepage.js"
-	defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/jquery.js" defer=""></script>
+<script class="u-script" type="text/javascript"
+	src="${root }js/nicepage.js" defer=""></script>
 <meta name="generator" content="Nicepage 6.15.2, nicepage.com">
 <link id="u-theme-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Noto+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
@@ -45,6 +46,113 @@
 <meta property="og:title" content="about">
 <meta property="og:type" content="website">
 <meta data-intl-tel-input-cdn-path="intlTelInput/">
+
+<style>
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 20px;
+}
+
+.container {
+	width: 65%;
+	margin: 100px auto 100px auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+	margin-top: 0;
+}
+
+.controls {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+button {
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #f1f1f1;
+}
+
+label {
+	margin-right: 20px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+thead {
+	background-color: #f1f1f1;
+}
+
+th, td {
+	padding: 10px;
+	border: 1px solid #ddd;
+	text-align: center;
+}
+
+th {
+	font-weight: bold;
+}
+
+.label {
+	background-color: #ff6666;
+	color: white;
+	padding: 5px 8px;
+	border-radius: 4px;
+	font-size: 12px;
+	display: inline-block;
+}
+
+tr:hover {
+	background-color: #f9f9f9;
+}
+
+@media ( max-width : 768px) {
+	.container {
+		width: 100%;
+		padding: 10px;
+	}
+	th, td {
+		font-size: 14px;
+		padding: 8px;
+	}
+}
+
+.wonil_pagination {
+	margin: 0 0 100px 0;
+}
+
+.wonil_pagination a {
+	margin: 0 10px;
+	text-decoration: none;
+	padding: 7px 12px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.wonil_pagination a.active {
+	background-color: #ff7f7f;
+	color: white;
+	border-color: #ff7f7f;
+}
+</style>
+
 </head>
 <body data-path-to-root="/" data-include-products="false"
 	class="u-body u-xl-mode" data-lang="en">
@@ -54,253 +162,76 @@
 
 	<section class="u-align-center u-clearfix u-section-2"
 		id="carousel_d4e3">
-		<div class="u-clearfix u-sheet u-sheet-1">
-			<p class="u-align-center u-text u-text-default u-text-1">
-				<span style="font-weight: 700;">공지사항 </span>
-			</p>
-			<div
-				class="custom-expanded data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-palette-3-light-3 u-layout-wrap-1">
-				<div class="u-layout">
-					<div class="u-layout-col">
-						<div class="u-size-60">
-							<div class="u-layout-row">
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-size-37 u-layout-cell-1">
-									<div
-										class="u-container-layout u-valign-middle u-container-layout-1">
-										<p class="u-align-center u-text u-text-default u-text-2">제목</p>
-									</div>
-								</div>
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-size-11 u-layout-cell-2">
-									<div
-										class="u-container-layout u-valign-middle u-container-layout-2">
-										<p class="u-align-center u-text u-text-default u-text-3">작성자
-										</p>
-									</div>
-								</div>
-								<div
-									class="u-container-align-center u-container-style u-layout-cell u-size-12 u-layout-cell-3">
-									<div
-										class="u-container-layout u-valign-middle u-container-layout-3">
-										<p class="u-align-center u-text u-text-default u-text-4">작성일자
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+		<div class="container">
+			<h2>お知らせ</h2>
+			<div class="controls">
+
+				<c:if test="${loginUserBean.user_role eq '管理者' }">
+					<button>
+						<a href="${root }company/notice_write">作成</a>
+					</button>
+				</c:if>
+
+				<select>
+					<option value="15">15個ずつ</option>
+					<option value="20">20個ずつ</option>
+				</select>
 			</div>
-			<!--blog-->
-			<!--blog_options_json-->
-			<!--{"type":"Recent","source":"","tags":"","count":""}-->
-			<!--/blog_options_json-->
-			<div class="u-blog u-blog-1">
-				<div class="u-list-control"></div>
-				<div class="u-repeater u-repeater-1">
-					<!--blog_post-->
-					<div
-						class="u-blog-post u-border-1 u-border-grey-75 u-border-no-left u-border-no-right u-palette-3-light-2 u-repeater-item u-repeater-item-1">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-4">
-							<!--blog_post_header-->
-							<h2 class="u-blog-control u-text u-text-5">
-								<a class="u-post-header-link" href="/blog/post-5.html">Post
-									6 Headline</a>
-							</h2>
-							<!--/blog_post_header-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-1">
-								<!--blog_post_metadata_date-->
-								<span class="u-meta-date u-meta-icon">Aug 08, 2024</span>
-								<!--/blog_post_metadata_date-->
-							</div>
-							<!--/blog_post_metadata-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-2">
-								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
-								</span>
-								<!--/blog_post_metadata_author-->
-							</div>
-							<!--/blog_post_metadata-->
-						</div>
-					</div>
-					<div
-						class="u-blog-post u-border-1 u-border-grey-75 u-border-no-left u-border-no-right u-palette-3-light-2 u-repeater-item u-repeater-item-2">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-5">
-							<!--blog_post_header-->
-							<h2 class="u-blog-control u-text u-text-6">
-								<a class="u-post-header-link" href="/blog/post-4.html">Post
-									5 Headline</a>
-							</h2>
-							<!--/blog_post_header-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-3">
-								<!--blog_post_metadata_date-->
-								<span class="u-meta-date u-meta-icon">Aug 08, 2024</span>
-								<!--/blog_post_metadata_date-->
-							</div>
-							<!--/blog_post_metadata-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-4">
-								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
-								</span>
-								<!--/blog_post_metadata_author-->
-							</div>
-							<!--/blog_post_metadata-->
-						</div>
-					</div>
-					<div
-						class="u-blog-post u-border-1 u-border-grey-75 u-border-no-left u-border-no-right u-palette-3-light-2 u-repeater-item u-repeater-item-3">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-6">
-							<!--blog_post_header-->
-							<h2 class="u-blog-control u-text u-text-7">
-								<a class="u-post-header-link" href="/blog/post-3.html">Post
-									4 Headline</a>
-							</h2>
-							<!--/blog_post_header-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-5">
-								<!--blog_post_metadata_date-->
-								<span class="u-meta-date u-meta-icon">Aug 08, 2024</span>
-								<!--/blog_post_metadata_date-->
-							</div>
-							<!--/blog_post_metadata-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-6">
-								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
-								</span>
-								<!--/blog_post_metadata_author-->
-							</div>
-							<!--/blog_post_metadata-->
-						</div>
-					</div>
-					<div
-						class="u-blog-post u-border-1 u-border-grey-75 u-border-no-left u-border-no-right u-palette-3-light-2 u-repeater-item u-repeater-item-4">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-7">
-							<!--blog_post_header-->
-							<h2 class="u-blog-control u-text u-text-8">
-								<a class="u-post-header-link" href="/blog/post-2.html">Post
-									3 Headline</a>
-							</h2>
-							<!--/blog_post_header-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-7">
-								<!--blog_post_metadata_date-->
-								<span class="u-meta-date u-meta-icon">Aug 08, 2024</span>
-								<!--/blog_post_metadata_date-->
-							</div>
-							<!--/blog_post_metadata-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-8">
-								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
-								</span>
-								<!--/blog_post_metadata_author-->
-							</div>
-							<!--/blog_post_metadata-->
-						</div>
-					</div>
-					<div
-						class="u-blog-post u-border-1 u-border-grey-75 u-border-no-left u-border-no-right u-palette-3-light-2 u-repeater-item u-repeater-item-5">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-8">
-							<!--blog_post_header-->
-							<h2 class="u-blog-control u-text u-text-9">
-								<a class="u-post-header-link" href="/blog/post-1.html">Post
-									2 Headline</a>
-							</h2>
-							<!--/blog_post_header-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-9">
-								<!--blog_post_metadata_date-->
-								<span class="u-meta-date u-meta-icon">Aug 08, 2024</span>
-								<!--/blog_post_metadata_date-->
-							</div>
-							<!--/blog_post_metadata-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-10">
-								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
-								</span>
-								<!--/blog_post_metadata_author-->
-							</div>
-							<!--/blog_post_metadata-->
-						</div>
-					</div>
-					<div
-						class="u-blog-post u-border-1 u-border-grey-75 u-border-no-left u-border-no-right u-palette-3-light-2 u-repeater-item u-repeater-item-6">
-						<div
-							class="u-container-layout u-similar-container u-container-layout-9">
-							<!--blog_post_header-->
-							<h2 class="u-blog-control u-text u-text-10">
-								<a class="u-post-header-link" href="/blog/post.html">Post 1
-									Headline</a>
-							</h2>
-							<!--/blog_post_header-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-11">
-								<!--blog_post_metadata_date-->
-								<span class="u-meta-date u-meta-icon">Aug 08, 2024</span>
-								<!--/blog_post_metadata_date-->
-							</div>
-							<!--/blog_post_metadata-->
-							<!--blog_post_metadata-->
-							<div class="u-blog-control u-metadata u-metadata-12">
-								<!--blog_post_metadata_author-->
-								<span class="u-meta-author u-meta-icon"> <!--blog_post_metadata_author_content-->User<!--/blog_post_metadata_author_content-->
-								</span>
-								<!--/blog_post_metadata_author-->
-							</div>
-							<!--/blog_post_metadata-->
-						</div>
-					</div>
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-					<!--blog_post-->
-					<!--/blog_post-->
-				</div>
-				<div class="u-list-control"></div>
+			<table>
+				<thead>
+					<tr>
+						<th>ラベル</th>
+						<th>タイトル</th>
+						<th>投稿者</th>
+						<th>投稿日時</th>
+						<th>閲覧</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<c:forEach var="list" items="${noticeList}">
+						<tr>
+							<td><span class="label">必読</span></td>
+							<td><a
+								href="${root }company/notice_read?board_info_idx=5&content_idx=${list.content_idx}">${list.content_subject}</a></td>
+							<td>${list.user_name }</td>
+							<td>${list.content_date }</td>
+							<td>${list.content_views }</td>
+						</tr>
+					</c:forEach>
+
+				</tbody>
+			</table>
+
+			<div class="wonil_pagination">
+				<c:if test="${pageBean.currentPage > 1}">
+					<a
+						href="${root}company/notice?page=${pageBean.currentPage - 1}">&laquo;</a>
+				</c:if>
+				<c:forEach var="page" begin="${pageBean.min}" end="${pageBean.max}">
+					<c:choose>
+						<c:when test="${page == pageBean.currentPage}">
+							<a
+								href="${root}company/notice?page=${page}"
+								class="active">${page}</a>
+						</c:when>
+						<c:otherwise>
+							<a
+								href="${root}company/notice?page=${page}">${page}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+
+				<c:if test="${pageBean.currentPage < pageBean.pageCnt}">
+					<a
+						href="${root}company/notice?page=${pageBean.currentPage + 1}">&raquo;</a>
+				</c:if>
 			</div>
-			<!--/blog-->
-			<a href="#"
-				class="u-align-center u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-1"><span
-				class="u-file-icon u-icon u-text-white"><img
-					src="${root }images/120826-a013365f.png" alt=""></span>&nbsp;Next </a> <a
-				href="#"
-				class="u-align-center u-btn u-btn-round u-button-style u-hover-palette-1-light-2 u-palette-1-base u-radius u-btn-2">Next&nbsp;<span
-				class="u-icon u-text-white"><svg class="u-svg-content"
-						viewBox="0 0 512 512" x="0px" y="0px"
-						style="width: 1em; height: 1em;">
-						<path
-							d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068 c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557 l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104 c0.006-.006,0.011-.013,0.018-.019C513.968,262.339,513.943,249.635,506.134,241.843z"></path></svg></span>
-			</a>
-			<p class="u-align-center u-text u-text-default u-text-15">목록번호
-				들어갈 곳</p>
+
 		</div>
+
 	</section>
+
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
 
 

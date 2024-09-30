@@ -5,11 +5,15 @@ import java.time.Month;
 import java.time.MonthDay;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,12 +22,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.softsoldesk.DAO.UserDAO;
+import kr.co.softsoldesk.beans.ContentBean;
 import kr.co.softsoldesk.beans.IconBean;
+import kr.co.softsoldesk.beans.PageBean;
 import kr.co.softsoldesk.beans.UserBean;
 import kr.co.softsoldesk.mapper.IconMapper;
 import kr.co.softsoldesk.mapper.UserMapper;
 
 @Service
+@PropertySource("/WEB-INF/properties/option.properties")
 public class UserService {
 
 	@Resource(name = "loginUserBean") // RootAppContext에 올려놨던거 가져오기 (lazy를 줬기떄문에 이시점에서 생성)
@@ -40,6 +47,15 @@ public class UserService {
 
 	@Autowired
 	private MailSender mailSender;
+
+	@Value("${path.upload}")
+	private String path_upload;
+
+	@Value("${page.listcnt}")
+	private int page_list;
+
+	@Value("${page.paginationcnt}")
+	private int paginationcnt;
 
 //	--------------------------------------------------------
 
@@ -58,8 +74,8 @@ public class UserService {
 		String encryptedPassword = passwordEncoder.encode(addUserBean.getUser_pass());
 		addUserBean.setUser_pass(encryptedPassword);
 
-		addUserBean.setUser_role("사용자");
-		addUserBean.setUser_statustext("기본 상태메시지");
+		addUserBean.setUser_role("使用者");
+		addUserBean.setUser_statustext("基本使用者メッセージ");
 		addUserBean.setUser_point(500);
 		addUserBean.setUser_age(String.valueOf(age.getYears()));
 		addUserBean.setUser_zodiac(zodiacSign);
@@ -154,6 +170,7 @@ public class UserService {
 			loginUserBean.setUser_role(tempLoginUserBean2.getUser_role());
 			loginUserBean.setUser_statustext(tempLoginUserBean2.getUser_statustext());
 			loginUserBean.setUser_img(tempLoginUserBean2.getUser_img());
+			loginUserBean.setUser_icon(tempLoginUserBean2.getUser_icon());
 			loginUserBean.setUser_zodiac(tempLoginUserBean2.getUser_zodiac());
 			loginUserBean.setUserLogin(true); // 판별을 true로 바꾸기
 			loginUserBean.setUserAnonymous(false);
@@ -176,6 +193,7 @@ public class UserService {
 			loginUserBean.setUser_role(tempLoginUserBean2.getUser_role());
 			loginUserBean.setUser_statustext(tempLoginUserBean2.getUser_statustext());
 			loginUserBean.setUser_img(tempLoginUserBean2.getUser_img());
+			loginUserBean.setUser_icon(tempLoginUserBean2.getUser_icon());
 			loginUserBean.setUser_zodiac(tempLoginUserBean2.getUser_zodiac());
 			loginUserBean.setUserLogin(true); // 판별을 true로 바꾸기
 			loginUserBean.setUserAnonymous(false);
@@ -185,6 +203,25 @@ public class UserService {
 
 	public UserBean getModifyUserInfo(int user_idx) {
 		return userDao.getModifyUserBeanInfo(user_idx);
+	}
+
+	// 마이리스트
+	public List<ContentBean> getMyList(int user_idx, int page) {
+
+		int start = (page - 1) * page_list;
+
+		RowBounds rowBounds = new RowBounds(start, page_list);
+
+		return userDao.getMyList(user_idx, rowBounds);
+	}
+
+	// 마이리스트 - 페이지네이션
+	public PageBean getMyListCnt(int user_idx, int currentPage) {
+
+		int content_cnt = userDao.getMyListCnt(user_idx);
+		PageBean pageBean = new PageBean(content_cnt, currentPage, page_list, paginationcnt);
+
+		return pageBean;
 	}
 
 	// 패스워드 리셋

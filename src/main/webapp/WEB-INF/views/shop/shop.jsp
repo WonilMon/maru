@@ -402,5 +402,41 @@
 	</section>
 
 	<c:import url="/WEB-INF/views/include/bottom_info.jsp"></c:import>
+	<script>
+		function buyRandomIcon(user_idx) {
+			console.log("사용자 ID:", user_idx, "로 랜덤 아이콘 구매 시도 중");
+			const confirmation = confirm("ランダムアイコンを購入しますか？");
+			if (!confirmation) {
+				return; // 구매 취소
+			}
+			$
+					.ajax({
+						url : '/Maru/shop/buyRandomIcon',
+						type : 'POST',
+						contentType : 'application/json',
+						data : JSON.stringify({
+							user_idx : user_idx
+						}),
+						success : function(response) {
+							console.log("서버 응답:", response);
+							if (response === "success") {
+								alert("ランダムアイコンの購入に成功しました！");
+								location.reload(); // 구매 완료 후 페이지 새로고침
+							} else if (response === "insufficient_points_or_no_available_icons") {
+								alert("ポイントが不足しているか、購入可能なアイコンがありません。");
+							}
+						},
+						error : function(xhr, status, error) {
+							console.error("AJAX 요청 실패:", status, error);
+							if (xhr.status === 400) {
+								alert("ポイントが不足しているため、アイコンを購入することができません。");
+							} else {
+								alert("アイコンを購入中にエラーが発生しました。");
+							}
+						}
+					});
+
+		}
+	</script>
 </body>
 </html>

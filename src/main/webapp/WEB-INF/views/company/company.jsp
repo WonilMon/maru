@@ -75,7 +75,7 @@
                   </div>
                   <div
                      class="u-container-style u-image u-layout-cell u-right-cell u-size-30 u-image-1"
-                     data-image-width="1280" data-image-height="800">
+                     data-image-width="1280" data-image-height="800" style="border-radius: 5%; background-image: url('${root}images/회사로고.jpeg'); background-size: cover; background-position: center;">
                      <div class="u-container-layout u-container-layout-2"></div>
                   </div>
                </div>
@@ -86,7 +86,7 @@
    <section class="u-align-center u-clearfix u-palette-1-base u-section-2"
       id="sec-7c88">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-         <div alt="" class="u-image u-image-circle u-image-1"></div>
+         <div alt="" class="u-image u-image-circle u-image-1" style="background-image: url('${root}images/maru_logo.png'); background-size: cover; background-position: center;"></div>
          <h2 class="u-text u-text-1">「育児支援でコミュニティと共に一丸となる社会」</h2>
          <p class="u-text u-text-2">マルは、育児に関する社会課題に取り組むための活動を積極的に行っています。
          育児に関する知識と理解が地域社会に広まり、支援の輪が深まることを目指し、さまざまなプロジェクトを展開しています。
